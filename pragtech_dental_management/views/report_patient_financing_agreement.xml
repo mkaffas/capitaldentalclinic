@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="report_patient_financing_agreement_document">
+			<t t-call="web.external_layout">
+				<div class="page">
+					<div class="oe_structure"/>
+					<div class="row">
+						<div>
+							<h3 class="text-center mb32">
+								<strong>PATIENT FINANCING AGREEMENT</strong>
+							</h3>
+						</div>
+						<p>I agree to pay for the services rendered by ISmile Dental Clinic, as indicated below.</p>
+						<table width="100%">
+							<tr>
+								<td colspan="2">Type of Service : <span t-field="doc.type_of_service"/></td>
+							</tr>
+							<tr>
+								<td>Date of Service : <span t-field="doc.date_of_service"/></td>
+								<td>Total amount to be financed : <span t-field="doc.total_amount_to_be_financed"/></td></tr>
+							<tr>
+								<td colspan="2">Date to be paid : <span t-field="doc.date_to_be_paid"/></td>
+							</tr>
+						</table>
+						<br/>
+						<p>Payment schedule as follows:</p>
+						
+						
+						<table width="100%">
+							<tr t-foreach='doc.payment_id' t-as='payment'>
+	      						<td>Date : <span t-esc="payment.date"/></td>
+	      						<td>Amount to be paid : <span t-esc="payment.amount_to_be_paid"/> </td>
+      						</tr>
+      					
+						</table>
+						
+						
+						<br/>
+						<br/>
+						
+						<t t-if="doc.is_credit_card">
+							<p> <span t-field="doc.payment_by_cash_check"/> Payments will be made by cash or check</p>
+							<p> <span t-field="doc.payment_by_credit_card"/> Payments will be made by credit card, which I authorize you to use:</p>
+							
+							
+							<strong>Credit Card:</strong>
+							<table width="100%">
+							<tr>
+								<td ><span t-field="doc.credit_card_type"/>  </td>
+								<td ><span t-field="doc.credit_card_number"/></td>
+								<td >Exp : <span t-field="doc.expiry_month"/>/<span t-field="doc.expiry_year"/></td>
+							</tr>
+							
+							</table>
+							<br/>
+						
+							<p>Name as appears on card : <span t-field="doc.name_as_appears_on_card"/> </p>
+						</t>
+						
+						<p>It is understood that if the patient misses payments, without prior notification and agreement, the practice reserves the right to transfer collections to a collection agency.</p>
+						<p>I understand that by signing this Financial Agreement form, I agree to all the above. I am ultimately responsible in full for all charges and balances on my account(s) for all services rendered, to ISmile Dental Clinic. A copy of this agreement will be provided upon request.</p>
+						
+						<table width="100%">
+							<tr>
+								<td colspan="2">Name of Patient</td>
+							</tr>
+							<tr>
+								<td colspan="2"><span t-field="doc.name.partner_id"/></td>
+							</tr>
+							<tr>
+								<td colspan="2">Phone</td>
+							</tr>
+							<tr>
+								<td colspan="2"><span t-field="doc.name.mobile"/></td>
+							</tr>
+							<tr><td colspan="2"> <br/> </td></tr>
+							<tr><td colspan="2"> <br/> </td></tr>
+							<tr>
+								<td>Patient Signature</td>
+								<td>Date</td>
+							</tr>
+							<tr>
+								<td clospan="2">(Parent or Guardian if minor)</td>
+							</tr>
+						</table>
+						
+						
+						
+						
+					</div>
+					<br/>
+					
+					
+					
+				</div>
+			</t>
+		</template>
+		
+		<template id="report_patient_financing_agreement">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="doc">
+					<t t-call="pragtech_dental_management.report_patient_financing_agreement_document" t-lang="doc.name.partner_id.lang"/>
+				</t>
+			</t>
+		</template>
+		
+	</data>
+</odoo>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<lots>
+    <lot-line type="fields" name="id">
+        <patientid type="field" name="patient_id"/>
+        <patientname type="field" name="name.name"/>
+        <patientmiddlename type="field" name="name.middle_name"/>
+        <patientlastname type="field" name="name.lastname"/>   
+             
+        <patientstreet type="field" name="name.street"/>        
+        <patientstreet2 type="field" name="name.street2"/>        
+        <patientcity type="field" name="name.city"/>        
+        <state type="field" name="name.state_id.name"/>        
+        <patientzip type="field" name="name.zip"/>
+        <country type="field" name="name.country_id.name"/>
+        <phoneno type="field" name="name.phone"/>
+           
+        <nationality type="field" name="nationality_id.name"/>     
+        <familymember type="field" name="family_code.name.name"/>  
+        <familymemberlast type="field" name="family_code.name.lastname"/>     
+        <patientsex type="field" name="sex"/>          
+        <patienttitle type="field" name="name.title.name"/>   
+        <patientage type="field" name="age"/>              
+        <dob type="field" name="dob"/>
+        <bloodtype type="field" name="blood_type"/>
+        <rh type="field" name="rh"/>
+    </lot-line>
+</lots>

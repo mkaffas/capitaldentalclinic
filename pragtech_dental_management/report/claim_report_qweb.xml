@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <report   
+            id="claim_report_qweb" 
+            string="Claim Report"
+            model="dental.claim.wizard"
+            report_type="qweb-pdf"
+            file="pragtech_dental_management.claim_report"  
+            name="pragtech_dental_management.claim_report"/>
+    </data>
+</odoo>

@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="report_nextcare_reimbursement_document">
+			<t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
+			<t t-call="web.external_layout">
+			<div class="page" >
+				<div   align="right" >
+					<img src="/pragtech_dental_management/static/src/img/nextcare_rei.png"  width="200" height="50"/>
+				</div>
+				<div align="center" style="font-size:16;">
+					<b>REIMBURSEMENT ASOAP FORM</b>
+				</div>
+				<div align="center" style="font-size:10">
+					<i>24 hour Tel: 04-6056800,Fax : 04-6056801/2/3 - Office Number during Business Hours: 04-6056700</i>
+				</div>
+				<div>
+					<div class="col-xs-4"></div>
+					<div class="col-xs-5"   >
+						<span style="display:inline;padding-left:0px;padding-right:0px;font-size:12;background-color:#CCFFFF;" >
+							<b>
+								<i>
+									Please Complete Clearly
+									<span style="color:red">( All Fields Mandatory)</span>
+								</i>
+							</b>
+						</span>
+					</div>
+					<div class="col-xs-3" style="font-size:16">
+						<b>FORM No.</b>
+					</div>
+				</div>
+				<div style="font-size:12;">
+					<b>ADMINISTRATIVE</b>
+				</div>
+				<table style="width:100%;border:1px solid black;font-size:11" class="table-condensed">
+					<tr style="border-bottom:1px solid black;">
+						<td colspan="2" style="border-right:1px solid black;color:red;">Healthcare Provider:</td>
+						<td  style="color:red;">Patient's Name: </td>
+						<td colspan="3" style="text-align:left;"><span t-field="doc.partner_id"/></td>
+					</tr>
+					<tr style="border-bottom:1px solid black;">
+						<td style="width:11%;color:red;vertical-align:middle;">Date of Service:</td>
+						<td style="width:24%;border-right:1px solid black;color:black;padding-bottom:0px;">
+							<table>
+								<tr>
+								
+									<td align="center" style="vertical-align:bottom;">_________/</td>
+									<td align="center">_________/</td>
+									<td align="center">___________</td>
+								</tr>
+								<tr>
+									<td align="center" style="vertical-align:text-top;">
+										<i>dd</i>
+									</td>
+									<td align="center">
+										<i>mm</i>
+									</td>
+									<td align="center">
+										<i>yyyy</i>
+									</td>
+								</tr>
+							</table>
+						</td>
+						<td style="width:20%;border-right:1px solid black;vertical-align:middle;color:red;">Patient's Tel : <span style="width:20%;vertical-align:middle;color:black;" t-field="doc.mobile"/></td>
+						<td style="width:5%;vertical-align:middle;color:red;">DOB:</td>
+						<td style="width:17%;border-right:1px solid black;vertical-align:middle;color:black;">
+							<t t-if="doc.dob">
+							<t t-foreach="range(8,10)" t-as="i">
+							<span t-esc="str(doc.dob)[i]" t-value="i+1"/>
+							</t>/
+							<t t-foreach="range(5,7)" t-as="i">
+									<span t-esc="str(doc.dob)[i]" t-value="i+1"/>
+							</t>/
+							<t t-foreach="range(0,4)" t-as="i">
+									<span t-esc="str(doc.dob)[i]" t-value="i+1"/>
+							</t>
+							</t>
+						</td>
+						<td style="width:20%;border-right:1px solid black;vertical-align:middle;color:red;">
+							Sex:
+							<span style="width:20%;vertical-align:middle;color:black;" t-if="doc.sex=='m'">
+								&#160; ☐&#160;F&#160; ■&#160;M
+							</span>
+							<span style="width:20%;vertical-align:middle;color:black;" t-if="doc.sex=='f'">
+								&#160; ■&#160;F&#160; ☐&#160;M
+							</span>
+						</td>
+					</tr>
+					<tr style="color:red;border-bottom:1px solid black;">
+						<td  style="">
+							Card No.
+							<br/>
+							<div style="font-size:10">
+								
+								(<i>Mandatory</i>)
+							</div>
+
+						</td>
+						<td colspan="2" style="height:30px;border-right:1px solid black;">
+							<table style="width:100%;" class="table-condensed">
+								<tr>
+									<td style="width:6%;height:26px;border:1px solid red"></td>
+									<td style="width:6%;border:1px solid red"></td>
+									<td style="width:6%;border:1px solid red"></td>
+									<td style="width:6%;border:1px solid red"></td>
+									<td style="width:1.33%;"></td>
+									<td style="width:6%;border:1px solid red"></td>
+									<td style="width:6%;border:1px solid red"></td>
+									<td style="width:6%;border:1px solid red"></td>
+									<td style="width:6%;border:1px solid  red"></td>
+									<td style="width:1.33%;"></td>
+									<td style="width:6%;border:1px solid red"></td>
+									<td style="width:6%;border:1px solid red"></td>
+									<td style="width:6%;border:1px solid red"></td>
+									<td style="width:6%;border:1px solid red"></td>
+									<td style="width:1.33%;"></td>
+									<td style="width:6%;border:1px solid red"></td>
+									<td style="width:6%;border:1px solid red"></td>
+									<td style="width:6%;border:1px solid red"></td>
+									<td style="width:6%;border:1px solid  red"></td>
+								</tr>
+							</table>
+						</td>
+						<td colspan="3" >
+							Patient's Employer:
+							<br/>
+							<div style="font-size:10">
+								<i>(Mandatory)</i>
+							</div>
+						</td>
+					</tr>
+				</table>
+				<table>
+					<tr>
+						<td style="height:10px;"></td>
+					</tr>
+					<tr>
+						<td style="font-size:12;">
+							<b>SUBJECTIVE&#160;</b>
+						</td>
+						<td style="font-size:10;">
+							<b>
+								<i>(To be completed by Physician)</i>
+							</b>
+						</td>
+					</tr>
+				</table>
+				<table style="width:100%;border:1px solid black;font-size:11;" >
+					<tr>
+						<td  style="color:red;border:1px solid black;padding-left:4px;">
+							<span>
+								Symptom(s) As Described by Patient
+								<span style="font-size:11px">
+									<i>(CHIEF COMPLAINT)</i>
+								</span>
+							</span>
+							<div>
+								<br/>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td  style="height:25px;border:1px solid black;" ></td>
+					</tr>
+				</table>
+				<table style="width:100%;border-bottom:1px solid black;border-left:1px solid black;border-right:1px solid black;font-size:11" >
+					<tr >
+						<td style="width:24%;padding-left:4px;">Date of Present Symptom Onset:</td>
+						<td  style="padding-bottom:0px;padding-top:0px;">
+							<table >
+								<tr >
+									
+									<td align="center" style="vertical-align:bottom;">_________/</td>
+									<td align="center">_________/</td>
+									<td align="center">___________</td>
+								</tr>
+								<tr >
+									<td align="center">
+										<i>dd</i>
+									</td>
+									<td align="center">
+										<i>mm</i>
+									</td>
+									<td align="center">
+										<i>yyyy</i>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				
+				<table style="width:100%;border-left:1px solid black;border-right:1px solid black;font-size:11" >
+					<tr >
+						<td style="width:43%;padding-left:4px;">What date did the Patient first feel same  / similar Symptom(s):</td>
+						<td  style="padding-bottom:0px;padding-top:0px;">
+							<table >
+								<tr >
+									
+									<td align="center" style="vertical-align:bottom;">_________/</td>
+									<td align="center">_________/</td>
+									<td align="center">___________</td>
+								</tr>
+								<tr >
+									<td align="center">
+										<i>dd</i>
+									</td>
+									<td align="center">
+										<i>mm</i>
+									</td>
+									<td align="center">
+										<i>yyyy</i>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+				<table style="width:100%;border:1px solid black;font-size:11;" >
+					<tr>
+						<td style="width:40%;padding-left:4px;">Is the Patient under any type of Treatment?</td>
+						<td style="width:20%;">☐&#160;Yes&#160;&#160;&#160; ☐&#160;No</td>
+						<td style="width:40%;">
+							<i>If yes, indicate what Assessment and since when:</i>
+							<div>
+								<br/>
+							</div>
+
+						</td>
+					</tr>
+				</table>
+				<table style="width:100%;">
+					<tr>
+						<td style="height:10px;"></td>
+					</tr>
+					<tr>
+						<td>
+							<span style="font-size:12;">
+								<b>OBJECTIVE / ASSESSMENT&#160;</b>
+								<span style="font-size:10;">
+									<b>
+										<i>(To be completed by Physician)</i>
+									</b>
+								</span>
+							</span>
+						</td>
+					</tr>
+				</table>
+				<table style="width:100%;border:1px solid black;font-size:11" >
+					<tr>
+						<td colspan="2" style="border:1px solid black;padding-left:4px;">
+							<b>Clinical Finding:</b>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+							Vital Signs:&#160;&#160;&#160;&#160;&#160;B/P:_____________&#160;T:_____________&#160;HR:_____________&#160;RR:_____________
+							<div>
+								<br/>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" style="height:20px;border:1px solid black;"></td>
+					</tr>
+					<tr>
+						<td colspan="2" style="border:1px solid black;padding-left:4px;">Cause &#160;&#160;&#160;&#160;&#160;&#160; ☐Physical Illness&#160;&#160;&#160;&#160;&#160;&#160; ☐Accident&#160;&#160;&#160;&#160;&#160;&#160; ☐Maternity&#160;&#160;&#160;&#160;&#160;&#160; ☐Preventive&#160;&#160;&#160;&#160;&#160; ☐Psychiatric&#160;&#160;&#160;&#160;&#160; ☐Dental&#160;&#160;&#160;&#160;&#160;&#160; ☐Work Related&#160;&#160;&#160;&#160;&#160;&#160; ☐Other</td>
+					</tr>
+					<tr>
+						<td style="width:80%;height:10px;border:1px solid black;padding-bottom:0px">
+							<span>
+								<span style="color:red;padding-left:4px;">
+									<b>Assessment / Diagnosis:&#160;&#160;&#160;</b>
+								</span>
+								☐Acute&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; ☐Chronic&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+								☐Confirmed&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; ☐Suspected
+							</span>
+							<div align="center" style="font-size:11px;">
+								<i>INDICATE DIAGNOSIS NOT SYMPTOM</i>
+							</div>
+
+						</td>
+						<td align="center" style="width:20;border:1px solid black;font-size:11px;">
+							<i>DIAGNOSIS CODE</i>
+						</td>
+					</tr>
+					
+					<tr>
+						<td style="width:80%;height:10px;border:1px solid black;padding-left:4px;">1.</td>
+						<td style="width:20;border:1px solid black;"></td>
+					</tr>
+					<tr>
+						<td style="height:20px;border:1px solid black;padding-left:4px;">2.</td>
+						<td style="border:1px solid black;"></td>
+
+					</tr>
+					<tr>
+						<td colspan="2" style="height:15px;border:1px solid black;padding-left:4px;">3.</td>
+					</tr>
+					<tr>
+						<td valign="top" colspan="2" style="border:1px solid black;padding-left:4px;">
+							Is Assessment / Diagnosis related to another Assessment ?
+							&#160;&#160;&#160;&#160;&#160;&#160; ☐Yes&#160;&#160;&#160;&#160;☐No&#160;&#160;&#160;&#160;
+							<i>If yes, specify</i> (i.e. Retinopathy related to Diabetes)
+							<div>
+								<br/>
+							</div>
+						</td>
+					</tr>
+				</table>
+				<table>
+					<tr>
+						<td style="height:10px;"></td>
+					</tr>
+					<tr style="color:red;">
+						<td style="font-size:12;">
+							<b>MEDICAL PLAN</b>
+						</td>
+						<td style="font-size:10;">
+							<span style="display:inline;background-color:#CCFFFF;" >
+								<b>
+									<i>&#160;&#160;&#160;Itemized Original Invoices and Applicable Prescriptions / Reports / Results must be enclosed to consider claim.</i>
+								</b>
+							</span>
+						</td>
+					</tr>
+				</table>
+				<table style="width:100%;border:1px solid black;font-size:11" >
+					<tr>
+						<td style="height:20px;width:40%;border:1px solid black;padding-left:6px;">
+							☐&#160;
+							<b>Consultation</b>
+						</td>
+						<td style="width:10%;border:1px solid black;padding-left:6px;">
+							<i>Cost</i>
+						</td>
+						<td style="widthy:40%;border:1px solid black;padding-left:6px;">
+							<b>☐&#160;Physiotherapy</b>
+						</td>
+						<td style="width:10%;border:1px solid black;padding-left:6px;">
+							<i>Cost</i>
+						</td>
+					</tr>
+					<tr>
+						<td style="height:20px;border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+					</tr>
+					<tr>
+						<td style="height:20px;border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+					</tr>
+					<tr>
+						<td style="height:20px;border:1px solid black;padding-left:6px;">
+							☐&#160;
+							<b>Pharmacy</b>
+						</td>
+						<td style="height:20px;border:1px solid black;padding-left:6px;">
+							<i>Cost</i>
+						</td>
+						<td style="border:1px solid black;padding-left:6px;">
+							☐&#160;
+							<b>Laboratory / Radiology / Other</b>
+						</td>
+						<td style="border:1px solid black;padding-left:6px;">
+							<i>Cost</i>
+						</td>
+					</tr>
+					<tr>
+						<td style="height:20px;border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+					</tr>
+					<tr>
+						<td style="height:20px;border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+					</tr>
+					<tr>
+						<td style="height:20px;border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+					</tr>
+					<tr>
+						<td style="height:20px;border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+					</tr>
+					<tr>
+						<td style="height:20px;border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+					</tr>
+					<tr>
+						<td style="height:20px;border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+						<td style="border:1px solid black;"></td>
+					</tr>
+					<tr>
+						<td colspan="4" style="padding-left:15px;font-size:13">
+							<b>TOTAL CHARGES</b>
+						</td>
+					</tr>
+				</table>
+				<div style="height:10px;"></div>
+				<table style="width:100%;border:1px solid black;font-size:11" class="table-condensed">
+					<tr style="border-bottom:1px solid black;">
+						<td colspan="2">
+							<b>Was In-patient Required ? Length of Stay ___________________ Indicate Provider ___________________ Cost _______________________</b>
+							<br/>
+						</td>
+					</tr>
+					<tr style="border-bottom:1px solid black;">
+						<td colspan="2">
+							<div style="padding-left:13px" >
+								<ul style="margin:-1px">
+									<li >
+										<b>
+											<i>Discharge Summary, Itemized Invoices, Reports &#38; Receipts Attached ?</i>
+										</b>
+									</li>
+								</ul>
+							</div>
+						</td>
+					</tr>
+					<tr style="color:red;">
+						<td rowspan="2" style="border-right:1px solid black;width:50%">
+							<span>
+								Treating Physician Name :
+								<span style="color:black;">_______________________________</span>
+							</span>
+							<br/>
+							<br/>
+							<span>
+								Tel / Fax:
+								<span style="color:black;">_____________________________________________</span>
+							</span>
+							<br/>
+							<br/>
+							<span>
+								Signature &#160;&#38;&#160;Stamp :
+								<span style="color:black;">___________________________________</span>
+							</span>
+						</td>
+						<td style="width:50%;color:black;">
+							<b>
+								<i>I hereby authorize any Healthcare Provider, Insurer, Employer or other Organization to release any information regarding my medical condition &#38; history to NEXtCARE for the purpose of determining insurance benefits.</i>
+							</b>
+							<br/>
+							
+						</td>
+					</tr>
+					<tr>
+						<td>_________________________________________________________________
+							
+							<div><b><i>Patient's Signature (Parent if minor) &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;Date</i></b></div></td>
+					</tr>
+				</table>
+			</div>
+			</t>
+		</template>
+		<template id="report_nextcare_reimbursement">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="doc">
+					<t t-call="pragtech_dental_management.report_nextcare_reimbursement_document" t-lang="doc.partner_id.lang"/>
+				</t>
+			</t>
+		</template>
+	</data>
+</odoo>
+

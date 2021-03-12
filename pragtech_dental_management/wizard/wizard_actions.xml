@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="view_income_by_doctor_form" model="ir.ui.view">
+			<field name="name">Income By Doctor</field>
+			<field name="model">income.by.doctor.report.wizard</field>
+			<field name="arch" type="xml">
+				<form string="By Doctor">
+					<separator string="Fill The Dates" colspan="4" />
+					<group colspan="4" col='4'>
+						<field name="start_date" />
+						<field name="end_date" />
+					</group>
+					<footer>
+						<button special="cancel" string="Cancel"
+							icon="fa-times-circle text-danger" />
+						<button name="income_by_doctor_report" string="Print Report"
+							type="object" icon="fa-arrow-right text-success" />
+					</footer>
+				</form>
+			</field>
+		</record>
+		<record model="ir.actions.act_window" id="action_income_by_doctor_report">
+			<field name="name">Income By Doctor</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">income.by.doctor.report.wizard</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+		<record id="view_patient_by_doctor_form" model="ir.ui.view">
+			<field name="name">By patient</field>
+			<field name="model">patient.by.doctor.report.wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="By Patient">
+					<separator string="Fill The Dates" colspan="4" />
+					<group colspan="4" col='4'>
+						<field name="start_date" />
+						<field name="end_date" />
+					</group>
+					<footer>
+						<button special="cancel" string="Cancel"
+							icon="fa-times-circle text-danger" />
+						<button name="patient_by_doctor_report" string="Print Report"
+							type="object" icon="fa-arrow-right text-success" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="income_by_procedure_new_view">
+			<field name="name">income.by.procedure.wizard.form</field>
+			<field name="model">income.by.procedure.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Report Wizard" version="7.0">
+					<separator string="Fill The Dates" colspan="4" />
+					<group colspan="4" col="4">
+						<field name="date_start" />
+						<field name="date_end" />
+					</group>
+					<footer>
+						<button special="cancel" string="Cancel"
+							icon="fa-times-circle text-danger" />
+						<button name="print_report" string="Print Report" type="object"
+							icon="fa-arrow-right text-success" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+
+		<record model="ir.ui.view" id="patient_by_procedure_new_view">
+			<field name="name">patient.by.procedure.wizard.form</field>
+			<field name="model">patient.by.procedure.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Report Wizard" version="7.0">
+					<separator string="Fill The Dates" colspan="4" />
+					<group colspan="4" col="4">
+						<field name="date_start" />
+						<field name="date_end" />
+					</group>
+					<footer>
+						<button special="cancel" string="Cancel"
+							icon="fa-times-circle text-danger" />
+						<button name="print_report" string="Print Report" type="object"
+							icon="fa-arrow-right text-success" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="income_by_insurance_company_new_view">
+			<field name="name">income.by.insurance.company.wizard.form</field>
+			<field name="model">income.by.insurance.company.wizard</field>
+			<field name="arch" type="xml">
+				<form string="Report Wizard" version="7.0">
+					<separator string="Fill The Dates" colspan="4" />
+					<group colspan="4" col="4">
+						<field name="date_start" />
+						<field name="date_end" />
+						<field name="insurance_company" domain="[('is_insurance_company','=',True)]" />
+					</group>
+					<footer>
+						<button special="cancel" string="Cancel"
+							icon="fa-times-circle text-danger" />
+						<button name="print_report" string="Print Report" type="object"
+							icon="fa-arrow-right text-success" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="claim_wizard_form_view">
+			<field name="name">Claim Wizard</field>
+			<field name="model">dental.claim.wizard</field>
+			<!-- <field name="type">form</field> -->
+			<field name="arch" type="xml">
+				<form string="Claim Wizard">
+					<group colspan="2" col="2">
+						<field name="from_date" required="1" />
+						<field name="to_date" required="1" />
+					</group>
+					<footer>
+						<button string="Generate PDF" type="object" name="print_report"
+							icon="fa-arrow-right text-success" />
+						<button string="Generate XLS" type="object" name="generate_backlog_excel_report"
+							icon="fa-arrow-right text-success" />
+						<button special="cancel" string="Cancel"
+							icon="fa-times-circle text-danger" />
+					</footer>
+				</form>
+			</field>
+		</record>
+
+
+
+
+		<record model="ir.actions.act_window" id="action_patient_by_doctor_report">
+			<field name="name">Patient By Doctor</field>
+			<field name="res_model">patient.by.doctor.report.wizard</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+		<menuitem action="action_income_by_doctor_report" name="Income By Doctor"
+			id="income_by_doctor_submenu" parent="dental_report_menu" sequence="1" />
+		<menuitem action="action_patient_by_doctor_report" name="Patient By Doctor"
+			id="patient_by_doctor_submenu" parent="dental_report_menu" sequence="3" />
+
+
+
+		<record id="action_income_by_procedure_wizard_report" model="ir.actions.act_window">
+			<field name="name">Income By Procedure</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">income.by.procedure.wizard</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+		<menuitem id="menu_action_income_by_procedure_report" action="action_income_by_procedure_wizard_report"
+			parent="dental_report_menu" sequence="2" />
+
+
+		<record id="action_patient_by_procedure_wizard_report" model="ir.actions.act_window">
+			<field name="name">Patient By Procedure</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">patient.by.procedure.wizard</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+		<menuitem id="menu_action_patient_by_procedure_report"
+			action="action_patient_by_procedure_wizard_report" parent="dental_report_menu"
+			sequence="4" />
+
+
+		<record id="action_income_by_insurance_company_wizard_report"
+			model="ir.actions.act_window">
+			<field name="name">Income By Insurance Company</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">income.by.insurance.company.wizard</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+
+		<menuitem id="menu_action_income_by_insurance_company_report"
+			action="action_income_by_insurance_company_wizard_report" parent="dental_report_menu"
+			sequence="5" />
+
+		<record model="ir.actions.act_window" id="claim_mgmt_wizard_view">
+			<field name="name">Claim Wizard</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">dental.claim.wizard</field>
+			<field name="view_mode">form</field>
+			<!-- <field name="view_id" ref="claim_report_form_view" /> -->
+			<field name="target">new</field>
+		</record>
+
+		<menuitem name="Claim Report" action="claim_mgmt_wizard_view"
+			id="claim_wizard_mgmt" parent="claim_form_mgmt" sequence="1" />
+
+	</data>
+</odoo>

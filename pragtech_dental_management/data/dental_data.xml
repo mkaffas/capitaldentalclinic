@@ -1,0 +1,885 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+<data noupdate="1">
+
+<record model="product.category" id="categ_1">
+	<field name="name">Scaling and Polishing</field>
+	<field name="treatment">1</field>
+	
+</record>
+
+<record model="product.category" id="categ_2">
+	<field name="name">X-Ray</field>
+	<field name="treatment">1</field>
+</record>
+
+<record model="product.category" id="categ_3">
+	<field name="name">Composite Filling (x1->x3)</field>
+	<field name="treatment">1</field>
+</record>
+
+<record model="product.category" id="categ_4">
+	<field name="name">Composite Filling</field>
+	<field name="treatment">1</field>
+</record>
+
+<record model="product.category" id="categ_5">
+	<field name="name">Composite Filling (x4->x8)</field>
+	<field name="treatment">1</field>
+</record>
+
+<record model="product.category" id="categ_6">
+	<field name="name">Composite Inlay</field>
+	<field name="treatment">1</field>
+</record>
+
+<record model="product.category" id="categ_7">
+	<field name="name">Composite Onlay</field>
+	<field name="treatment">1</field>
+</record>
+
+<record model="product.category" id="categ_8">
+	<field name="name">Ceramic Inlay</field>
+	<field name="treatment">1</field>
+</record>
+
+<record model="product.category" id="categ_9">
+	<field name="name">Ceramic Onlay</field>
+	<field name="treatment">1</field>
+</record>
+
+<record model="product.category" id="categ_10">
+	<field name="name">Crown</field>
+	<field name="treatment">1</field>
+</record>
+
+<record model="product.category" id="categ_11">
+	<field name="name">Post</field>
+	<field name="treatment">1</field>
+</record>
+
+<record model="product.category" id="categ_12">
+	<field name="name">Veneer</field>
+	<field name="treatment">1</field>
+</record>
+
+<record model="product.category" id="categ_13">
+	<field name="name">Pulpotomy</field>
+	<field name="treatment">1</field>
+</record>
+
+<record model="product.category" id="categ_14">
+	<field name="name">OPG</field>
+	<field name="treatment">1</field>
+</record>
+
+<record model="product.category" id="categ_15">
+	<field name="name">RCT</field>
+	<field name="treatment">1</field>
+</record>
+
+<record model="product.category" id="categ_16">
+	<field name="name">Waxup</field>
+	<field name="treatment">1</field>
+</record>
+
+<record model="product.category" id="categ_17">
+	<field name="name">Implant</field>
+	<field name="treatment">1</field>
+</record>
+
+<record model="product.category" id="categ_18">
+	<field name="name">Bridge</field>
+	<field name="treatment">1</field>
+</record>
+
+<record model="product.category" id="categ_19">
+	<field name="name">Extraction</field>
+	<field name="treatment">1</field>
+</record>
+
+<record model="product.category" id="categ_20">
+	<field name="name">Gingivectomy</field>
+	<field name="treatment">1</field>
+</record>
+
+<record model="product.category" id="categ_21">
+	<field name="name">Bleaching</field>
+	<field name="treatment">1</field>
+</record>
+
+
+
+
+<record model="product.product" id="treatment_1">
+	<field name="name">Scaling Adults</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">200</field>
+	<field name="standard_price">150</field>
+	<field name="description_sale">1110 - Prophylaxis - Adult, Deep Pockets Cleaing And Airflow Polisihing</field>
+	<field name="categ_id" ref="categ_1"/>
+</record>
+
+<record model="product.product" id="treatment_2">
+	<field name="name">Scaling Child</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">2000</field>
+	<field name="standard_price">1000</field>
+	<field name="description_sale">1120 - Prophylaxis - Child</field>
+	<field name="categ_id" ref="categ_1"/>
+</record>
+
+<record model="product.product" id="treatment_3">
+	<field name="name">Periapical Radiograph First</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">450</field>
+	<field name="standard_price">300</field>
+	<field name="description_sale">220 - Intraoral - Periapical First Film</field>
+	<field name="categ_id" ref="categ_2"/>
+</record>
+
+<record model="product.product" id="treatment_4">
+	<field name="name">Cephalometric xray</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">2500</field>
+	<field name="standard_price">1500</field>
+	<field name="description_sale">340 - Cephalometric Film</field>
+	<field name="categ_id" ref="categ_2"/>
+</record>
+
+<record model="product.product" id="treatment_5">
+	<field name="name">periapical radiograph additional</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">5000</field>
+	<field name="standard_price">3000</field>
+	<field name="description_sale">230 - Intraoral - Periapical Each Additional Film</field>
+	<field name="categ_id" ref="categ_2"/>
+</record>
+
+<record model="product.product" id="treatment_6">
+	<field name="name">composite filling anterior simple</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">1000</field>
+	<field name="standard_price">500</field>
+	<field name="description_sale">2330 - Resin-Based Composite - One Surface, Anterior</field>
+	<field name="categ_id" ref="categ_3"/>
+</record>
+
+<record model="product.product" id="treatment_7">
+	<field name="name">composite filling anterior compound</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3500</field>
+	<field name="standard_price">2000</field>
+	<field name="description_sale">2331 - Resin-Based Composite - Two Surfaces, Anterior</field>
+	<field name="categ_id" ref="categ_3"/>
+</record>
+
+<record model="product.product" id="treatment_8">
+	<field name="name">composite filling anterior complex</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">4000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">2332 - Resin-Based Composite - Three Surfaces, Anterior</field>
+	<field name="categ_id" ref="categ_3"/>
+</record>
+
+<record model="product.product" id="treatment_9">
+	<field name="name">composite filling anterior incisal angle</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">5500</field>
+	<field name="standard_price">4500</field>
+	<field name="description_sale">2335 - Resin-Based Composite - Four Or More Surfaces Or Involving Incisal Angle (Anterior)</field>
+	<field name="categ_id" ref="categ_3"/>
+</record>
+
+<record model="product.product" id="treatment_10">
+	<field name="name">composite crown</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">5500</field>
+	<field name="standard_price">4500</field>
+	<field name="description_sale">2390 - Resin-Based Composite Crown, Anterior</field>
+	<field name="categ_id" ref="categ_4"/>
+</record>
+
+<record model="product.product" id="treatment_11">
+	<field name="name">composite filling posterior simple</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">2500</field>
+	<field name="standard_price">2000</field>
+	<field name="description_sale">2391 - Resin-Based Composite - One Surface, Posterior</field>
+	<field name="categ_id" ref="categ_5"/>
+</record>
+
+<record model="product.product" id="treatment_12">
+	<field name="name">composite filling posterior compound</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">10000</field>
+	<field name="standard_price">7000</field>
+	<field name="description_sale">2392 - Resin-Based Composite - Two Surfaces, Posterior</field>
+	<field name="categ_id" ref="categ_5"/>
+</record>
+
+<record model="product.product" id="treatment_13">
+	<field name="name">composite filling posterior complex</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">10000</field>
+	<field name="standard_price">7000</field>
+	<field name="description_sale">2393 - Resin-Based Composite - Three Surfaces, Posterior</field>
+	<field name="categ_id" ref="categ_5"/>
+</record>
+
+<record model="product.product" id="treatment_14">
+	<field name="name">Composite filling posterior complex</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">2000</field>
+	<field name="standard_price">1000</field>
+	<field name="description_sale">2394 - Resin-Based Composite - Four Or More Surfaces, Posterior</field>
+	<field name="categ_id" ref="categ_5"/>
+</record>
+
+<record model="product.product" id="treatment_15">
+	<field name="name">Inlay composite I</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">8000</field>
+	<field name="standard_price">5000</field>
+	<field name="description_sale">2650 - Inlay - Resin-Based Composite - One Surface</field>
+	<field name="categ_id" ref="categ_6"/>
+</record>
+
+<record model="product.product" id="treatment_16">
+	<field name="name">Inlay composite II</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">400</field>
+	<field name="standard_price">200</field>
+	<field name="description_sale">2651 - Inlay - Resin-Based Composite - Two Surfaces</field>
+	<field name="categ_id" ref="categ_6"/>
+</record>
+
+<record model="product.product" id="treatment_17">
+	<field name="name">Inlay composite III</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">7000</field>
+	<field name="standard_price">3000</field>
+	<field name="description_sale">2652 - Inlay - Resin-Based Composite - Three Or More Surfaces</field>
+	<field name="categ_id" ref="categ_6"/>
+</record>
+
+<record model="product.product" id="treatment_18">
+	<field name="name">Onlay composite II</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">30000</field>
+	<field name="standard_price">25000</field>
+	<field name="description_sale">2662 - Onlay - Resin-Based Composite - Two Surfaces </field>
+	<field name="categ_id" ref="categ_7"/>
+</record>
+
+<record model="product.product" id="treatment_19">
+	<field name="name">Inay ceramic I</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">37000</field>
+	<field name="standard_price">30000</field>
+	<field name="description_sale">2610 - Inlay - Porcelain/Ceramic - One Surface</field>
+	<field name="categ_id" ref="categ_8"/>
+</record>
+
+<record model="product.product" id="treatment_20">
+	<field name="name">Inay ceramic II</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">42000</field>
+	<field name="standard_price">38000</field>
+	<field name="description_sale">2620 - Inlay - Porcelain/Ceramic - Two Surfaces </field>
+	<field name="categ_id" ref="categ_8"/>
+</record>
+
+<record model="product.product" id="treatment_21">
+	<field name="name">Inay ceramic III</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">16000</field>
+	<field name="standard_price">13000</field>
+	<field name="description_sale">2630 - Inlay - Porcelain/Ceramic - Three Or More Surfaces</field>
+	<field name="categ_id" ref="categ_8"/>
+</record>
+
+<record model="product.product" id="treatment_22">
+	<field name="name">Onlay Ceramic II</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">20000</field>
+	<field name="standard_price">15000</field>
+	<field name="description_sale">2642 - Onlay - Porcelain/Ceramic - Two Surfaces</field>
+	<field name="categ_id" ref="categ_9"/>
+</record>
+
+<record model="product.product" id="treatment_23">
+	<field name="name">Onlay Ceramic III</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">50000</field>
+	<field name="standard_price">40000</field>
+	<field name="description_sale">2643 - Onlay - Porcelain/Ceramic - Three Surfaces</field>
+	<field name="categ_id" ref="categ_9"/>
+</record>
+
+<record model="product.product" id="treatment_24">
+	<field name="name">Onlay Ceramic IV</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">20000</field>
+	<field name="standard_price">15000</field>
+	<field name="description_sale">2644 - Onlay - Porcelain/Ceramic - Four Or More Surfaces</field>
+	<field name="categ_id" ref="categ_9"/>
+</record>
+
+<record model="product.product" id="treatment_25">
+	<field name="name">Crown Composite Ind</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">15000</field>
+	<field name="standard_price">10000</field>
+	<field name="description_sale">2710 - Crown - Resin-Based Composite (Indirect)</field>
+	<field name="categ_id" ref="categ_10"/>
+</record>
+
+<record model="product.product" id="treatment_26">
+	<field name="name">Crown Ceramic</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">150000</field>
+	<field name="standard_price">100000</field>
+	<field name="description_sale">2740 - Crown - Porcelain/Ceramic Substrate</field>
+	<field name="categ_id" ref="categ_10"/>
+</record>
+
+<record model="product.product" id="treatment_27">
+	<field name="name">Crown ceramic Porcelain</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">250000</field>
+	<field name="standard_price">200000</field>
+	<field name="description_sale">2740 - Crown - Porcelain/Ceramic Substrate</field>
+	<field name="categ_id" ref="categ_10"/>
+</record>
+
+<record model="product.product" id="treatment_28">
+	<field name="name">Crown PFM</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">25000</field>
+	<field name="standard_price">15000</field>
+	<field name="description_sale">2750 - Crown - Porcelain Fused To High Noble Metal</field>
+	<field name="categ_id" ref="categ_10"/>
+</record>
+
+<record model="product.product" id="treatment_29">
+	<field name="name">Prov Crown</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">20000</field>
+	<field name="standard_price">15000</field>
+	<field name="description_sale">2799 - Provisional Crown</field>
+	<field name="categ_id" ref="categ_10"/>
+</record>
+
+<record model="product.product" id="treatment_30">
+	<field name="name">Crown PFM</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">45000</field>
+	<field name="standard_price">40000</field>
+	<field name="description_sale">6060 - Abutment Supported Porcelain Fused To Metal Crown (Predominantly Base Metal)</field>
+	<field name="categ_id" ref="categ_10"/>
+</record>
+
+<record model="product.product" id="treatment_31">
+	<field name="name">Crown Metal</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">100000</field>
+	<field name="standard_price">80000</field>
+	<field name="description_sale">6063 - Abutment Supported Cast Metal Crown (Predominantly Base Metal)</field>
+	<field name="categ_id" ref="categ_10"/>
+</record>
+
+<record model="product.product" id="treatment_32">
+	<field name="name">Crown Implant</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">9000</field>
+	<field name="standard_price">7000</field>
+	<field name="description_sale">6065 - Implant Supported Porcelain/Ceramic Crown</field>
+	<field name="categ_id" ref="categ_10"/>
+</record>
+
+<record model="product.product" id="treatment_33">
+	<field name="name">Crown PFM</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2000</field>
+	<field name="description_sale">6751 - Crown - Porcelain Fused To Predominantly Base Metal</field>
+	<field name="categ_id" ref="categ_10"/>
+</record>
+
+<record model="product.product" id="treatment_34">
+	<field name="name">Titanium post and core bridge</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">25000</field>
+	<field name="standard_price">20000</field>
+	<field name="description_sale">6972 - Prefabricated Post And Core In Addition To Fixed Partial Denture Retainer</field>
+	<field name="categ_id" ref="categ_10"/>
+</record>
+
+<record model="product.product" id="treatment_35">
+	<field name="name">Titanium post and core bridge</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">25000</field>
+	<field name="standard_price">20000</field>
+	<field name="description_sale">6972 - Prefabricated Post And Core In Addition To Fixed Partial Denture Retainer</field>
+	<field name="categ_id" ref="categ_11"/>
+</record>
+
+<record model="product.product" id="treatment_36">
+	<field name="name">Core</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">2500</field>
+	<field name="standard_price">2000</field>
+	<field name="description_sale">6973 - Core Build Up For Retainer, Including Any Pins</field>
+	<field name="categ_id" ref="categ_11"/>
+</record>
+
+<record model="product.product" id="treatment_37">
+	<field name="name">Additional titanium post</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">6977 - Each Additional Prefabricated Post - Same Tooth</field>
+	<field name="categ_id" ref="categ_11"/>
+</record>
+
+<record model="product.product" id="treatment_38">
+	<field name="name">Titanium post with crown</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">2954 - Prefabricated Post And Core In Addition To Crown</field>
+	<field name="categ_id" ref="categ_11"/>
+</record>
+
+<record model="product.product" id="treatment_39">
+	<field name="name">Composite veneer office</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">2960 - Labial Veneer (Resin Laminate) - Chairside</field>
+	<field name="categ_id" ref="categ_12"/>
+</record>
+
+<record model="product.product" id="treatment_40">
+	<field name="name">Composite veneer lab</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">2961 - Labial Veneer (Resin Laminate) - Laboratory</field>
+	<field name="categ_id" ref="categ_12"/>
+</record>
+
+<record model="product.product" id="treatment_41">
+	<field name="name">Ceramic veneer lab</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">2962 - Labial Veneer (Porcelain Laminate) - Laboratory</field>
+	<field name="categ_id" ref="categ_12"/>
+</record>
+
+<record model="product.product" id="treatment_42">
+	<field name="name">Pulpotomy 1st Visit</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">3220 - Therapeutic Pulpotomy (Excluding Final Restoration) - Removal Of Pulp Coronal To The Dentinocemental Junction And Application Of Medicament</field>
+	<field name="categ_id" ref="categ_13"/>
+</record>
+
+<record model="product.product" id="treatment_43">
+	<field name="name">Pulpotomy pri per teeth</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">3221 - Pulpal Debridement, Primary And Permanent Teeth</field>
+	<field name="categ_id" ref="categ_13"/>
+</record>
+
+<record model="product.product" id="treatment_44">
+	<field name="name">Pulpotomy ant pri tooth 1st visit</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">3230 - Pulpal Therapy (Resorbable Filling) - Anterior, Primary Tooth (Excluding Final Restoration)</field>
+	<field name="categ_id" ref="categ_13"/>
+</record>
+
+<record model="product.product" id="treatment_45">
+	<field name="name">Pulpotomy post pri tooth 1st visit</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">3240 - Pulpal Therapy (Resorbable Filling) - Posterior, Primary Tooth (Excluding Final Restoration)</field>
+	<field name="categ_id" ref="categ_13"/>
+</record>
+
+<record model="product.product" id="treatment_46">
+	<field name="name">Cephalometric xray</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">340 - Cephalometric Film</field>
+	<field name="categ_id" ref="categ_14"/>
+</record>
+
+<record model="product.product" id="treatment_47">
+	<field name="name">OPG xray</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">330 - Panoramic Film</field>
+	<field name="categ_id" ref="categ_14"/>
+</record>
+
+<record model="product.product" id="treatment_48">
+	<field name="name">RCT ant tooth 1st visit</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">3310 - Endodontic Therapy, Anterior Tooth (Excluding Final Restoration)</field>
+	<field name="categ_id" ref="categ_15"/>
+</record>
+
+<record model="product.product" id="treatment_49">
+	<field name="name">RCT premolar 1st Visit</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">3320 - Endodontic Therapy, Bicuspid Tooth (Excluding Final Restoration)</field>
+	<field name="categ_id" ref="categ_15"/>
+</record>
+
+<record model="product.product" id="treatment_50">
+	<field name="name">RCT molar 1st Visit</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">3330 - Endodontic Therapy, Molar (Excluding Final Restoration)</field>
+	<field name="categ_id" ref="categ_15"/>
+</record>
+
+<record model="product.product" id="treatment_51">
+	<field name="name">RC Obtruction treatment</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">3331 - Treatment Of Root Canal Obstruction; Non-Surgical Access</field>
+	<field name="categ_id" ref="categ_15"/>
+</record>
+
+<record model="product.product" id="treatment_52">
+	<field name="name">Root perforation</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">3333 - Internal Root Repair Of Perforation Defects</field>
+	<field name="categ_id" ref="categ_15"/>
+</record>
+
+<record model="product.product" id="treatment_53">
+	<field name="name">RCT retreat ant</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">3346 - Retreatment Of Previous Root Canal Therapy - Anterior</field>
+	<field name="categ_id" ref="categ_15"/>
+</record>
+
+<record model="product.product" id="treatment_54">
+	<field name="name">RCT retreat premolar</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">3347 - Retreatment Of Previous Root Canal Therapy - Bicuspid</field>
+	<field name="categ_id" ref="categ_15"/>
+</record>
+
+<record model="product.product" id="treatment_55">
+	<field name="name">RCT retreat molar</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">3348 - Retreatment Of Previous Root Canal Therapy - Molar</field>
+	<field name="categ_id" ref="categ_15"/>
+</record>
+
+<record model="product.product" id="treatment_56">
+	<field name="name">Waxup</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">470 - Diagnostic Casts</field>
+	<field name="categ_id" ref="categ_16"/>
+</record>
+
+<record model="product.product" id="treatment_57">
+	<field name="name">Implant</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">6010 - Surgical Placement Of Implant Body: Endosteal Implant</field>
+	<field name="categ_id" ref="categ_17"/>
+</record>
+
+<record model="product.product" id="treatment_58">
+	<field name="name">Ceramic crown bridge</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">6067 - Implant Supported Metal Crown (Titanium, Titanium Alloy, High Noble Metal)</field>
+	<field name="categ_id" ref="categ_18"/>
+</record>
+
+<record model="product.product" id="treatment_59">
+	<field name="name">PFM Crown Bridge</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">6068 - Abutment Supported Retainer For Porcelain/Ceramic Fpd</field>
+	<field name="categ_id" ref="categ_18"/>
+</record>
+
+<record model="product.product" id="treatment_60">
+	<field name="name">Metal Crown Bridge</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">6070 - Abutment Supported Retainer For Porcelain Fused To Metal Fpd (Predominantly Base Metal)</field>
+	<field name="categ_id" ref="categ_18"/>
+</record>
+
+<record model="product.product" id="treatment_61">
+	<field name="name">Ceramic crown bridge implant</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">6073 - Abutment Supported Retainer For Cast Metal Fpd (Predominantly Base Metal)</field>
+	<field name="categ_id" ref="categ_18"/>
+</record>
+
+<record model="product.product" id="treatment_62">
+	<field name="name">Pontic PFM</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">6241 - Pontic - Porcelain Fused To Predominantly Base Metal</field>
+	<field name="categ_id" ref="categ_18"/>
+</record>
+
+<record model="product.product" id="treatment_63">
+	<field name="name">Pontic Ceramic</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">6245 - Pontic - Porcelain/Ceramic</field>
+	<field name="categ_id" ref="categ_18"/>
+</record>
+
+<record model="product.product" id="treatment_64">
+	<field name="name">FPD repair</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">6980 - Fixed Partial Denture Repair, By Report</field>
+	<field name="categ_id" ref="categ_18"/>
+</record>
+
+<record model="product.product" id="treatment_65">
+	<field name="name">Extraction crown pri tooth</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">7111 - Extraction, Coronal Remnants - Deciduous Tooth</field>
+	<field name="categ_id" ref="categ_19"/>
+</record>
+
+<record model="product.product" id="treatment_66">
+	<field name="name">Titanium post with crown</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">2954 - Prefabricated Post And Core In Addition To Crown</field>
+	<field name="categ_id" ref="categ_19"/>
+</record>
+
+<record model="product.product" id="treatment_67">
+	<field name="name">Extraction tooth</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">7140 - Extraction, Erupted Tooth Or Exposed Root (Elevation And/Or Forceps Removal)</field>
+	<field name="categ_id" ref="categ_19"/>
+</record>
+
+<record model="product.product" id="treatment_68">
+	<field name="name">Surgical Extraction</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">7210 - Surgical Removal Of Erupted Tooth Requiring Removal Of Bone And/Or Sectioning Of Tooth, And Including Elevation Of Mucoperiosteal Flap If Indicated</field>
+	<field name="categ_id" ref="categ_19"/>
+</record>
+
+<record model="product.product" id="treatment_69">
+	<field name="name">Soft impaction</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">7220 - Removal Of Impacted Tooth - Soft Tissue</field>
+	<field name="categ_id" ref="categ_19"/>
+</record>
+
+<record model="product.product" id="treatment_70">
+	<field name="name">Part impaction</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">7230 - Removal Of Impacted Tooth - Partially Bony</field>
+	<field name="categ_id" ref="categ_19"/>
+</record>
+
+<record model="product.product" id="treatment_71">
+	<field name="name">Bone impaction</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">7240 - Removal Of Impacted Tooth - Completely Bony</field>
+	<field name="categ_id" ref="categ_19"/>
+</record>
+
+<record model="product.product" id="treatment_72">
+	<field name="name">Complicated impaction</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">7241 - Removal Of Impacted Tooth - Completely Bony, With Unusual Surgical Complications</field>
+	<field name="categ_id" ref="categ_19"/>
+</record>
+
+<record model="product.product" id="treatment_73">
+	<field name="name">Remaining roots removal</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">7250 - Surgical Removal Of Residual Tooth Roots (Cutting Procedure)</field>
+	<field name="categ_id" ref="categ_19"/>
+</record>
+
+<record model="product.product" id="treatment_74">
+	<field name="name">Gingivectomy Gingivoplasty</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">7970 - Excision Of Hyperplastic Tissue - Per Arch</field>
+	<field name="categ_id" ref="categ_20"/>
+</record>
+
+<record model="product.product" id="treatment_75">
+	<field name="name">Ext bleach arch</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">9972 - External Bleaching - Per Arch</field>
+	<field name="categ_id" ref="categ_21"/>
+</record>
+
+<record model="product.product" id="treatment_76">
+	<field name="name">Ext bleach tooth</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">9973 - External Bleaching - Per Tooth</field>
+	<field name="categ_id" ref="categ_21"/>
+</record>
+
+<record model="product.product" id="treatment_77">
+	<field name="name">Int bleach tooth</field>
+	<field name="is_treatment">1</field>
+	<field name="type">service</field>
+	<field name="list_price">3000</field>
+	<field name="standard_price">2500</field>
+	<field name="description_sale">9974 - Internal Bleaching - Per Tooth</field>
+	<field name="categ_id" ref="categ_21"/>
+</record>
+
+</data>
+</odoo>

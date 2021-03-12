@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="report_prescription_main_document">
+			<t t-call="web.external_layout">
+				<div class="page">
+					<div class="oe_structure"/>
+					<div class="row">
+						<div>
+							<h3 class="text-center mb32">
+								<strong>PRESCRIPTION REPORT</strong>
+							</h3>
+						</div>
+					</div>
+					<br/>
+					<br/>
+					<div class="row mt32 mb32" id="informations">
+						<div class="col-xs-3">
+							<strong>Prescription ID:</strong>
+							<p t-field="doc.name"/>
+						</div>
+						<div class="col-xs-3">
+							<strong>Prescription Date:</strong>
+							<p t-field="doc.prescription_date"/>
+						</div>
+						<div class="col-xs-3">
+							<strong>Prescribing Doctor:</strong>
+							<p t-field="doc.doctor"/>
+						</div>
+						<div class="col-xs-3">
+							<strong>Patient Name:</strong>
+							<p t-field="doc.name.partner_id"/>
+							<p t-field="doc.name.partner_id.email"/>
+						</div>
+					</div>
+					<br>
+						<br></br>
+					</br>
+					<div>
+						<table class="table table-condensed" width="100%">
+							<thead>
+								<tr>
+									<th width="20%">Medicine</th>
+								<th width="10%">Dose</th>
+								<th width="10%" class="text-center">Dose Unit</th>
+								<th width="10%" class="text-center">Form</th>
+								<th width="20%" class="text-center">Frequency</th>
+								<th width="10%"  class="text-right">Duration</th>
+								<th width="10%" class="text-center">Duration Unit</th>
+								<th width="10%" class="text-center">Note</th>
+								</tr>
+
+							</thead>
+							<tbody class="sale_tbody">
+								<t t-foreach="doc.prescription_line" t-as="line">
+									<tr>
+										<td width="20%">
+											<span t-field="line.medicine_id.name"/>
+										</td>
+										<td width="10%" class="text-center">
+											<span t-field="line.dose"/>
+										</td>
+										<td width="10%" class="text-center">
+											<span t-field="line.dose_unit"/>
+										</td>
+										<td width="10%" class="text-center"> 
+											<span t-field="line.form"/>
+										</td>
+										<td width="20%" class="text-center">
+											<span t-field="line.common_dosage"/>
+										</td>
+										<td width="10%" class="text-center">
+											<span t-field="line.duration"/>
+										</td>
+										<td width="10%" class="text-center">
+											<span t-field="line.duration_period"/>
+										</td>
+										<td width="10%"  class="text-center">
+											<span t-field="line.note"/>
+										</td>
+									</tr>
+								</t>
+							</tbody>
+						</table>
+					</div>
+					<br>
+						<br>
+							<br>
+								<br></br>
+							</br>
+						</br>
+					</br>
+					<div class="row mt32 mb32" id="informations">
+						<div class="col-xs-3">
+							<strong>Notes:</strong>
+							<span t-field="doc.notes"/>
+						</div>
+						<div class="text-right mb32">
+							<strong>Doctor Signature:</strong>
+						</div>
+					</div>
+				</div>
+			</t>
+		</template>
+		<template id="report_prescription_main">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="doc">
+					<t t-call="pragtech_dental_management.report_prescription_main_document" t-lang="doc.name.partner_id.lang"/>
+				</t>
+			</t>
+		</template>
+	</data>
+</odoo>

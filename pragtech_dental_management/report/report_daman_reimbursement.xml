@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<template id="report_daman_reimbursement_document">
+			<t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
+			<t t-call="web.external_layout">
+			<div class="header">
+				<div class="row">
+					<div   class="col-xs-10 " style="vertical-align:middle;height:50px;padding-top:12px;padding-left:40px;color:white; background-color: #900C3F;font-size:20;" >
+						<b>Reimbursement Claim Form</b>
+						
+						
+					</div>
+					<div class="img col-xs-2">
+						<img src="/pragtech_dental_management/static/src/img/daman.jpeg"  width="90" height="50"/>
+					</div>
+				</div>
+			</div>
+			<div class="page" style="font-size:10px;">
+				<div style="font-size:10px;padding-left:22px;padding-right:20px;">
+				<div style="color:red;">
+					<strong>
+						<i>Please read the instructions and guidelines on Page 2 before filling this form.</i>
+					</strong>
+				</div>
+				<!-- 					<table style="width:100%;" class="table-condensed"> -->
+				<table style="width:100% !important; height:100% !important;border:1px solid black; font-size:10">
+					<tbody height="100" >
+						<tr style=" border-bottom: 1px solid black !important;">
+							<td  style="color:white; background-color: #900C3F;font-size:11" >
+								<b>&#160;&#160;1.&#160;&#160; Card Holder's Identity and Contact Information:</b>
+							</td>
+						</tr>
+						<tr >
+							<td style=" border-bottom: 1px solid black !important;">
+								&#160;&#160;Name:* <span t-field="doc.partner_id"/><br/>
+								<br/>
+								<i>&#160;&#160;(Exactly as printed on the Daman card)</i>
+								
+							</td>
+						</tr>
+						<tr style=" border-bottom: 1px solid black !important;">
+							<td>
+								<table style="width:100% !important; height:100% !important;">
+									<tr>
+										<td  width="25%">&#160;&#160;Daman Card No:*</td>
+										<td style=" border-left: 1px solid black !important;" width="5%"></td>
+										<td style=" border-left: 1px solid black !important;" width="5%"></td>
+										<td style=" border-left: 1px solid black !important;" width="5%"></td>
+										<td style=" border-left: 1px solid black !important;" width="5%"></td>
+										<td style=" border-left: 1px solid black !important;" width="5%"></td>
+										<td style=" border-left: 1px solid black !important;" width="5%"></td>
+										<td style=" border-left: 1px solid black !important;" width="5%"></td>
+										<td style=" border-left: 1px solid black !important;"  width="5%"></td>
+										<td style=" border-left: 1px solid black !important;" width="35%">&#160;&#160;Mobile No.:* <span t-field="doc.mobile"/><br/></td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<tr style="border-bottom: 1px solid black !important;">
+							<td style="border-left: 1px solid black !important;border-top: 1px solid black !important;" width="100%">&#160;&#160;E-mail Address:* <span t-field="doc.partner_id.email"/><br/></td>
+						</tr>
+						<tr style="border-bottom: 1px solid black !important;">
+							<td width="100%" style="color:white; background-color: #900C3F;font-size:11">
+								<b>&#160;2.&#160;&#160; Claims Payment Details</b>
+							</td>
+						</tr>
+						<tr >
+							<td width="100%">
+								<div style="padding: 8px;">
+									<b>Wire Transfer</b> <i>(Please provide the bank account details to which Daman should transfer the money entitle under this
+									reimbursement claim.) </i>If the IBAN number provided herein is incorrect, Daman shall not be liable for any
+									direct/indirect/consequential results from the wire transfer to such number.
+								</div>
+								<div style="padding-left:9px;padding-right:9px;">
+									<table style="width:100%;border:1px solid black;" class="table-condensed">
+										<tr style=" border-bottom: 1px solid black !important;">
+											<td colspan="23">Beneficiary Name:</td>
+										</tr>
+										<tr style=" border-bottom: 1px solid black !important;">
+											<td colspan="11">Bank Name:</td>
+											<td colspan="12" style=" border-left: 1px solid black !important;border-top: 1px solid black !important;">Branch, Bank Address:</td>
+										</tr>
+										<tr style=" border-bottom: 1px solid black !important;">
+											<td width="50%" colspan="11">Account Number:</td>
+											<td width="50%" colspan="12" style=" border-left: 1px solid black !important;border-top: 1px solid black !important;">
+												Swift Code Number (For International
+												<br/>
+												Transfers)
+											</td>
+										</tr>
+										<tr  style=" border-bottom: 1px solid black !important;background-color: #C0C0C0">
+											<td colspan="23" class="text-center">
+												<strong>IBAN</strong>
+											</td>
+										</tr>
+										<tr  style=" border-bottom: 1px solid black !important;">
+											<td width="4.34%" style=" border-left: 1px solid black !important;">
+												<div style="padding: 5px;"></div>
+											</td>
+											<td width="4.34%" style=" border-left: 1px solid black !important;"></td>
+											<td width="4.34%" style=" border-left: 1px solid black !important;"></td>
+											<td width="4.34%" style=" border-left: 1px solid black !important;"></td>
+											<td width="4.34%" style=" border-left: 1px solid black !important;"></td>
+											<td width="4.34%" style=" border-left: 1px solid black !important;"></td>
+											<td width="4.34%" style=" border-left: 1px solid black !important;"></td>
+											<td width="4.34%" style=" border-left: 1px solid black !important;"></td>
+											<td width="4.34%" style=" border-left: 1px solid black !important;"></td>
+											<td width="4.34%" style=" border-left: 1px solid black !important;"></td>
+											<td width="4.34%" style=" border-left: 1px solid black !important;"></td>
+											<td width="4.34%" style=" border-left: 1px solid black !important;"></td>
+											<td width="4.34%" style=" border-left: 1px solid black !important;"></td>
+											<td width="4.34%" style=" border-left: 1px solid black !important;"></td>
+											<td width="4.34%" style=" border-left: 1px solid black !important;"></td>
+											<td width="4.34%" style=" border-left: 1px solid black !important;"></td>
+											<td width="4.34%" style=" border-left: 1px solid black !important;"></td>
+											<td width="4.34%" style=" border-left: 1px solid black !important;"></td>
+											<td width="4.34%" style=" border-left: 1px solid black !important;"></td>
+											<td width="4.34%" style=" border-left: 1px solid black !important;"></td>
+											<td width="4.34%" style=" border-left: 1px solid black !important;"></td>
+											<td width="4.34%" style=" border-left: 1px solid black !important;"></td>
+											<td width="4.34%" style=" border-left: 1px solid black !important;"></td>
+										</tr>
+									</table>
+								</div>
+								<div style="padding: 8px;">I authorise the National Health Insurance Company –
+									Daman PJSC (“Daman”) to make wire transfer payment against this
+									Reimbursement Claim Form and hereby discharge Daman from any
+									liability with respect of releasing the payment to the bank
+									details as specified by me hereinabove.</div>
+							</td>
+						</tr>
+						<tr style=" border-bottom: 1px solid black !important;border-top: 1px solid black !important;">
+							<td  style="color:white; background-color: #900C3F;font-size:11" >
+								
+								<b>
+									&#160;&#160;3.&#160;&#160; Information on Road Traffic Accident, Work Related, Third Party Liability and Double Insurance
+									</b><i>(Refer to General Instructions)</i>
+								
+							</td>
+						</tr>
+						<tr style=" border-bottom: 1px solid black !important;">
+							<td  >
+								&#160;&#160;Treatment cause is Road Traffic Accident (RTA):&#160;&#160;☐&#160; No &#160;&#160;&#160; ☐ &#160;Yes
+								<br/>
+								&#160;&#160;Treatment cause is work related: &#160;&#160;☐&#160; No &#160;&#160;&#160; ☐ &#160;Yes
+								<br/>
+
+								&#160;&#160;Treatment cause is other than the above specified, wherein a third party is involved:&#160;&#160;☐&#160; No &#160;&#160;&#160; ☐&#160;Yes
+								<br/>
+								&#160;&#160;Reimbursement claim is covered by other insurance policy: &#160;&#160;☐&#160; No &#160;&#160;&#160; ☐ &#160;Yes; &#160;&#160; Please specify
+								<br/>
+								<br/>
+							</td>
+						</tr>
+						<tr style=" border-bottom: 1px solid black !important;">
+							<td  style="color:white; background-color: #900C3F;font-size:11" >
+								<b>
+									&#160;&#160;4.&#160;&#160; Medical Information
+									</b>
+									<i>(To be filled-in by the
+										treating practitioner who is licensed by the competent authority of the
+										concerned country)</i>
+								
+							</td>
+						</tr>
+						<tr >
+							<td style="width:100% ; height:10% !important;">
+								&#160;&#160;Visit Date:&#160;&#160;&#160;__________________________
+								<br/>
+							</td>
+						</tr>
+						<tr style=" border-bottom: 1px solid black !important;">
+							<td height="20%" >
+								<br/>
+								&#160;&#160;Medical History/Chief Complaints:
+								<br/>
+								<br/>
+								<br/>
+							</td>
+						</tr>
+						<tr style=" border-bottom: 1px solid black !important;">
+							<td height="15%">
+								&#160;&#160;Diagnosis:
+								<br/>
+								<br/>
+								<br/>
+							</td>
+						</tr>
+						<tr style=" border-bottom: 1px solid black !important;">
+							<td height="20">
+								&#160;&#160;Treatment Details:
+								<br/>
+								<br/>
+								<br/>
+								<div  style="padding: 10px;">
+									<table  style="width:100% !important;border:1px solid black;">
+										<tr style="color:red;">
+											<td width="70%">&#160;&#160;Currency (If treatment availed outside UAE):</td>
+											<td width="30%" style=" border-left: 1px solid black !important;" >&#160;&#160;Total Amount Paid:</td>
+										</tr>
+									</table>
+								</div>
+							</td>
+						</tr>
+						<tr style=" border-bottom: 1px solid black !important;">
+							<td>
+								<div  style="padding: 8px;">
+									<b>I declare that I have attended to this patient and that
+										the particulars given are true and correct to the best of my knowledge.</b>
+									<br/>
+									<br/>
+									<table  style="width:100% !important;">
+										<tr>
+											<td  class="text-center">--------------------------------------------------</td>
+											<td  class="text-center">-------------------------</td>
+											<td  class="text-center">--------------------------</td>
+											<td  class="text-center">--------------------------</td>
+										</tr>
+										<tr>
+											<td class="text-center">
+												Name (<i>Medical Practitioner</i>)
+												
+											</td>
+											<td  class="text-center">Signature</td>
+											<td  class="text-center">Date</td>
+											<td  class="text-center">Stamp</td>
+
+										</tr>
+									</table>
+								</div>
+							</td>
+						</tr>
+						<tr style=" border-bottom: 1px solid black !important;">
+							<td  style="color:white; background-color: #900C3F;font-size:11" >
+								<b>&#160;&#160;5.&#160;&#160; Authorisation</b>
+							</td>
+						</tr>
+						<tr style=" border-bottom: 1px solid black !important;">
+							<td  >
+								<div  style="padding: 8px;">I, hereby authorise Daman to have access to and take copies of all my files and records at any time relating to any healthcare
+									services provided to me during the period of my insurance coverage with Daman. This authorisation is valid at any healthcare
+									provider, including but not limited to hospitals, medical centres, clinics, laboratories, diagnostic centres, rehabilitation centres and
+									pharmacies. I understand that from time to time Daman may need to disclose this information to third parties for reasons related
+									to insurance including but not limited to the processing of my claim, research/statistical purposes, or to prevent/control
+									fraudulent or improper claims etc. Furthermore, I hereby authorise Mr. /Ms. /Company..............................................................................
+									to receive medical information related to this claim from Daman on my behalf.</div>
+							</td>
+						</tr>
+						<tr style=" border-bottom: 1px solid black !important;">
+							<td  style="color:white; background-color: #900C3F;font-size:11" >
+								<b>&#160;&#160;&#160;&#160;Declaration</b>
+							</td>
+						</tr>
+						<tr style=" border-bottom: 1px solid black !important;">
+							<td  >
+								<div  style="padding-left: 8px;">
+									I hereby declare that I am the patient/patient’s legal guardian (if the patient is under 18 years of old). (Please cross out if not
+									applicable). I, the undersigned, hereby represent that the information provided above is correct and that the reimbursement
+									requested is for the costs and expenses paid by me for the treatment of my covered condition. I understand that it is unlawful to
+									provide false, incomplete and/or misleading facts and information (misrepresentation) to Daman for the purpose to defraud or
+									attempt to defraud Daman. I further understand that such act may lead to imprisonment, fines, denial of coverage, loss of
+									benefits and legal damages.
+									<br/>
+									<br/>
+									<table  style="width:100% !important;">
+										<tr>
+											<td  class="text-center">--------------------------------------------------------------------------------------------------</td>
+											<td  class="text-center">--------------------------</td>
+											<td  class="text-center">--------------------------</td>
+										</tr>
+										<tr>
+											<td class="text-center" >Name of Card Holder/ Legal Guardian/ Legal Representative</td>
+											<td  class="text-center">Signature</td>
+											<td  class="text-center">Date</td>
+
+										</tr>
+									</table>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+				<div style = "page-break-after:always"></div>
+				<div style="padding-left:6px">
+					<b>General Instructions</b>
+				</div>
+				<div style="font-size:10px;padding-left:22px;padding-right:20px;">
+					<ol>
+						<li>Please note that all information related to this Claim is strictly confidential and shall not be disclosed by Daman to any third
+							party, unless such disclosure is made pursuant to the relevant laws and regulations or authorised by you under Section 6.</li>
+						<li>This form can be used for all types of Daman medical plans and has to be completed by the Card Holder if direct billing
+							facility is not available at the healthcare provider.</li>
+						<li>In the event that a third party is filling in and submitting this Reimbursement Claim Form on your behalf, please provide a
+							copy of authorised person’s passport or emirates ID to Daman.</li>
+						<li>Use separate form for each insured member.</li>
+						<li>
+							<b>Please read the form carefully and make sure to complete all information and attach all essential documents as
+								specified herein otherwise Daman will not be able to process your Reimbursement Claim.</b>
+							<table style="width:100%;border:1px solid black; ">
+								<tr style=" border-bottom: 1px solid black !important">
+									<td  width="18%"  style="vertical-align:middle; " >
+										<div style="padding:8px">
+											<b>Essential Documents:</b>
+										</div>
+									</td>
+									<td style=" border-left: 1px solid black !important">
+										<div style="padding-left:18px;padding-top:2pxpx"></div>
+									</td>
+									<td width="82%" >
+										<ul>
+											<li>Original itemised bill / invoices with date.</li>
+											<li>Proof of payment (Paid stamp on invoice, original receipt, credit cards payment receipt, etc.).</li>
+											<li>Original prescription for medication given by the medical practitioner.</li>
+											<li>Original authorisation letter and copy of identity document of the authorised person if this
+												Reimbursement Claim Form is completed and submitted by a third party.</li>
+											<li>Copy of identity document of the authorised person for collection of payment and/or information
+												from Daman.</li>
+											<li>Copy of visa page if the Card Holder is a minor.</li>
+											<li>The following documents are required as below:</li>
+											<div style="padding-right:10px;padding-bottom:4px">
+												<table style="width:100%;border:1px solid black;" class="table-condensed">
+													<tr>
+														<td class="text-center" width="25%" style=" border-right: 1px solid black !important; border-bottom: 1px solid black !important">Cases</td>
+														<td  width="25%" class="text-center" style=" border-right: 1px solid black !important; border-bottom: 1px solid black !important">Road traffic accident</td>
+														<td  width="25%" class="text-center" style=" border-right: 1px solid black !important; border-bottom: 1px solid black !important">Work related treatment</td>
+														<td  width="25%" class="text-center" style=" border-bottom: 1px solid black !important">Any other third party liability</td>
+													</tr>
+													<tr>
+														<td width="25%"  style=" border-right: 1px solid black !important; border-bottom: 1px solid black !important">Police report</td>
+														<td class="text-center" style=" font-size:14px; border-right: 1px solid black !important; border-bottom: 1px solid black !important">&#x2713;</td>
+														<td class="text-center" style="font-size:14px; border-right: 1px solid black !important; border-bottom: 1px solid black !important">&#10003;</td>
+														<td class="text-center" style="font-size:14px; border-bottom: 1px solid black !important">&#x2713;</td>
+													</tr>
+													<tr>
+														<td width="25%"  style=" border-right: 1px solid black !important; border-bottom: 1px solid black !important">Subrogation letter</td>
+														<td class="text-center" style="font-size:14px; border-right: 1px solid black !important; border-bottom: 1px solid black !important">&#x2713;</td>
+														<td class="text-center" style="font-size:14px; border-right: 1px solid black !important; border-bottom: 1px solid black !important">&#x2713;</td>
+														<td class="text-center" style="font-size:14px; border-bottom: 1px solid black !important">&#x2713;</td>
+													</tr>
+													<tr>
+														<td width="25%"  style=" border-right: 1px solid black !important; border-bottom: 1px solid black !important">Relevant insurance policy</td>
+														<td class="text-center" style="font-size:14px; border-right: 1px solid black !important; border-bottom: 1px solid black !important">&#x2713;</td>
+														<td class="text-center" style="font-size:14px; border-right: 1px solid black !important; border-bottom: 1px solid black !important">&#x2713;</td>
+														<td class="text-center" style="font-size:14px; border-bottom: 1px solid black !important">&#x2713;</td>
+													</tr>
+													<tr>
+														<td style=" border-right: 1px solid black !important; border-bottom: 1px solid black !important">Court judgment</td>
+														<td class="text-center" style="font-size:14px; border-right: 1px solid black !important; border-bottom: 1px solid black !important">&#x2713;</td>
+														<td class="text-center" style="font-size:14px; border-right: 1px solid black !important; border-bottom: 1px solid black !important">&#x2713;</td>
+														<td class="text-center" style="font-size:14px; border-bottom: 1px solid black !important">&#x2713;</td>
+													</tr>
+												</table>
+											</div>
+											<li>If reimbursement claim is covered by other insurance policy (a) relevant insurance policy (copy).</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<td style="vertical-align:middle; border-right: 1px solid black !important">
+										<div style="padding:8px">
+											<b>Additional Requirements for Inpatient and Day Care (Hospitalisation Cases):</b>
+										</div>
+									</td>
+									<td style=" border-left: 1px solid black !important"></td>
+									<td style="vertical-align:middle;">Original Medical Report and/or Discharge Summary stamped and signed by the treating
+										medical practitioner and health care provider.</td>
+								</tr>
+							</table>
+						</li>
+					</ol>
+					</div>
+					<div style="padding-left:6px">
+						<b>Note:</b>
+					</div>
+					<div style="font-size:10px;padding-left:22px;padding-right:20px;">
+					<ul style="margin:-1px">
+						<li >The Card Holder shall keep with him/her copy of original receipts and documents enclosed with the reimbursement claim as
+							Daman will not return the original documents submitted to it unless there is a complete denial of your claim.</li>
+						<li>Daman may require reviewing the original diagnostic investigation results/reports (such as Radiology and Laboratory
+							investigation services) for services costing below AED 1000 for any medical clarifications. Therefore, kindly ensure that the
+							original documents are kept securely. Daman reserves the right to reject any claims if original documents are not available
+							upon request.</li>
+						<li >In case of treatment availed outside the UAE, Daman reserves the right to ask for a copy of passport page with the entry and
+							exit stamps and a valid visa page or any other document proving your stay outside the UAE.</li>
+					</ul>
+					<ol start="6" style="margin:-1px">
+						<li>Wire transfer information:</li>
+					</ol>
+					<div style="padding-left:18px">
+						<ul >
+							<li>The wire transfer payment will be deposited in the account number mentioned in this Reimbursement Claim Form.</li>
+							<li>Wire Transfer payment fee will be paid by Daman. Any other amount charged by the bank to the Card Holder for this
+								service and/or any tax/taxes levied shall not be the responsibility of Daman.</li>
+						</ul>
+					</div>
+					<ol start="7" style="margin:-1px" >
+						<li>Daman will inform the card holder about the status of the reimbursement claim within 10 working days from the claim
+							received date.</li>
+						<li >All claims subject to reimbursement should be submitted to Daman from the last treatment dates as mentioned below:
+						<div >
+						a)&#160;&#160;&#160;&#160;Within 180 Days for services taken inside and outside the UAE for Premier and CoGenio Plans.<br/>
+						b)&#160;&#160;&#160;&#160;Within 30 Days for services taken inside UAE for Basic (Abu Dhabi) Plan.<br/>
+						c)&#160;&#160;&#160;&#160;Within 120 Days for other Daman Health Insurance Plans based on the coverage offered for respective plan.<br/>
+						</div> 
+							</li>
+					</ol>
+					<ol start="9" style="margin:-1px">
+						<li>Daman is accepting claims submitted in the following languages: English, Arabic, Dutch, French, Russian, Hindi, Urdu, and
+							German (which might take additional five days for non-Arabic and non-English claims). Claims submitted in languages other
+							than the above listed should require translation to English or Arabic by certified translator licensed in the UAE (additional time
+							exceeding five days stated for permitted languages listed herein may be required for unlisted languages).</li>
+						<li>For any claim with foreign currency, Daman will consider the exchange rate on the day of processing the claim using the
+							prevailing exchange rate.</li>
+						<li>For health insurance plans other than CoGenio, members can submit their reimbursement claims across any of the Daman
+							branches and to the below mentioned postal address. Members under CoGenio Plans, please submit your reimbursement
+							claims only to the following postal address:</li>
+					</ol>
+				<!-- </div> -->
+				<div class="text-center" >
+					<b>
+						Claims Receiving Unit, National Health Insurance Company – Near Centro Capital Hotel,
+						<br/>
+						PO Box – 128888, Abu Dhabi, United Arab Emirates. Contact Number: +9712 6145622
+					</b>
+				</div>
+				<div>
+					If you have any question or need assistance in filling this form: For Essential Benefits Plan call +971 2 6145454. For CoGenio Plans
+					call +9712 6145622. For Other Health Insurance Plans call 800 4 32626 within the UAE or +971 2 6149555 outside UAE.
+				</div>
+				</div>
+			</div>
+			<div class="footer text-center" style="color: #C0C0C0;font-size:11px">
+				<div class="text-center" >
+					<br/>
+					<i>National Health Insurance Company – Daman (PJSC) (P.O. Box 128888, Abu Dhabi, U.A.E. Tel No. +97126149555 Fax No. +97126149550)</i>
+					<table style="width:100%;border:1px solid #C0C0C0;padding-left:1px;padding-right:1px" >
+						<tr>
+							<td align="center" style="color: #C0C0C0;vertical-align:middle; border-right:1px solid #C0C0C0"><i>Doc Ctrl No.:</i></td>
+							<td align="center" style="color: #C0C0C0;vertical-align:middle; border-right:1px solid #C0C0C0"><i>F/CLM-068</i></td>
+							<td align="center" style="color: #C0C0C0;vertical-align:middle; border-right: 1px solid #C0C0C0"><i>Version No.:</i></td>
+							<td align="center" width="5%" style="color: #C0C0C0;vertical-align:middle; border-right: 1px solid #C0C0C0"><i>1</i></td>
+							<td align="center" style="color: #C0C0C0;vertical-align:middle; border-right:  1px solid #C0C0C0"><i>Revision No.:</i></td>
+							<td align="center" width="5%" style="color: #C0C0C0;vertical-align:middle; border-right: 1px solid #C0C0C0">1</td>
+							<td align="center" style="color: #C0C0C0;vertical-align:middle; border-right: 1px solid #C0C0C0"><i>Date of Issue:</i></td>
+							<td align="center" style="color: #C0C0C0;vertical-align:middle; border-right: 1px solid #C0C0C0"><i>10.06.2015</i></td>
+							<td align="center" style="color: #C0C0C0;vertical-align:middle; border-right: 1px solid #C0C0C0"><i>Page No(s).:</i></td>
+							<td align="center" style="color: #C0C0C0;vertical-align:middle;">
+								<div style="padding:4px;">
+									<span class="page" /> of <span class="topage"/>
+								</div>
+								
+							</td>
+
+						</tr>
+					</table>
+				</div>
+			</div>
+			</t>
+		</template>
+		
+		<template id="report_daman_reimbursement">
+			<t t-call="web.html_container">
+				<!-- <t t-foreach="docs" t-as="doc">
+					<t t-call="pragtech_dental_management.report_daman_reimbursement_document" t-lang="doc.name.lang"/>
+				</t> -->
+				<t t-foreach="docs" t-as="doc">
+					<t t-call="pragtech_dental_management.report_daman_reimbursement_document" t-lang="doc.partner_id.lang"/>
+				</t>
+			</t>
+		</template>
+
+	</data>
+</odoo>

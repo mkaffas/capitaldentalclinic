@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+	<t t-name="DentalFormView">
+		<div class="perio_chart_view_dashboard">
+			<center>
+				<div class="header">
+					<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+					<meta name="description" content=""/>
+					<script src="https://code.jquery.com/jquery-1.10.2.js">
+					</script>
+					<fieldset>
+						<legend>
+							Perio Exams:
+						</legend>
+						Date
+						<input id = "current_date" type = "text">
+						</input>
+						<br/>
+						<br/>
+						<button string = "Delete" id = "delete_click">
+							Delete
+						</button>
+						<button string = "Delete">
+							New
+						</button>
+						<button string = "Delete">
+							New from Current
+						</button>
+						<br/>
+						<br/>
+						Selected Tooth:
+						<textarea id = "selected_tooth">
+						</textarea>
+					</fieldset>
+					<br/>
+					<div>
+						<img src = "/pragtech_dental_management/static/src/img/blank.jpg" id = "blank_img" style="display:none;">
+						</img>
+						Bleeding
+						<div>
+							<input type = "checkbox" id = "bleeding_1" name = "chk">
+							</input>
+							<input type = "checkbox" id = "bleeding_2" name = "chk">
+							</input>
+							<input type = "checkbox" id = "bleeding_3" name = "chk">
+							</input>
+							<br/>
+							<input type = "checkbox" id = "bleeding_4" name = "chk">
+							</input>
+							<input type = "checkbox" id = "bleeding_5" name = "chk">
+							</input>
+							<input type = "checkbox" id = "bleeding_6" name = "chk">
+							</input>
+						</div>
+					</div>
+					<br/>
+					<div id = "tooth_page">
+						<table id="tooth_table" class = "table_class" border="1" width="100%">
+						</table>
+					</div>
+					<script>
+					</script>
+				</div>
+				<br />
+				<br />
+			</center>
+		</div>
+	</t>
+	<t t-name="DentalChartView">
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<!-- <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/> -->
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+		<!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+		<div class="chart_view_dashboard" style="width:100%; height:1000px">
+			<div>
+				<button id="close_screen" class = "close" name="Close">
+					Close
+				</button>
+			</div>
+			<div class = "mouth_selection">
+				<div class="squaredOne" style="margin-top: 50px;">
+					<input type="checkbox" value="None" id="select_full_mouth" name="check" />
+					<label for="squaredOne">
+						Full Mouth
+					</label>
+				</div>
+				<!-- <input type="checkbox" id = "select_full_mouth">
+				</input>
+				<span class = "test_full_mouth">
+				Full Mouth
+				</span> -->
+			</div>
+			<div class = "set_together">
+				<div class = "procedure_label">
+					Procedures
+				</div>
+				<div style="border:1px;width:200px;height:540px;overflow:scroll;">
+					<div id = "categ_list" class = "categs">
+						<div id = "total_list_div" class="panel panel-default">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="right_col">
+				<div class = "teeth_chart" style="width:80%; height:60%;top: 100px;">
+					<table class = "numbering">
+						<tr id="upper_teeths">
+						</tr>
+					</table>
+					<table class = "numbering_below">
+						<tr id="lower_teeths">
+						</tr>
+					</table>
+					<body>
+						<div class = "surface1" id="teeth-surface-1">
+						</div>
+						<div class="page">
+							<div class="svg-layer">
+								<svg id = "svg_object" width="960"
+								height="110">
+								</svg>
+							</div>
+							<div class="html-layer"/>
+						</div>
+						<div class = "surface2" id="teeth-surface-2">
+						</div>
+					</body>
+				</div>
+				<div class = "states" width = "100%" style="margin-top: 311px;margin-left: -86px;">
+							<button id = "in_progress" class = "myButton">
+								In Progress
+							</button>
+							<button id = 'completed' class = "myButton">
+								Completed
+							</button>
+							<label id = 'planned' class="hidden">
+		                        Planned
+		                    </label>
+						</div>
+				<br/>
+				<br/>
+				
+				<div class = "progress_report" style="top: 480px;">
+					<table id = "operations" class = 'CSSTableGenerator'>
+						<thead>
+							<tr id = "heading">
+								<td>
+									Date/Time Created
+								</td>
+								<td>
+									Description
+								</td>
+								<td>
+									Tooth
+								</td>
+								<td>
+									Status
+								</td>
+								<td>
+									Surface
+								</td>
+								<td>
+									Dentist
+								</td>
+								<td>
+									Amount
+								</td>
+								<td>
+									Action
+								</td>
+								<td style = "background:white" class = "delete_td">
+								</td>
+								<td style = "display:none">
+									Previous Record
+								</td>
+							</tr>
+						</thead>
+						<tbody id = "progres_table">
+							<tr>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</t>
+	<t t-name="ResultImageView">
+		<div class="row">
+			<div style="height:40px;" class="col-md-4">
+			</div>
+			<div style="height:40px;" class="col-md-4">
+			</div>
+			<div style="height:40px;padding-top:3px" class="col-md-4 " align="center">
+				<button id="close_screen" class = "close_button"  name="Close">
+					Close
+				</button>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="carousel slide" id="theCarousel" data-ride="carousel">
+						<div class="carousel-inner" id = "my_div">
+						</div>
+                        
+                          <a class="carousel-control-prev" href="#theCarousel" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#theCarousel" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
+                        
+                         <!-- Indicators -->
+  <ul class="carousel-indicators">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    <li data-target="#demo" data-slide-to="2"></li>
+  </ul>
+						
+					</div>
+				</div>
+			</div>
+			<div  style="height:20px">
+			</div>
+			<div id = "zoomed">
+				<div  style="height:30px">
+				</div>
+			</div>
+		</div>
+	</t>
+</templates>

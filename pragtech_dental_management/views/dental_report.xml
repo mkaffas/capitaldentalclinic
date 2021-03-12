@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<report
+		id="report_dental"
+		string="Appointments Receipts"
+		model="medical.appointment"
+		report_type="qweb-pdf"
+		file="pragtech_dental_management.report_appointment"
+		name="pragtech_dental_management.report_appointment"
+		/>
+		
+		<report
+		id="report_prescription123"
+		string="Prescription"
+		model="medical.appointment"
+		report_type="qweb-pdf"
+		file="pragtech_dental_management.report_prescription"
+		name="pragtech_dental_management.report_prescription"
+		/>
+		
+		<!-- <report id="report_patient_label" 
+			model="medical.patient" 
+			name="medical.patient.label" 
+			string="Patient Card" xml="pragtech_dental_management/report/patient_label.xml" 
+			xsl="pragtech_dental_management/report/patient_label.xsl"
+			/> -->
+		
+        
+        <report
+		id="report_prescription_main123"
+		string="Prescription"
+		model="medical.prescription.order"
+		report_type="qweb-pdf"
+		file="pragtech_dental_management.report_prescription_main"
+		name="pragtech_dental_management.report_prescription_main"
+		/>
+		
+		<report
+		id="report_financing_agreement"
+		string="Patient Financing Agreement"
+		model="financing.agreement"
+		report_type="qweb-pdf"
+		file="pragtech_dental_management.report_patient_financing_agreement"
+		name="pragtech_dental_management.report_patient_financing_agreement"
+		/>
+		
+		
+		<record id="nas_al_saqr_reimbursement_paperformat" model="report.paperformat">
+	        <field name="name">Nas al Saqr Reimbursement</field>
+	        <field name="default" eval="True"/>
+	        <field name="format">A4</field>
+	        <field name="page_height">0</field>
+	        <field name="page_width">0</field>
+	        <field name="orientation">Portrait</field>
+	        <field name="margin_top">30.00</field>
+	        <field name="margin_bottom">20</field>
+	        <field name="margin_left">0.00</field>
+	        <field name="margin_right">0.00</field>
+	        <field name="header_line" eval="False"/>
+	        <field name="header_spacing">20</field>
+	        <field name="dpi">80</field>
+    	</record>
+		
+		<report
+		id="report_employee_claim_form123"
+		string="Nas al Saqr Reimbursement"
+		model="medical.patient"
+		report_type="qweb-pdf"
+		file="pragtech_dental_management.report_claim_form"
+		name="pragtech_dental_management.report_claim_form"
+		paperformat="pragtech_dental_management.nas_al_saqr_reimbursement_paperformat"
+		/>
+		
+		<record id="Daman_Reimbursement_paperformat" model="report.paperformat">
+	        <field name="name">Daman Reimbursement</field>
+	        <field name="default" eval="True"/>
+	        <field name="format">A4</field>
+	        <field name="page_height">0</field>
+	        <field name="page_width">0</field>
+	        <field name="orientation">Portrait</field>
+	        <field name="margin_top">30.00</field>
+	        <field name="margin_bottom">18.00</field>
+	        <field name="margin_left">0.00</field>
+	        <field name="margin_right">0.00</field>
+	        <field name="header_line" eval="False"/>
+	        <field name="header_spacing">20</field>
+	        <field name="dpi">80</field>
+    	</record>
+		
+		<report
+		id="Daman_Reimbursement_form123"
+		string="Daman Reimbursement"
+		model="medical.patient"
+		report_type="qweb-pdf"
+		file="pragtech_dental_management.report_daman_reimbursement"
+		name="pragtech_dental_management.report_daman_reimbursement"
+		paperformat="pragtech_dental_management.Daman_Reimbursement_paperformat"
+		/>
+		
+		<record id="oman_reinburstment_paperformat" model="report.paperformat">
+	        <field name="name">Oman Reinburstment</field>
+	        <field name="default" eval="True"/>
+	        <field name="format">A4</field>
+	        <field name="page_height">0</field>
+	        <field name="page_width">0</field>
+	        <field name="orientation">Portrait</field>
+	        <field name="margin_top">5.00</field>
+	        <field name="margin_bottom">15.00</field>
+	        <field name="margin_left">0.00</field>
+	        <field name="margin_right">0.00</field>
+	        <field name="header_line" eval="False"/>
+	        <field name="header_spacing">20</field>
+	        <field name="dpi">80</field>
+    	</record>
+		
+		<report
+		id="oman_reinburstment_form123"
+		string="Oman Reimbursement"
+		model="medical.patient"
+		report_type="qweb-pdf"
+		file="pragtech_dental_management.report_oman_reinburstment"
+		name="pragtech_dental_management.report_oman_reinburstment"
+		paperformat="pragtech_dental_management.oman_reinburstment_paperformat"
+		/>
+		
+		
+		<record id="nextcare_reimbursement_paperformat" model="report.paperformat">
+	        <field name="name">Oman Reinbursement</field>
+	        <field name="default" eval="True"/>
+	        <field name="format">A4</field>
+	        <field name="page_height">0</field>
+	        <field name="page_width">0</field>
+	        <field name="orientation">Portrait</field>
+	        <field name="margin_top">5.00</field>
+	        <field name="margin_bottom">5.00</field>
+	        <field name="margin_left">0.00</field>
+	        <field name="margin_right">0.00</field>
+	        <field name="header_line" eval="False"/>
+	        <field name="header_spacing">20</field>
+	        <field name="dpi">80</field>
+    	</record>
+		
+		<report
+		id="nextcare_reimbursement_form123"
+		string="Nextcare reimbursement"
+		model="medical.patient"
+		report_type="qweb-pdf"
+		file="pragtech_dental_management.report_nextcare_reimbursement"
+		name="pragtech_dental_management.report_nextcare_reimbursement"
+		paperformat="pragtech_dental_management.nextcare_reimbursement_paperformat"
+		/>
+		
+		<report
+		id="income_byreport_report12333"
+		string="Income By Dentist"
+		model="income.by.doctor.report.wizard"
+		report_type="qweb-pdf"
+		file="pragtech_dental_management.report_income_by_doctor"
+		name="pragtech_dental_management.report_income_by_doctor"
+		/>
+		
+		
+		<report
+		id="patient_byreport_report12333"
+		string="Patient By Doctor"
+		model="patient.by.doctor.report.wizard"
+		report_type="qweb-pdf"
+		file="pragtech_dental_management.report_patient_by_doctor"
+		name="pragtech_dental_management.report_patient_by_doctor"
+		/>
+
+	</data>
+</odoo>

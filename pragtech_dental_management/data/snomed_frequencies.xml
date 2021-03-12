@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+<data noupdate="True">
+<!-- <record model="medical.medication.dosage" id="2297970041">
+	<field name="name">1 time per day</field>
+	<field name="code">229797004</field>
+	<field name="abbreviation">od</field>
+</record>
+<record model="medical.medication.dosage" id="3074720011">
+	<field name="name">1 time per day in the morning</field>
+	<field name="code">307472001</field>
+	<field name="abbreviation">om</field>
+</record>
+<record model="medical.medication.dosage" id="3961470001">
+	<field name="name">1 time per day in the evening</field>
+	<field name="code">396147000</field>
+	<field name="abbreviation"></field>
+</record>
+<record model="medical.medication.dosage" id="3961420061">
+	<field name="name">1 time per day at bedtime</field>
+	<field name="code">396142006</field>
+	<field name="abbreviation">on</field>
+</record>
+<record model="medical.medication.dosage" id="2297990011">
+	<field name="name">2 times per day</field>
+	<field name="code">229799001</field>
+	<field name="abbreviation">bd</field>
+</record>
+<record model="medical.medication.dosage" id="2297980091">
+	<field name="name">3 times per day</field>
+	<field name="code">229798009</field>
+	<field name="abbreviation">tds</field>
+</record>
+<record model="medical.medication.dosage" id="3961450081">
+	<field name="name">3 times per day, before meals</field>
+	<field name="code">396145008</field>
+	<field name="abbreviation"></field>
+</record>
+<record model="medical.medication.dosage" id="3961460091">
+	<field name="name">3 times per day, with meals</field>
+	<field name="code">396146009</field>
+	<field name="abbreviation"></field>
+</record>
+<record model="medical.medication.dosage" id="3074390011">
+	<field name="name">4 times per day</field>
+	<field name="code">307439001</field>
+	<field name="abbreviation">qds</field>
+</record>
+<record model="medical.medication.dosage" id="2257500081">
+	<field name="name">every 2 hours</field>
+	<field name="code">225750008</field>
+	<field name="abbreviation"></field>
+</record>
+<record model="medical.medication.dosage" id="2257560021">
+	<field name="name">every 4 hours</field>
+	<field name="code">225756002</field>
+	<field name="abbreviation"></field>
+</record>
+<record model="medical.medication.dosage" id="3074680001">
+	<field name="name">every 6 hours</field>
+	<field name="code">307468000</field>
+	<field name="abbreviation"></field>
+</record>
+<record model="medical.medication.dosage" id="3074690081">
+	<field name="name">every 8 hours</field>
+	<field name="code">307469008</field>
+	<field name="abbreviation"></field>
+</record>
+<record model="medical.medication.dosage" id="3074700091">
+	<field name="name">every 12 hours</field>
+	<field name="code">307470009</field>
+	<field name="abbreviation"></field>
+</record>
+<record model="medical.medication.dosage" id="2257600041">
+	<field name="name">every other day</field>
+	<field name="code">225760004</field>
+	<field name="abbreviation"></field>
+</record>
+<record model="medical.medication.dosage" id="2257690031">
+	<field name="name">1 time per week</field>
+	<field name="code">225769003</field>
+	<field name="abbreviation"></field>
+</record>
+<record model="medical.medication.dosage" id="200500001">
+	<field name="name">every two weeks</field>
+	<field name="code">20050000</field>
+	<field name="abbreviation"></field>
+</record>
+<record model="medical.medication.dosage" id="3074760031">
+	<field name="name">every 28 days</field>
+	<field name="code">307476003</field>
+	<field name="abbreviation"></field>
+</record>
+<record model="medical.medication.dosage" id="3074750041">
+	<field name="name">every month</field>
+	<field name="code">307475004</field>
+	<field name="abbreviation"></field>
+</record>
+<record model="medical.medication.dosage" id="4204490051">
+	<field name="name">as needed</field>
+	<field name="code">420449005</field>
+	<field name="abbreviation">prn</field>
+</record>
+<record model="medical.medication.dosage" id="4221140011">
+	<field name="name">1 time</field>
+	<field name="code">422114001</field>
+	<field name="abbreviation">stat</field>
+</record> -->
+</data>
+</odoo>

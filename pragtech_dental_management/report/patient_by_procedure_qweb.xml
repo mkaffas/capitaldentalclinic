@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <report   
+            id="patient_by_procedure_qweb" 
+            string="Patient By Procedure"
+            model="patient.by.procedure.wizard"
+            report_type="qweb-pdf"
+            file="pragtech_dental_management.report_patient_by_procedure"  
+            name="pragtech_dental_management.report_patient_by_procedure"/>
+    </data>
+</odoo>

@@ -1,0 +1,1772 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+<data noupdate="True">
+<record model="product.product" id="product_2">
+	<field name="name">abacavir (ABC)</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_3">
+	<field name="name">acetazolamide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_4">
+	<field name="name">acetylcysteine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_5">
+	<field name="name">acetylsalicylic acid</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_6">
+	<field name="name">aciclovir</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_7">
+	<field name="name">albendazole</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_8">
+	<field name="name">alcuronium</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_9">
+	<field name="name">allopurinol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_10">
+	<field name="name">aluminium diacetate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_11">
+	<field name="name">aluminium hydroxide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_12">
+	<field name="name">amidotrizoate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_13">
+	<field name="name">amikacin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_14">
+	<field name="name">amiloride</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_15">
+	<field name="name">amitriptyline</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_16">
+	<field name="name">amlodipine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_17">
+	<field name="name">amodiaquine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_18">
+	<field name="name">amoxicillin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_19">
+	<field name="name">amoxicillin + clavulanic acid</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_20">
+	<field name="name">amphotericin B</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_21">
+	<field name="name">ampicillin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_22">
+	<field name="name">anti‐D immunoglobulin (human)</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_23">
+	<field name="name">antitetanus immunoglobulin (human)</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_24">
+	<field name="name">antivenom immunoglobulin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_25">
+	<field name="name">artemether</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_26">
+	<field name="name">artemether + lumefantrine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_27">
+	<field name="name">artesunate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_28">
+	<field name="name">ascorbic acid</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_29">
+	<field name="name">asparaginase</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_30">
+	<field name="name">atenolol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_31">
+	<field name="name">atropine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_32">
+	<field name="name">azathioprine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_33">
+	<field name="name">azithromycin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_34">
+	<field name="name">bacitracin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_35">
+	<field name="name">barium sulfate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<!-- <record model="product.product" id="product_36"> -->
+<!-- 	<field name="name">BCG vaccine</field> -->
+<!-- 	<field name="categ_id"  ref="vaccine"/> -->
+<!-- 	<field name="is_vaccine">1</field> -->
+<!-- </record> -->
+<record model="product.product" id="product_37">
+	<field name="name">beclometasone</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_38">
+	<field name="name">benzathine benzylpenicillin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_39">
+	<field name="name">benznidazole</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_40">
+	<field name="name">benzoic acid</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_41">
+	<field name="name">benzoic acid + salicylic acid</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_42">
+	<field name="name">benzoyl peroxide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_43">
+	<field name="name">benzyl benzoate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_44">
+	<field name="name">benzylpenicillin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_45">
+	<field name="name">betamethasone</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_46">
+	<field name="name">biperiden</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_47">
+	<field name="name">bleomycin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_48">
+	<field name="name">bupivacaine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_49">
+	<field name="name">caffeine citrate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_50">
+	<field name="name">calamine lotion</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_51">
+	<field name="name">calcium folinate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_52">
+	<field name="name">calcium gluconate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_53">
+	<field name="name">capreomycin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_54">
+	<field name="name">carbamazepine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_55">
+	<field name="name">carbidopa</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_56">
+	<field name="name">cefazolin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_57">
+	<field name="name">cefixime</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_58">
+	<field name="name">ceftazidime</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_59">
+	<field name="name">ceftriaxone</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_60">
+	<field name="name">charcoal, activated</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_61">
+	<field name="name">chlorambucil</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_62">
+	<field name="name">chloramphenicol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_63">
+	<field name="name">chlorhexidine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_64">
+	<field name="name">chlorine base compound</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_65">
+	<field name="name">chloroquine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_66">
+	<field name="name">chloroxylenol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_67">
+	<field name="name">chlorphenamine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_68">
+	<field name="name">chlorpromazine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<!-- <record model="product.product" id="product_69"> -->
+<!-- 	<field name="name">cholera vaccine</field> -->
+<!-- 	<field name="categ_id"  ref="vaccine"/> -->
+<!-- 	<field name="is_medicament">1</field> -->
+<!-- 	<field name="is_vaccine">1</field> -->
+<!-- </record> -->
+<record model="product.product" id="product_70">
+	<field name="name">ciclosporin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_71">
+	<field name="name">cilastatin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_72">
+	<field name="name">ciprofloxacin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_73">
+	<field name="name">cisplatin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_74">
+	<field name="name">clavulanic acid</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_75">
+	<field name="name">clindamycin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_76">
+	<field name="name">clofazimine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_77">
+	<field name="name">clomifene</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_78">
+	<field name="name">clomipramine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_79">
+	<field name="name">clotrimazole</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_80">
+	<field name="name">cloxacillin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_81">
+	<field name="name">coal tar</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_82">
+	<field name="name">codeine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_83">
+	<field name="name">condoms</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_84">
+	<field name="name">copper‐containing device</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_85">
+	<field name="name">cyclophosphamide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_86">
+	<field name="name">cycloserine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_87">
+	<field name="name">cypionate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_88">
+	<field name="name">cytarabine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_89">
+	<field name="name">dacarbazine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_90">
+	<field name="name">dactinomycin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_91">
+	<field name="name">dapsone</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_92">
+	<field name="name">daunorubicin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_93">
+	<field name="name">deferoxamine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_94">
+	<field name="name">dexamethasone</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_95">
+	<field name="name">dextran</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_96">
+	<field name="name">diaphragms</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_97">
+	<field name="name">diazepam</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_98">
+	<field name="name">didanosine (ddI)</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_99">
+	<field name="name">diethylcarbamazine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_100">
+	<field name="name">digoxin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_101">
+	<field name="name">diloxanide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_102">
+	<field name="name">dimercaprol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_103">
+	<field name="name">diphtheria antitoxin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<!-- <record model="product.product" id="product_104"> -->
+<!-- 	<field name="name">diphtheria vaccine</field> -->
+<!-- 	<field name="categ_id"  ref="vaccine"/> -->
+<!-- 	<field name="is_medicament">1</field> -->
+<!-- 	<field name="is_vaccine">1</field> -->
+<!-- </record> -->
+<record model="product.product" id="product_105">
+	<field name="name">dithranol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_106">
+	<field name="name">DL‐methionine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_107">
+	<field name="name">dopamine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_108">
+	<field name="name">doxorubicin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_109">
+	<field name="name">doxycycline</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_110">
+	<field name="name">efavirenz (EFV or EFZ)</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_111">
+	<field name="name">efavirenz + emtricitabine + tenofovir</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_112">
+	<field name="name">eflornithine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_113">
+	<field name="name">emtricitabine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_114">
+	<field name="name">emtricitabine (FTC)</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_115">
+	<field name="name">emtricitabine + tenofovir</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_116">
+	<field name="name">enalapril</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_117">
+	<field name="name">ephedrine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_118">
+	<field name="name">epinephrine (adrenaline)</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_119">
+	<field name="name">ergocalciferol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_120">
+	<field name="name">ergometrine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_121">
+	<field name="name">erythromycin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_122">
+	<field name="name">estradiol cypionate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_123">
+	<field name="name">ethambutol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_124">
+	<field name="name">ethanol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_125">
+	<field name="name">ethinylestradiol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_126">
+	<field name="name">ethinylestradiol + levonorgestrel</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_127">
+	<field name="name">ethinylestradiol + norethisterone</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_128">
+	<field name="name">ethionamide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_129">
+	<field name="name">ethosuximide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_130">
+	<field name="name">etoposide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_131">
+	<field name="name">factor IX complex (coagulation factors, II, VII, IX, X) concentrate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_132">
+	<field name="name">factor VIII concentrate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_133">
+	<field name="name">ferrous salt</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_134">
+	<field name="name">ferrous salt + folic acid</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_135">
+	<field name="name">fluconazole</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_136">
+	<field name="name">flucytosine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_137">
+	<field name="name">fluorescein</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_138">
+	<field name="name">fluorouracil</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_139">
+	<field name="name">fluoxetine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_140">
+	<field name="name">fluphenazine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_141">
+	<field name="name">folic acid</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_142">
+	<field name="name">furosemide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_143">
+	<field name="name">gentamicin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_144">
+	<field name="name">glibenclamide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_145">
+	<field name="name">glucose</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_146">
+	<field name="name">glucose with sodium chloride</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_147">
+	<field name="name">glutaral</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_148">
+	<field name="name">glyceryl trinitrate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_149">
+	<field name="name">griseofulvin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<!-- <record model="product.product" id="product_150"> -->
+<!-- 	<field name="name">Haemophilus influenzae type b vaccine</field> -->
+<!-- 	<field name="categ_id"  ref="vaccine"/> -->
+<!-- 	<field name="is_vaccine">1</field> -->
+<!-- </record> -->
+<record model="product.product" id="product_151">
+	<field name="name">haloperidol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_152">
+	<field name="name">halothane</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_153">
+	<field name="name">heparin sodium</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<!-- <record model="product.product" id="product_154"> -->
+<!-- 	<field name="name">hepatitis A vaccine</field> -->
+<!-- 	<field name="categ_id"  ref="vaccine"/> -->
+<!-- 	<field name="is_vaccine">1</field> -->
+<!-- </record> -->
+<!-- <record model="product.product" id="product_155"> -->
+<!-- 	<field name="name">hepatitis B vaccine</field> -->
+<!-- 	<field name="categ_id"  ref="vaccine"/> -->
+<!-- 	<field name="is_vaccine">1</field> -->
+<!-- </record> -->
+<record model="product.product" id="product_156">
+	<field name="name">human normal immunoglobulin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_157">
+	<field name="name">hydralazine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_158">
+	<field name="name">hydrochlorothiazide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_159">
+	<field name="name">hydrocortisone</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_160">
+	<field name="name">hydroxocobalamin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_161">
+	<field name="name">ibuprofen</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_162">
+	<field name="name">imipenem + cilastatin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_163">
+	<field name="name">immunoglobulin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_164">
+	<field name="name">indinavir (IDV)</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<!-- <record model="product.product" id="product_165"> -->
+<!-- 	<field name="name">influenza vaccine</field> -->
+<!-- 	<field name="categ_id"  ref="vaccine"/> -->
+<!-- 	<field name="is_vaccine">1</field> -->
+<!-- </record> -->
+<record model="product.product" id="product_166">
+	<field name="name">insulin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_167">
+	<field name="name">insulin injection (soluble)</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_168">
+	<field name="name">intermediate‐acting insulin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_169">
+	<field name="name">intraperitoneal dialysis solution (of appropriate composition)</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_170">
+	<field name="name">iodine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_171">
+	<field name="name">iohexol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_172">
+	<field name="name">ipratropium bromide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_173">
+	<field name="name">isoniazid</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_174">
+	<field name="name">isoniazid + ethambutol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_175">
+	<field name="name">isosorbide dinitrate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_176">
+	<field name="name">ivermectin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<!-- <record model="product.product" id="product_177"> -->
+<!-- 	<field name="name">Japanese encephalitis vaccine</field> -->
+<!-- 	<field name="categ_id"  ref="vaccine"/> -->
+<!-- 	<field name="is_vaccine">1</field> -->
+<!-- </record> -->
+<record model="product.product" id="product_178">
+	<field name="name">kanamycin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_179">
+	<field name="name">ketamine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_180">
+	<field name="name">lamivudine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_181">
+	<field name="name">lamivudine (3TC)</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_182">
+	<field name="name">levamisole</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_183">
+	<field name="name">levodopa</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_184">
+	<field name="name">levodopa + carbidopa</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_185">
+	<field name="name">levonorgestrel</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_186">
+	<field name="name">levonorgestrel‐releasing implant</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_187">
+	<field name="name">levothyroxine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_188">
+	<field name="name">lidocaine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_189">
+	<field name="name">lidocaine + epinephrine (adrenaline)</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_190">
+	<field name="name">lithium carbonate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_191">
+	<field name="name">lopinavir</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_192">
+	<field name="name">lopinavir + ritonavir (LPV/r)</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_193">
+	<field name="name">lumefantrine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_194">
+	<field name="name">magnesium hydroxide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_195">
+	<field name="name">magnesium sulfate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_196">
+	<field name="name">mannitol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<!-- <record model="product.product" id="product_197"> -->
+<!-- 	<field name="name">measles vaccine</field> -->
+<!-- 	<field name="categ_id"  ref="vaccine"/> -->
+<!-- 	<field name="is_vaccine">1</field> -->
+<!-- </record> -->
+<record model="product.product" id="product_198">
+	<field name="name">mebendazole</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_199">
+	<field name="name">medroxyprogesterone acetate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_200">
+	<field name="name">medroxyprogesterone acetate + estradiol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_201">
+	<field name="name">mefloquine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_202">
+	<field name="name">meglumine antimoniate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_203">
+	<field name="name">meglumine iotroxate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_204">
+	<field name="name">melarsoprol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<!-- <record model="product.product" id="product_205"> -->
+<!-- 	<field name="name">meningococcal meningitis vaccine</field> -->
+<!-- 	<field name="categ_id"  ref="vaccine"/> -->
+<!-- 	<field name="is_vaccine">1</field> -->
+<!-- </record> -->
+<record model="product.product" id="product_206">
+	<field name="name">mercaptopurine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_207">
+	<field name="name">metformin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_208">
+	<field name="name">methadone</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_209">
+	<field name="name">methotrexate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_210">
+	<field name="name">methyldopa</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_211">
+	<field name="name">methylrosanilinium chloride (gentian violet)</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_212">
+	<field name="name">methylthioninium chloride (methylene blue)</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_213">
+	<field name="name">metoclopramide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_214">
+	<field name="name">metronidazole</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_215">
+	<field name="name">miconazole</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_216">
+	<field name="name">mifepristone</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_217">
+	<field name="name">misoprostol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_218">
+	<field name="name">morphine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<!-- <record model="product.product" id="product_219"> -->
+<!-- 	<field name="name">mumps vaccine</field> -->
+<!-- 	<field name="categ_id"  ref="vaccine"/> -->
+<!-- 	<field name="is_vaccine">1</field> -->
+<!-- </record> -->
+<record model="product.product" id="product_220">
+	<field name="name">naloxone</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_221">
+	<field name="name">nelfinavir (NFV)</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_222">
+	<field name="name">neomycin sulfate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_223">
+	<field name="name">neomycin sulfate + bacitracin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_224">
+	<field name="name">neostigmine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_225">
+	<field name="name">nevirapine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_226">
+	<field name="name">nevirapine (NVP)</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_227">
+	<field name="name">niclosamide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_228">
+	<field name="name">nicotinamide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_229">
+	<field name="name">nifedipine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_230">
+	<field name="name">nifurtimox</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_231">
+	<field name="name">nitrofurantoin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_232">
+	<field name="name">nitrous oxide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_233">
+	<field name="name">norethisterone</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_234">
+	<field name="name">norethisterone enantate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_235">
+	<field name="name">nystatin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_236">
+	<field name="name">ofloxacin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_237">
+	<field name="name">oral rehydration salts</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_238">
+	<field name="name">oxamniquine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_239">
+	<field name="name">oxygen</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_240">
+	<field name="name">oxytocin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_241">
+	<field name="name">p‐aminosalicylic acid</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_242">
+	<field name="name">paracetamol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_243">
+	<field name="name">paromomycin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_244">
+	<field name="name">penicillamine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_245">
+	<field name="name">pentamidine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_246">
+	<field name="name">permethrin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<!-- <record model="product.product" id="product_247"> -->
+<!-- 	<field name="name">pertussis vaccine</field> -->
+<!-- 	<field name="categ_id"  ref="vaccine"/> -->
+<!-- 	<field name="is_vaccine">1</field> -->
+<!-- </record> -->
+<record model="product.product" id="product_248">
+	<field name="name">phenobarbital</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_249">
+	<field name="name">phenoxymethylpenicillin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_250">
+	<field name="name">phenytoin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_251">
+	<field name="name">phytomenadione</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_252">
+	<field name="name">pilocarpine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<!-- <record model="product.product" id="product_253"> -->
+<!-- 	<field name="name">pneumococcal vaccine</field> -->
+<!-- 	<field name="categ_id"  ref="vaccine"/> -->
+<!-- 	<field name="is_vaccine">1</field> -->
+<!-- </record> -->
+<record model="product.product" id="product_254">
+	<field name="name">podophyllum resin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<!-- <record model="product.product" id="product_255"> -->
+<!-- 	<field name="name">poliomyelitis vaccine</field> -->
+<!-- 	<field name="categ_id"  ref="vaccine"/> -->
+<!-- 	<field name="is_vaccine">1</field> -->
+<!-- </record> -->
+<record model="product.product" id="product_256">
+	<field name="name">polyvidone iodine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_257">
+	<field name="name">potassium chloride</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_258">
+	<field name="name">potassium ferric hexacyano‐ferrate(II) ‐2H20 (Prussian blue)</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_259">
+	<field name="name">potassium iodide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_260">
+	<field name="name">potassium permanganate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_261">
+	<field name="name">praziquantel</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_262">
+	<field name="name">prednisolone</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_263">
+	<field name="name">primaquine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_264">
+	<field name="name">procainamide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_265">
+	<field name="name">procaine benzylpenicillin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_266">
+	<field name="name">procarbazine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_267">
+	<field name="name">proguanil</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_268">
+	<field name="name">promethazine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_269">
+	<field name="name">propranolol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_270">
+	<field name="name">propylthiouracil</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_271">
+	<field name="name">protamine sulfate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_272">
+	<field name="name">pyrantel</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_273">
+	<field name="name">pyrazinamide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_274">
+	<field name="name">pyridostigmine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_275">
+	<field name="name">pyridoxine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_276">
+	<field name="name">pyrimethamine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_277">
+	<field name="name">quinidine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_278">
+	<field name="name">quinine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_279">
+	<field name="name">rabies immunoglobulin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<!-- <record model="product.product" id="product_280"> -->
+<!-- 	<field name="name">rabies vaccine</field> -->
+<!-- 	<field name="categ_id"  ref="vaccine"/> -->
+<!-- 	<field name="is_vaccine">1</field> -->
+<!-- </record> -->
+<record model="product.product" id="product_281">
+	<field name="name">ranitidine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_282">
+	<field name="name">retinol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_283">
+	<field name="name">ribavirin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_284">
+	<field name="name">riboflavin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_285">
+	<field name="name">rifampicin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_286">
+	<field name="name">rifampicin + isoniazid</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_287">
+	<field name="name">rifampicin + isoniazid + ethambutol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_288">
+	<field name="name">rifampicin + isoniazid + pyrazinamide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_289">
+	<field name="name">rifampicin + isoniazid + pyrazinamide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_290">
+	<field name="name">ritonavir</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<!-- <record model="product.product" id="product_291"> -->
+<!-- 	<field name="name">rotavirus vaccine</field> -->
+<!-- 	<field name="categ_id"  ref="vaccine"/> -->
+<!-- 	<field name="is_vaccine">1</field> -->
+<!-- </record> -->
+<record model="product.product" id="product_292">
+	<field name="name">rubella vaccine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_293">
+	<field name="name">salbutamol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_294">
+	<field name="name">salicylic acid</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_295">
+	<field name="name">saquinavir (SQV)</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_296">
+	<field name="name">selenium sulfide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_297">
+	<field name="name">senna</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_298">
+	<field name="name">silver sulfadiazine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_299">
+	<field name="name">simvastatin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_300">
+	<field name="name">sodium calcium edetate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_301">
+	<field name="name">sodium chloride</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_302">
+	<field name="name">sodium fluoride</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_303">
+	<field name="name">sodium hydrogen carbonate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_304">
+	<field name="name">sodium lactate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_305">
+	<field name="name">sodium nitrite</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_306">
+	<field name="name">sodium nitroprusside</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_307">
+	<field name="name">sodium thiosulfate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_308">
+	<field name="name">sodium valproate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_309">
+	<field name="name">spectinomycin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_310">
+	<field name="name">spironolactone</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_311">
+	<field name="name">stavudine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_312">
+	<field name="name">stavudine (d4T)</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_313">
+	<field name="name">stavudine + lamivudine + nevirapine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_314">
+	<field name="name">streptokinase</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_315">
+	<field name="name">streptomycin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_316">
+	<field name="name">sulfadiazine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_317">
+	<field name="name">sulfadoxine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_318">
+	<field name="name">sulfadoxine + pyrimethamine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_319">
+	<field name="name">sulfamethoxazole</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_320">
+	<field name="name">sulfamethoxazole + trimethoprim</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_321">
+	<field name="name">sulfasalazine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_322">
+	<field name="name">suramin sodium</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_323">
+	<field name="name">suxamethonium</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_324">
+	<field name="name">tamoxifen</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_325">
+	<field name="name">tenofovir</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_326">
+	<field name="name">tenofovir disoproxil fumarate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_327">
+	<field name="name">testosterone</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<!-- <record model="product.product" id="product_328"> -->
+<!-- 	<field name="name">tetanus vaccine</field> -->
+<!-- 	<field name="categ_id"  ref="vaccine"/> -->
+<!-- 	<field name="is_vaccine">1</field> -->
+<!-- </record> -->
+<record model="product.product" id="product_329">
+	<field name="name">tetracaine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_330">
+	<field name="name">tetracycline</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_331">
+	<field name="name">thiamine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_332">
+	<field name="name">thiopental</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_333">
+	<field name="name">timolol</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_334">
+	<field name="name">triclabendazole</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_335">
+	<field name="name">trimethoprim</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_336">
+	<field name="name">tropicamide</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_337">
+	<field name="name">tuberculin, purified protein derivative (PPD)</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<!-- <record model="product.product" id="product_338"> -->
+<!-- 	<field name="name">typhoid vaccine</field> -->
+<!-- 	<field name="categ_id"  ref="vaccine"/> -->
+<!-- 	<field name="is_vaccine">1</field> -->
+<!-- </record> -->
+<record model="product.product" id="product_339">
+	<field name="name">urea</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_340">
+	<field name="name">valproic acid</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_341">
+	<field name="name">vancomycin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<!-- <record model="product.product" id="product_342"> -->
+<!-- 	<field name="name">varicella vaccine</field> -->
+<!-- 	<field name="categ_id"  ref="vaccine"/> -->
+<!-- 	<field name="is_vaccine">1</field> -->
+<!-- </record> -->
+<record model="product.product" id="product_343">
+	<field name="name">vecuronium</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_344">
+	<field name="name">verapamil</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_345">
+	<field name="name">vinblastine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_346">
+	<field name="name">vincristine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_347">
+	<field name="name">warfarin</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_348">
+	<field name="name">water for injection</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<!-- <record model="product.product" id="product_349"> -->
+<!-- 	<field name="name">yellow fever vaccine</field> -->
+<!-- 	<field name="categ_id"  ref="vaccine"/> -->
+<!-- 	<field name="is_vaccine">1</field> -->
+<!-- </record> -->
+<record model="product.product" id="product_350">
+	<field name="name">zidovudine (ZDV or AZT)</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_351">
+	<field name="name">zidovudine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_352">
+	<field name="name">zidovudine + lamivudine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_353">
+	<field name="name">zidovudine + lamivudine + nevirapine</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+<record model="product.product" id="product_354">
+	<field name="name">zinc sulfate</field>
+	<field name="categ_id"  ref="generic"/>
+	<field name="is_medicament">1</field>
+</record>
+</data>
+</odoo>

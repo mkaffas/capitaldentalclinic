@@ -1,0 +1,2084 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+<data noupdate="True">
+<record model="medical.medicament" id="medicament_2">
+	<field name="name" ref="product_2"/>
+	<field name="active_component">abacavir (ABC)</field>
+</record>
+<record model="medical.medicament" id="medicament_3">
+	<field name="name" ref="product_3"/>
+	<field name="active_component">acetazolamide</field>
+</record>
+<record model="medical.medicament" id="medicament_4">
+	<field name="name" ref="product_4"/>
+	<field name="active_component">acetylcysteine</field>
+	<field name="category"  ref="em_4_2"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Injection: 200 mg/ml in 10‐ml ampoule. 
+Oral liquid: 10% ; 20%  </field>
+</record>
+<record model="medical.medicament" id="medicament_5">
+	<field name="name" ref="product_5"/>
+	<field name="active_component">acetylsalicylic acid</field>
+	<field name="category"  ref="em_2_1"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">D</field>
+    <field name="notes">Suppository: 50 mg to 150 mg.
+Tablet: 100 mg to 500 mg.</field>
+</record>
+<record model="medical.medicament" id="medicament_6">
+	<field name="name" ref="product_6"/>
+	<field name="active_component">aciclovir</field>
+</record>
+<record model="medical.medicament" id="medicament_7">
+	<field name="name" ref="product_7"/>
+	<field name="active_component">albendazole</field>
+	<field name="category"  ref="em_6_1_1"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Tablet (chewable): 400 mg.</field>
+</record>
+<record model="medical.medicament" id="medicament_8">
+	<field name="name" ref="product_8"/>
+	<field name="active_component">alcuronium</field>
+</record>
+<record model="medical.medicament" id="medicament_9">
+	<field name="name" ref="product_9"/>
+	<field name="active_component">allopurinol</field>
+	<field name="category"  ref="em_2_3"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Tablet: 100 mg</field>
+</record>
+<record model="medical.medicament" id="medicament_10">
+	<field name="name" ref="product_10"/>
+	<field name="active_component">aluminium diacetate</field>
+</record>
+<record model="medical.medicament" id="medicament_11">
+	<field name="name" ref="product_11"/>
+	<field name="active_component">aluminium hydroxide</field>
+</record>
+<record model="medical.medicament" id="medicament_12">
+	<field name="name" ref="product_12"/>
+	<field name="active_component">amidotrizoate</field>
+</record>
+<record model="medical.medicament" id="medicament_13">
+	<field name="name" ref="product_13"/>
+	<field name="active_component">amikacin</field>
+</record>
+<record model="medical.medicament" id="medicament_14">
+	<field name="name" ref="product_14"/>
+	<field name="active_component">amiloride</field>
+</record>
+<record model="medical.medicament" id="medicament_15">
+	<field name="name" ref="product_15"/>
+	<field name="active_component">amitriptyline</field>
+</record>
+<record model="medical.medicament" id="medicament_16">
+	<field name="name" ref="product_16"/>
+	<field name="active_component">amlodipine</field>
+</record>
+<record model="medical.medicament" id="medicament_17">
+	<field name="name" ref="product_17"/>
+	<field name="active_component">amodiaquine</field>
+</record>
+<record model="medical.medicament" id="medicament_18">
+	<field name="name" ref="product_18"/>
+	<field name="active_component">amoxicillin</field>
+	<field name="category"  ref="em_6_2_1"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Powder for oral liquid: 125 mg (as trihydrate)/5 ml; 250 mg (as trihydrate)/5 ml [c].
+Solid oral dosage form: 250 mg; 500 mg (as trihydrate).</field>
+</record>
+<record model="medical.medicament" id="medicament_19">
+	<field name="name" ref="product_19"/>
+	<field name="active_component">amoxicillin + clavulanic acid</field>
+	<field name="category"  ref="em_6_2_1"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Oral liquid: 125 mg amoxicillin + 31.25 mg clavulanic acid/5 ml AND 250 mg amoxicillin + 62.5 mg clavulanic acid/5 ml [c].
+Tablet: 500 mg (as trihydrate) + 125 mg (as potassium salt).</field>
+</record>
+<record model="medical.medicament" id="medicament_20">
+	<field name="name" ref="product_20"/>
+	<field name="active_component">amphotericin B</field>
+</record>
+<record model="medical.medicament" id="medicament_21">
+	<field name="name" ref="product_21"/>
+	<field name="active_component">ampicillin</field>
+	<field name="category"  ref="em_6_2_1"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Powder for injection: 500 mg; 1 g (as sodium salt) in vial.</field>
+</record>
+<record model="medical.medicament" id="medicament_22">
+	<field name="name" ref="product_22"/>
+	<field name="active_component">anti‐D immunoglobulin (human)</field>
+</record>
+<record model="medical.medicament" id="medicament_23">
+	<field name="name" ref="product_23"/>
+	<field name="active_component">antitetanus immunoglobulin (human)</field>
+</record>
+<record model="medical.medicament" id="medicament_24">
+	<field name="name" ref="product_24"/>
+	<field name="active_component">antivenom immunoglobulin</field>
+</record>
+<record model="medical.medicament" id="medicament_25">
+	<field name="name" ref="product_25"/>
+	<field name="active_component">artemether</field>
+</record>
+<record model="medical.medicament" id="medicament_26">
+	<field name="name" ref="product_26"/>
+	<field name="active_component">artemether + lumefantrine</field>
+</record>
+<record model="medical.medicament" id="medicament_27">
+	<field name="name" ref="product_27"/>
+	<field name="active_component">artesunate</field>
+</record>
+<record model="medical.medicament" id="medicament_28">
+	<field name="name" ref="product_28"/>
+	<field name="active_component">ascorbic acid</field>
+</record>
+<record model="medical.medicament" id="medicament_29">
+	<field name="name" ref="product_29"/>
+	<field name="active_component">asparaginase</field>
+</record>
+<record model="medical.medicament" id="medicament_30">
+	<field name="name" ref="product_30"/>
+	<field name="active_component">atenolol</field>
+</record>
+<record model="medical.medicament" id="medicament_31">
+	<field name="name" ref="product_31"/>
+	<field name="active_component">atropine</field>
+	 <field name="category"  ref="em_1_3"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Injection: 1 mg (sulfate) in 1‐ml ampoule. </field>
+</record>
+<record model="medical.medicament" id="medicament_32">
+	<field name="name" ref="product_32"/>
+	<field name="active_component">azathioprine</field>
+	<field name="category"  ref="em_2_4"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">D</field>
+    <field name="notes">Tablet: 50 mg.</field>
+</record>
+<record model="medical.medicament" id="medicament_33">
+	<field name="name" ref="product_33"/>
+	<field name="active_component">azithromycin</field>
+	<field name="category"  ref="em_6_2_2"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Capsule: 250 mg; 500 mg (anhydrous). 
+Oral liquid: 200 mg/5 ml. 
+* Only listed for single‐dose treatment of genital Chlamydia trachomatis and of trachoma. </field>
+</record>
+<record model="medical.medicament" id="medicament_34">
+	<field name="name" ref="product_34"/>
+	<field name="active_component">bacitracin</field>
+</record>
+<record model="medical.medicament" id="medicament_35">
+	<field name="name" ref="product_35"/>
+	<field name="active_component">barium sulfate</field>
+</record>
+<!-- <record model="medical.medicament" id="medicament_36"> -->
+<!-- 	<field name="name" ref="product_36"/> -->
+<!-- 	<field name="active_component">BCG vaccine</field> -->
+<!-- </record> -->
+<record model="medical.medicament" id="medicament_37">
+	<field name="name" ref="product_37"/>
+	<field name="active_component">beclometasone</field>
+	<field name="category"  ref="em_25_1"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Inhalation (aerosol): 50 micrograms (dipropionate) per dose;
+100 micrograms (dipropionate) per dose (as CFC free forms).</field>
+</record>
+<record model="medical.medicament" id="medicament_38">
+	<field name="name" ref="product_38"/>
+	<field name="active_component">benzathine benzylpenicillin</field>
+	<field name="category"  ref="em_6_2_1"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Powder for injection: 900 mg benzylpenicillin (= 1.2 million IU)   in 5‐ml vial [c]; 1.44 g benzylpenicillin (= 2.4 million IU) in 5‐ml vial. </field>
+</record>
+<record model="medical.medicament" id="medicament_39">
+	<field name="name" ref="product_39"/>
+	<field name="active_component">benznidazole</field>
+</record>
+<record model="medical.medicament" id="medicament_40">
+	<field name="name" ref="product_40"/>
+	<field name="active_component">benzoic acid</field>
+</record>
+<record model="medical.medicament" id="medicament_41">
+	<field name="name" ref="product_41"/>
+	<field name="active_component">benzoic acid + salicylic acid</field>
+</record>
+<record model="medical.medicament" id="medicament_42">
+	<field name="name" ref="product_42"/>
+	<field name="active_component">benzoyl peroxide</field>
+</record>
+<record model="medical.medicament" id="medicament_43">
+	<field name="name" ref="product_43"/>
+	<field name="active_component">benzyl benzoate</field>
+</record>
+<record model="medical.medicament" id="medicament_44">
+	<field name="name" ref="product_44"/>
+	<field name="active_component">benzylpenicillin</field>
+	<field name="category"  ref="em_6_2_1"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Powder for injection: 600 mg (= 1 million IU); 3 g (= 5 million IU) (sodium or potassium salt) in vial.</field>
+</record>
+<record model="medical.medicament" id="medicament_45">
+	<field name="name" ref="product_45"/>
+	<field name="active_component">betamethasone</field>
+</record>
+<record model="medical.medicament" id="medicament_46">
+	<field name="name" ref="product_46"/>
+	<field name="active_component">biperiden</field>
+	<field name="category"  ref="em_9"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Injection: 5 mg (lactate) in 1‐ml ampoule.
+Tablet: 2 mg (hydrochloride).</field>
+</record>
+<record model="medical.medicament" id="medicament_47">
+	<field name="name" ref="product_47"/>
+	<field name="active_component">bleomycin</field>
+</record>
+<record model="medical.medicament" id="medicament_48">
+	<field name="name" ref="product_48"/>
+	<field name="active_component">bupivacaine</field>
+	<field name="category"  ref="em_1_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Injection: 0.25%; 0.5% (hydrochloride) in vial.
+Injection for spinal anaesthesia: 0.5% (hydrochloride) in 
+4‐ml ampoule to be mixed with 7.5% glucose solution.</field>
+</record>
+<record model="medical.medicament" id="medicament_49">
+	<field name="name" ref="product_49"/>
+	<field name="active_component">caffeine citrate</field>
+</record>
+<record model="medical.medicament" id="medicament_50">
+	<field name="name" ref="product_50"/>
+	<field name="active_component">calamine lotion</field>
+</record>
+<record model="medical.medicament" id="medicament_51">
+	<field name="name" ref="product_51"/>
+	<field name="active_component">calcium folinate</field>
+</record>
+<record model="medical.medicament" id="medicament_52">
+	<field name="name" ref="product_52"/>
+	<field name="active_component">calcium gluconate</field>
+	<field name="category"  ref="em_4_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Injection: 100 mg/ml in 10‐ml ampoule.</field>
+</record>
+<record model="medical.medicament" id="medicament_53">
+	<field name="name" ref="product_53"/>
+	<field name="active_component">capreomycin</field>
+</record>
+<record model="medical.medicament" id="medicament_54">
+	<field name="name" ref="product_54"/>
+	<field name="active_component">carbamazepine</field>
+	<field name="category"  ref="em_5"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">D</field>
+    <field name="notes">Oral liquid: 100 mg/5 ml.
+Tablet (chewable): 100 mg; 200 mg.
+Tablet (scored): 100 mg; 200 mg</field>
+</record>
+<record model="medical.medicament" id="medicament_55">
+	<field name="name" ref="product_55"/>
+	<field name="active_component">carbidopa</field>
+</record>
+<record model="medical.medicament" id="medicament_56">
+	<field name="name" ref="product_56"/>
+	<field name="active_component">cefazolin</field>
+	<field name="category"  ref="em_6_2_1"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Powder for reconstitution with water: 125 mg/5 ml; 250 mg/5 ml 
+(anhydrous).  </field>
+</record>
+<record model="medical.medicament" id="medicament_57">
+	<field name="name" ref="product_57"/>
+	<field name="active_component">cefixime</field>
+	<field name="category"  ref="em_6_2_1"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Capsule: 400 mg (as trihydrate).
+ Only listed for single‐dose treatment of uncomplicated ano‐
+genital gonorrhoea.</field>
+</record>
+<record model="medical.medicament" id="medicament_58">
+	<field name="name" ref="product_58"/>
+	<field name="active_component">ceftazidime</field>
+	<field name="category"  ref="em_6_2_1c"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Powder for injection: 250 mg or 1 g (as pentahydrate) in vial.</field>
+</record>
+<record model="medical.medicament" id="medicament_59">
+	<field name="name" ref="product_59"/>
+	<field name="active_component">ceftriaxone</field>
+	<field name="category"  ref="em_6_2_1"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Powder for injection: 250 mg; 1 g (as sodium salt) in vial. 
+Do not administer with calcium and avoid in infants with hyperbilirubinemia</field>
+</record>
+<record model="medical.medicament" id="medicament_60">
+	<field name="name" ref="product_60"/>
+	<field name="active_component">charcoal, activated</field>
+	<field name="category"  ref="em_4_1"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">N</field>
+    <field name="notes">Powder</field>
+</record>
+<record model="medical.medicament" id="medicament_61">
+	<field name="name" ref="product_61"/>
+	<field name="active_component">chlorambucil</field>
+</record>
+<record model="medical.medicament" id="medicament_62">
+	<field name="name" ref="product_62"/>
+	<field name="active_component">chloramphenicol</field>
+	<field name="category"  ref="em_6_2_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Capsule: 250 mg.
+Oily suspension for injection*: 0.5 g (as sodium succinate)/ml in 2‐ml ampoule
+* Only for the presumptive treatment of epidemic meningitis in 
+children older than 2 years. 
+Oral liquid: 150 mg (as palmitate)/5 ml.
+Powder for injection: 1 g (sodium succinate) in vial.</field>
+</record>
+<record model="medical.medicament" id="medicament_63">
+	<field name="name" ref="product_63"/>
+	<field name="active_component">chlorhexidine</field>
+</record>
+<record model="medical.medicament" id="medicament_64">
+	<field name="name" ref="product_64"/>
+	<field name="active_component">chlorine base compound</field>
+</record>
+<record model="medical.medicament" id="medicament_65">
+	<field name="name" ref="product_65"/>
+	<field name="active_component">chloroquine</field>
+</record>
+<record model="medical.medicament" id="medicament_66">
+	<field name="name" ref="product_66"/>
+	<field name="active_component">chloroxylenol</field>
+</record>
+<record model="medical.medicament" id="medicament_67">
+	<field name="name" ref="product_67"/>
+	<field name="active_component">chlorphenamine</field>
+	<field name="category"  ref="em_3"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Injection: 10 mg (hydrogen maleate) in 1‐ml ampoule. 
+Oral liquid: 2 mg/5 ml (hydrogen maleate) Tablet: 4 mg (hydrogen maleate)</field>
+</record>
+<record model="medical.medicament" id="medicament_68">
+	<field name="name" ref="product_68"/>
+	<field name="active_component">chlorpromazine</field>
+</record>
+<!-- <record model="medical.medicament" id="medicament_69"> -->
+<!-- 	<field name="name" ref="product_69"/> -->
+<!-- 	<field name="active_component">cholera vaccine</field> -->
+<!-- </record> -->
+<record model="medical.medicament" id="medicament_70">
+	<field name="name" ref="product_70"/>
+	<field name="active_component">ciclosporin</field>
+</record>
+<record model="medical.medicament" id="medicament_71">
+	<field name="name" ref="product_71"/>
+	<field name="active_component">cilastatin</field>
+</record>
+<record model="medical.medicament" id="medicament_72">
+	<field name="name" ref="product_72"/>
+	<field name="active_component">ciprofloxacin</field>
+	<field name="category"  ref="em_6_2_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Oral liquid: 250 mg/5 ml (anhydrous) [c].
+Solution for IV infusion: 2 mg/ml (as hyclate) [c]
+Tablet: 250 mg (as hydrochloride)</field>
+</record>
+<record model="medical.medicament" id="medicament_73">
+	<field name="name" ref="product_73"/>
+	<field name="active_component">cisplatin</field>
+</record>
+<record model="medical.medicament" id="medicament_74">
+	<field name="name" ref="product_74"/>
+	<field name="active_component">clavulanic acid</field>
+</record>
+<record model="medical.medicament" id="medicament_75">
+	<field name="name" ref="product_75"/>
+	<field name="active_component">clindamycin</field>
+	<field name="category"  ref="em_6_2_2"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Capsule: 150 mg (as hydrochloride). 
+Injection: 150 mg (as phosphate)/ml. 
+Oral liquid: 75 mg/5 ml (as palmitate) [c].</field>
+</record>
+<record model="medical.medicament" id="medicament_76">
+	<field name="name" ref="product_76"/>
+	<field name="active_component">clofazimine</field>
+	<field name="category"  ref="em_6_2_3"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Capsule: 50 mg; 100 mg.</field>
+</record>
+<record model="medical.medicament" id="medicament_77">
+	<field name="name" ref="product_77"/>
+	<field name="active_component">clomifene</field>
+</record>
+<record model="medical.medicament" id="medicament_78">
+	<field name="name" ref="product_78"/>
+	<field name="active_component">clomipramine</field>
+	<field name="category"  ref="em_24_4"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Capsule: 10 mg; 25 mg (hydrochloride).</field>
+</record>
+<record model="medical.medicament" id="medicament_79">
+	<field name="name" ref="product_79"/>
+	<field name="active_component">clotrimazole</field>
+</record>
+<record model="medical.medicament" id="medicament_80">
+	<field name="name" ref="product_80"/>
+	<field name="active_component">cloxacillin</field>
+	<field name="category"  ref="em_6_2_1"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Capsule: 500 mg; 1 g (as sodium salt). 
+Powder for injection: 500 mg (as sodium salt) in vial. 
+&gt;41 weeks corrected gestational age.</field>
+</record>
+<record model="medical.medicament" id="medicament_81">
+	<field name="name" ref="product_81"/>
+	<field name="active_component">coal tar</field>
+</record>
+<record model="medical.medicament" id="medicament_82">
+	<field name="name" ref="product_82"/>
+	<field name="active_component">codeine</field>
+	<field name="category"  ref="em_2_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Tablet: 30 mg (phosphate).</field>
+</record>
+<record model="medical.medicament" id="medicament_83">
+	<field name="name" ref="product_83"/>
+	<field name="active_component">condoms</field>
+</record>
+<record model="medical.medicament" id="medicament_84">
+	<field name="name" ref="product_84"/>
+	<field name="active_component">copper‐containing device</field>
+</record>
+<record model="medical.medicament" id="medicament_85">
+	<field name="name" ref="product_85"/>
+	<field name="active_component">cyclophosphamide</field>
+</record>
+<record model="medical.medicament" id="medicament_86">
+	<field name="name" ref="product_86"/>
+	<field name="active_component">cycloserine</field>
+</record>
+<record model="medical.medicament" id="medicament_87">
+	<field name="name" ref="product_87"/>
+	<field name="active_component">cypionate</field>
+</record>
+<record model="medical.medicament" id="medicament_88">
+	<field name="name" ref="product_88"/>
+	<field name="active_component">cytarabine</field>
+</record>
+<record model="medical.medicament" id="medicament_89">
+	<field name="name" ref="product_89"/>
+	<field name="active_component">dacarbazine</field>
+</record>
+<record model="medical.medicament" id="medicament_90">
+	<field name="name" ref="product_90"/>
+	<field name="active_component">dactinomycin</field>
+</record>
+<record model="medical.medicament" id="medicament_91">
+	<field name="name" ref="product_91"/>
+	<field name="active_component">dapsone</field>
+	<field name="category"  ref="em_6_2_3"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Tablet: 25 mg; 50 mg; 100 mg.</field>
+</record>
+<record model="medical.medicament" id="medicament_92">
+	<field name="name" ref="product_92"/>
+	<field name="active_component">daunorubicin</field>
+</record>
+<record model="medical.medicament" id="medicament_93">
+	<field name="name" ref="product_93"/>
+	<field name="active_component">deferoxamine</field>
+	<field name="category"  ref="em_4_2c"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Powder for injection: 500 mg (mesilate) in vial</field>
+</record>
+<record model="medical.medicament" id="medicament_94">
+	<field name="name" ref="product_94"/>
+	<field name="active_component">dexamethasone</field>
+	<field name="category"  ref="em_3"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Injection: 4 mg dexamethasone phosphate (as disodium salt) in 1‐ml ampoule.</field>
+</record>
+<record model="medical.medicament" id="medicament_95">
+	<field name="name" ref="product_95"/>
+	<field name="active_component">dextran</field>
+</record>
+<record model="medical.medicament" id="medicament_96">
+	<field name="name" ref="product_96"/>
+	<field name="active_component">diaphragms</field>
+</record>
+<record model="medical.medicament" id="medicament_97">
+	<field name="name" ref="product_97"/>
+	<field name="active_component">diazepam</field>
+	<field name="category"  ref="em_5"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">D</field>
+    <field name="notes">Gel or rectal solution: 5 mg/ml in 0.5 ml; 2‐ml and 4‐ml tubes.</field>
+</record>
+<record model="medical.medicament" id="medicament_98">
+	<field name="name" ref="product_98"/>
+	<field name="active_component">didanosine (ddI)</field>
+</record>
+<record model="medical.medicament" id="medicament_99">
+	<field name="name" ref="product_99"/>
+	<field name="active_component">diethylcarbamazine</field>
+	<field name="category"  ref="em_6_1_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">X</field>
+    <field name="notes">Tablet: 50 mg; 100 mg (dihydrogen citrate).</field>
+</record>
+<record model="medical.medicament" id="medicament_100">
+	<field name="name" ref="product_100"/>
+	<field name="active_component">digoxin</field>
+</record>
+<record model="medical.medicament" id="medicament_101">
+	<field name="name" ref="product_101"/>
+	<field name="active_component">diloxanide</field>
+</record>
+<record model="medical.medicament" id="medicament_102">
+	<field name="name" ref="product_102"/>
+	<field name="active_component">dimercaprol</field>
+	<field name="category"  ref="em_4_2c"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Injection in oil: 50 mg/ml in 2‐ml ampoule.</field>
+</record>
+<record model="medical.medicament" id="medicament_103">
+	<field name="name" ref="product_103"/>
+	<field name="active_component">diphtheria antitoxin</field>
+</record>
+<!-- <record model="medical.medicament" id="medicament_104"> -->
+<!-- 	<field name="name" ref="product_104"/> -->
+<!-- 	<field name="active_component">diphtheria vaccine</field> -->
+<!-- </record> -->
+<record model="medical.medicament" id="medicament_105">
+	<field name="name" ref="product_105"/>
+	<field name="active_component">dithranol</field>
+</record>
+<record model="medical.medicament" id="medicament_106">
+	<field name="name" ref="product_106"/>
+	<field name="active_component">DL‐methionine</field>
+</record>
+<record model="medical.medicament" id="medicament_107">
+	<field name="name" ref="product_107"/>
+	<field name="active_component">dopamine</field>
+</record>
+<record model="medical.medicament" id="medicament_108">
+	<field name="name" ref="product_108"/>
+	<field name="active_component">doxorubicin</field>
+</record>
+<record model="medical.medicament" id="medicament_109">
+	<field name="name" ref="product_109"/>
+	<field name="active_component">doxycycline</field>
+	<field name="category"  ref="em_6_2_2"/>
+	<field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">D</field>
+    <field name="notes">Oral liquid: 25 mg/5 ml [c]; 50 mg/5 ml (anhydrous) [c].
+Solid oral dosage form: 50 mg [c]; 100 mg (as hyclate)
+Use in children &lt;8 years only for life-threatening infections when no alternative exists.</field>
+</record>
+<record model="medical.medicament" id="medicament_110">
+	<field name="name" ref="product_110"/>
+	<field name="active_component">efavirenz (EFV or EFZ)</field>
+</record>
+<record model="medical.medicament" id="medicament_111">
+	<field name="name" ref="product_111"/>
+	<field name="active_component">efavirenz + emtricitabine + tenofovir</field>
+</record>
+<record model="medical.medicament" id="medicament_112">
+	<field name="name" ref="product_112"/>
+	<field name="active_component">eflornithine</field>
+</record>
+<record model="medical.medicament" id="medicament_113">
+	<field name="name" ref="product_113"/>
+	<field name="active_component">emtricitabine</field>
+</record>
+<record model="medical.medicament" id="medicament_114">
+	<field name="name" ref="product_114"/>
+	<field name="active_component">emtricitabine (FTC)</field>
+</record>
+<record model="medical.medicament" id="medicament_115">
+	<field name="name" ref="product_115"/>
+	<field name="active_component">emtricitabine + tenofovir</field>
+</record>
+<record model="medical.medicament" id="medicament_116">
+	<field name="name" ref="product_116"/>
+	<field name="active_component">enalapril</field>
+</record>
+<record model="medical.medicament" id="medicament_117">
+	<field name="name" ref="product_117"/>
+	<field name="active_component">ephedrine</field>
+	<field name="category"  ref="em_1_2c"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Injection: 30 mg (hydrochloride)/ml in 1‐ml ampoule.
+(For use in spinal anaesthesia during delivery, to prevent hypotension).</field>
+</record>
+<record model="medical.medicament" id="medicament_118">
+	<field name="name" ref="product_118"/>
+	<field name="active_component">epinephrine (adrenaline)</field>
+</record>
+<record model="medical.medicament" id="medicament_119">
+	<field name="name" ref="product_119"/>
+	<field name="active_component">ergocalciferol</field>
+</record>
+<record model="medical.medicament" id="medicament_120">
+	<field name="name" ref="product_120"/>
+	<field name="active_component">ergometrine</field>
+</record>
+<record model="medical.medicament" id="medicament_121">
+	<field name="name" ref="product_121"/>
+	<field name="active_component">erythromycin</field>
+	<field name="category"  ref="em_6_2_2"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Powder for oral liquid: 125 mg/5 ml (as stearate or estolate or ethyl succinate)</field>
+</record>
+<record model="medical.medicament" id="medicament_122">
+	<field name="name" ref="product_122"/>
+	<field name="active_component">estradiol cypionate</field>
+</record>
+<record model="medical.medicament" id="medicament_123">
+	<field name="name" ref="product_123"/>
+	<field name="active_component">ethambutol</field>
+	<field name="category"  ref="em_6_2_4"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Oral liquid: 25 mg/ml [c]. 
+Tablet: 100 mg to 400 mg (hydrochloride).</field>
+</record>
+<record model="medical.medicament" id="medicament_124">
+	<field name="name" ref="product_124"/>
+	<field name="active_component">ethanol</field>
+</record>
+<record model="medical.medicament" id="medicament_125">
+	<field name="name" ref="product_125"/>
+	<field name="active_component">ethinylestradiol</field>
+</record>
+<record model="medical.medicament" id="medicament_126">
+	<field name="name" ref="product_126"/>
+	<field name="active_component">ethinylestradiol + levonorgestrel</field>
+</record>
+<record model="medical.medicament" id="medicament_127">
+	<field name="name" ref="product_127"/>
+	<field name="active_component">ethinylestradiol + norethisterone</field>
+</record>
+<record model="medical.medicament" id="medicament_128">
+	<field name="name" ref="product_128"/>
+	<field name="active_component">ethionamide</field>
+</record>
+<record model="medical.medicament" id="medicament_129">
+	<field name="name" ref="product_129"/>
+	<field name="active_component">ethosuximide</field>
+	<field name="category"  ref="em_5c"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Capsule: 250 mg. 
+Oral liquid: 250 mg/5 ml</field>
+</record>
+<record model="medical.medicament" id="medicament_130">
+	<field name="name" ref="product_130"/>
+	<field name="active_component">etoposide</field>
+</record>
+<record model="medical.medicament" id="medicament_131">
+	<field name="name" ref="product_131"/>
+	<field name="active_component">factor IX complex (coagulation factors, II, VII, IX, X) concentrate</field>
+</record>
+<record model="medical.medicament" id="medicament_132">
+	<field name="name" ref="product_132"/>
+	<field name="active_component">factor VIII concentrate</field>
+</record>
+<record model="medical.medicament" id="medicament_133">
+	<field name="name" ref="product_133"/>
+	<field name="active_component">ferrous salt</field>
+	<field name="category"  ref="em_10_1"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Oral liquid: equivalent to 25 mg iron (as sulfate)/ml.
+Tablet: equivalent to 60 mg iron.</field>
+</record>
+<record model="medical.medicament" id="medicament_134">
+	<field name="name" ref="product_134"/>
+	<field name="active_component">ferrous salt + folic acid</field>
+	<field name="category"  ref="em_10_1"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">N</field>
+    <field name="notes">Tablet equivalent to 60 mg iron + 400 micrograms folic acid (Nutritional supplement for use during pregnancy).</field>
+</record>
+<record model="medical.medicament" id="medicament_135">
+	<field name="name" ref="product_135"/>
+	<field name="active_component">fluconazole</field>
+</record>
+<record model="medical.medicament" id="medicament_136">
+	<field name="name" ref="product_136"/>
+	<field name="active_component">flucytosine</field>
+</record>
+<record model="medical.medicament" id="medicament_137">
+	<field name="name" ref="product_137"/>
+	<field name="active_component">fluorescein</field>
+</record>
+<record model="medical.medicament" id="medicament_138">
+	<field name="name" ref="product_138"/>
+	<field name="active_component">fluorouracil</field>
+</record>
+<record model="medical.medicament" id="medicament_139">
+	<field name="name" ref="product_139"/>
+	<field name="active_component">fluoxetine</field>
+</record>
+<record model="medical.medicament" id="medicament_140">
+	<field name="name" ref="product_140"/>
+	<field name="active_component">fluphenazine</field>
+</record>
+<record model="medical.medicament" id="medicament_141">
+	<field name="name" ref="product_141"/>
+	<field name="active_component">folic acid</field>
+	<field name="category"  ref="em_10_1"/>
+    <field name="pregnancy_category">A</field>
+    <field name="notes">Tablet: 1 mg; 5 mg.</field>
+</record>
+<record model="medical.medicament" id="medicament_142">
+	<field name="name" ref="product_142"/>
+	<field name="active_component">furosemide</field>
+</record>
+<record model="medical.medicament" id="medicament_143">
+	<field name="name" ref="product_143"/>
+	<field name="active_component">gentamicin</field>
+	<field name="category"  ref="em_6_2_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">D</field>
+    <field name="notes">Injection: 10 mg; 40 mg (as sulfate)/ml in 2‐ml vial</field>
+</record>
+<record model="medical.medicament" id="medicament_144">
+	<field name="name" ref="product_144"/>
+	<field name="active_component">glibenclamide</field>
+</record>
+<record model="medical.medicament" id="medicament_145">
+	<field name="name" ref="product_145"/>
+	<field name="active_component">glucose</field>
+</record>
+<record model="medical.medicament" id="medicament_146">
+	<field name="name" ref="product_146"/>
+	<field name="active_component">glucose with sodium chloride</field>
+</record>
+<record model="medical.medicament" id="medicament_147">
+	<field name="name" ref="product_147"/>
+	<field name="active_component">glutaral</field>
+</record>
+<record model="medical.medicament" id="medicament_148">
+	<field name="name" ref="product_148"/>
+	<field name="active_component">glyceryl trinitrate</field>
+</record>
+<record model="medical.medicament" id="medicament_149">
+	<field name="name" ref="product_149"/>
+	<field name="active_component">griseofulvin</field>
+</record>
+<!-- <record model="medical.medicament" id="medicament_150"> -->
+<!-- 	<field name="name" ref="product_150"/> -->
+<!-- 	<field name="active_component">Haemophilus influenzae type b vaccine</field> -->
+<!-- </record> -->
+<record model="medical.medicament" id="medicament_151">
+	<field name="name" ref="product_151"/>
+	<field name="active_component">haloperidol</field>
+</record>
+<record model="medical.medicament" id="medicament_152">
+	<field name="name" ref="product_152"/>
+	<field name="active_component">halothane</field>
+	<field name="category"  ref="em_1_1_1"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Inhalation</field>
+</record>
+<record model="medical.medicament" id="medicament_153">
+	<field name="name" ref="product_153"/>
+	<field name="active_component">heparin sodium</field>
+	<field name="category"  ref="em_10_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Injection: 1000 IU/ml; 5000 IU/ml; 20000 IU/ml in 1‐ml ampoule.</field>
+</record>
+<!-- <record model="medical.medicament" id="medicament_154"> -->
+<!-- 	<field name="name" ref="product_154"/> -->
+<!-- 	<field name="active_component">hepatitis A vaccine</field> -->
+<!-- </record> -->
+<!-- <record model="medical.medicament" id="medicament_155"> -->
+<!-- 	<field name="name" ref="product_155"/> -->
+<!-- 	<field name="active_component">hepatitis B vaccine</field> -->
+<!-- </record> -->
+<record model="medical.medicament" id="medicament_156">
+	<field name="name" ref="product_156"/>
+	<field name="active_component">human normal immunoglobulin</field>
+</record>
+<record model="medical.medicament" id="medicament_157">
+	<field name="name" ref="product_157"/>
+	<field name="active_component">hydralazine</field>
+</record>
+<record model="medical.medicament" id="medicament_158">
+	<field name="name" ref="product_158"/>
+	<field name="active_component">hydrochlorothiazide</field>
+</record>
+<record model="medical.medicament" id="medicament_159">
+	<field name="name" ref="product_159"/>
+	<field name="active_component">hydrocortisone</field>
+	<field name="category"  ref="em_3"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Powder for injection: 100 mg (as sodium succinate) in vial.</field>
+</record>
+<record model="medical.medicament" id="medicament_160">
+	<field name="name" ref="product_160"/>
+	<field name="active_component">hydroxocobalamin</field>
+	<field name="category"  ref="em_10_1"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Injection: 1 mg (as acetate, hydrochloride or as sulfate) in 1‐ml ampoule</field>
+</record>
+<record model="medical.medicament" id="medicament_161">
+	<field name="name" ref="product_161"/>
+	<field name="active_component">ibuprofen</field>
+	<field name="category"  ref="em_2_1"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Oral liquid: 40 mg/ml (200 mg/5 ml)
+Tablet: 200 mg; 400 mg</field>
+</record>
+<record model="medical.medicament" id="medicament_162">
+	<field name="name" ref="product_162"/>
+	<field name="active_component">imipenem + cilastatin</field>
+	<field name="category"  ref="em_6_2_1c"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Powder for injection: 250 mg (as monohydrate) + 250 mg (as sodium 
+salt); 500 mg (as monohydrate) + 500 mg (as sodium salt) in vial. 
+Only listed for the treatment of life‐threatening hospital‐based 
+Meropenem is indicated for the treatment of meningitis and is licensed for use in children over the age of 3 months. 
+</field>
+</record>
+<record model="medical.medicament" id="medicament_163">
+	<field name="name" ref="product_163"/>
+	<field name="active_component">immunoglobulin</field>
+</record>
+<record model="medical.medicament" id="medicament_164">
+	<field name="name" ref="product_164"/>
+	<field name="active_component">indinavir (IDV)</field>
+</record>
+<!-- <record model="medical.medicament" id="medicament_165"> -->
+<!-- 	<field name="name" ref="product_165"/> -->
+<!-- 	<field name="active_component">influenza vaccine</field> -->
+<!-- </record> -->
+<record model="medical.medicament" id="medicament_166">
+	<field name="name" ref="product_166"/>
+	<field name="active_component">insulin</field>
+</record>
+<record model="medical.medicament" id="medicament_167">
+	<field name="name" ref="product_167"/>
+	<field name="active_component">insulin injection (soluble)</field>
+</record>
+<record model="medical.medicament" id="medicament_168">
+	<field name="name" ref="product_168"/>
+	<field name="active_component">intermediate‐acting insulin</field>
+</record>
+<record model="medical.medicament" id="medicament_169">
+	<field name="name" ref="product_169"/>
+	<field name="active_component">intraperitoneal dialysis solution (of appropriate composition)</field>
+</record>
+<record model="medical.medicament" id="medicament_170">
+	<field name="name" ref="product_170"/>
+	<field name="active_component">iodine</field>
+</record>
+<record model="medical.medicament" id="medicament_171">
+	<field name="name" ref="product_171"/>
+	<field name="active_component">iohexol</field>
+</record>
+<record model="medical.medicament" id="medicament_172">
+	<field name="name" ref="product_172"/>
+	<field name="active_component">ipratropium bromide</field>
+</record>
+<record model="medical.medicament" id="medicament_173">
+	<field name="name" ref="product_173"/>
+	<field name="active_component">isoniazid</field>
+	<field name="category"  ref="em_6_2_4"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Oral liquid: 50 mg/5 ml [c].
+Tablet: 100 mg to 300 mg. 
+Tablet (scored): 50 mg.</field>
+</record>
+<record model="medical.medicament" id="medicament_174">
+	<field name="name" ref="product_174"/>
+	<field name="active_component">isoniazid + ethambutol</field>
+	<field name="category"  ref="em_6_2_4"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">N</field>
+    <field name="notes">Tablet: 400 mg + 150 mg.</field>
+</record>
+<record model="medical.medicament" id="medicament_175">
+	<field name="name" ref="product_175"/>
+	<field name="active_component">isosorbide dinitrate</field>
+</record>
+<record model="medical.medicament" id="medicament_176">
+	<field name="name" ref="product_176"/>
+	<field name="active_component">ivermectin</field>
+	<field name="category"  ref="em_6_1_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Tablet (scored): 3 mg; 6 mg.</field>
+</record>
+<!-- <record model="medical.medicament" id="medicament_177"> -->
+<!-- 	<field name="name" ref="product_177"/> -->
+<!-- 	<field name="active_component">Japanese encephalitis vaccine</field> -->
+<!-- </record> -->
+<record model="medical.medicament" id="medicament_178">
+	<field name="name" ref="product_178"/>
+	<field name="active_component">kanamycin</field>
+</record>
+<record model="medical.medicament" id="medicament_179">
+	<field name="name" ref="product_179"/>
+	<field name="active_component">ketamine</field>
+	<field name="category"  ref="em_1_1_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Injection: 50 mg (as hydrochloride)/ml in 10‐ml vial. Injection: 10 mg/ml; 20 mg/ml</field>
+</record>
+<record model="medical.medicament" id="medicament_180">
+	<field name="name" ref="product_180"/>
+	<field name="active_component">lamivudine</field>
+</record>
+<record model="medical.medicament" id="medicament_181">
+	<field name="name" ref="product_181"/>
+	<field name="active_component">lamivudine (3TC)</field>
+</record>
+<record model="medical.medicament" id="medicament_182">
+	<field name="name" ref="product_182"/>
+	<field name="active_component">levamisole</field>
+	<field name="category"  ref="em_6_1_1"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Tablet (chewable): 400 mg.</field>
+</record>
+<record model="medical.medicament" id="medicament_183">
+	<field name="name" ref="product_183"/>
+	<field name="active_component">levodopa</field>
+	<field name="category"  ref="em_9"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Tablet: 100 mg + 10 mg; 250 mg + 25 mg</field>
+</record>
+<record model="medical.medicament" id="medicament_184">
+	<field name="name" ref="product_184"/>
+	<field name="active_component">levodopa + carbidopa</field>
+</record>
+<record model="medical.medicament" id="medicament_185">
+	<field name="name" ref="product_185"/>
+	<field name="active_component">levonorgestrel</field>
+</record>
+<record model="medical.medicament" id="medicament_186">
+	<field name="name" ref="product_186"/>
+	<field name="active_component">levonorgestrel‐releasing implant</field>
+</record>
+<record model="medical.medicament" id="medicament_187">
+	<field name="name" ref="product_187"/>
+	<field name="active_component">levothyroxine</field>
+</record>
+<record model="medical.medicament" id="medicament_188">
+	<field name="name" ref="product_188"/>
+	<field name="active_component">lidocaine</field>
+	<field name="category"  ref="em_1_2"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Injection: 1%; 2% (hydrochloride) in vial.
+Injection for spinal anaesthesia: 5% (hydrochloride) in 2‐ml ampoule to be mixed with 7.5% glucose solution. 
+Topical forms: 2% to 4% (hydrochloride).</field>
+</record>
+<record model="medical.medicament" id="medicament_189">
+	<field name="name" ref="product_189"/>
+	<field name="active_component">lidocaine + epinephrine (adrenaline)</field>
+	<field name="category"  ref="em_1_2"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Dental cartridge: 2% (hydrochloride) + epinephrine 1:80000.
+Injection: 1%; 2% (hydrochloride or sulfate) + epinephrine 
+1:200 000 in vial. </field>
+</record>
+<record model="medical.medicament" id="medicament_190">
+	<field name="name" ref="product_190"/>
+	<field name="active_component">lithium carbonate</field>
+</record>
+<record model="medical.medicament" id="medicament_191">
+	<field name="name" ref="product_191"/>
+	<field name="active_component">lopinavir</field>
+</record>
+<record model="medical.medicament" id="medicament_192">
+	<field name="name" ref="product_192"/>
+	<field name="active_component">lopinavir + ritonavir (LPV/r)</field>
+</record>
+<record model="medical.medicament" id="medicament_193">
+	<field name="name" ref="product_193"/>
+	<field name="active_component">lumefantrine</field>
+</record>
+<record model="medical.medicament" id="medicament_194">
+	<field name="name" ref="product_194"/>
+	<field name="active_component">magnesium hydroxide</field>
+</record>
+<record model="medical.medicament" id="medicament_195">
+	<field name="name" ref="product_195"/>
+	<field name="active_component">magnesium sulfate</field>
+	<field name="category"  ref="em_5"/>
+    <field name="pregnancy_category">A</field>
+    <field name="notes">Injection: 500 mg/ml in 2‐ml ampoule; 500 mg/ml in  
+10‐ml ampoule.
+ For use in eclampsia and severe pre‐eclampsia and not for other 
+convulsant disorders.</field>
+</record>
+<record model="medical.medicament" id="medicament_196">
+	<field name="name" ref="product_196"/>
+	<field name="active_component">mannitol</field>
+</record>
+<!-- <record model="medical.medicament" id="medicament_197"> -->
+<!-- 	<field name="name" ref="product_197"/> -->
+<!-- 	<field name="active_component">measles vaccine</field> -->
+<!-- </record> -->
+<record model="medical.medicament" id="medicament_198">
+	<field name="name" ref="product_198"/>
+	<field name="active_component">mebendazole</field>
+	<field name="category"  ref="em_6_1_1"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Tablet (chewable): 100 mg; 500 mg.</field>
+</record>
+<record model="medical.medicament" id="medicament_199">
+	<field name="name" ref="product_199"/>
+	<field name="active_component">medroxyprogesterone acetate</field>
+</record>
+<record model="medical.medicament" id="medicament_200">
+	<field name="name" ref="product_200"/>
+	<field name="active_component">medroxyprogesterone acetate + estradiol</field>
+</record>
+<record model="medical.medicament" id="medicament_201">
+	<field name="name" ref="product_201"/>
+	<field name="active_component">mefloquine</field>
+</record>
+<record model="medical.medicament" id="medicament_202">
+	<field name="name" ref="product_202"/>
+	<field name="active_component">meglumine antimoniate</field>
+</record>
+<record model="medical.medicament" id="medicament_203">
+	<field name="name" ref="product_203"/>
+	<field name="active_component">meglumine iotroxate</field>
+</record>
+<record model="medical.medicament" id="medicament_204">
+	<field name="name" ref="product_204"/>
+	<field name="active_component">melarsoprol</field>
+</record>
+<!-- <record model="medical.medicament" id="medicament_205"> -->
+<!-- 	<field name="name" ref="product_205"/> -->
+<!-- 	<field name="active_component">meningococcal meningitis vaccine</field> -->
+<!-- </record> -->
+<record model="medical.medicament" id="medicament_206">
+	<field name="name" ref="product_206"/>
+	<field name="active_component">mercaptopurine</field>
+</record>
+<record model="medical.medicament" id="medicament_207">
+	<field name="name" ref="product_207"/>
+	<field name="active_component">metformin</field>
+</record>
+<record model="medical.medicament" id="medicament_208">
+	<field name="name" ref="product_208"/>
+	<field name="active_component">methadone</field>
+	<field name="category"  ref="em_24_5c"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">D</field>
+    <field name="notes">Concentrate for oral liquid: 5 mg/ml; 10 mg/ml (hydrochloride).
+Oral liquid: 5 mg/5 ml; 10 mg/5 ml (hydrochloride).
+* The square box is added to include buprenorphine. The medicines should only be used within an established support programme.</field>
+</record>
+<record model="medical.medicament" id="medicament_209">
+	<field name="name" ref="product_209"/>
+	<field name="active_component">methotrexate</field>
+	<field name="category"  ref="em_2_4"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">X</field>
+    <field name="notes">Tablet: 2.5 mg (as sodium salt).</field>
+</record>
+<record model="medical.medicament" id="medicament_210">
+	<field name="name" ref="product_210"/>
+	<field name="active_component">methyldopa</field>
+</record>
+<record model="medical.medicament" id="medicament_211">
+	<field name="name" ref="product_211"/>
+	<field name="active_component">methylrosanilinium chloride (gentian violet)</field>
+</record>
+<record model="medical.medicament" id="medicament_212">
+	<field name="name" ref="product_212"/>
+	<field name="active_component">methylthioninium chloride (methylene blue)</field>
+	<field name="category"  ref="em_4_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Injection: 10 mg/ml in 10‐ml ampoule</field>
+</record>
+<record model="medical.medicament" id="medicament_213">
+	<field name="name" ref="product_213"/>
+	<field name="active_component">metoclopramide</field>
+</record>
+<record model="medical.medicament" id="medicament_214">
+	<field name="name" ref="product_214"/>
+	<field name="active_component">metronidazole</field>
+	<field name="category"  ref="em_6_2_2"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Injection: 500 mg in 100‐ml vial.
+Oral liquid: 200 mg (as benzoate)/5 ml.
+Suppository: 500 mg; 1 g.
+Tablet: 200 mg to 500 mg.</field>
+</record>
+<record model="medical.medicament" id="medicament_215">
+	<field name="name" ref="product_215"/>
+	<field name="active_component">miconazole</field>
+</record>
+<record model="medical.medicament" id="medicament_216">
+	<field name="name" ref="product_216"/>
+	<field name="active_component">mifepristone</field>
+</record>
+<record model="medical.medicament" id="medicament_217">
+	<field name="name" ref="product_217"/>
+	<field name="active_component">misoprostol</field>
+</record>
+<record model="medical.medicament" id="medicament_218">
+	<field name="name" ref="product_218"/>
+	<field name="active_component">morphine</field>
+	<field name="category"  ref="em_1_3"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Injection: 10 mg (sulfate or hydrochloride) in 1‐ml ampoule.</field>
+</record>
+<!-- <record model="medical.medicament" id="medicament_219"> -->
+<!-- 	<field name="name" ref="product_219"/> -->
+<!-- 	<field name="active_component">mumps vaccine</field> -->
+<!-- </record> -->
+<record model="medical.medicament" id="medicament_220">
+	<field name="name" ref="product_220"/>
+	<field name="active_component">naloxone</field>
+	<field name="category"  ref="em_4_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Injection: 400 micrograms (hydrochloride) in 1‐ml ampoule.</field>
+</record>
+<record model="medical.medicament" id="medicament_221">
+	<field name="name" ref="product_221"/>
+	<field name="active_component">nelfinavir (NFV)</field>
+</record>
+<record model="medical.medicament" id="medicament_222">
+	<field name="name" ref="product_222"/>
+	<field name="active_component">neomycin sulfate</field>
+</record>
+<record model="medical.medicament" id="medicament_223">
+	<field name="name" ref="product_223"/>
+	<field name="active_component">neomycin sulfate + bacitracin</field>
+</record>
+<record model="medical.medicament" id="medicament_224">
+	<field name="name" ref="product_224"/>
+	<field name="active_component">neostigmine</field>
+</record>
+<record model="medical.medicament" id="medicament_225">
+	<field name="name" ref="product_225"/>
+	<field name="active_component">nevirapine</field>
+</record>
+<record model="medical.medicament" id="medicament_226">
+	<field name="name" ref="product_226"/>
+	<field name="active_component">nevirapine (NVP)</field>
+</record>
+<record model="medical.medicament" id="medicament_227">
+	<field name="name" ref="product_227"/>
+	<field name="active_component">niclosamide</field>
+	<field name="category"  ref="em_6_1_1"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Tablet (chewable): 500 mg.
+Niclosamide is listed for use when praziquantel treatment fails</field>
+</record>
+<record model="medical.medicament" id="medicament_228">
+	<field name="name" ref="product_228"/>
+	<field name="active_component">nicotinamide</field>
+</record>
+<record model="medical.medicament" id="medicament_229">
+	<field name="name" ref="product_229"/>
+	<field name="active_component">nifedipine</field>
+</record>
+<record model="medical.medicament" id="medicament_230">
+	<field name="name" ref="product_230"/>
+	<field name="active_component">nifurtimox</field>
+</record>
+<record model="medical.medicament" id="medicament_231">
+	<field name="name" ref="product_231"/>
+	<field name="active_component">nitrofurantoin</field>
+	<field name="category"  ref="em_6_2_2"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Oral liquid: 25 mg/5 ml [c].
+Tablet: 100 mg</field>
+</record>
+<record model="medical.medicament" id="medicament_232">
+	<field name="name" ref="product_232"/>
+	<field name="active_component">nitrous oxide</field>
+	<field name="category"  ref="em_1_1_1"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">N</field>
+    <field name="notes">Inhalation</field>
+</record>
+<record model="medical.medicament" id="medicament_233">
+	<field name="name" ref="product_233"/>
+	<field name="active_component">norethisterone</field>
+</record>
+<record model="medical.medicament" id="medicament_234">
+	<field name="name" ref="product_234"/>
+	<field name="active_component">norethisterone enantate</field>
+</record>
+<record model="medical.medicament" id="medicament_235">
+	<field name="name" ref="product_235"/>
+	<field name="active_component">nystatin</field>
+</record>
+<record model="medical.medicament" id="medicament_236">
+	<field name="name" ref="product_236"/>
+	<field name="active_component">ofloxacin</field>
+</record>
+<record model="medical.medicament" id="medicament_237">
+	<field name="name" ref="product_237"/>
+	<field name="active_component">oral rehydration salts</field>
+</record>
+<record model="medical.medicament" id="medicament_238">
+	<field name="name" ref="product_238"/>
+	<field name="active_component">oxamniquine</field>
+	<field name="category"  ref="em_6_1_3c"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Oral liquid: 250 mg/5 ml</field>
+</record>
+<record model="medical.medicament" id="medicament_239">
+	<field name="name" ref="product_239"/>
+	<field name="active_component">oxygen</field>
+	<field name="category"  ref="em_1_1_1"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">N</field>
+    <field name="notes">Inhalation</field>
+</record>
+<record model="medical.medicament" id="medicament_240">
+	<field name="name" ref="product_240"/>
+	<field name="active_component">oxytocin</field>
+</record>
+<record model="medical.medicament" id="medicament_241">
+	<field name="name" ref="product_241"/>
+	<field name="active_component">p‐aminosalicylic acid</field>
+</record>
+<record model="medical.medicament" id="medicament_242">
+	<field name="name" ref="product_242"/>
+	<field name="active_component">paracetamol</field>
+	<field name="category"  ref="em_2_1"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Oral liquid: 125 mg/5 ml. Suppository: 100 mg. Tablet: 100 mg to 500 mg. </field>
+</record>
+<record model="medical.medicament" id="medicament_243">
+	<field name="name" ref="product_243"/>
+	<field name="active_component">paromomycin</field>
+</record>
+<record model="medical.medicament" id="medicament_244">
+	<field name="name" ref="product_244"/>
+	<field name="active_component">penicillamine</field>
+	<field name="category"  ref="em_4_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">D</field>
+    <field name="notes">Solid oral dosage form: 250 mg.</field>
+</record>
+<record model="medical.medicament" id="medicament_245">
+	<field name="name" ref="product_245"/>
+	<field name="active_component">pentamidine</field>
+</record>
+<record model="medical.medicament" id="medicament_246">
+	<field name="name" ref="product_246"/>
+	<field name="active_component">permethrin</field>
+</record>
+<!-- <record model="medical.medicament" id="medicament_247"> -->
+<!-- 	<field name="name" ref="product_247"/> -->
+<!-- 	<field name="active_component">pertussis vaccine</field> -->
+<!-- </record> -->
+<record model="medical.medicament" id="medicament_248">
+	<field name="name" ref="product_248"/>
+	<field name="active_component">phenobarbital</field>
+	<field name="category"  ref="em_5"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">D</field>
+    <field name="notes">Injection: 200 mg/ml (phenobarbital sodium). 
+Oral liquid: 15 mg/5 ml (phenobarbital).
+Tablet: 15 mg to 100 mg (phenobarbital).</field>
+</record>
+<record model="medical.medicament" id="medicament_249">
+	<field name="name" ref="product_249"/>
+	<field name="active_component">phenoxymethylpenicillin</field>
+	<field name="category"  ref="em_6_2_1"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Powder for oral liquid: 250 mg (as potassium salt)/5 ml.
+Tablet: 250 mg (as potassium salt).</field>
+</record>
+<record model="medical.medicament" id="medicament_250">
+	<field name="name" ref="product_250"/>
+	<field name="active_component">phenytoin</field>
+	<field name="category"  ref="em_5"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">D</field>
+    <field name="notes">Capsule: 25 mg; 50 mg; 100 mg (sodium salt). 
+Injection: 50 mg/ml in 5‐ml vial (sodium salt). 
+Oral liquid: 25 mg to 30 mg/5 ml.* 
+Tablet: 25 mg; 50 mg; 100 mg (sodium salt).
+Tablet (chewable): 50 mg. 
+
+* The presence of both 25 mg/5 ml and 30 mg/5 ml strengths on 
+the same market would cause confusion in prescribing and 
+dispensing and should be avoided. </field>
+</record>
+<record model="medical.medicament" id="medicament_251">
+	<field name="name" ref="product_251"/>
+	<field name="active_component">phytomenadione</field>
+	<field name="category"  ref="em_10_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">N</field>
+    <field name="notes">Injection: 1 mg/ml [c]; 10 mg/ml in 5‐ml ampoule.
+Tablet: 10 mg.</field>
+</record>
+<record model="medical.medicament" id="medicament_252">
+	<field name="name" ref="product_252"/>
+	<field name="active_component">pilocarpine</field>
+</record>
+<!-- <record model="medical.medicament" id="medicament_253"> -->
+<!-- 	<field name="name" ref="product_253"/> -->
+<!-- 	<field name="active_component">pneumococcal vaccine</field> -->
+<!-- </record> -->
+<record model="medical.medicament" id="medicament_254">
+	<field name="name" ref="product_254"/>
+	<field name="active_component">podophyllum resin</field>
+</record>
+<!-- <record model="medical.medicament" id="medicament_255"> -->
+<!-- 	<field name="name" ref="product_255"/> -->
+<!-- 	<field name="active_component">poliomyelitis vaccine</field> -->
+<!-- </record> -->
+<record model="medical.medicament" id="medicament_256">
+	<field name="name" ref="product_256"/>
+	<field name="active_component">polyvidone iodine</field>
+</record>
+<record model="medical.medicament" id="medicament_257">
+	<field name="name" ref="product_257"/>
+	<field name="active_component">potassium chloride</field>
+</record>
+<record model="medical.medicament" id="medicament_258">
+	<field name="name" ref="product_258"/>
+	<field name="active_component">potassium ferric hexacyano‐ferrate(II) ‐2H20 (Prussian blue)</field>
+	<field name="category"  ref="em_4_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Powder for oral administration.</field>
+</record>
+<record model="medical.medicament" id="medicament_259">
+	<field name="name" ref="product_259"/>
+	<field name="active_component">potassium iodide</field>
+</record>
+<record model="medical.medicament" id="medicament_260">
+	<field name="name" ref="product_260"/>
+	<field name="active_component">potassium permanganate</field>
+</record>
+<record model="medical.medicament" id="medicament_261">
+	<field name="name" ref="product_261"/>
+	<field name="active_component">praziquantel</field>
+	<field name="category"  ref="em_6_1_1"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Tablet: 150 mg; 600 mg</field>
+</record>
+<record model="medical.medicament" id="medicament_262">
+	<field name="name" ref="product_262"/>
+	<field name="active_component">prednisolone</field>
+	<field name="category"  ref="em_3"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Oral liquid: 5 mg/ml 
+Tablet: 5 mg; 25 mg.</field>
+</record>
+<record model="medical.medicament" id="medicament_263">
+	<field name="name" ref="product_263"/>
+	<field name="active_component">primaquine</field>
+</record>
+<record model="medical.medicament" id="medicament_264">
+	<field name="name" ref="product_264"/>
+	<field name="active_component">procainamide</field>
+</record>
+<record model="medical.medicament" id="medicament_265">
+	<field name="name" ref="product_265"/>
+	<field name="active_component">procaine benzylpenicillin</field>
+	<field name="category"  ref="em_6_2_1"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Powder for oral liquid: 250 mg (as potassium salt)/5 ml.
+Tablet: 250 mg (as potassium salt).</field>
+</record>
+<record model="medical.medicament" id="medicament_266">
+	<field name="name" ref="product_266"/>
+	<field name="active_component">procarbazine</field>
+</record>
+<record model="medical.medicament" id="medicament_267">
+	<field name="name" ref="product_267"/>
+	<field name="active_component">proguanil</field>
+</record>
+<record model="medical.medicament" id="medicament_268">
+	<field name="name" ref="product_268"/>
+	<field name="active_component">promethazine</field>
+</record>
+<record model="medical.medicament" id="medicament_269">
+	<field name="name" ref="product_269"/>
+	<field name="active_component">propranolol</field>
+</record>
+<record model="medical.medicament" id="medicament_270">
+	<field name="name" ref="product_270"/>
+	<field name="active_component">propylthiouracil</field>
+</record>
+<record model="medical.medicament" id="medicament_271">
+	<field name="name" ref="product_271"/>
+	<field name="active_component">protamine sulfate</field>
+	<field name="category"  ref="em_10_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Injection: 10 mg/ml in 5‐ml ampoule.</field>
+</record>
+<record model="medical.medicament" id="medicament_272">
+	<field name="name" ref="product_272"/>
+	<field name="active_component">pyrantel</field>
+	<field name="category"  ref="em_6_1_1"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Oral liquid: 50 mg (as embonate or pamoate)/ml.
+Tablet (chewable): 250 mg (as embonate or pamoate).</field>
+</record>
+<record model="medical.medicament" id="medicament_273">
+	<field name="name" ref="product_273"/>
+	<field name="active_component">pyrazinamide</field>
+	<field name="category"  ref="em_6_2_4"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Oral liquid: 30 mg/ml [c]. 
+Tablet: 400 mg. 
+Tablet (dispersible): 150 mg. 
+Tablet (scored): 150 mg.</field>
+</record>
+<record model="medical.medicament" id="medicament_274">
+	<field name="name" ref="product_274"/>
+	<field name="active_component">pyridostigmine</field>
+</record>
+<record model="medical.medicament" id="medicament_275">
+	<field name="name" ref="product_275"/>
+	<field name="active_component">pyridoxine</field>
+</record>
+<record model="medical.medicament" id="medicament_276">
+	<field name="name" ref="product_276"/>
+	<field name="active_component">pyrimethamine</field>
+</record>
+<record model="medical.medicament" id="medicament_277">
+	<field name="name" ref="product_277"/>
+	<field name="active_component">quinidine</field>
+</record>
+<record model="medical.medicament" id="medicament_278">
+	<field name="name" ref="product_278"/>
+	<field name="active_component">quinine</field>
+</record>
+<record model="medical.medicament" id="medicament_279">
+	<field name="name" ref="product_279"/>
+	<field name="active_component">rabies immunoglobulin</field>
+</record>
+<!-- <record model="medical.medicament" id="medicament_280"> -->
+<!-- 	<field name="name" ref="product_280"/> -->
+<!-- 	<field name="active_component">rabies vaccine</field> -->
+<!-- </record> -->
+<record model="medical.medicament" id="medicament_281">
+	<field name="name" ref="product_281"/>
+	<field name="active_component">ranitidine</field>
+</record>
+<record model="medical.medicament" id="medicament_282">
+	<field name="name" ref="product_282"/>
+	<field name="active_component">retinol</field>
+</record>
+<record model="medical.medicament" id="medicament_283">
+	<field name="name" ref="product_283"/>
+	<field name="active_component">ribavirin</field>
+</record>
+<record model="medical.medicament" id="medicament_284">
+	<field name="name" ref="product_284"/>
+	<field name="active_component">riboflavin</field>
+</record>
+<record model="medical.medicament" id="medicament_285">
+	<field name="name" ref="product_285"/>
+	<field name="active_component">rifampicin</field>
+	<field name="category"  ref="em_6_2_3"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Solid oral dosage form: 150 mg; 300 mg.</field>
+</record>
+<record model="medical.medicament" id="medicament_286">
+	<field name="name" ref="product_286"/>
+	<field name="active_component">rifampicin + isoniazid</field>
+</record>
+<record model="medical.medicament" id="medicament_287">
+	<field name="name" ref="product_287"/>
+	<field name="active_component">rifampicin + isoniazid + ethambutol</field>
+</record>
+<record model="medical.medicament" id="medicament_288">
+	<field name="name" ref="product_288"/>
+	<field name="active_component">rifampicin + isoniazid + pyrazinamide</field>
+</record>
+<record model="medical.medicament" id="medicament_289">
+	<field name="name" ref="product_289"/>
+	<field name="active_component">rifampicin + isoniazid + pyrazinamide</field>
+</record>
+<record model="medical.medicament" id="medicament_290">
+	<field name="name" ref="product_290"/>
+	<field name="active_component">ritonavir</field>
+</record>
+<!-- <record model="medical.medicament" id="medicament_291"> -->
+<!-- 	<field name="name" ref="product_291"/> -->
+<!-- 	<field name="active_component">rotavirus vaccine</field> -->
+<!-- </record> -->
+<!-- <record model="medical.medicament" id="medicament_292"> -->
+<!-- 	<field name="name" ref="product_292"/> -->
+<!-- 	<field name="active_component">rubella vaccine</field> -->
+<!-- </record> -->
+<record model="medical.medicament" id="medicament_293">
+	<field name="name" ref="product_293"/>
+	<field name="active_component">salbutamol</field>
+</record>
+<record model="medical.medicament" id="medicament_294">
+	<field name="name" ref="product_294"/>
+	<field name="active_component">salicylic acid</field>
+</record>
+<record model="medical.medicament" id="medicament_295">
+	<field name="name" ref="product_295"/>
+	<field name="active_component">saquinavir (SQV)</field>
+</record>
+<record model="medical.medicament" id="medicament_296">
+	<field name="name" ref="product_296"/>
+	<field name="active_component">selenium sulfide</field>
+</record>
+<record model="medical.medicament" id="medicament_297">
+	<field name="name" ref="product_297"/>
+	<field name="active_component">senna</field>
+	<field name="category"  ref="em_8_4"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Oral liquid: 7.5 mg/5 ml.</field>
+</record>
+<record model="medical.medicament" id="medicament_298">
+	<field name="name" ref="product_298"/>
+	<field name="active_component">silver sulfadiazine</field>
+</record>
+<record model="medical.medicament" id="medicament_299">
+	<field name="name" ref="product_299"/>
+	<field name="active_component">simvastatin</field>
+</record>
+<record model="medical.medicament" id="medicament_300">
+	<field name="name" ref="product_300"/>
+	<field name="active_component">sodium calcium edetate</field>
+	<field name="category"  ref="em_4_2c"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Injection: 200 mg/ml in 5‐ml ampoule.</field>
+</record>
+<record model="medical.medicament" id="medicament_301">
+	<field name="name" ref="product_301"/>
+	<field name="active_component">sodium chloride</field>
+</record>
+<record model="medical.medicament" id="medicament_302">
+	<field name="name" ref="product_302"/>
+	<field name="active_component">sodium fluoride</field>
+</record>
+<record model="medical.medicament" id="medicament_303">
+	<field name="name" ref="product_303"/>
+	<field name="active_component">sodium hydrogen carbonate</field>
+</record>
+<record model="medical.medicament" id="medicament_304">
+	<field name="name" ref="product_304"/>
+	<field name="active_component">sodium lactate</field>
+</record>
+<record model="medical.medicament" id="medicament_305">
+	<field name="name" ref="product_305"/>
+	<field name="active_component">sodium nitrite</field>
+	<field name="category"  ref="em_4_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Injection: 30 mg/ml in 10‐ml ampoule.</field>
+</record>
+<record model="medical.medicament" id="medicament_306">
+	<field name="name" ref="product_306"/>
+	<field name="active_component">sodium nitroprusside</field>
+</record>
+<record model="medical.medicament" id="medicament_307">
+	<field name="name" ref="product_307"/>
+	<field name="active_component">sodium thiosulfate</field>
+	<field name="category"  ref="em_4_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Injection: 250 mg/ml in 50‐ml ampoule.</field>
+</record>
+<record model="medical.medicament" id="medicament_308">
+	<field name="name" ref="product_308"/>
+	<field name="active_component">sodium valproate</field>
+	<field name="category"  ref="em_24_2_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">D</field>
+    <field name="notes">Tablet (enteric‐coated): 200 mg; 500 mg (sodium valproate).</field>
+</record>
+<record model="medical.medicament" id="medicament_309">
+	<field name="name" ref="product_309"/>
+	<field name="active_component">spectinomycin</field>
+	<field name="category"  ref="em_6_2_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Powder for injection: 2 g (as hydrochloride) in vial.</field>
+</record>
+<record model="medical.medicament" id="medicament_310">
+	<field name="name" ref="product_310"/>
+	<field name="active_component">spironolactone</field>
+</record>
+<record model="medical.medicament" id="medicament_311">
+	<field name="name" ref="product_311"/>
+	<field name="active_component">stavudine</field>
+</record>
+<record model="medical.medicament" id="medicament_312">
+	<field name="name" ref="product_312"/>
+	<field name="active_component">stavudine (d4T)</field>
+</record>
+<record model="medical.medicament" id="medicament_313">
+	<field name="name" ref="product_313"/>
+	<field name="active_component">stavudine + lamivudine + nevirapine</field>
+</record>
+<record model="medical.medicament" id="medicament_314">
+	<field name="name" ref="product_314"/>
+	<field name="active_component">streptokinase</field>
+</record>
+<record model="medical.medicament" id="medicament_315">
+	<field name="name" ref="product_315"/>
+	<field name="active_component">streptomycin</field>
+</record>
+<record model="medical.medicament" id="medicament_316">
+	<field name="name" ref="product_316"/>
+	<field name="active_component">sulfadiazine</field>
+</record>
+<record model="medical.medicament" id="medicament_317">
+	<field name="name" ref="product_317"/>
+	<field name="active_component">sulfadoxine</field>
+</record>
+<record model="medical.medicament" id="medicament_318">
+	<field name="name" ref="product_318"/>
+	<field name="active_component">sulfadoxine + pyrimethamine</field>
+</record>
+<record model="medical.medicament" id="medicament_319">
+	<field name="name" ref="product_319"/>
+	<field name="active_component">sulfamethoxazole</field>
+	<field name="category"  ref="em_6_2_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes"> Injection:  
+ 80 mg + 16 mg/ml in 5‐ml ampoule;  
+ 80 mg + 16 mg/ml in 10‐ml ampoule. 
+  
+ Oral liquid: 200 mg + 40 mg/5 ml. 
+ Tablet: 100 mg + 20 mg; 400 mg + 80 mg; 800 mg + 160 mg.</field>
+</record>
+<record model="medical.medicament" id="medicament_320">
+	<field name="name" ref="product_320"/>
+	<field name="active_component">sulfamethoxazole + trimethoprim</field>
+	<field name="category"  ref="em_6_5_4"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Injection:  
+80 mg + 16 mg/ml in 5‐ml ampoule;  
+80 mg + 16 mg/ml in 10‐ml ampoule. 
+Oral liquid: 200 mg + 40 mg/5 ml [c]. 
+Tablet: 100 mg + 20 mg; 400 mg + 80 mg [c].</field>
+</record>
+<record model="medical.medicament" id="medicament_321">
+	<field name="name" ref="product_321"/>
+	<field name="active_component">sulfasalazine</field>
+</record>
+<record model="medical.medicament" id="medicament_322">
+	<field name="name" ref="product_322"/>
+	<field name="active_component">suramin sodium</field>
+</record>
+<record model="medical.medicament" id="medicament_323">
+	<field name="name" ref="product_323"/>
+	<field name="active_component">suxamethonium</field>
+</record>
+<record model="medical.medicament" id="medicament_324">
+	<field name="name" ref="product_324"/>
+	<field name="active_component">tamoxifen</field>
+</record>
+<record model="medical.medicament" id="medicament_325">
+	<field name="name" ref="product_325"/>
+	<field name="active_component">tenofovir</field>
+</record>
+<record model="medical.medicament" id="medicament_326">
+	<field name="name" ref="product_326"/>
+	<field name="active_component">tenofovir disoproxil fumarate</field>
+</record>
+<record model="medical.medicament" id="medicament_327">
+	<field name="name" ref="product_327"/>
+	<field name="active_component">testosterone</field>
+</record>
+<!-- <record model="medical.medicament" id="medicament_328"> -->
+<!-- 	<field name="name" ref="product_328"/> -->
+<!-- 	<field name="active_component">tetanus vaccine</field> -->
+<!-- </record> -->
+<record model="medical.medicament" id="medicament_329">
+	<field name="name" ref="product_329"/>
+	<field name="active_component">tetracaine</field>
+</record>
+<record model="medical.medicament" id="medicament_330">
+	<field name="name" ref="product_330"/>
+	<field name="active_component">tetracycline</field>
+</record>
+<record model="medical.medicament" id="medicament_331">
+	<field name="name" ref="product_331"/>
+	<field name="active_component">thiamine</field>
+</record>
+<record model="medical.medicament" id="medicament_332">
+	<field name="name" ref="product_332"/>
+	<field name="active_component">thiopental</field>
+</record>
+<record model="medical.medicament" id="medicament_333">
+	<field name="name" ref="product_333"/>
+	<field name="active_component">timolol</field>
+</record>
+<record model="medical.medicament" id="medicament_334">
+	<field name="name" ref="product_334"/>
+	<field name="active_component">triclabendazole</field>
+	<field name="category"  ref="em_6_1_3"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">N</field>
+    <field name="notes">Tablet: 250 mg.</field>
+</record>
+<record model="medical.medicament" id="medicament_335">
+	<field name="name" ref="product_335"/>
+	<field name="active_component">trimethoprim</field>
+	<field name="category"  ref="em_6_2_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Oral liquid: 50 mg/5 ml [c]. 
+Tablet: 100 mg; 200 mg. 
+&gt;6 months.</field>
+</record>
+<record model="medical.medicament" id="medicament_336">
+	<field name="name" ref="product_336"/>
+	<field name="active_component">tropicamide</field>
+</record>
+<record model="medical.medicament" id="medicament_337">
+	<field name="name" ref="product_337"/>
+	<field name="active_component">tuberculin, purified protein derivative (PPD)</field>
+</record>
+<!-- <record model="medical.medicament" id="medicament_338"> -->
+<!-- 	<field name="name" ref="product_338"/> -->
+<!-- 	<field name="active_component">typhoid vaccine</field> -->
+<!-- </record> -->
+<record model="medical.medicament" id="medicament_339">
+	<field name="name" ref="product_339"/>
+	<field name="active_component">urea</field>
+</record>
+<record model="medical.medicament" id="medicament_340">
+	<field name="name" ref="product_340"/>
+	<field name="active_component">valproic acid</field>
+	<field name="category"  ref="em_5"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">D</field>
+    <field name="notes">Oral liquid: 200 mg/5 ml.
+Tablet (crushable): 100 mg.
+Tablet (enteric‐coated): 200 mg; 500 mg (sodium valproate).</field>
+</record>
+<record model="medical.medicament" id="medicament_341">
+	<field name="name" ref="product_341"/>
+	<field name="active_component">vancomycin</field>
+	<field name="category"  ref="em_6_2_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Powder for injection: 250 mg (as hydrochloride) in vial</field>
+</record>
+<!-- <record model="medical.medicament" id="medicament_342"> -->
+<!-- 	<field name="name" ref="product_342"/> -->
+<!-- 	<field name="active_component">varicella vaccine</field> -->
+<!-- </record> -->
+<record model="medical.medicament" id="medicament_343">
+	<field name="name" ref="product_343"/>
+	<field name="active_component">vecuronium</field>
+</record>
+<record model="medical.medicament" id="medicament_344">
+	<field name="name" ref="product_344"/>
+	<field name="active_component">verapamil</field>
+</record>
+<record model="medical.medicament" id="medicament_345">
+	<field name="name" ref="product_345"/>
+	<field name="active_component">vinblastine</field>
+</record>
+<record model="medical.medicament" id="medicament_346">
+	<field name="name" ref="product_346"/>
+	<field name="active_component">vincristine</field>
+</record>
+<record model="medical.medicament" id="medicament_347">
+	<field name="name" ref="product_347"/>
+	<field name="active_component">warfarin</field>
+	<field name="category"  ref="em_10_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">X</field>
+    <field name="notes">Tablet: 1 mg; 2 mg; 5 mg (sodium salt).</field>
+</record>
+<record model="medical.medicament" id="medicament_348">
+	<field name="name" ref="product_348"/>
+	<field name="active_component">water for injection</field>
+</record>
+<!-- <record model="medical.medicament" id="medicament_349"> -->
+<!-- 	<field name="name" ref="product_349"/> -->
+<!-- 	<field name="active_component">yellow fever vaccine</field> -->
+<!-- </record> -->
+<record model="medical.medicament" id="medicament_350">
+	<field name="name" ref="product_350"/>
+	<field name="active_component">zidovudine (ZDV or AZT)</field>
+</record>
+<record model="medical.medicament" id="medicament_351">
+	<field name="name" ref="product_351"/>
+	<field name="active_component">zidovudine</field>
+</record>
+<record model="medical.medicament" id="medicament_352">
+	<field name="name" ref="product_352"/>
+	<field name="active_component">zidovudine + lamivudine</field>
+</record>
+<record model="medical.medicament" id="medicament_353">
+	<field name="name" ref="product_353"/>
+	<field name="active_component">zidovudine + lamivudine + nevirapine</field>
+</record>
+<record model="medical.medicament" id="medicament_354">
+	<field name="name" ref="product_354"/>
+	<field name="active_component">zinc sulfate</field>
+</record>
+<record model="medical.medicament" id="medicament_355">
+	<field name="name" ref="product_5"/>
+	<field name="active_component">acetylsalicylic acid</field>
+	<field name="category"  ref="em_2_1c"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">D</field>
+    <field name="notes">Suppository: 50 mg to 150 mg. Tablet: 100 mg to 500 mg. 
+For use for rheumatic fever, juvenile arthritis, Kawasaki disease.</field>
+</record>
+<record model="medical.medicament" id="medicament_356">
+	<field name="name" ref="product_218"/>
+	<field name="active_component">morphine</field>
+	<field name="category"  ref="em_2_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Injection: 10 mg (morphine hydrochloride or morphine sulfate) in 1‐ml ampoule. 
+Oral liquid: 10 mg (morphine hydrochloride or morphine sulfate)/5 ml. 
+Tablet: 10 mg (morphine sulfate). 
+Tablet (prolonged release): 10 mg; 30 mg; 60 mg (morphine sulfate). </field>
+</record>
+<record model="medical.medicament" id="medicament_361">
+	<field name="name" ref="product_218"/>
+	<field name="active_component">morphine</field>
+	<field name="category"  ref="em_8_4"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Granules (modified release) (to mix with water): 20 mg; 30 mg; 60 mg; 100 mg; 200 mg.
+Injection: 10 mg/ml. 
+Oral liquid: 10 mg/5 ml
+Tablet (controlled release): 10 mg; 30 mg; 60 mg.
+Tablet (immediate release): 10 mg. </field>
+</record>
+<record model="medical.medicament" id="medicament_357">
+    <field name="name" ref="product_31"/>
+	<field name="active_component">atropine</field>
+    <field name="category"  ref="em_21_5"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Solution (eye drops): 0.1%; 0.5%; 1% (sulfate)
+Or homatropine (hydrobromide) or cyclopentolate (hydrochloride). [c]</field>
+</record>
+<record model="medical.medicament" id="medicament_358">
+    <field name="name" ref="product_31"/>
+	<field name="active_component">atropine</field>
+    <field name="category"  ref="em_4_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Injection: 1 mg (sulfate) in 1‐ml ampoule.</field>
+</record>
+<record model="medical.medicament" id="medicament_359">
+	<field name="name" ref="product_308"/>
+	<field name="active_component">sodium valproate</field>
+	<field name="category"  ref="em_5"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">D</field>
+    <field name="notes">Oral liquid: 200 mg/5 ml.
+Tablet (crushable): 100 mg.
+Tablet (enteric‐coated): 200 mg; 500 mg (sodium valproate).</field>
+</record>	
+<record model="medical.medicament" id="medicament_360">
+	<field name="name" ref="product_97"/>
+	<field name="active_component">diazepam</field>
+	<field name="category"  ref="em_24_3"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">D</field>
+    <field name="notes">Tablet (scored): 2 mg; 5 mg.</field>
+</record>
+<record model="medical.medicament" id="medicament_362">
+	<field name="name" ref="product_297"/>
+	<field name="active_component">senna</field>
+	<field name="category"  ref="em_17_4"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Tablet: 7.5 mg (sennosides) (or traditional dosage forms).</field>
+</record>
+<record model="medical.medicament" id="medicament_363">
+	<field name="name" ref="product_153"/>
+	<field name="active_component">heparin sodium</field>
+	<field name="category"  ref="em_10_2c"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Injection: 1000 IU/ml; 5000 IU/ml in 1‐ml ampoule. [c]</field>
+</record>
+<record model="medical.medicament" id="medicament_364">
+	<field name="name" ref="product_271"/>
+	<field name="active_component">protamine sulfate</field>
+	<field name="category"  ref="em_10_2c"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Injection: 10 mg/ml in 5‐ml ampoule. [c]</field>
+</record>
+<record model="medical.medicament" id="medicament_365">
+	<field name="name" ref="product_347"/>
+	<field name="active_component">warfarin</field>
+	<field name="category"  ref="em_10_2c"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">X</field>
+    <field name="notes">Tablet: 0.5 mg; 1 mg; 2 mg; 5 mg (sodium salt). [c]</field>
+</record>
+<record model="medical.medicament" id="medicament_366">
+	<field name="name" ref="product_93"/>
+	<field name="active_component">deferoxamine</field>
+	<field name="category"  ref="em_10_3c"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Powder for injection: 500 mg (mesilate) in vial. 
+* Deferasirox oral form may be an alternative, depending on cost and availability</field>
+</record>
+<record model="medical.medicament" id="medicament_367">
+	<field name="name" ref="product_307"/>
+	<field name="active_component">sodium thiosulfate</field>
+	<field name="category"  ref="em_13_1"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Solution: 15%</field>
+</record>
+<record model="medical.medicament" id="medicament_368">
+    <field name="name" ref="product_54"/>
+    <field name="active_component">carbamazepine</field>
+    <field name="category"  ref="em_24_2_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">D</field>
+    <field name="notes">Tablet (scored): 100 mg; 200 mg.</field>
+</record>
+<record model="medical.medicament" id="medicament_369">
+	<field name="name" ref="product_97"/>
+	<field name="active_component">diazepam</field>
+	<field name="category"  ref="em_8_4"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">D</field>
+    <field name="notes">Injection: 5 mg/ml. 
+Oral liquid: 2 mg/5 ml. 
+Rectal solution: 2.5 mg; 5 mg; 10 mg. 
+Tablet: 5 mg; 10 mg
+[c]</field>
+</record>
+<record model="medical.medicament" id="medicament_370">
+	<field name="name" ref="product_340"/>
+	<field name="active_component">valproic acid</field>
+	<field name="category"  ref="em_24_2_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">D</field>
+    <field name="notes">Tablet (enteric‐coated): 200 mg; 500 mg (sodium valproate).</field>
+</record>
+<record model="medical.medicament" id="medicament_371">
+	<field name="name" ref="product_7"/>
+	<field name="active_component">albendazole</field>
+	<field name="category"  ref="em_6_1_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Tablet (chewable): 400 mg.</field>
+</record>
+<record model="medical.medicament" id="medicament_372">
+	<field name="name" ref="product_261"/>
+	<field name="active_component">praziquantel</field>
+	<field name="category"  ref="em_6_1_3"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Tablet: 600 mg</field>
+</record>
+<record model="medical.medicament" id="medicament_373">
+	<field name="name" ref="product_72"/>
+	<field name="active_component">ciprofloxacin</field>
+	<field name="category"  ref="em_28"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Topical: 0.3% drops (as hydrochloride).</field>
+</record>
+<record model="medical.medicament" id="medicament_374">
+	<field name="name" ref="product_109"/>
+	<field name="active_component">doxycycline</field>
+	<field name="category"  ref="em_6_5_3_2"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">D</field>
+    <field name="notes">Solid oral dosage form: 100 mg (as hydrochloride or hyclate).
+&gt;8 years.</field>
+</record>
+<record model="medical.medicament" id="medicament_375">
+	<field name="name" ref="product_109"/>
+	<field name="active_component">doxycycline</field>
+	<field name="category"  ref="em_6_5_3_1"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">D</field>
+    <field name="notes">Capsule: 100 mg (as hydrochloride or hyclate).
+Tablet (dispersible): 100 mg (as monohydrate).
+* For use only in combination with quinine.</field>
+</record>
+<record model="medical.medicament" id="medicament_376">
+	<field name="name" ref="product_143"/>
+	<field name="active_component">gentamicin</field>
+	<field name="category"  ref="em_21_1"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">D</field>
+    <field name="notes">Solution (eye drops): 0.3% (sulfate).</field>
+</record>
+<record model="medical.medicament" id="medicament_214">
+	<field name="name" ref="product_214"/>
+	<field name="active_component">metronidazole</field>
+	<field name="category"  ref="em_6_5_1"/>
+    <field name="pregnancy_category">B</field>
+    <field name="notes">Injection: 500 mg in 100‐ml vial.
+Oral liquid: 200 mg (as benzoate)/5 ml.
+Tablet: 200 mg to 500 mg</field>
+</record>
+<record model="medical.medicament" id="medicament_285">
+	<field name="name" ref="product_285"/>
+	<field name="active_component">rifampicin</field>
+	<field name="category"  ref="em_6_2_4"/>
+    <field name="pregnancy_warning">1</field>
+    <field name="pregnancy_category">C</field>
+    <field name="notes">Oral liquid: 20 mg/ml [c]. 
+Solid oral dosage form: 150 mg; 300 mg.</field>
+</record>
+</data>
+</odoo>
