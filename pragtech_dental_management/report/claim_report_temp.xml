@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="claim_report">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="o">
+					<t t-call="web.external_layout">
+						<div class="page">
+							<t t-foreach="patients" t-as="record">
+								<div style="page-break-inside:avoid">
+									<div class="row">
+										<div class="col-xs-12 text-center">
+											<h3>Claim Report</h3>
+										</div>
+									</div>
+									<div>
+										<br />
+										Patient Name :
+										<span t-esc="record.patient.name.name" />
+										<br />
+										MEM ID :
+										<span t-esc="record.patient.name.ref" />
+										<br />
+										Date of Birth :
+										<span t-esc="record.patient.dob" />
+										<br />
+										Nationality :
+										<span t-esc="record.patient.nationality_id.name" />
+										<br />
+										Country of Residence :
+										<span t-esc="record.patient.name.country_id.name" />
+										<br />
+										Sex :
+										<t t-if="record.patient.sex == 'm'">
+											<span>Male</span>
+										</t>
+										<t t-if="record.patient.sex == 'f'">
+											<span>Female</span>
+										</t>
+										<br />
+										Mobile Phone Number :
+										<span t-esc="record.patient.mobile" />
+										<br />
+										Invoice Number :
+										<span t-esc="record.number" />
+										<br />
+										Healthcare Professional :
+										<span t-esc="record.dentist.name.name" />
+										<br />
+										Healthcare Professional ID :
+										<span t-esc="record.dentist.code" />
+										<br />
+										Healthcare Professional Type :
+										<span t-esc="record.dentist.speciality.name" />
+										<br />
+										Episode Number :
+										<br />
+										<table class="table table-condensed">
+											<tr>
+												<td>
+													Appointment Number
+												</td>
+												<td>
+													Dentist
+												</td>
+												<td>
+													Appointment Start
+												</td>
+												<td>
+													Appointment End
+												</td>
+											</tr>
+											<t t-foreach="record.patient.apt_id" t-as="apt">
+												<tr>
+													<td>
+														<span t-esc="apt.name" />
+													</td>
+													<td>
+														<span t-esc="apt.doctor.name.name" />
+													</td>
+													<td>
+														<span t-esc="apt.appointment_sdate" />
+													</td>
+													<td>
+														<span t-esc="apt.appointment_edate" />
+													</td>
+												</tr>
+											</t>
+										</table>
+										<br />
+										Treatment :
+										<table class="table table-condensed">
+											<tr>
+												<td>Treatment Name</td>
+												<td>Treatment Code</td>
+											</tr>
+											<t t-foreach="record.invoice_line_ids" t-as="line">
+												<t t-if="line.product_id.is_treatment">
+													<tr>
+														<td>
+															<span t-esc="line.product_id.name" />
+														</td>
+														<td>
+															<span t-esc="line.product_id.default_code" />
+														</td>
+													</tr>
+												</t>
+											</t>
+										</table>
+										<div>
+											<span>
+												<h2>
+													<strong>Total Amount : </strong>
+													<span t-esc="record.amount_total" />
+												</h2>
+											</span>
+										</div>
+									</div>
+								</div>
+							</t>
+						</div>
+					</t>
+				</t>
+			</t>
+		</template>
+	</data>
+</odoo>

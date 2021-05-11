@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<template id="report_oman_reinburstment_document">
+			<t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
+			<t t-call="web.external_layout">
+			<div class="page" style="font-size:10px;padding-left:20px;padding-right:20px;font-size:10px;">
+				<div  style=" vertical-align:bottom;font-size:19"  >
+					<div  class="col-xs-7 "  style="height:70px; vertical-align:bottom;font-size:19"  >
+						<b>Healthcare Insurance</b>
+						<div style="color:rgb(0,153,204);vertical-align:bottom;">
+							<b>Reimbursement Claim Form</b>
+						</div>
+					</div>
+					<div class="img col-xs-5"   style="font-size:19" >
+						<img src="/pragtech_dental_management/static/src/img/Oman Reinburstment.jpeg"  width="200" height="70"/>
+					</div>
+				</div>
+				<!-- <div><br/></div> -->
+				<div>
+				One Claim Form per person, family members must apply individually.
+				<br/>
+				For the required supporting documentation, use the attached Summary Table as cover sheet.
+				<br/>
+				Before you submit, check your Table of Benefits in your policy document for exclusions to avoid rejections.
+				<br/>
+				Please write in BLOCK LETTERS, complete in full and submit within 30 days to ensure timely processing.
+				<br/>
+				</div>
+				<table style="width:100%;" class="table-condensed">
+					<tr >
+						<td colspan="11" style="background-color:rgb(0,153,204);color:white;border: 1px solid rgb(204,236,255);font-size:13px">
+							<b>1. Member and Payment Details</b>
+						</td>
+						<td colspan="4" style="background-color:rgb(0,153,204);color:white;border: 1px solid rgb(204,236,255);">Form Number</td>
+						<td colspan="10" style="border: 1px solid rgb(204,236,255);">58640387</td>
+					</tr>
+					<tr>
+						<td style="border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255)">Claimant Name</td>
+						<td  colspan="10" style="border: 1px solid rgb(204,236,255);"><span t-field="doc.partner_id"/></td>
+						<td colspan="4" style="border: 1px solid rgb(204,236,255);">Employer</td> 
+						<td colspan="10" style="border: 1px solid rgb(204,236,255);"></td>  
+
+					</tr>
+					<tr>
+						<td style="border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);" >Card Number</td>
+						<td colspan="10" style="border: 1px solid rgb(204,236,255);"></td>
+						<td colspan="4" style="border: 1px solid rgb(204,236,255);">Policy Number</td>
+						<td colspan="10" style="border: 1px solid rgb(204,236,255);"></td> 
+					</tr>
+					<tr>
+						<td style="border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);">Email Address</td>
+						<td  colspan="10" style="border: 1px solid rgb(204,236,255);"><span t-field="doc.partner_id.email"/></td>
+						<td colspan="4" style="border: 1px solid rgb(204,236,255);">Mobile</td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);">0</td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);">5</td>
+						<td style="text-align : center !important; width:3.33%;border: 1px solid rgb(204,236,255);"/>
+						<td style="text-align : center !important; width:3.33%;border: 1px solid rgb(204,236,255);"/>
+						<td style="text-align : center !important; width:3.33%;border: 1px solid rgb(204,236,255);"/>
+						<td style="text-align : center !important; width:3.33%;border: 1px solid rgb(204,236,255);"/>
+						<td style="text-align : center !important; width:3.33%;border: 1px solid rgb(204,236,255);"/>
+						<td style="text-align : center !important; width:3.33%;border: 1px solid rgb(204,236,255);"/>
+						<td style="text-align : center !important; width:3.33%;border: 1px solid rgb(204,236,255);"/>
+						<td style="text-align : center !important; width:3.33%;border: 1px solid rgb(204,236,255);"/>
+						<!-- <t t-foreach="range(8)" t-as="i">
+							<td style="text-align : center !important; width:3.33%;border: 1px solid rgb(204,236,255);">
+								<span t-esc="doc.mobile[i]" t-value="i+1"/>
+							</td>
+						</t>	
+						 -->
+					</tr>
+					<tr>
+						<td style="border: 1px solid rgb(204,236,255); background-color:rgb(204,236,255);" >Principal Member</td>
+						<td colspan="10" style="border: 1px solid rgb(204,236,255);"></td>
+						<td colspan="4" style="border: 1px solid rgb(204,236,255);">Employee #</td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+					</tr>
+					<tr>
+						<td style="border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);">Bank Account Name</td>
+						<td  colspan="10" style="border: 1px solid rgb(204,236,255);"></td>
+						<td colspan="4" style="border: 1px solid rgb(204,236,255);">Bank A/C #</td>
+						<td colspan="10" style="border: 1px solid rgb(204,236,255);"></td>
+					</tr>
+					<tr>
+						<td style="border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);" >Bank Name</td>
+						<td colspan="10" style="border: 1px solid rgb(204,236,255);"></td>
+						<td colspan="4" style="border: 1px solid rgb(204,236,255);">Branch</td>
+						<td colspan="10" style="border: 1px solid rgb(204,236,255);"></td>
+					</tr>
+					<tr>
+						<td style="width:20%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);">IBAN (23 digits)</td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+						<td style="width:3.33%;border: 1px solid rgb(204,236,255);"></td>
+					</tr>
+					<tr>
+						<td colspan="25" height="5px" style="border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);"></td>
+					</tr>
+					<tr>
+						<td colspan="25"  height="5px"></td>
+					</tr>
+				</table>
+				<!-- <table style="width:100%;" >
+				<tr >
+				<td colspan="14" style="background-color:rgb(0,153,204);color:white;border: 1px solid rgb(204,236,255);font-size:13px">
+				<b>&#160;2. Claim Details</b>
+				</td>
+				</tr>
+				<tr>
+				<td style="width:25%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);padding-left:20px">Is the claim in UAE?</td>
+				<td style="width:2%;background-color:white" align="center">
+				<svg height="13" width="12">
+				<circle cx="6" cy="7" r="6" stroke="skyblue" stroke-width="1" fill="white" />
+				</svg>
+				</td>
+				<td colspan="3" style="border: 1px solid rgb(204,236,255); background-color:rgb(204,236,255);">&#160;&#160; Yes</td>
+				<td style="width:2%;">
+				<svg height="13" width="12">
+				<rect x="3" y="6" height="12" width="8"
+				style="stroke:#006600; fill: #00cc00"/>
+				</svg>
+				</td>
+				<td colspan="3" style="border: 1px solid rgb(204,236,255); background-color:rgb(204,236,255);">&#160;&#160;No</td>
+				<td style="width:20%;border: 1px solid rgb(204,236,255); background-color:rgb(204,236,255);">If No, precise Country</td>
+				<td colspan="3"></td>
+				<td   style="width:15%;border-right: 1px solid rgb(204,236,255);"></td>
+				</tr>
+				<tr>
+				<td  style="border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);padding-left:20px">Name of Hospital/Dr.</td>
+				<td colspan="14"  style="border: 1px solid rgb(204,236,255);"></td>
+				</tr>
+				<tr>
+
+				<td  style="width:28%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);padding-left:20px">Date of Treatment</td>
+				<td style="border: 1px solid rgb(204,236,255);"></td>
+				<td style="border: 1px solid rgb(204,236,255);"></td>
+				<td style="border: 1px solid rgb(204,236,255);" class="text-center">/</td>
+				<td style="border: 1px solid rgb(204,236,255);"></td>
+				<td style="border: 1px solid rgb(204,236,255);"></td>
+				<td style="border: 1px solid rgb(204,236,255);" class="text-center">/</td>
+				<td style="border: 1px solid rgb(204,236,255);" class="text-center">1</td>
+				<td style="border: 1px solid rgb(204,236,255);"></td>
+				<td  style="width:20%;background-color:rgb(204,236,255);border: 1px solid rgb(204,236,255);">Number of Invoices</td>
+				<td style="border: 1px solid rgb(204,236,255);"></td>
+				<td style="border: 1px solid rgb(204,236,255);"></td>
+				<td   style="border: 1px solid rgb(204,236,255);"></td>
+				<td   style="width:15%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);"></td>
+				</tr>
+				<tr>
+				<td  style="width:25%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);padding-left:20px">Total Amount Claimed</td>
+				<td colspan="8" style="border: 1px solid rgb(204,236,255);"></td>
+				<td  style="width:20%;background-color:rgb(204,236,255);border: 1px solid rgb(204,236,255);">Currency</td>
+				<td style="border: 1px solid rgb(204,236,255);"></td>
+				<td style="border: 1px solid rgb(204,236,255);"></td>
+				<td   style="border: 1px solid rgb(204,236,255);"></td>
+				<td   style="width:15%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);"></td>
+
+				</tr>
+				<tr>
+				<td colspan="14" style="border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);padding-left:20px">For breakdown of Total Amount Claimed, use attached summary table cover sheet to tabulate entries in chronological order.</td>
+				</tr>
+				<tr>
+				<td colspan="25"  height="5px"></td>
+				</tr>
+				</table> -->
+				<table style="width:100%;" class="table-condensed">
+					<tr >
+						<td colspan="14" style="background-color:rgb(0,153,204);color:white;border: 1px solid rgb(204,236,255);font-size:13px">
+							<b>2. Claim Details</b>
+						</td>
+					</tr>
+					<tr>
+						<td style="width:25%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);padding-left:20px">Is the claim in UAE?</td>
+						<td colspan="4" style="border: 1px solid rgb(204,236,255); background-color:rgb(204,236,255);">
+							<svg height="13" width="12">
+								<circle cx="6" cy="7" r="6" stroke="skyblue" stroke-width="1" fill="white" />
+							</svg>
+							&#160; Yes
+						</td>
+						<td colspan="4" style="border: 1px solid rgb(204,236,255); background-color:rgb(204,236,255);">
+							<svg height="15" width="12">
+								<rect x="3" y="7" height="12" width="10"
+								style="stroke:black; fill: white"/>
+							</svg>
+							&#160;  No
+						</td>
+						<td style="width:20%;border: 1px solid rgb(204,236,255); background-color:rgb(204,236,255);">If No, precise Country</td>
+						<td colspan="3"></td>
+						<td   style="width:15%;border-right: 1px solid rgb(204,236,255);"></td>
+					</tr>
+					<tr>
+						<td  style="border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);padding-left:20px">Name of Hospital/Dr.</td>
+						<td colspan="14"  style="border: 1px solid rgb(204,236,255);"><span t-field="doc.referring_doctor_id.name"/><br/></td>
+					</tr>
+					<tr>
+
+						<td  style="width:28%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);padding-left:20px">Date of Treatment</td>
+						<td style="border: 1px solid rgb(204,236,255);"></td>
+						<td style="border: 1px solid rgb(204,236,255);"></td>
+						<td style="border: 1px solid rgb(204,236,255);" class="text-center">/</td>
+						<td style="border: 1px solid rgb(204,236,255);"></td>
+						<td style="border: 1px solid rgb(204,236,255);"></td>
+						<td style="border: 1px solid rgb(204,236,255);" class="text-center">/</td>
+						<td style="border: 1px solid rgb(204,236,255);" class="text-center">1</td>
+						<td style="border: 1px solid rgb(204,236,255);"></td>
+						<td  style="width:20%;background-color:rgb(204,236,255);border: 1px solid rgb(204,236,255);">Number of Invoices</td>
+						<td style="border: 1px solid rgb(204,236,255);"></td>
+						<td style="border: 1px solid rgb(204,236,255);"></td>
+						<td   style="border: 1px solid rgb(204,236,255);"></td>
+						<td   style="width:15%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);"></td>
+					</tr>
+					<tr>
+						<td  style="width:25%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);padding-left:20px">Total Amount Claimed</td>
+						<td colspan="8" style="border: 1px solid rgb(204,236,255);"></td>
+						<td  style="width:20%;background-color:rgb(204,236,255);border: 1px solid rgb(204,236,255);">Currency</td>
+						<td style="border: 1px solid rgb(204,236,255);"></td>
+						<td style="border: 1px solid rgb(204,236,255);"></td>
+						<td   style="border: 1px solid rgb(204,236,255);"></td>
+						<td   style="width:15%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);"></td>
+
+					</tr>
+					<tr>
+						<td colspan="14" style="border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);padding-left:20px">For breakdown of Total Amount Claimed, use attached summary table cover sheet to tabulate entries in chronological order.</td>
+					</tr>
+					<tr>
+						<td colspan="25"  height="5px"></td>
+					</tr>
+				</table>
+				<table style="width:100%;height:100%;" >
+					<tr>
+						<td colspan="7" style="height:20px;background-color:rgb(0,153,204);color:white;border: 1px solid rgb(204,236,255);font-size:13px">
+							<b>&#160;3. Medical Details</b> – to be completed by the treating Doctor
+						</td>
+					</tr>
+					<tr>
+						<td style="height:16px;width:20%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);padding-left:18px">Is it work related?</td>
+						<td  style="border: 1px solid rgb(204,236,255); background-color:white;width:2%"></td>
+						<td  style="width:10%;border: 1px solid rgb(204,236,255); background-color:rgb(204,236,255);">&#160;Yes</td>
+						<td  style="padding:5px;border: 1px solid rgb(204,236,255); background-color:white;width:2%"></td>
+						<td  style="width:10%;border: 1px solid rgb(204,236,255); background-color:rgb(204,236,255);">&#160;No</td>
+						<td style="width:15%;border: 1px solid rgb(204,236,255); background-color:rgb(204,236,255);" align="center">&#160;&#160;&#160;If Yes, specify</td>
+						<td   style="width:30%;border: 1px solid rgb(204,236,255);"></td>
+					</tr>
+				</table>
+				<table style="width:100%;height:100%;">
+					<tr>
+						<td style="height:16px;width:20%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);padding-left:18px">Treatment Type</td>
+						<td style="width:0.50%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);"></td>
+						<td  style="width:2%;border: 1px solid rgb(204,236,255); background-color:white;"></td>
+						<td  style="width:11.5%;border: 1px solid rgb(204,236,255); background-color:rgb(204,236,255);">&#160;In-Patient</td>
+						<td  style="padding:5px;border: 1px solid rgb(204,236,255); background-color:white;width:2%"></td>
+						<td  style="width:16%;border: 1px solid rgb(204,236,255); background-color:rgb(204,236,255);">&#160;Out-Patient</td>
+						<td  style="padding:5px;border: 1px solid rgb(204,236,255); background-color:white;width:2%"></td>
+						<td  style="width:12%;border: 1px solid rgb(204,236,255); background-color:rgb(204,236,255);">&#160;Day Care</td>
+						<td style="width:39;border: 1px solid rgb(204,236,255); background-color:rgb(204,236,255);" ></td>
+					</tr>
+					<tr>
+						<td  style="height:17px;width:22%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);padding-left:18px">Chief Complaint</td>
+						<td colspan="8" style="border: 1px solid rgb(204,236,255);"></td>
+					</tr>
+					<tr>
+						<td  style="height:17px;width:22%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);padding-left:18px">Diagnosis</td>
+						<td colspan="8" style="border: 1px solid rgb(204,236,255);"></td>
+					</tr>
+					<tr>
+						<td  style="height:17px;width:22%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);padding-left:18px">Treatment Details</td>
+						<td colspan="8" style="border: 1px solid rgb(204,236,255);"></td>
+					</tr>
+					<tr>
+						<td colspan="9" style="padding-left:18px;background-color:rgb(204,236,255);border: 1px solid rgb(204,236,255);">l, the undersigned treating doctor, hereby declare I have attended to this patient and the particulars provided are
+							correct and accurate to the best of my knowledge.</td>
+					</tr>
+				</table>
+				<table style="width:100%;" >
+					<tr  >
+						<td   style="padding-left:18px;width:15%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);">Doctor Name &#38; Stamp</td>
+						<td style="width:23.5%;border: 1px solid rgb(204,236,255);background-color:white;"></td>
+						<td   style="vertical-align:middle;width:10%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);">Signature</td>
+						<td style="width:23.5%;border: 1px solid rgb(204,236,255);"></td>
+						<td  style="vertical-align:middle;width:10%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);">Date</td>
+						<td style="width:23%;border: 1px solid rgb(204,236,255);"></td>
+					</tr>
+				</table>
+				<br/>
+				<table style="width:100%;" class="table-condensed">
+					<tr >
+						<td colspan="14" style="background-color:rgb(0,153,204);color:white;border: 1px solid rgb(204,236,255);font-size:13px">
+							<b>4. Declaration and Authorization</b>
+						</td>
+					</tr>
+					<tr>
+						<td  colspan="6" style="border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);">I hereby declare that the above information is correct and is for actual expenses paid by me for treatment of claimant/insured member's
+							covered condition for which no previous claim has been applied. I have not withheld any information/documents pertaining to this claim.
+							l, hereby authorize all doctors, hospitals, clinics, health care providers, other insurance companies, any other company, institution,
+							individual or entity who has any record or information about the claimant/insured member and/or the family members to provide to Oman
+							Insurance Company (the ‘Company’) all data, records and information, including copies thereof with reference to any sickness, accident,
+							treatment, examination, advise or hospitalization or any other information as required by the Company. l, hereby declare that I am fully
+							aware that any person, who intentionally makes any false and/or misleading statement and/or information to obtain reimbursement from
+							the Company, is subject to penalization and legal action. I understand that claim payouts (if any) will be in accordance and subject to
+							the terms and conditions and exclusions of my insurance policy. If ever, the Company credits more amount than the correct benefit
+							amount, I authorize the Company to withdraw the overpayment. By filling in the bank details above I hereby authorize the Company to
+							wire transfer payouts (if any) to above bank accounts Or by not filling in bank details above I confirm that I do not hold a bank account
+							and authorize the Company to release my claim details and payouts (if any) to my policyholder. I will not hold the Company responsible
+							in case the claim payout (if any) is delayed or not effected at all due to any incorrect or incomplete details. I understand that the Company
+							reserves its right to use any alternate payout option and I have no objection for the same. I hereby authorize and have no objection that
+							from time to time Oman Insurance Company, may need to disclose my personal/claim information to third parties for reasons related to
+							insurance including but not limited to the processing/investigation of claim, research/statistical purposes, performance of contract,
+							preventing/control fraudulent/abuse or improper claims, complying with legal obligations, etc. I hereby also authorize the Company to
+							contact me anytime and through any medium (phone, sms, email mail etc.) for purpose of obtaining more information about this claim
+
+							and/or for any other services including for keeping me informed about other products &#38; activities. I hereby confirm that I understand that
+							the receipt of this reimbursement claim form/other supporting/related documents does not constitute any acceptance of liability under
+							the claim and all the right to process or reject or require further/additional information in respect of the claim are reserved with the
+							Company. This authorization shall bind the claimant/insured member’s successors and remains valid not withstanding death or
+							incapacity. A photocopy or facsimile copy of this authorization shall be as valid as the original.</td>
+					</tr>
+					<tr>
+						<td align="right"  style="width:10%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);">Name</td>
+						<td style="width:23.5%;border: 1px solid rgb(204,236,255);"></td>
+						<td align="right"  style="width:10%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);">Signature</td>
+						<td style="width:23.5%;border: 1px solid rgb(204,236,255);"></td>
+						<td align="right" style="width:10%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);">Date</td>
+						<td style="width:23%;border: 1px solid rgb(204,236,255);"></td>
+					</tr>
+					<!-- <tr>
+					<td colspan="6"  style="border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);"></td>
+					</tr> -->
+				</table>
+				<div style = "page-break-after:always"></div>
+				<div  style="vertical-align:bottom;font-size:19">
+					<b>Healthcare Insurance</b>
+					<div style="color:rgb(0,153,204);">
+						<b>How to Complete the Form</b>
+						<br/>
+					</div>
+				</div>
+				<div style="font-size:12">
+					<div >
+						<div class=" col-xs-6">
+							<br/>
+							Both you and the attending doctor must fill in the claim form
+							for each individual visit or course of treatment.
+							<div style="color:rgb(0,153,204);">
+								<b>You</b>
+							</div>
+							<div style="padding-left:30px">
+								<ol>
+									<li style="font-weight: bold;">
+										<p>
+											<span style="font-weight: normal;" >
+												The Patient’s details section is to be filled
+												completely including the Policy Number and the
+												Card Number.
+												<br/>
+												Give us your contact details so we can keep you
+												informed on the progress of your claim by SMS or
+												by e-mail.
+												<br/>
+												Enter the bank details including the IBAN of the
+												account where we can transfer your settled claim
+												amount.
+											</span>
+										</p>
+									</li>
+									<li style="font-weight: bold;">
+										<p>
+											<span style="font-weight: normal;" >
+												Include the breakdown of expenses that need
+												reimbursement.
+												<br/>
+												Complete the summary table on the next page
+												giving the full required details. Every invoice should
+												be on one line.
+											</span>
+										</p>
+									</li>
+									<li style="font-weight: bold;">
+										<p>
+											<span style="font-weight: normal;" >Read the Declaration section carefully, tick the
+												boxes and remember to sign and date the form.</span>
+										</p>
+									</li>
+								</ol>
+							</div>
+							<div style="color:rgb(0,153,204);">
+								<b>Your Doctor</b>
+							</div>
+							<div style="padding-left:30px">
+								<ol start="4">
+									<li style="font-weight: bold;">
+										<p>
+											<span style="font-weight: normal;" >Please ensure that the doctor completes each
+												question of the <i> Medical section</i> in full and then signs
+												and stamps it.</span>
+										</p>
+									</li>
+								</ol>
+							</div>
+						</div>
+						<div class="img col-xs-6" style="border:1px solid rgb(204,236,255);">
+							<img src="/pragtech_dental_management/static/src/img/oman_inlineimg.png"  width="300" height="400"/>
+						</div>
+					</div>
+					<table style="width:100%;" class="table-condensed" >
+						<tr>
+							<td colspan="2">
+								<br/>
+								<br/>
+							</td>
+						</tr>
+						<tr>
+							<td style="width:30%;border: 1px solid rgb(204,236,255);color:rgb(0,153,204);vertical-align:middle;">
+								<b>Send your claim to:</b>
+							</td>
+							<td style="width:70%;border: 1px solid rgb(204,236,255);">
+								Medical Claims Department
+								<br/>
+								Oman Insurance Company
+								<br/>
+								Level 3, Al Rigga Business Centre,
+								<br/>
+								Al Rigga Street, Deira
+								<br/>
+								PO 5209, Dubai, UAE
+								<br/>
+								Tel: +971 4 230 2700
+								<br/>
+							</td>
+						</tr>
+					</table>
+					<br/>
+					<br/>
+					<div style="color:rgb(0,153,204);">
+						<b>Claim Processing</b>
+					</div>
+					Your claim will be assessed in full confidentiality by one of our personal advisers. If OIC has received all
+					required documents and information, you will receive within 21 working days the reimbursement in UAE Dirham
+					along with a claim report and explanations in the case of declined amounts.
+					<br/>
+					<br/>
+					It is preferable and recommended for the reimbursement claim form to be submitted within thirty (30) days of
+					the original claim knowing that claims submitted after ninety (90) days of treatment shall not be accepted.
+					<br/>
+					<br/>
+					<table style="width:100%;" class="table-condensed" >
+						<tr>
+							<td style="width:30%;border: 1px solid rgb(204,236,255);color:rgb(0,153,204);vertical-align:middle;">
+								<b>If you have any enquiries,
+									contact us on:</b>
+							</td>
+							<td style="width:70%;border: 1px solid rgb(204,236,255);">
+								<div style="color:rgb(0,153,204);font-size:17;">
+									<b>800 4746</b>
+								</div>
+								UAE Toll Free 8am till 8pm Sunday to Thursday, 8am till 4pm on Saturday
+								<br/>
+								Fax: +971 (0) 4 238 4769
+								<br/>
+								service@tameen.ae
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div style = "page-break-after:always"></div>
+				<div  style="vertical-align:bottom;font-size:14">
+					<b>Reimbursement Claim Form Attachment</b>
+					<div style="color:rgb(0,153,204);">
+						<b>Summary Table of Invoices</b>
+						<br/>
+					</div>
+				</div>
+				<br/>
+				<br/>
+				Mark the sequence number of the corresponding invoice.
+				<table style="width:100%;" class="table-condensed" >
+					<thead>
+						<th style="border:1px solid rgb(0,153,204);background-color:rgb(0,153,204);color:white;font-size:11">Sequence Number</th>
+						<th style="border:1px solid rgb(204,236,255);background-color:rgb(0,153,204);color:white;font-size:11">Service Date</th>
+						<th style="border:1px solid rgb(0,153,204);background-color:rgb(0,153,204);color:white;font-size:11">Provider Name</th>
+						<th style="border:1px solid rgb(0,153,204);background-color:rgb(0,153,204);color:white;font-size:11">Service Description</th>
+						<th style="border:1px solid rgb(0,153,204);background-color:rgb(0,153,204);color:white;font-size:11">Invoice ref. Number</th>
+						<th style="border:1px solid rgb(0,153,204);background-color:rgb(0,153,204);color:white;font-size:11">Claimed Amount</th>
+						<th style="border:1px solid rgb(0,153,204);background-color:rgb(0,153,204);color:white;font-size:11">Currency</th>
+					</thead>
+					<tbody>
+						<tr>
+							<td style="border:1px solid rgb(0,153,204);">
+								<br/>
+							</td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+						</tr>
+						<tr>
+							<td style="border:1px solid rgb(0,153,204);">
+								<br/>
+							</td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+						</tr>
+						<tr>
+							<td style="border:1px solid rgb(0,153,204);">
+								<br/>
+							</td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+						</tr>
+						<tr>
+							<td style="border:1px solid rgb(0,153,204);">
+								<br/>
+							</td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+						</tr>
+						<tr>
+							<td style="border:1px solid rgb(0,153,204);">
+								<br/>
+							</td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+						</tr>
+						<tr>
+							<td style="border:1px solid rgb(0,153,204);">
+								<br/>
+							</td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+						</tr>
+						<tr>
+							<td style="border:1px solid rgb(0,153,204);">
+								<br/>
+							</td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+						</tr>
+						<tr>
+							<td style="border:1px solid rgb(0,153,204);">
+								<br/>
+							</td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+						</tr>
+						<tr>
+							<td style="border:1px solid rgb(0,153,204);">
+								<br/>
+							</td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+						</tr>
+						<tr>
+							<td style="border:1px solid rgb(0,153,204);">
+								<br/>
+							</td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+							<td style="border:1px solid rgb(0,153,204);"></td>
+						</tr>
+					</tbody>
+				</table>
+				<div style="font-size:13;">
+					<i>In case you have more invoices to send, please photocopy this sheet.</i>
+				</div>
+				<br/>
+				<br/>
+				<table style="width:100%;" class="table-condensed" >
+					<tr>
+						<td style="color:rgb(0,153,204);width:90%">
+							<b>Checklist - Before you submit, please check that you have included all of the following as applicable:</b>
+						</td>
+						<td align="center" style="border-right: 1px solid rgb(0,153,204);border-left: 1px solid rgb(0,153,204);border-top: 1px solid rgb(0,153,204);font-size:18px">&#10004;</td>
+					</tr>
+					<tr>
+						<td style="border: 1px solid rgb(0,153,204);" >1. Completed, stamped and signed Reimbursement Claim Form</td>
+						<td style="border-right: 1px solid rgb(0,153,204);"></td>
+					</tr>
+					<tr>
+						<td style="border: 1px solid rgb(0,153,204);background-color:rgb(204,236,255);" >2. Pre-approval letter form Oman Insurance company where required (refer to TOB)</td>
+						<td style="border: 1px solid rgb(0,153,204);"></td>
+					</tr>
+					<tr>
+						<td style="border: 1px solid rgb(0,153,204);" >3. Original invoices/bills showing payments confirmation</td>
+						<td style="border: 1px solid rgb(0,153,204);"></td>
+					</tr>
+					<tr>
+						<td style="border: 1px solid rgb(0,153,204);background-color:rgb(204,236,255);" >4. Medical and/or Lab test reports</td>
+						<td style="border: 1px solid rgb(0,153,204);"></td>
+					</tr>
+					<tr>
+						<td style="border: 1px solid rgb(0,153,204);" >5. All claims submitted must be in original &#38;  translated to either English or Arabic for the settlement</td>
+						<td style="border: 1px solid rgb(0,153,204);"></td>
+					</tr>
+					<tr>
+						<td style="border: 1px solid rgb(0,153,204);background-color:rgb(204,236,255);" >6. Card copy of the concerned member.</td>
+						<td style="border: 1px solid rgb(0,153,204);"></td>
+					</tr>
+					<tr>
+						<td style="border: 1px solid rgb(0,153,204);" >7. Summary Table of Submitted Invoice (above) completed</td>
+						<td style="border: 1px solid rgb(0,153,204);"></td>
+					</tr>
+					<tr>
+						<td style="border: 1px solid rgb(0,153,204);background-color:rgb(204,236,255);" >8. You have retained a copy of the Form, Summary Table and original invoices and report for your reference</td>
+						<td style="border: 1px solid rgb(0,153,204);"></td>
+					</tr>
+				</table>
+				<br/>
+				<br/>
+				<table style="width:100%;" class="table-condensed" >
+					<tr >
+						<td colspan="6" style="background-color:rgb(0,153,204);color:white;border: 1px solid rgb(204,236,255);font-size:13px">
+							<b>Member Name &#38; Signature</b>
+						</td>
+					</tr>
+					<tr>
+						<td  colspan="6" style="height:2px;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);"></td>
+					</tr>
+					<tr  >
+
+						<td   style="vertical-align:middle;width:10%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);">Name</td>
+						<td style="padding-top:5px;width:23.5%;border: 1px solid rgb(204,236,255);background-color:white;">
+							<br/>
+							<br/>
+						</td>
+						<td   style="vertical-align:middle;width:10%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);">Signature</td>
+						<td style="width:23.5%;border: 1px solid rgb(204,236,255);"></td>
+						<td  style="vertical-align:middle;width:10%;border: 1px solid rgb(204,236,255);background-color:rgb(204,236,255);">Date</td>
+						<td style="width:23%;border: 1px solid rgb(204,236,255);"></td>
+					</tr>
+
+				</table>
+
+			</div>
+			<div class="footer text-center" style="color: #C0C0C0;font-size:10px">
+				<div class="text-center" >
+					<br/>
+					Oman Insurance Company (P.S.C.), Paid up Capital 461,872,125, C.R. No. 41952, Insurance Authority No. 9 dated 24/12/1984
+					<br/>
+					Head Office: P.O. Box 5209, Dubai, United Arab Emirates. Tel.: 800 4746, Fax: +971 4 233 7775, www.tameen.ae
+
+				</div>
+			</div>
+		</t>
+		</template>
+		<template id="report_oman_reinburstment">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="doc">
+					<t t-call="pragtech_dental_management.report_oman_reinburstment_document" t-lang="doc.partner_id.lang"/>
+				</t>
+			</t>
+		</template>
+	</data>
+</odoo>

@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data noupdate="0">
+
+		<!-- TAGS FOR RETRIEVING THE TOOTH DATA -->
+
+		<record id="teeth_code_1" model="teeth.code">
+			<field name="name">1</field>
+			<field name="code">T1</field>
+			<field name="palmer_name">1</field>
+			<field name="iso">18</field>
+			<field name="palmer_internal_id">8</field>
+			<field name = "internal_id">1</field>
+		</record>
+		<record id="teeth_code_2" model="teeth.code">
+			<field name="name">2</field>
+			<field name="code">T2</field>
+			<field name="palmer_name">2</field>
+			<field name="iso">17</field>
+			<field name="palmer_internal_id">7</field>
+			<field name = "internal_id">2</field>
+		</record>
+		<record id="teeth_code_3" model="teeth.code">
+			<field name="name">3</field>
+			<field name="palmer_name">3</field>
+			<field name="iso">16</field>
+			<field name="code">T3</field>
+			<field name="palmer_internal_id">6</field>
+			<field name = "internal_id">3</field>
+		</record>
+		<record id="teeth_code_4" model="teeth.code">
+			<field name="name">4</field>
+			<field name="palmer_name">4</field>
+			<field name="iso">15</field>
+			<field name="code">T4</field>
+			<field name="palmer_internal_id">5</field>
+			<field name = "internal_id">4</field>
+		</record>
+		<record id="teeth_code_5" model="teeth.code">
+			<field name="name">5</field>
+			<field name="palmer_name">5</field>
+			<field name="iso">14</field>
+			<field name="code">T5</field>
+			<field name="palmer_internal_id">4</field>
+			<field name = "internal_id">5</field>
+		</record>
+		<record id="teeth_code_6" model="teeth.code">
+			<field name="name">6</field>
+			<field name="palmer_name">6</field>
+			<field name="iso">13</field>
+			<field name="code">T6</field>
+			<field name="palmer_internal_id">3</field>
+			<field name = "internal_id">6</field>
+		</record>
+		<record id="teeth_code_7" model="teeth.code">
+			<field name="name">7</field>
+			<field name="palmer_name">7</field>
+			<field name="iso">12</field>
+			<field name="code">T7</field>
+			<field name="palmer_internal_id">2</field>
+			<field name = "internal_id">7</field>
+		</record>
+		<record id="teeth_code_8" model="teeth.code">
+			<field name="name">8</field>
+			<field name="palmer_name">8</field>
+			<field name="iso">11</field>
+			<field name="code">T8</field>
+			<field name="palmer_internal_id">1</field>
+			<field name = "internal_id">8</field>
+		</record>
+		<record id="teeth_code_9" model="teeth.code">
+			<field name="name">9</field>
+			<field name="palmer_name">1</field>
+			<field name="iso">21</field>
+			<field name="code">T9</field>
+			<field name="palmer_internal_id">1</field>
+			<field name = "internal_id">9</field>
+		</record>
+		<record id="teeth_code_10" model="teeth.code">
+			<field name="name">10</field>
+			<field name="palmer_name">2</field>
+			<field name="iso">22</field>
+			<field name="code">T10</field>
+			<field name="palmer_internal_id">2</field>
+			<field name = "internal_id">10</field>
+		</record>
+		<record id="teeth_code_11" model="teeth.code">
+			<field name="name">11</field>
+			<field name="palmer_name">3</field>
+			<field name="iso">23</field>
+			<field name="code">T11</field>
+			<field name="palmer_internal_id">3</field>
+			<field name = "internal_id">11</field>
+		</record>
+		<record id="teeth_code_12" model="teeth.code">
+			<field name="name">12</field>
+			<field name="palmer_name">4</field>
+			<field name="iso">24</field>
+			<field name="code">T12</field>
+			<field name="palmer_internal_id">4</field>
+			<field name = "internal_id">12</field>
+		</record>
+		<record id="teeth_code_13" model="teeth.code">
+			<field name="name">13</field>
+			<field name="palmer_name">5</field>
+			<field name="iso">25</field>
+			<field name="code">T13</field>
+			<field name="palmer_internal_id">5</field>
+			<field name = "internal_id">13</field>
+		</record>
+		<record id="teeth_code_14" model="teeth.code">
+			<field name="name">14</field>
+			<field name="palmer_name">6</field>
+			<field name="iso">26</field>
+			<field name="code">T14</field>
+			<field name="palmer_internal_id">6</field>
+			<field name = "internal_id">14</field>
+		</record>
+		<record id="teeth_code_15" model="teeth.code">
+			<field name="name">15</field>
+			<field name="palmer_name">7</field>
+			<field name="iso">27</field>
+			<field name="code">T15</field>
+			<field name="palmer_internal_id">7</field>
+			<field name = "internal_id">15</field>
+		</record>
+		<record id="teeth_code_16" model="teeth.code">
+			<field name="name">16</field>
+			<field name="palmer_name">8</field>
+			<field name="iso">28</field>
+			<field name="code">T16</field>
+			<field name="palmer_internal_id">8</field>
+			<field name = "internal_id">16</field>
+		</record>
+		<record id="teeth_code_17" model="teeth.code">
+			<field name="name">17</field>
+			<field name="palmer_name">1</field>
+			<field name="iso">38</field>
+			<field name="code">T17</field>
+			<field name="palmer_internal_id">8</field>
+			<field name = "internal_id">17</field>
+		</record>
+		<record id="teeth_code_18" model="teeth.code">
+			<field name="name">18</field>
+			<field name="palmer_name">2</field>
+			<field name="iso">37</field>
+			<field name="code">T18</field>
+			<field name="palmer_internal_id">7</field>
+			<field name = "internal_id">18</field>
+		</record>
+		<record id="teeth_code_19" model="teeth.code">
+			<field name="name">19</field>
+			<field name="palmer_name">3</field>
+			<field name="iso">36</field>
+			<field name="code">T19</field>
+			<field name="palmer_internal_id">6</field>
+			<field name = "internal_id">19</field>
+		</record>
+		<record id="teeth_code_20" model="teeth.code">
+			<field name="name">20</field>
+			<field name="palmer_name">4</field>
+			<field name="iso">35</field>
+			<field name="code">T20</field>
+			<field name="palmer_internal_id">5</field>
+			<field name = "internal_id">20</field>
+		</record>
+		<record id="teeth_code_21" model="teeth.code">
+			<field name="name">21</field>
+			<field name="palmer_name">5</field>
+			<field name="iso">34</field>
+			<field name="code">T21</field>
+			<field name="palmer_internal_id">4</field>
+			<field name = "internal_id">21</field>
+		</record>
+		<record id="teeth_code_22" model="teeth.code">
+			<field name="name">22</field>
+			<field name="palmer_name">6</field>
+			<field name="iso">33</field>
+			<field name="code">T22</field>
+			<field name="palmer_internal_id">3</field>
+			<field name = "internal_id">22</field>
+		</record>
+		<record id="teeth_code_23" model="teeth.code">
+			<field name="name">23</field>
+			<field name="palmer_name">7</field>
+			<field name="iso">32</field>
+			<field name="code">T23</field>
+			<field name="palmer_internal_id">2</field>
+			<field name = "internal_id">23</field>
+		</record>
+		<record id="teeth_code_24" model="teeth.code">
+			<field name="name">24</field>
+			<field name="palmer_name">8</field>
+			<field name="iso">31</field>
+			<field name="code">T24</field>
+			<field name="palmer_internal_id">1</field>
+			<field name = "internal_id">24</field>
+		</record>
+		<record id="teeth_code_25" model="teeth.code">
+			<field name="name">25</field>
+			<field name="palmer_name">1</field>
+			<field name="iso">41</field>
+			<field name="code">T25</field>
+			<field name="palmer_internal_id">1</field>
+			<field name = "internal_id">25</field>
+		</record>
+		<record id="teeth_code_26" model="teeth.code">
+			<field name="name">26</field>
+			<field name="palmer_name">2</field>
+			<field name="iso">42</field>
+			<field name="code">T26</field>
+			<field name="palmer_internal_id">2</field>
+			<field name = "internal_id">26</field>
+		</record>
+		<record id="teeth_code_27" model="teeth.code">
+			<field name="name">27</field>
+			<field name="palmer_name">3</field>
+			<field name="iso">43</field>
+			<field name="code">T27</field>
+			<field name="palmer_internal_id">3</field>
+			<field name = "internal_id">27</field>
+		</record>
+		<record id="teeth_code_28" model="teeth.code">
+			<field name="name">28</field>
+			<field name="palmer_name">4</field>
+			<field name="iso">44</field>
+			<field name="code">T28</field>
+			<field name="palmer_internal_id">4</field>
+			<field name = "internal_id">28</field>
+		</record>
+		<record id="teeth_code_29" model="teeth.code">
+			<field name="name">29</field>
+			<field name="palmer_name">5</field>
+			<field name="iso">45</field>
+			<field name="code">T29</field>
+			<field name="palmer_internal_id">5</field>
+			<field name = "internal_id">29</field>
+		</record>
+		<record id="teeth_code_30" model="teeth.code">
+			<field name="name">30</field>
+			<field name="palmer_name">6</field>
+			<field name="iso">46</field>
+			<field name="code">T30</field>
+			<field name="palmer_internal_id">6</field>
+			<field name = "internal_id">30</field>
+		</record>
+		<record id="teeth_code_31" model="teeth.code">
+			<field name="name">31</field>
+			<field name="palmer_name">7</field>
+			<field name="iso">47</field>
+			<field name="code">T31</field>
+			<field name="palmer_internal_id">7</field>
+			<field name = "internal_id">31</field>
+		</record>
+		<record id="teeth_code_32" model="teeth.code">
+			<field name="name">32</field>
+			<field name="palmer_name">8</field>
+			<field name="iso">48</field>
+			<field name="code">T32</field>
+			<field name="palmer_internal_id">8</field>
+			<field name = "internal_id">32</field>
+		</record>
+
+	</data>
+</odoo>

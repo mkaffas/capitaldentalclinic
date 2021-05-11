@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+    	
+    	<!-- <record id="financial_agreement_action_inherit" model="ir.actions.act_window">
+            <field name="name">Financing Agreement</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">financing.agreement</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="pragtech_dental_management.financial_agreement_form"/>
+        </record> -->
+        
+        <!-- <record id="dental_invoice_form_inherit" model="ir.ui.view">
+            <field name="name">invoice.form.cancel.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='invoice_cancel']" position="after">
+                	<button name="%(financial_agreement_action_inherit)d" type="action" states="open" string="Financing Agreement" class="oe_highlight"/>
+                </xpath>
+            </field>
+        </record> -->
+        
+        <record id="dental_invoice_form_inherit1" model="ir.ui.view">
+            <field name="name">invoice.form.cancel.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_post']" position="after">
+                	<button name="financial_agreement_action_inherit1" type="object" states="open" string="Financing Agreement" class="oe_highlight"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="financing_agreement_form_inherit1" model="ir.ui.view">
+            <field name="name">financing.agreement.inherit</field>
+            <field name="model">financing.agreement</field>
+            <field name="inherit_id" ref="pragtech_dental_management.financial_agreement_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date_to_be_paid']" position="after">
+                	<field name="invoice_id1"/>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

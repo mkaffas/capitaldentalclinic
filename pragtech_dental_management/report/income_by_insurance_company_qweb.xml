@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <report   
+            id="income_by_insurance_company_qweb" 
+            string="Income By Insurance Company"
+            model="income.by.insurance.company.wizard"
+            report_type="qweb-pdf"
+            file="pragtech_dental_management.income_by_insurance"  
+            name="pragtech_dental_management.income_by_insurance"/>
+    </data>
+</odoo>

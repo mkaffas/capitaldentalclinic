@@ -1,0 +1,469 @@
+/*.MyTable table {
+ width: 100%;
+ display:block;
+ }
+ .MyTable thead {
+ display: inline-block;
+ width: 100%;
+ height: 20px;
+ }
+ .MyTable tbody {
+ height: 200px;
+ display: inline-block;
+ width: 100%;
+ overflow: auto;
+ }*/
+
+.mouth_selection {
+	position: absolute;
+	top: 2%;
+	left: 25%;
+}
+
+body {
+	margin: 0;
+	background-color: rgba(255,255,255,1);
+}
+
+.page {
+	position: relative;
+	top: 45px;
+	float: left;
+	height: 100px;
+	width: 100px;
+}
+.selected {
+	background-color: #4169E1;
+}
+.selected_tooth {
+	/*background-color:#4169E1;*/
+}
+.selected_operation {
+	background-color: #D8E8EA;
+}
+
+/*Button Classes*/
+.myButton {
+	-moz-box-shadow: 7px 9px 21px -4px #276873;
+	-webkit-box-shadow: 7px 9px 21px -4px #276873;
+	box-shadow: 7px 9px 21px -4px #276873;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #599bb3), color-stop(1, #408c99));
+	background: -moz-linear-gradient(top, #599bb3 5%, #408c99 100%);
+	background: -webkit-linear-gradient(top, #599bb3 5%, #408c99 100%);
+	background: -o-linear-gradient(top, #599bb3 5%, #408c99 100%);
+	background: -ms-linear-gradient(top, #599bb3 5%, #408c99 100%);
+	background: linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#599bb3', endColorstr='#408c99',GradientType=0);
+	background-color: #599bb3;
+	-moz-border-radius: 9px;
+	-webkit-border-radius: 9px;
+	border-radius: 9px;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	font-family: Georgia;
+	font-size: 17px;
+	padding: 4px 6px;
+	text-decoration: none;
+}
+.scrollit {
+	overflow: scroll;
+	height: 50px;
+}
+.myButton:hover {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #408c99), color-stop(1, #599bb3));
+	background: -moz-linear-gradient(top, #408c99 5%, #599bb3 100%);
+	background: -webkit-linear-gradient(top, #408c99 5%, #599bb3 100%);
+	background: -o-linear-gradient(top, #408c99 5%, #599bb3 100%);
+	background: -ms-linear-gradient(top, #408c99 5%, #599bb3 100%);
+	background: linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#408c99', endColorstr='#599bb3',GradientType=0);
+	background-color: #408c99;
+}
+.myButton:active {
+	position: relative;
+	top: 1px;
+}
+/*
+.states {
+	position: relative;
+	top: 250px;
+	text-align: center;
+}
+*/
+.states {
+width: 100%;
+    margin-top: 350px!important;
+    z-index: 999999;
+    position: relative;
+    float: left;
+    margin-left: 0px;
+    left: 0;
+    text-align: left;
+    margin-left: 15px!important;    
+}
+
+/*Numbering table*/
+.numbering {
+	position: relative;
+	top: 25px;
+	left: 14px;
+	font-weight: 600;
+}
+
+.numbering_below {
+	position: relative;
+	top: 248px;
+	left: 18px;
+	font-weight: 600;
+}
+
+/*Table Classes*/
+.CSSTableGenerator {
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+	box-shadow: 10px 10px 5px #888888;
+	border: 1px solid #000000;
+	-moz-border-radius-bottomleft: 0px;
+	-webkit-border-bottom-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+	-moz-border-radius-bottomright: 0px;
+	-webkit-border-bottom-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+	-moz-border-radius-topright: 0px;
+	-webkit-border-top-right-radius: 0px;
+	border-top-right-radius: 0px;
+	-moz-border-radius-topleft: 0px;
+	-webkit-border-top-left-radius: 0px;
+	border-top-left-radius: 0px;
+}
+.CSSTableGenerator table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+.CSSTableGenerator tr:last-child td:last-child {
+	-moz-border-radius-bottomright: 0px;
+	-webkit-border-bottom-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+.CSSTableGenerator table tr:first-child td:first-child {
+	-moz-border-radius-topleft: 0px;
+	-webkit-border-top-left-radius: 0px;
+	border-top-left-radius: 0px;
+}
+.CSSTableGenerator table tr:first-child td:last-child {
+	-moz-border-radius-topright: 0px;
+	-webkit-border-top-right-radius: 0px;
+	border-top-right-radius: 0px;
+}
+.CSSTableGenerator tr:last-child td:first-child {
+	-moz-border-radius-bottomleft: 0px;
+	-webkit-border-bottom-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+}
+/*.CSSTableGenerator tr:hover td {
+ background-color:#ffaaaa;
+ }*/
+.CSSTableGenerator td {
+	vertical-align: middle;
+	/*background-color:#ffffff;*/
+	border: 1px solid #000000;
+	border-width: 0px 1px 1px 0px;
+	text-align: left;
+	padding: 7px;
+	font-size: 12px;
+	font-family: Georgia;
+	font-weight: bold;
+	color: #141111;
+}
+.CSSTableGenerator tr:last-child td {
+	border-width: 0px 1px 0px 0px;
+}
+.CSSTableGenerator tr td:last-child {
+	border-width: 0px 0px 1px 0px;
+}
+.CSSTableGenerator tr:last-child td:last-child {
+	border-width: 0px 0px 0px 0px;
+}
+.CSSTableGenerator tr:first-child td {
+	background: -o-linear-gradient(bottom, #408c99 5%, #408c99 100%);
+	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #408c99), color-stop(1, #408c99) );
+	background: -moz-linear-gradient( center top, #408c99 5%, #408c99 100% );
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#408c99", endColorstr="#408c99");
+	background: -o-linear-gradient(top,#408c99,408c99);
+	background-color: #408c99;
+	border: 0px solid #000000;
+	text-align: center;
+	border-width: 0px 0px 1px 1px;
+	font-size: 15px;
+	font-family: Georgia;
+	font-weight: bold;
+	color: #ffffff;
+}
+.CSSTableGenerator tr:first-child:hover td {
+	background: -o-linear-gradient(bottom, #408c99 5%, #408c99 100%);
+	background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #408c99), color-stop(1, #408c99) );
+	background: -moz-linear-gradient( center top, #408c99 5%, #408c99 100% );
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#408c99", endColorstr="#408c99");
+	background: -o-linear-gradient(top,#408c99,408c99);
+	background-color: #408c99;
+}
+.CSSTableGenerator tr:first-child td:first-child {
+	border-width: 0px 0px 1px 0px;
+}
+.CSSTableGenerator tr:first-child td:last-child {
+	border-width: 0px 0px 1px 1px;
+}
+.delete_td {
+	background-color: #FFFFFF !important;
+	text-align: center !important;
+	border: #FFFFFF !important;
+}
+/*.legend_class{
+ position:absolute;
+ top:50px;
+ left:10px;
+ }*/
+fieldset {
+	font-family: sans-serif;
+	border: 5px solid #408c99;
+	background: #D8E8EA;
+	border-radius: 5px;
+	padding: 15px;
+}
+fieldset legend {
+	background: #408c99;
+	color: #fff;
+	padding: 5px 10px;
+	font-size: 20px;
+	border-radius: 5px;
+	box-shadow: 0 0 0 5px #ddd;
+}
+
+.result_class {
+	background-color: #4169E1;
+}
+/*.surface2{
+ position:absolute;
+ top:100000;
+ left:0;
+ }*/
+.teeth_chart {
+	position: absolute;
+	top: 30px;
+}
+.procedure_label{
+	font-size:larger;
+	font-weight:900;
+}
+.label{
+	font-family: sans-serif;
+	font-size: medium;
+}
+.close {
+	float: right;
+	font-size: 25px;
+	font-weight: 900;
+	line-height: 1;
+	color: rgb(20, 44, 51);
+	text-shadow: 0 3px 0 rgba(30, 18, 84, 0.2);;
+	filter: alpha(opacity=20);
+	opacity: .6;
+}
+
+.close_button {
+	height: 25px;
+	width: 60px;
+	/*text-align: center;*/
+	/*background-color: #DDD;
+	 font-size: 12px;
+	 line-height: 40px;
+	 -webkit-border-radius: 5px;
+	 position: absolute;
+	 top: 0;
+	 right: 50px;
+	 cursor: pointer;*/
+}
+
+#teeth-surface-1 {
+	margin-left: 20px;
+	position: absolute;
+	top: 50px
+}
+#teeth-surface-2 {
+	margin-left: -80px;
+	/*position: absolute;
+    top: 55%;
+    */
+    position: relative;
+        float: left;
+    margin-top: 170px;
+	
+}
+
+.header_lbl {
+	font-family: sans-serif;
+	font-size: 20pt;
+	text-shadow: 1px 1px 1px #FFFFFF;;
+	color: black;
+	text-align: center;
+	position: relative;
+}
+.legend_class {
+	width: 100%
+}
+.progress_report {
+	width: 70%;
+	position: absolute;
+	top: 380px;
+}
+/*.teeth_chart{
+ position: absolute;
+ top:0;
+ right:100;
+ }*/
+.header {
+	width: 100%;
+	height: 35px;
+	padding-top: 10px;
+	text-align: center;
+	color: red;
+}
+/*.close_button {
+ height: 100%;
+ float: right;
+ }*/
+/*.close_button {
+ height: 40px;
+ width: 60px;
+ text-align: center;
+ background-color: #DDD;
+ font-size: 12px;
+ line-height: 40px;
+ -webkit-border-radius: 5px;
+ position: absolute;
+ top: 0;
+ right: 15px;
+ cursor: pointer;
+ }*/
+.define_img {
+	width: 60px;
+	height: 60px
+}
+
+.selected_treatment {
+	color: #FF0000 !important;
+}
+
+.selected_category {
+	font-weight: bold;
+}
+
+.perio_chart_view_dashboard {
+	text-align: center;
+	height: 100% width :100%
+}
+.chart_view_dashboard {
+	/*background-image: url("/pragtech_dental_management/static/src/img/dentist_background.gif");*/
+	background-color:white;
+	text-align: center;
+}
+.categs {
+	text-align: left;
+}
+
+.set_together {
+	margin: 0px;
+	width: 20%;
+	float: left;
+	padding: 25px;
+}
+
+.right_col {
+	width: 75%;
+	float: left;
+	margin: 0px;
+	padding: 25px;
+}
+
+/* medical alert */
+.medical_alert_class > a {
+	color: #FF0000 !important;
+}
+
+.carousel-inner {
+	/*left: 150px !important;*/
+}
+
+.item {margin-top: 30px; margin-bottom: 30px!important;}
+.carousel-control {
+	background-color: white;
+}
+
+.shift_left {
+	position: absolute;
+	top: 0px;
+}
+.shift_right {
+	position: absolute;
+	top: 0px;
+	left: 930px;
+}
+.multi-item-carousel {.carousel-inner{
+	.item{
+	transition: 500ms ease-in-out left;
+}
+.active {&.left{
+	left: -33%;
+}
+&
+.right {
+	left: 33%;
+}
+}
+.next {
+	left: 33%;
+}
+.prev {
+	left: -33%;
+}
+@media all and (transform-3d) , (-webkit-transform-3d) {
+	.item {// use your favourite prefixer here
+		transition: 500ms ease-in-out all;
+		backface-visibility: visible;
+		transform: none !important;
+	}
+}
+}
+.carouse-control{
+&.left, &
+.right {
+	background-image: none;
+}
+}
+}
+
+//
+non-related styling:
+body {
+	background: #333;
+	color: #ddd;
+}
+h1 {
+	color: white;
+	font-size: 2.25em;
+	text-align: center;
+	margin-top: 1em;
+	margin-bottom: 2em;
+	text-shadow: 0px 2px 0px rgba(0, 0, 0, 1);
+}
+
+
+
+html .o_web_client > .o_action_manager {}
+

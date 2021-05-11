@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<template id="report_claim_form_document">
+			<t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})" />
+			<t t-call="web.external_layout">
+			<div class="header" >
+				<div class="row">
+					<div class="img col-xs-3">
+						<img src="/pragtech_dental_management/static/src/img/logo.jpeg"  width="130" height="70"/>
+					</div>
+					<div class="col-xs-6">
+						<br/>
+						<p style="font-size:26px">Reimbursement Claim Form</p>
+					</div>
+					<div class="img col-xs-3 pull-right">
+						<img src="/pragtech_dental_management/static/src/img/claim.jpeg"  width="120" height="70"/>
+					</div>
+				</div>
+			</div>
+			<div class="page" style="font-size:12px;padding-left:22px;padding-right:20px;">
+				<div  id="informations">
+					<div>
+						If you have any questions regarding this form or any other aspects of your cover, Please telephone
+						<strong>NAS</strong>&#160;&#160;(+9712 6940800) or Toll Free 800 2311
+					</div>
+					<!-- <br/> -->
+					<div width="100">
+						<h5>
+							<strong>Details of member/patient</strong>
+						</h5>
+					</div>
+					<table style="width:100%;border:1px solid black;" class="table-condensed">
+						<tbody >
+							<tr  style=" border-bottom: 1px solid black !important;">
+								<td width="40%"   style=" border-left: 1px solid black !important;">
+									<strong>Employee Name :</strong>
+									<span t-field="doc.partner_id"/>
+								</td>
+								<td width="60%" ROWSPAN="2" style=" border-left: 1px solid black !important;">
+									<strong>Your Insurance Card No:</strong>
+									
+									<table style="width:100%;" border="1" >
+										<tr >
+											<td width="5%" height="20"></td>
+											<td width="5%" height="20" style="text-align : center !important; border-left: 1px solid black !important; border-right: 1px solid black !important;border-top: 1px solid black !important;border-bottom: 1px solid black !important;"/>
+											<td width="5%" height="20" style="text-align : center !important; border-left: 1px solid black !important; border-right: 1px solid black !important;border-top: 1px solid black !important;border-bottom: 1px solid black !important;"/>
+											<td width="5%" height="20" style="text-align : center !important; border-left: 1px solid black !important; border-right: 1px solid black !important;border-top: 1px solid black !important;border-bottom: 1px solid black !important;"/>
+											<td width="5%" height="20" style="text-align : center !important; border-left: 1px solid black !important; border-right: 1px solid black !important;border-top: 1px solid black !important;border-bottom: 1px solid black !important;"/>
+											<td width="5%" height="20" style="text-align : center !important; border-left: 1px solid black !important; border-right: 1px solid black !important;border-top: 1px solid black !important;border-bottom: 1px solid black !important;"/>
+											<td width="5%" height="20" style="text-align : center !important; border-left: 1px solid black !important; border-right: 1px solid black !important;border-top: 1px solid black !important;border-bottom: 1px solid black !important;"/>
+											<td width="5%" height="20" style="text-align : center !important; border-left: 1px solid black !important; border-right: 1px solid black !important;border-top: 1px solid black !important;border-bottom: 1px solid black !important;"/>
+											<td width="5%" height="20" style="text-align : center !important; border-left: 1px solid black !important; border-right: 1px solid black !important;border-top: 1px solid black !important;border-bottom: 1px solid black !important;"/>
+											<td width="5%" height="20" style="text-align : center !important; border-left: 1px solid black !important; border-right: 1px solid black !important;border-top: 1px solid black !important;border-bottom: 1px solid black !important;"/>
+											<td width="5%" height="20" style="text-align : center !important; border-left: 1px solid black !important; border-right: 1px solid black !important;border-top: 1px solid black !important;border-bottom: 1px solid black !important;"/>
+											<td width="5%" height="20" style="text-align : center !important; border-left: 1px solid black !important; border-right: 1px solid black !important;border-top: 1px solid black !important;border-bottom: 1px solid black !important;"/>
+											<td width="5%" height="20" style="text-align : center !important; border-left: 1px solid black !important; border-right: 1px solid black !important;border-top: 1px solid black !important;border-bottom: 1px solid black !important;"/>
+											<td width="5%" height="20" style="text-align : center !important; border-left: 1px solid black !important; border-right: 1px solid black !important;border-top: 1px solid black !important;border-bottom: 1px solid black !important;"/>
+											<td width="5%" height="20" style="text-align : center !important; border-left: 1px solid black !important; border-right: 1px solid black !important;border-top: 1px solid black !important;border-bottom: 1px solid black !important;"/>
+											<td width="5%" height="20" style="text-align : center !important; border-left: 1px solid black !important; border-right: 1px solid black !important;border-top: 1px solid black !important;border-bottom: 1px solid black !important;"/>
+											<td width="5%" height="20" style="text-align : center !important; border-left: 1px solid black !important; border-right: 1px solid black !important;border-top: 1px solid black !important;border-bottom: 1px solid black !important;"/>
+											<!-- <t t-foreach="range(16)" t-as="i">
+												<td width="5%" height="20" style="text-align : center !important; border-left: 1px solid black !important; border-right: 1px solid black !important;border-top: 1px solid black !important;border-bottom: 1px solid black !important;">
+												<span t-esc="doc.current_insurance.number[i]" t-value="i+1"/>
+												</td>
+												
+											</t>	 -->
+											<td width="5%" height="20"></td>
+											
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr  style=" border-bottom: 1px solid black !important;">
+								<td width="40%"  style=" border-left: 1px solid black !important;">
+									<strong>Patient's name and address</strong>
+								</td>
+							</tr>
+							<tr  height="15" width="40%" style=" border-bottom: 1px solid black !important;">
+								<td width="40%"  >
+									<span t-field="doc.partner_id"/><br/>
+									<span t-field="doc.partner_id.street"/><br/>
+									<span t-field="doc.partner_id.street2"/><br/>
+									<span t-field="doc.partner_id.city"/> <span t-field="doc.partner_id.state_id.name"/> <span t-field="doc.partner_id.zip"/><br/>
+									<span t-field="doc.partner_id.country_id.name"/><br/>
+								</td>
+								<td width="60%" style=" border-left: 1px solid black !important;">
+									<strong>Employee No/ Staff ID No.</strong>
+								</td>
+							</tr>
+							<tr  height="15" width="40%" style=" border-bottom: 1px solid black !important;">
+								<td width="40%">
+									<strong>Company Name : </strong>
+								</td>
+								<td width="60%" style=" border-left: 1px solid black !important;" >
+									<strong>Date of birth : </strong>
+									<span t-field="doc.dob"/><br/>
+								</td>
+							</tr>
+							<tr  height="15" width="40%" style=" border-bottom: 1px solid black !important;">
+								<td width="40%" >
+									<strong>Email address : </strong> 
+									<span t-field="doc.partner_id.email"/><br/>
+								</td>
+								<td width="60%" style=" border-left: 1px solid black !important;" >
+									<strong>Employee's Tel number : </strong>
+									<span t-field="doc.mobile"/><br/>
+								</td>
+							</tr>
+							<tr  height="15" width="40%" style=" border-bottom: 1px solid black !important;">
+								<td >
+									<strong>Nationality : </strong>
+									<span t-field="doc.nationality_id.name"/><br/>
+								</td>
+								<td width="60%" style=" border-left: 1px solid black !important;" ></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div >
+					<table>
+						<tr>
+							<td width="20%">
+								<h5>
+									<strong>Medical Section</strong>
+								</h5>
+							</td>
+							<td width="80%" style="font-size: 11px" class="text-left">(To be fully completed by patient's medical practitioner-
+								all boxes must be completed in the block capitals. )</td>
+						</tr>
+					</table>
+					<table style="width:100%;border:1px solid black;" class="table-condensed"   >
+						<tbody height="100">
+							<tr style=" border-bottom: 1px solid black !important;" >
+								<td width="40%" height="10">
+									<strong>Physician's name and address</strong>
+								</td>
+								<td width="60%" height="10" style=" border-left: 1px solid black !important;">
+									<strong>Date symptoms first noticed</strong>
+								</td>
+							</tr>
+							<tr width="40%" >
+								<td width="40%" height="10" rowspan="2">I declare that I am the patient's medical practitioner, and that the particulars given are to the best of my knowledge true and correct.</td>
+								<td width="60%" height="10" style=" border-left: 1px solid black !important;">
+									<strong>Physician's Signature and stamp</strong>
+								</td>
+							</tr>
+							<tr width="40%"    style=" border-bottom: 1px solid black !important;">
+								<td width="60%" height="10"  style=" border-left: 1px solid black !important;">Date:</td>
+							</tr>
+							<tr width="40%" >
+								<td colspan="2" height="70">
+									<strong>Diagnosis</strong>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div>
+
+					<table>
+						<tr>
+							<td width="25%">
+								<h5>
+									<strong>Other insurer's details</strong>
+								</h5>
+							</td>
+							<td width="75%" style="font-size: 9px" class="text-left">(If the treatment is accident-related or covered under another
+								insurance policy please provide name of insurance company.)</td>
+						</tr>
+					</table>
+					<table style="width:100%;border:1px solid black;">
+						<tbody height="100">
+							<tr >
+								<td  height="30" width="100%"></td>
+							</tr>
+						</tbody>
+					</table>
+					<h5>
+						<strong>Patient Section</strong>
+					</h5>
+					<table style="width:100%;border:1px solid black;" class="table-condensed">
+						<tr style=" border-bottom: 1px solid black !important;">
+							<th style=" font-size:11px">Out Patient Treatment</th>
+							<th style=" border-left: 1px solid black !important;">Claimed Amount</th>
+							<th style=" border-left: 1px solid black !important;">In Patient Treatment</th>
+							<th style=" border-left: 1px solid black !important;">Claimed Amount</th>
+						</tr>
+						<tr style=" border-bottom: 1px solid black !important;">
+							<td>Consultation</td>
+							<td style=" border-left: 1px solid black !important;"></td>
+							<td style=" border-left: 1px solid black !important;">Hospital charges /Room</td>
+							<td style=" border-left: 1px solid black !important;" ></td>
+
+						</tr>
+						<tr style=" border-bottom: 1px solid black !important;">
+							<td>Pharmacy</td>
+							<td style=" border-left: 1px solid black !important;"></td>
+							<td style=" border-left: 1px solid black !important;">Surgery/Anesthesia/OT</td>
+							<td style=" border-left: 1px solid black !important;"></td>
+
+						</tr>
+						<tr style=" border-bottom: 1px solid black !important;">
+							<td>Diagnostic/Lab/Others</td>
+							<td style=" border-left: 1px solid black !important;"></td>
+							<td style=" border-left: 1px solid black !important;">Drugs/Labs/Others</td>
+							<td style=" border-left: 1px solid black !important;"></td>
+
+						</tr>
+						<tr style=" border-bottom: 1px solid black !important;">
+							<td style=" border-left: 1px solid black !important;">Country of Treatment</td>
+							<td colspan="3" style=" border-left: 1px solid black !important;"></td>
+						</tr>
+						<tr>
+							<td colspan="2" style=" border-left: 1px solid black !important;">Total Claimed Amount and Claimed Currency</td>
+							<td style=" border-left: 1px solid black !important;"></td>
+							<td  style=" border-left: 1px solid black !important;"></td>
+						</tr>
+
+					</table>
+				</div>
+				<div>
+					<h5>
+						<strong>Patient's declaration and consent</strong>
+					</h5>
+					<table class="table-condensed" style="border:1px solid black;">
+						<tbody height="100">
+							<tr  >
+								<td ROWSPAN="2" width="60%" style="font-size:11px" >I confirm I am the patient/patient's
+									spouse or guardian( if patient under 16 years of age)
+									and wish to claim benefits and declare that all the particulars given above are to
+									the best of my knowledge true and correct. I hereby consent to and authorise
+									the medical practitioner involved in the patient's care to discuss treatment
+									details and discharge arrangements with and to NAS. I agree that a copy of this
+									consent shall have the validity of the original.</td>
+								<td width="10%"></td>
+								<td   height="50" >Signature</td>
+
+							</tr>
+							<tr>
+								<td></td>
+								<td  height="50"  >Date</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+			</t>
+		</template>
+		<template id="report_claim_form">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="doc">
+					<t t-call="pragtech_dental_management.report_claim_form_document" t-lang="doc.partner_id.lang"/>
+				</t>
+			</t>
+		</template>
+
+	</data>
+</odoo>
