@@ -9,12 +9,14 @@
             <xpath expr="//page[@name='internal_notes']" position="replace"/>
             <xpath expr="//label[@for='contact_name']" position="replace"/>
             <xpath expr="////page[@name='lead']/group/group[@class='mt48']" position="replace">
-                <field name="patient" placeholder="Patient"/>
-                <field name="function" string="Occupation"/>
-                <field name="mobile" widget="phone" options="{'enable_sms': True}"/>
-                <field name="nationality" placeholder="Nationality"/>
-                <field name="birthday"/>
-                <field name="age"/>
+                <group class="mt48">
+                    <field name="patient" placeholder="Patient"/>
+                    <field name="function" string="Occupation"/>
+                    <field name="mobile" widget="phone" options="{'enable_sms': True}"/>
+                    <field name="nationality" placeholder="Nationality"/>
+                    <field name="birthday"/>
+                    <field name="age"/>
+                </group>
             </xpath>
             <xpath expr="//div[@class='oe_button_box']" position="inside">
                 <button name="open_appointment" type="object" class="oe_stat_button" icon="fa-hand-o-right"
