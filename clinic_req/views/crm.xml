@@ -8,8 +8,10 @@
 
             <xpath expr="//page[@name='internal_notes']" position="replace"/>
             <xpath expr="//label[@for='contact_name']" position="replace"/>
-            <xpath expr="//group[@name='lead_info']/div[@class='o_row']" position="replace">
+            <xpath expr="////page[@name='lead']/group/group[@class='mt48']" position="replace">
                 <field name="patient" placeholder="Patient"/>
+                <field name="function" string="Occupation"/>
+                <field name="mobile" widget="phone" options="{'enable_sms': True}"/>
                 <field name="nationality" placeholder="Nationality"/>
                 <field name="birthday"/>
                 <field name="age"/>
@@ -24,9 +26,6 @@
                 <field name="gender"/>
             </xpath>
 
-            <xpath expr="//field[@name='function']" position="attributes">
-                <attribute name="string">Occupation</attribute>
-            </xpath>
             <xpath expr="//page[@name='lead']" position="attributes">
                 <attribute name="string">Patient Information</attribute>
             </xpath>
