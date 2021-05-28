@@ -28,7 +28,7 @@ class CRM(models.Model):
     case = fields.Integer(string="Case ID", compute="get_case_id")
     appointment_count = fields.Integer(string="Appointments", required=False, compute='count_appointment')
 
-    @api.depends('id')
+    # @api.depends('id')
     def get_case_id(self):
         for case in self:
             case.case = case.id
