@@ -9,6 +9,7 @@ class CRM(models.Model):
     _inherit = "crm.lead",
 
     patient = fields.Many2one('medical.patient', 'Patient', required=True, )
+    appointment_id = fields.Many2one('medical.appointment', 'Patient', required=True, )
     nationality = fields.Many2one(comodel_name="res.country", string="nationality", required=False, )
 
     @api.depends('birthday')
@@ -60,20 +61,44 @@ class CRM(models.Model):
         }
 
     def create_appointment(self):
-        view_ref = self.env['ir.model.data'].get_object_reference('pragtech_dental_management',
-                                                                  'medical_appointment_view')
-        view_id = view_ref and view_ref[1] or False,
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'Make Appointment',
-            'res_model': 'medical.appointment',
-            'view_mode': 'form',
-            'target': 'new',
-            'context': {'default_patient': self.patient.id,
-                        'default_crm_id':self.id},
-            'view_id': view_id,
-            'nodestroy': True,
+
+        appointment_obj = self.env['medical.appointment']
+
+        vals = {
+            'patient': self.patient.id,
+            'crm_id':self.id
         }
+
+        appointment = appointment_obj.create(vals)
+        self.appointment_id = appointment.id
+        wiz_form_id = self.env['ir.model.data'].get_object_reference(
+            'pragtech_dental_management', 'medical_appointment_view')[1]
+        return {
+            'view_type': 'form',
+            'view_id': wiz_form_id,
+            'view_mode': 'form',
+            'res_model': 'medical.appointment',
+            'res_id': appointment.id,
+            'nodestroy': True,
+            'target': 'current',
+            'type': 'ir.actions.act_window',
+        }
+
+    # def create_appointment(self):
+    #     view_ref = self.env['ir.model.data'].get_object_reference('pragtech_dental_management',
+    #                                                               'medical_appointment_view')
+    #     view_id = view_ref and view_ref[1] or False,
+    #     return {
+    #         'type': 'ir.actions.act_window',
+    #         'name': 'Make Appointment',
+    #         'res_model': 'medical.appointment',
+    #         'view_mode': 'form',
+    #         'target': 'new',
+    #         'context': {'default_patient': self.patient.id,
+    #                     'default_crm_id':self.id},
+    #         'view_id': view_id,
+    #         'nodestroy': True,
+    #     }
 
 
 
