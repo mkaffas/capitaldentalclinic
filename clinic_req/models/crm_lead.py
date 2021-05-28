@@ -8,7 +8,7 @@ from datetime import datetime
 class CRM(models.Model):
     _inherit = "crm.lead",
 
-    patient = fields.Many2one('medical.patient', 'Patient ID', required=True, )
+    patient = fields.Many2one('medical.patient', 'Patient', required=True, )
     nationality = fields.Many2one(comodel_name="res.country", string="nationality", required=False, )
 
     @api.depends('birthday')
@@ -25,13 +25,16 @@ class CRM(models.Model):
     birthday = fields.Date('Birth Day')
     gender = fields.Selection([('male', 'Male'), ('female', 'Female')], 'Gender')
     chief = fields.Char(string="Chief Complaint", required=False, )
-    case = fields.Integer(string="Case ID",)
+    case = fields.Char(string="Case ID",compute='get_case_id')
     appointment_count = fields.Integer(string="Appointments", required=False, compute='count_appointment')
 
     # @api.depends('id')
-    # def get_case_id(self):
-    #     for case in self:
-    #         case.case = case.id
+    def get_case_id(self):
+        for case in self:
+            if case.id:
+                case.case = case.id
+            else:
+                case.case = '0'
 
     # @api.depends('appointment_count')
     def count_appointment(self):
@@ -57,13 +60,21 @@ class CRM(models.Model):
         }
 
     def create_appointment(self):
-        obj = self.env['medical.appointment']
-        for line in self:
-            appointment_vals = {
-                'crm_id': line.id,
-                'patient': line.patient.id,
-            }
-            obj.sudo().create(appointment_vals)
+        view_ref = self.env['ir.model.data'].get_object_reference('pragtech_dental_management',
+                                                                  'medical_appointment_view')
+        view_id = view_ref and view_ref[1] or False,
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Make Appointment',
+            'res_model': 'medical.appointment',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {'default_patient': self.patient.id,
+                        'default_crm_id':self.id},
+            'view_id': view_id,
+            'nodestroy': True,
+        }
+
 
 
 class Appointment(models.Model):

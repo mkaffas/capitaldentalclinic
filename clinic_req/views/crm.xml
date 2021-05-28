@@ -10,10 +10,10 @@
             <xpath expr="//label[@for='contact_name']" position="replace"/>
             <xpath expr="////page[@name='lead']/group/group[@class='mt48']" position="replace">
                 <group class="mt48">
-                    <field name="patient" placeholder="Patient"/>
+                    <field name="patient" string="Patient" options="{'open': True, 'create': True}"/>
                     <field name="function" string="Occupation"/>
                     <field name="mobile" widget="phone" options="{'enable_sms': True}"/>
-                    <field name="nationality" placeholder="Nationality"/>
+                    <field name="nationality" string="Nationality"/>
                     <field name="birthday"/>
                     <field name="age"/>
                 </group>

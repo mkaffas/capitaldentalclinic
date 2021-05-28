@@ -1266,9 +1266,61 @@ class MedicalAppointment(models.Model):
         for patient_data in self:
             patient_data.waiting_time = compute_time(patient_data.checkin_time, patient_data.ready_time)
 
+    def create_payment(self):
+
+        payment_obj = self.env['account.payment']
+
+        vals = {
+            'payment_type': 'inbound',
+            'appointment_id':self.id,
+            'partner_id':self.patient.partner_id.id,
+            'amount':self.amount
+        }
+
+        payment = payment_obj.create(vals)
+
+        self.is_payment = True
+        self.payment_id = payment.id
+        wiz_form_id = self.env['ir.model.data'].get_object_reference(
+            'account', 'view_account_payment_form')[1]
+        return {
+            'view_type': 'form',
+            'view_id': wiz_form_id,
+            'view_mode': 'form',
+            'res_model': 'account.payment',
+            'res_id': payment.id,
+            'nodestroy': True,
+            'target': 'current',
+            'type': 'ir.actions.act_window',
+        }
+
+    def open_payment(self):
+        context = dict(self._context or {})
+        wiz_form_id = self.env['ir.model.data'].get_object_reference(
+            'account', 'view_account_payment_form')[1]
+        return {
+            'view_type': 'form',
+            'view_id': wiz_form_id,
+            'view_mode': 'form',
+            'res_model': 'account.payment',
+            'res_id': self.payment_id.id,
+            'type': 'ir.actions.act_window',
+            'nodestroy': True,
+            'target': 'current',
+            'context': {'default_payment_type': 'inbound',
+                        'default_appointment_id':self.id,
+                        'default_partner_id':self.patient.partner_id.id,
+                        'default_amount':self.amount},
+        }
+
+
+    is_payment = fields.Boolean(string="",  )
+    payment_id = fields.Many2one(comodel_name="account.payment", string="", required=False, )
     operations = fields.One2many('medical.teeth.treatment', 'appt_id', 'Operations')
     doctor = fields.Many2one('medical.physician', 'Dentist', help="Dentist's Name", required=True,
                              default=_get_default_doctor)
+    is_paid = fields.Boolean(string="Is Paid",readonly=True  )
+    amount = fields.Float(string="Amount",  required=False, )
     name = fields.Char('Appointment ID', size=64, readonly=True, default=lambda self: _('New'))
     patient = fields.Many2one('medical.patient', 'Patient', help="Patient Name", required=True, )
     appointment_sdate = fields.Datetime('Appointment Start', required=True, default=fields.Datetime.now)
