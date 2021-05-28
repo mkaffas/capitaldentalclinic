@@ -33,13 +33,15 @@ class CRM(models.Model):
     #     for case in self:
     #         case.case = case.id
 
-    @api.depends('appointment_count')
+    # @api.depends('appointment_count')
     def count_appointment(self):
         for line in self:
+            appointment_count = 0
             if line.id:
                 records = self.env['medical.appointment'].search([('crm_id', '=', line.id)])
                 for rec in records:
-                    line.appointment_count += 1
+                    appointment_count += 1
+            line.appointment_count = appointment_count
 
     def open_appointment(self):
         return {
