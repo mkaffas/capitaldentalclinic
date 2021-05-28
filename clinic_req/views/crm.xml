@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="edit_crm" model="ir.ui.view">
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//page[@name='internal_notes']" position="replace"/>
+            <xpath expr="//label[@for='contact_name']" position="replace"/>
+            <xpath expr="//group[@name='lead_info']/div[@class='o_row']" position="replace">
+                <field name="patient" placeholder="Patient"/>
+                <field name="nationality" placeholder="Nationality"/>
+                <field name="birthday"/>
+                <field name="age"/>
+            </xpath>
+            <xpath expr="//div[@class='oe_button_box']" position="inside">
+                <button name="open_appointment" type="object" class="oe_stat_button" icon="fa-hand-o-right"
+                        context="{'default_patient':patient,'default_crm_id':active_id}">
+                    <field name="appointment_count" widget="statinfo" string="Appointments"/>
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='land_id']" position="after">
+                <field name="gender"/>
+            </xpath>
+
+            <xpath expr="//field[@name='function']" position="attributes">
+                <attribute name="string">Occupation</attribute>
+            </xpath>
+            <xpath expr="//page[@name='lead']" position="attributes">
+                <attribute name="string">Patient Information</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='tag_ids']" position="attributes">
+                <attribute name="string">Required Services</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_set_won_rainbowman']" position="after">
+                <button name="create_appointment" string="Appointment" type="object" class="oe_highlight"/>
+            </xpath>
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="chief"/>
+                <field name="case"/>
+            </xpath>
+
+            <xpath expr="//page[@name='lead']" position="after">
+                <page string="Internal Notes" name="internal_notes">
+                    <field name="description" placeholder="Add a description..."/>
+                </page>
+            </xpath>
+
+
+        </field>
+    </record>
+</odoo>
