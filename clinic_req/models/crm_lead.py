@@ -25,13 +25,13 @@ class CRM(models.Model):
     birthday = fields.Date('Birth Day')
     gender = fields.Selection([('male', 'Male'), ('female', 'Female')], 'Gender')
     chief = fields.Char(string="Chief Complaint", required=False, )
-    case = fields.Integer(string="Case ID", compute="get_case_id")
+    case = fields.Integer(string="Case ID",)
     appointment_count = fields.Integer(string="Appointments", required=False, compute='count_appointment')
 
     # @api.depends('id')
-    def get_case_id(self):
-        for case in self:
-            case.case = case.id
+    # def get_case_id(self):
+    #     for case in self:
+    #         case.case = case.id
 
     @api.depends('appointment_count')
     def count_appointment(self):
