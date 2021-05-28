@@ -20,7 +20,7 @@
                     <field name="appointment_count" widget="statinfo" string="Appointments"/>
                 </button>
             </xpath>
-            <xpath expr="//field[@name='land_id']" position="after">
+            <xpath expr="//field[@name='lang_id']" position="after">
                 <field name="gender"/>
             </xpath>
 
