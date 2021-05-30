@@ -8,15 +8,43 @@
 
             <xpath expr="//page[@name='internal_notes']" position="replace"/>
             <xpath expr="//label[@for='contact_name']" position="replace"/>
-            <xpath expr="////page[@name='lead']/group/group[@class='mt48']" position="replace">
-                <group class="mt48">
-                    <field name="patient" string="Patient" options="{'open': True, 'create': True}"/>
-                    <field name="function" string="Occupation"/>
-                    <field name="mobile" widget="phone" options="{'enable_sms': True}"/>
-                    <field name="nationality" string="Nationality"/>
-                    <field name="birthday"/>
-                    <field name="age"/>
+            <xpath expr="//page[@name='lead']/group/group[@class='mt48']" position="replace"/>
+            <xpath expr="//page[@name='lead']/group/group[0]" position="replace"/>
+            <xpath expr="//sheet/group/group[3]" position="after">
+                <group string="Contact Information">
+                    <field name="partner_name"/>
+                    <label for="street_page_lead" string="Address"/>
+                    <div class="o_address_format">
+                        <field name="street" id="street_page_lead" placeholder="Street..." class="o_address_street"/>
+                        <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                        <field name="city" placeholder="City" class="o_address_city"/>
+                        <field name="state_id" class="o_address_state" placeholder="State"
+                               options="{&quot;no_open&quot;: True}"/>
+                        <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                        <field name="country_id" placeholder="Country" class="o_address_country"
+                               options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                    </div>
+                    <field name="website" widget="url" placeholder="e.g. https://www.odoo.com"/>
+                    <field name="lang_id" options="{'no_create': True}"/>
                 </group>
+            </xpath>
+            <xpath expr="//field[@name='medium_id']" position="replace"/>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="patient" string="Patient" options="{'open': True, 'create': True}"/>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="before">
+                <field name="medium_id"/>
+            </xpath>
+            <xpath expr="//field[@name='phone']" position="after">
+                <!--<group class="mt48">-->
+
+                <field name="function" string="Occupation"/>
+                <field name="mobile" widget="phone" options="{'enable_sms': True}" required="1"/>
+                <field name="nationality" string="Nationality"/>
+                <field name="birthday"/>
+                <field name="age"/>
+                <field name="gender"/>
+                <!--</group>-->
             </xpath>
             <xpath expr="//div[@class='oe_button_box']" position="inside">
                 <button name="open_appointment" type="object" class="oe_stat_button" icon="fa-hand-o-right"
@@ -24,12 +52,16 @@
                     <field name="appointment_count" widget="statinfo" string="Appointments"/>
                 </button>
             </xpath>
-            <xpath expr="//field[@name='lang_id']" position="after">
-                <field name="gender"/>
-            </xpath>
+            <!--<xpath expr="//field[@name='lang_id']" position="after">-->
+                <!---->
+            <!--</xpath>-->
 
             <xpath expr="//page[@name='lead']" position="attributes">
                 <attribute name="string">Patient Information</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="attrs">{'invisible':1}</attribute>
             </xpath>
 
             <xpath expr="//field[@name='tag_ids']" position="attributes">

@@ -1317,7 +1317,7 @@ class MedicalAppointment(models.Model):
     is_payment = fields.Boolean(string="",  )
     payment_id = fields.Many2one(comodel_name="account.payment", string="", required=False, )
     operations = fields.One2many('medical.teeth.treatment', 'appt_id', 'Operations')
-    doctor = fields.Many2one('medical.physician', 'Dentist', help="Dentist's Name", required=True,
+    doctor = fields.Many2one('medical.physician', 'Dentist', help="Dentist's Name",
                              default=_get_default_doctor)
     is_paid = fields.Boolean(string="Is Paid",readonly=True  )
     amount = fields.Float(string="Amount",  required=False, )

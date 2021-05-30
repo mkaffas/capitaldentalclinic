@@ -863,7 +863,7 @@
                             <field name="patient_id"/>
                             <field name="dob"/>
                             <field name="report_date" invisible="1"/>
-                            <field name="sex" required="1"/>
+                            <field name="sex"/>
                             <field name="age"/>
                             <field name="arebic" string="Arabic"/>
                             <field name="id" invisible="1"/>

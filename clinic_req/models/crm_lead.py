@@ -8,7 +8,7 @@ from datetime import datetime
 class CRM(models.Model):
     _inherit = "crm.lead",
 
-    patient = fields.Many2one('medical.patient', 'Patient', required=True, )
+    patient = fields.Char('Patient', required=True, )
     appointment_id = fields.Many2one('medical.appointment', 'Patient', required=True, )
     nationality = fields.Many2one(comodel_name="res.country", string="nationality", required=False, )
 
@@ -23,13 +23,18 @@ class CRM(models.Model):
                 partner.age = 0
 
     age = fields.Integer('Age', compute='compute_age')
-    birthday = fields.Date('Birth Day')
+    birthday = fields.Date('Birth Date')
     gender = fields.Selection([('male', 'Male'), ('female', 'Female')], 'Gender')
     chief = fields.Char(string="Chief Complaint", required=False, )
     case = fields.Char(string="Case ID",compute='get_case_id')
     appointment_count = fields.Integer(string="Appointments", required=False, compute='count_appointment')
+    name = fields.Char('Opportunity', required=False, index=True,compute="get_name_opportunity")
 
-    # @api.depends('id')
+    @api.depends('mobile','patient')
+    def get_name_opportunity(self):
+        for line in self:
+            line.name = line.patient + ' / ' + str(line.mobile)
+
     def get_case_id(self):
         for case in self:
             if case.id:
@@ -55,7 +60,7 @@ class CRM(models.Model):
             'view_type': 'form',
             'name': 'Appointment',
             'domain': [('crm_id', '=', self.id)],
-            'context': {'default_patient': self.patient.id, 'default_crm_id': self.id,},
+            'context': {'default_crm_id': self.id,},
             'target': 'current',
 
         }
@@ -63,9 +68,21 @@ class CRM(models.Model):
     def create_appointment(self):
 
         appointment_obj = self.env['medical.appointment']
+        partner_obj = self.env['res.partner']
+        patient_obj = self.env['medical.patient']
+
+        vals_partner = {
+            'name': self.patient,
+        }
+        partner = partner_obj.create(vals_partner)
+
+        vals_patient = {
+            'partner_id': partner.id,
+        }
+        patient = patient_obj.create(vals_patient)
 
         vals = {
-            'patient': self.patient.id,
+            'patient': patient.id,
             'crm_id':self.id
         }
 
