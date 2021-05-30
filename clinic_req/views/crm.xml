@@ -29,7 +29,7 @@
                 </group>
             </xpath>
             <xpath expr="//field[@name='medium_id']" position="replace"/>
-            <xpath expr="//field[@name='partner_id']" position="replace">
+            <xpath expr="//group/group[1]/field[@name='partner_id']" position="replace">
                 <field name="patient" string="Patient" options="{'open': True, 'create': True}"/>
             </xpath>
             <xpath expr="//field[@name='user_id']" position="before">
