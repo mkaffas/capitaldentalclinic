@@ -9,7 +9,7 @@
             <xpath expr="//page[@name='internal_notes']" position="replace"/>
             <xpath expr="//label[@for='contact_name']" position="replace"/>
             <xpath expr="//page[@name='lead']/group/group[@class='mt48']" position="replace"/>
-            <xpath expr="//page[@name='lead']/group/group[0]" position="replace"/>
+            <xpath expr="//page[@name='lead']/group/group" position="replace"/>
             <xpath expr="//sheet/group/group[3]" position="after">
                 <group string="Contact Information">
                     <field name="partner_name"/>
