@@ -72,13 +72,13 @@ class CRM(models.Model):
         patient_obj = self.env['medical.patient']
 
         # vals_partner =
-        partner = partner_obj.sudo().create({
-            'name': self.patient,
-            'is_patient': True,
-        })
+        # partner = partner_obj.sudo().create({
+        #     'name': self.patient,
+        #     'is_patient': True,
+        # })
 
         vals_patient = {
-            'partner_id': partner.id,
+            'partner_id': self.patient,
         }
         patient = patient_obj.sudo().create(vals_patient)
 
