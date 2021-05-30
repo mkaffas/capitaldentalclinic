@@ -84,22 +84,6 @@ class CRM(models.Model):
             'type': 'ir.actions.act_window',
         }
 
-    # def create_appointment(self):
-    #     view_ref = self.env['ir.model.data'].get_object_reference('pragtech_dental_management',
-    #                                                               'medical_appointment_view')
-    #     view_id = view_ref and view_ref[1] or False,
-    #     return {
-    #         'type': 'ir.actions.act_window',
-    #         'name': 'Make Appointment',
-    #         'res_model': 'medical.appointment',
-    #         'view_mode': 'form',
-    #         'target': 'new',
-    #         'context': {'default_patient': self.patient.id,
-    #                     'default_crm_id':self.id},
-    #         'view_id': view_id,
-    #         'nodestroy': True,
-    #     }
-
 
 
 class Appointment(models.Model):
