@@ -75,19 +75,19 @@ class CRM(models.Model):
             'name': self.patient,
             'is_patient': True,
         }
-        partner = partner_obj.create(vals_partner)
+        partner = partner_obj.sudo().create(vals_partner)
 
         vals_patient = {
             'partner_id': partner.id,
         }
-        patient = patient_obj.create(vals_patient)
+        patient = patient_obj.sudo().create(vals_patient)
 
         vals = {
             'patient': patient.id,
             'crm_id':self.id
         }
 
-        appointment = appointment_obj.create(vals)
+        appointment = appointment_obj.sudo().create(vals)
         self.appointment_id = appointment.id
         wiz_form_id = self.env['ir.model.data'].get_object_reference(
             'pragtech_dental_management', 'medical_appointment_view')[1]
