@@ -73,6 +73,7 @@ class CRM(models.Model):
 
         vals_partner = {
             'name': self.patient,
+            'is_patient': True,
         }
         partner = partner_obj.create(vals_partner)
 
