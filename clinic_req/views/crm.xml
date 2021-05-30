@@ -35,7 +35,7 @@
             <xpath expr="//field[@name='user_id']" position="before">
                 <field name="medium_id"/>
             </xpath>
-            <xpath expr="//field[@name='phone']" position="after">
+            <xpath expr="//field[@name='phone_state']" position="after">
                 <!--<group class="mt48">-->
 
                 <field name="function" string="Occupation"/>
