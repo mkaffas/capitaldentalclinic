@@ -153,7 +153,7 @@ odoo.define('pragtech_dental_management.image_action', function(require) {
 				$('.carousel-item').on('click', '.img_objs', function() {
 					var src = this.src;
 					$('#zoomed').empty();
-					$('#zoomed').append('<img src = ' + src + ' width = "91%" height = "100%"/>');
+					// $('#zoomed').append('<img src = ' + src + ' width = "91%" height = "100%"/>');
 				});
 				
 			});
