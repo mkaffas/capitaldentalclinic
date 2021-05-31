@@ -33,7 +33,10 @@ class CRM(models.Model):
     @api.depends('mobile','patient')
     def get_name_opportunity(self):
         for line in self:
-            line.name = line.patient + ' / ' + str(line.mobile)
+            if line.patient and line.mobile:
+                line.name = line.patient + ' / ' + str(line.mobile)
+            else:
+                line.name = ' / '
 
     def get_case_id(self):
         for case in self:
