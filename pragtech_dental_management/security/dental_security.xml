@@ -10,6 +10,10 @@
 	    <record id="group_dental_doc_menu" model="res.groups">
 	        <field name="name">Dental / Doctor</field>
 	    </record>
+
+		<record id="group_branch_manager" model="res.groups">
+	        <field name="name">Branch Manager</field>
+	    </record>
 	</data>
 	
 	<data noupdate="1">  

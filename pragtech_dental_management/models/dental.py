@@ -1230,6 +1230,7 @@ class MedicalMedicationDosage(models.Model):
 
 class MedicalAppointment(models.Model):
     _name = "medical.appointment"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Medical Appointment"
     _order = "appointment_sdate desc"
 
@@ -1318,14 +1319,14 @@ class MedicalAppointment(models.Model):
     payment_id = fields.Many2one(comodel_name="account.payment", string="", required=False, )
     operations = fields.One2many('medical.teeth.treatment', 'appt_id', 'Operations')
     doctor = fields.Many2one('medical.physician', 'Dentist', help="Dentist's Name",
-                             default=_get_default_doctor)
+                             default=_get_default_doctor,track_visibility='onchange',)
     is_paid = fields.Boolean(string="Is Paid",readonly=True  )
     amount = fields.Float(string="Amount",  required=False, )
     name = fields.Char('Appointment ID', size=64, readonly=True, default=lambda self: _('New'))
-    patient = fields.Many2one('medical.patient', 'Patient', help="Patient Name", required=True, )
-    appointment_sdate = fields.Datetime('Appointment Start', required=True, default=fields.Datetime.now)
-    appointment_edate = fields.Datetime('Appointment End', required=False, )
-    room_id = fields.Many2one('medical.hospital.oprating.room', 'Room', required=False, )
+    patient = fields.Many2one('medical.patient', 'Patient', help="Patient Name", required=True,track_visibility='onchange', )
+    appointment_sdate = fields.Datetime('Appointment Start', required=True, default=fields.Datetime.now,track_visibility='onchange',)
+    appointment_edate = fields.Datetime('Appointment End', required=False,track_visibility='onchange', )
+    room_id = fields.Many2one('medical.hospital.oprating.room', 'Room', required=False,track_visibility='onchange', )
     urgency = fields.Boolean('Urgent', default=False)
     comments = fields.Text('Note')
     checkin_time = fields.Datetime('Checkin Time', readonly=True, )
@@ -1338,7 +1339,7 @@ class MedicalAppointment(models.Model):
     state = fields.Selection(
         [('draft', 'Unconfirmed'), ('sms_send', 'Sms Send'), ('confirmed', 'Confirmed'), ('missed', 'Missed'),
          ('checkin', 'Checked In'), ('ready', 'In Chair'), ('done', 'Completed'), ('cancel', 'Canceled')], 'State',
-        readonly=True, default='draft')
+        readonly=True, default='draft',track_visibility='onchange',)
     apt_id = fields.Boolean(default=False)
     apt_process_ids = fields.Many2many('medical.procedure', 'apt_process_rel', 'appointment_id', 'process_id',
                                        "Initial Treatment")
@@ -1349,6 +1350,7 @@ class MedicalAppointment(models.Model):
     saleperson_id = fields.Many2one('res.users', 'Created By', default=lambda self: self.env.user)
     delayed = fields.Boolean(compute='delayed_time', string='Delayed', store=True)
     service_id = fields.Many2one('product.product', 'Consultation Service')
+    unit_id = fields.Many2one(comodel_name="medical.hospital.unit", string="", required=False, )
 
     _sql_constraints = [
         ('date_check', "CHECK (appointment_sdate <= appointment_edate)",
@@ -1399,6 +1401,18 @@ class MedicalAppointment(models.Model):
         self.write({'state': 'missed'})
 
     def checkin(self):
+        for rec in self:
+            partners = [x.partner_id.id for x in self.env.ref('pragtech_dental_management.group_branch_manager').users]
+            body ='<a target=_BLANK href="/web?#id=' + str(
+                rec.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + str(
+                rec.name) + '</a>'
+            if partners:
+                self.sudo().message_post(
+                    partner_ids=partners,
+                    subject="Appointment " + str(rec.name) + " has been checked in",
+                    body="Patient " +str(rec.patient.name)+ " with Appointment " + str(rec.name) + " has been checked in " + body,
+                    message_type='comment',
+                    subtype_id=self.env.ref('mail.mt_note').id,)
         checkin_time = time.strftime('%Y-%m-%d %H:%M:%S')
         self.write({'state': 'checkin', 'checkin_time': checkin_time})
         

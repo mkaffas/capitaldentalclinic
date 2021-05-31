@@ -129,6 +129,7 @@
                                 <field name="patient_state"/>
                                 <!-- <field name="institution" required="1"/> -->
                                 <field name="patient" required="1" context="{'appointment_id_new':id}"/>
+                                <field name="unit_id"/>
                                 <field name="room_id"/>
                                 <field name="appointment_sdate"/>
                                 <field name="appointment_edate"/>
@@ -160,6 +161,10 @@
                             </group>
                         </group>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -241,10 +246,10 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">medical.appointment</field>
             <field name="view_mode">calendar,tree,form</field>
-            <field name="domain">[('appointment_sdate','&gt;=',time.strftime('%Y-%m-%d
-                00:00:01')),('appointment_sdate','&lt;=',time.strftime('%Y-%m-%d 23:59:59'))]
+            <!--<field name="domain">[('appointment_sdate','&gt;=',time.strftime('%Y-%m-%d-->
+                <!--00:00:01')),('appointment_sdate','&lt;=',time.strftime('%Y-%m-%d 23:59:59'))]-->
 
-            </field>
+            <!--</field>-->
         </record>
 
         <menuitem action="medical_action_form_today_appointment" id="medical_conf_appointment_add_today"
