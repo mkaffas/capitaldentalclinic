@@ -592,6 +592,7 @@ class MedicalPatient(models.Model):
     _description = "Patient related information"
     _rec_name = "partner_id"
 
+    medium_id = fields.Many2one('utm.medium', 'Medium')
     partner_id = fields.Many2one('res.partner', 'Patient', required="1",
                                  domain=[('is_patient', '=', True), ('is_person', '=', True)], help="Patient Name")
     patient_id = fields.Char('Patient ID', size=64,

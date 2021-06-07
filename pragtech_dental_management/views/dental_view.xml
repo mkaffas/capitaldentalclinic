@@ -887,6 +887,7 @@
                                 <field name="rh"/>
                                 <field name="current_insurance"/>
                                 <field name="marital_status"/>
+                                <field name="medium_id"/>
                                 <field name="occupation_id"/>
                                 <field name="primary_doctor_id"/>
                                 <field name="referring_doctor_id"/>
