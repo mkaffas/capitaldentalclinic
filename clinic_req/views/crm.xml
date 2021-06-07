@@ -109,25 +109,25 @@
                 <field name="waiting_time"/>
                 <field name="saleperson_id"/>
             </xpath>
-            <xpath expr="//field[@name='state']" position="replace">
-                <field name="state" widget="statusbar"
-                       statusbar_visible="draft,confirmed,checkin,ready,done,cancel"
-                       statusbar_colors='{"confirmed":"blue","ready":"blue","cancel":"red"}'/>
-            </xpath>
-            <xpath expr="//button[@name='missed']" position="after">
-                <button name="cancelled" string="Cancelled" type="object" states="confirmed,checkin"/>
-            </xpath>
-            <xpath expr="//button[@name='create_payment']" position="after">
-                <button name="notify_patient_coordinator" string="Notify Patient Coordinator" type="object"
-                        attrs="{'invisible': [('state', 'not in', ['checkin'])]}"/>
-            </xpath>
-            <xpath expr="//field[@name='service_id']" position="after">
-                <field name="chief"/>
-            </xpath>
-            <xpath expr="//field[@name='patient_state']" position="before">
-                <field name="patient_coordinator"
-                       groups="pragtech_dental_management.group_dental_mng_menu,pragtech_dental_management.group_branch_manager"/>
-            </xpath>
+            <!--<xpath expr="//field[@name='state']" position="replace">-->
+                <!--<field name="state" widget="statusbar"-->
+                       <!--statusbar_visible="draft,confirmed,checkin,ready,done,cancel"-->
+                       <!--statusbar_colors='{"confirmed":"blue","ready":"blue","cancel":"red"}'/>-->
+            <!--</xpath>-->
+            <!--<xpath expr="//button[@name='missed']" position="after">-->
+                <!--<button name="cancelled" string="Cancelled" type="object" states="confirmed,checkin"/>-->
+            <!--</xpath>-->
+            <!--<xpath expr="//button[@name='create_payment']" position="after">-->
+                <!--<button name="notify_patient_coordinator" string="Notify Patient Coordinator" type="object"-->
+                        <!--attrs="{'invisible': [('state', 'not in', ['checkin'])]}"/>-->
+            <!--</xpath>-->
+            <!--<xpath expr="//field[@name='service_id']" position="after">-->
+                <!--<field name="chief"/>-->
+            <!--</xpath>-->
+            <!--<xpath expr="//field[@name='patient_state']" position="before">-->
+                <!--<field name="patient_coordinator"-->
+                       <!--groups="pragtech_dental_management.group_dental_mng_menu,pragtech_dental_management.group_branch_manager"/>-->
+            <!--</xpath>-->
 
         </field>
     </record>
