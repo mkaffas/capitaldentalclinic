@@ -102,26 +102,6 @@ class CRM(models.Model):
     def create_appointment(self):
 
         appointment_obj = self.env['medical.appointment']
-        # partner_obj = self.env['res.partner']
-        # patient_obj = self.env['medical.patient']
-        #
-        # # vals_partner =
-        # partner = partner_obj.sudo().create({
-        #     'name': self.patient,
-        #     'is_patient': True,
-        #     'type' : 'contact'
-        #
-        # })
-        #
-        # vals_patient = {
-        #     'partner_id': partner.id,
-        #     'birthday': self.dob,
-        #     'gender': self.gender,
-        #     'marital_status': self.marital_status,
-        #     'mobile': self.mobile,
-        #     'occupation_id': self.occupation_id.id,
-        # }
-        # patient = patient_obj.sudo().create(vals_patient)
         if not self.patient_id:
             raise UserError(_("Please create Patient."))
         vals = {
@@ -180,6 +160,8 @@ class Appointment(models.Model):
 
     def notify_patient_coordinator(self):
         for rec in self:
+            if not rec.patient_coordinator:
+                raise UserError(_("Please Add Patient Coordinator."))
             # partners = [x.partner_id.id for x in self.env.ref('pragtech_dental_management.group_branch_manager').users]
             body ='<a target=_BLANK href="/web?#id=' + str(
                 rec.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + str(
