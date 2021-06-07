@@ -153,7 +153,7 @@ class Appointment(models.Model):
                 self.sudo().message_post(
                     partner_ids=partners,
                     subject="Appointment " + str(rec.name) + " is Cancelled",
-                    body="Appointment " + body + "is Cancelled with patient "+ str(rec.patient.name),
+                    body="Appointment " + body + "is Cancelled with patient "+ str(rec.patient.partner_id.name),
                     message_type='comment',
                     subtype_id=self.env.ref('mail.mt_note').id,)
         self.write({'state': 'cancel'})
@@ -169,7 +169,7 @@ class Appointment(models.Model):
             if rec.patient_coordinator:
                 self.sudo().message_post(
                     partner_ids=self.patient_coordinator.partner_id.id,
-                    subject="Appointment " + str(rec.name) + "with patient " + str(rec.patient.name),
-                    body="You will be coordinator in Appointment " + body + "with patient "+ str(rec.patient.name),
+                    subject="Appointment " + str(rec.name) + "with patient " + str(rec.patient.partner_id.name),
+                    body="You will be coordinator in Appointment " + body + "with patient "+ str(rec.patient.partner_id.name),
                     message_type='comment',
                     subtype_id=self.env.ref('mail.mt_note').id,)
