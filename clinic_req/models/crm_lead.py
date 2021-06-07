@@ -89,7 +89,7 @@ class CRM(models.Model):
         patient = patient_obj.sudo().create({
             'partner_id': partner.id,
             # 'dob': self.birthday,
-            'gender': self.gender,
+            'sex': self.gender,
             'marital_status': self.marital_status,
             'mobile': self.mobile,
             'occupation_id': self.occupation_id.id,
