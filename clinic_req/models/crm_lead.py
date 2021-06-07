@@ -168,7 +168,7 @@ class Appointment(models.Model):
                 rec.name) + '</a>'
             if rec.patient_coordinator:
                 self.sudo().message_post(
-                    partner_ids=self.patient_coordinator.partner_id.id,
+                    partner_ids=[self.patient_coordinator.partner_id.id],
                     subject="Appointment " + str(rec.name) + "with patient " + str(rec.patient.partner_id.name),
                     body="You will be coordinator in Appointment " + body + "with patient "+ str(rec.patient.partner_id.name),
                     message_type='comment',
