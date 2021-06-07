@@ -942,9 +942,9 @@ class MedicalPatient(models.Model):
         result = False
         if vals.get('patient_id', 'New') == 'New':
             vals['patient_id'] = self.env['ir.sequence'].next_by_code('medical.patient') or 'New'
-        if 'dob' in vals and vals.get('dob'):
-            if (vals['dob'] > c_date):
-                raise ValidationError(_('Birthdate cannot be After Current Date.'))
+        # if 'dob' in vals and vals.get('dob'):
+        #     if (vals['dob'] > c_date):
+        #         raise ValidationError(_('Birthdate cannot be After Current Date.'))
         result = super(MedicalPatient, self).create(vals)
         return result
 
