@@ -101,13 +101,13 @@
                         <button name="missed" string="Missed" type="object" states="confirmed"/>
                         <button name="checkin" string="Checked In" type="object"
                                 states="confirmed"/>
-                        <button name="ready" string="In Chair" type="object"
+                        <button name="ready" string="Start Session" type="object"
                                 states="checkin"/>
                         <field name="is_payment" invisible="1"/>
                         <button name="open_payment" string="Open Payment" type="object"
                                 attrs="{'invisible': [('is_payment','=',False)]}"/>
                         <button name="create_payment" string="Make Payment" type="object"
-                                attrs="{'invisible': ['|',('is_payment','=',True),('state', 'not in', ['confirmed'])]}"/>
+                                attrs="{'invisible': ['|',('is_payment','=',True),('state', 'not in', ['checkin'])]}"/>
                         <button name="create_invoices" string="Create Invoice" type="object"
                                 attrs="{'invisible': ['|','|',('invoice_done', '=', True),('state', '!=',
 							'confirmed'),('no_invoice', '=', True)]}"/>

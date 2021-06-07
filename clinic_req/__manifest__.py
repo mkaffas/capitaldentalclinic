@@ -13,7 +13,7 @@
     ],
     'data': [
         'views/crm.xml',
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
     ],
     'images': ['static/description/banner.png'],
     'qweb': [

@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, models, fields
+from odoo import api, models, fields ,_
 import json
 from datetime import datetime
+from odoo.exceptions import UserError
 
 
 class CRM(models.Model):
@@ -22,13 +23,19 @@ class CRM(models.Model):
             else:
                 partner.age = 0
 
+    patient_id = fields.Many2one(comodel_name="medical.patient", string="", required=False, )
     age = fields.Integer('Age', compute='compute_age')
+    occupation_id = fields.Many2one('medical.occupation', 'Occupation')
     birthday = fields.Date('Birth Date')
-    gender = fields.Selection([('male', 'Male'), ('female', 'Female')], 'Gender')
-    chief = fields.Char(string="Chief Complaint", required=False, )
+    gender = fields.Selection([('m', 'Male'), ('f', 'Female'), ], 'Gender', )
+    chief = fields.Many2one(comodel_name='chief.complaint',string="Chief Complaint", required=False, )
     case = fields.Char(string="Case ID",compute='get_case_id')
     appointment_count = fields.Integer(string="Appointments", required=False, compute='count_appointment')
     name = fields.Char('Opportunity', required=False, index=True,compute="get_name_opportunity")
+    marital_status = fields.Selection(
+        [('s', 'Single'), ('m', 'Married'), ('w', 'Widowed'), ('d', 'Divorced'), ('x', 'Separated'), ],
+        'Marital Status')
+    is_create_patient = fields.Boolean(string="",  )
 
     @api.depends('mobile','patient')
     def get_name_opportunity(self):
@@ -68,28 +75,58 @@ class CRM(models.Model):
 
         }
 
-    def create_appointment(self):
-
-        appointment_obj = self.env['medical.appointment']
+    def create_patient(self):
         partner_obj = self.env['res.partner']
-        patient_obj = self.env['medical.patient']
 
         # vals_partner =
         partner = partner_obj.sudo().create({
             'name': self.patient,
             'is_patient': True,
-            'type' : 'contact'
+            'type': 'contact'
 
         })
-
-        vals_patient = {
+        patient_obj = self.env['medical.patient']
+        patient = patient_obj.sudo().create({
             'partner_id': partner.id,
-        }
-        patient = patient_obj.sudo().create(vals_patient)
+            'birthday': self.dob,
+            'gender': self.gender,
+            'marital_status': self.marital_status,
+            'mobile': self.mobile,
+            'occupation_id': self.occupation_id.id,
+        })
+        self.patient_id = patient.id
+        self.is_create_patient = True
 
+
+    def create_appointment(self):
+
+        appointment_obj = self.env['medical.appointment']
+        # partner_obj = self.env['res.partner']
+        # patient_obj = self.env['medical.patient']
+        #
+        # # vals_partner =
+        # partner = partner_obj.sudo().create({
+        #     'name': self.patient,
+        #     'is_patient': True,
+        #     'type' : 'contact'
+        #
+        # })
+        #
+        # vals_patient = {
+        #     'partner_id': partner.id,
+        #     'birthday': self.dob,
+        #     'gender': self.gender,
+        #     'marital_status': self.marital_status,
+        #     'mobile': self.mobile,
+        #     'occupation_id': self.occupation_id.id,
+        # }
+        # patient = patient_obj.sudo().create(vals_patient)
+        if not self.patient_id:
+            raise UserError(_("Please create Patient."))
         vals = {
-            'patient': patient.id,
-            'crm_id':self.id
+            'patient': self.patient_id.id,
+            'crm_id':self.id,
+            'chief':self.chief.id,
         }
 
         appointment = appointment_obj.sudo().create(vals)
@@ -108,8 +145,48 @@ class CRM(models.Model):
         }
 
 
+class Chief_Complaint(models.Model):
+    _name = 'chief.complaint'
+
+    name = fields.Char()
+
 
 class Appointment(models.Model):
     _inherit = 'medical.appointment'
 
     crm_id = fields.Many2one(comodel_name="crm.lead", string="", required=False, )
+    patient_coordinator = fields.Many2one(comodel_name="res.users", string="Patient Coordinator", required=False, )
+    chief = fields.Many2one(comodel_name='chief.complaint', string="Chief Complaint", required=False, )
+
+    def cancel(self):
+        for rec in self:
+            partners = [x.partner_id.id for x in self.env.ref('pragtech_dental_management.group_branch_manager').users]
+            body ='<a target=_BLANK href="/web?#id=' + str(
+                rec.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + str(
+                rec.name) + '</a>'
+            if rec.doctor:
+                partners.append(rec.doctor.user_id.partner_id.id)
+            if rec.patient_coordinator:
+                partners.append(rec.patient_coordinator.partner_id.id)
+            if partners:
+                self.sudo().message_post(
+                    partner_ids=partners,
+                    subject="Appointment " + str(rec.name) + " is Cancelled",
+                    body="Appointment " + body + "is Cancelled with patient "+ str(rec.patient.name),
+                    message_type='comment',
+                    subtype_id=self.env.ref('mail.mt_note').id,)
+        self.write({'state': 'cancel'})
+
+    def notify_patient_coordinator(self):
+        for rec in self:
+            # partners = [x.partner_id.id for x in self.env.ref('pragtech_dental_management.group_branch_manager').users]
+            body ='<a target=_BLANK href="/web?#id=' + str(
+                rec.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + str(
+                rec.name) + '</a>'
+            if rec.patient_coordinator:
+                self.sudo().message_post(
+                    partner_ids=self.patient_coordinator.partner_id.id,
+                    subject="Appointment " + str(rec.name) + "with patient " + str(rec.patient.name),
+                    body="You will be coordinator in Appointment " + body + "with patient "+ str(rec.patient.name),
+                    message_type='comment',
+                    subtype_id=self.env.ref('mail.mt_note').id,)
