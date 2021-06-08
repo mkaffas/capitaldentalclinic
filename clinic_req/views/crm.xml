@@ -164,7 +164,6 @@
                 <field name="account_id"/>
                 <field name="invc_id"/>
                 <button name="create_invoice"
-                        icon="fa-arrow-circle-o-right fa-lg"
                         attrs="{'invisible':['|',
                                         ('inv','=',True),
                                         ('state','=','invoiced')]}"
@@ -177,6 +176,20 @@
                         string="Open Invoice"
                         type="object"
                         context="{'openinvoice':1}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="edit_patient_teeth_form" model="ir.ui.view">
+        <field name="model">medical.teeth.treatment</field>
+        <field name="inherit_id" ref="pragtech_dental_management.medical_patient_medication_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount']" position="after">
+                <field name="inv" invisible="1"/>
+                <field name="account_id"/>
+                <field name="invc_id"/>
             </xpath>
 
         </field>
