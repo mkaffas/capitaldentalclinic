@@ -200,7 +200,7 @@ class Teeth(models.Model):
             }
             inv_values = {
                 'partner_id': line.patient_id.partner_id.id,
-                'type': 'out_invoice',
+                'move_type': 'out_invoice',
                 'invoice_date': datetime.now().strftime(DF) or False,
                 'journal_id': journal_id and journal_id.id or False,
                 'teeth_id': line.patient_id and line.patient_id.id or False,
