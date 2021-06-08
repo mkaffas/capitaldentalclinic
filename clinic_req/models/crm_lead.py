@@ -188,7 +188,7 @@ class Teeth(models.Model):
         """Create invoice for Rent Schedule."""
         for line in self:
             if not line.account_id:
-                raise Warning(_('Please Add the incoming Account !!'))
+                raise UserError(_('Please Add the incoming Account !!'))
             self.ensure_one()
             journal_id = self.env['account.journal'].search([
                 ('type', '=', 'sale')], limit=1)
@@ -201,7 +201,7 @@ class Teeth(models.Model):
             inv_values = {
                 'partner_id': line.patient_id.partner_id.id,
                 'patient_id': line.patient_id.id,
-                'dentist_id': line.dentist.id,
+                'dentist': line.dentist.id,
                 'move_type': 'out_invoice',
                 'invoice_date': datetime.now().strftime(DF) or False,
                 'journal_id': journal_id and journal_id.id or False,
