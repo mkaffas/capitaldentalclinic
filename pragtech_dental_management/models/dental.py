@@ -1838,6 +1838,7 @@ class ProductCategory(models.Model):
 class MedicalTeethTreatment(models.Model):
     _description = "Medical Teeth Treatment"
     _name = "medical.teeth.treatment"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     #     def name_search(self, name, args=None, operator='ilike', limit=100):
     #         x = super(medical_teeth_treatment, self).name_search(self)
