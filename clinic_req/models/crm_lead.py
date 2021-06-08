@@ -198,7 +198,7 @@ class Teeth(models.Model):
             self.sudo().message_post(
                 partner_ids=all_partners,
                 subject="Operation " + str(res.description.name) + " is created",
-                body="New service " + body + "added to Patient " + str(res.patient_id.name),
+                body="New service " + body + "added to Patient " + str(res.patient_id.partner_id.name),
                 message_type='comment',
                 subtype_id=self.env.ref('mail.mt_note').id, )
         return res
