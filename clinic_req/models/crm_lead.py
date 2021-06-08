@@ -193,13 +193,15 @@ class Teeth(models.Model):
             journal_id = self.env['account.journal'].search([
                 ('type', '=', 'sale')], limit=1)
             inv_line_main = {
-                'name': line.description,
+                'name': line.description.name,
                 'price_unit': line.amount or 0.00,
                 'quantity': 1,
                 'account_id': line.account_id.id or False,
             }
             inv_values = {
                 'partner_id': line.patient_id.partner_id.id,
+                'patient_id': line.patient_id.id,
+                'dentist_id': line.dentist.id,
                 'move_type': 'out_invoice',
                 'invoice_date': datetime.now().strftime(DF) or False,
                 'journal_id': journal_id and journal_id.id or False,

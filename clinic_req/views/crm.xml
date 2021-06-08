@@ -168,13 +168,13 @@
                         attrs="{'invisible':['|',
                                         ('inv','=',True),
                                         ('state','=','invoiced')]}"
-                        class="oe_highlight btn_visible_in_tree"
+                        class="oe_highlight"
                         string="Create Invoice"
                         type="object" context="{'asset':1}"/>
                 <button name="open_invoice"
                         icon="fa-arrow-circle-o-right fa-lg"
                         attrs="{'invisible':[('inv','=',False)]}"
-                        class="oe_highlight btn_visible_in_tree"
+                        class="oe_highlight"
                         string="Open Invoice"
                         type="object"
                         context="{'openinvoice':1}"/>
