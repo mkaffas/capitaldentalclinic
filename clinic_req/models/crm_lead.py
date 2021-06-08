@@ -189,11 +189,14 @@ class Teeth(models.Model):
         res = super(Teeth, self).create(values)
 
         for line in res:
+            notification_ids = []
+            notification_ids.append((0, 0, {
+                'notification_type': 'inbox'}))
             partners = [x.partner_id.id for x in
                         self.env.ref('pragtech_dental_management.group_branch_manager').users]
             partners_admin = [x.partner_id.id for x in
                         self.env.ref('pragtech_dental_management.group_dental_mng_menu').users]
-            all_partners = list(set(partners + partners_admin))
+            all_partners = partners + partners_admin
             body = '<a target=_BLANK href="/web?#id=' + str(
                 line.patient_id.id) + '&view_type=form&model=medical.patient&action=" style="font-weight: bold">' +'</a>'
             if all_partners:
@@ -202,7 +205,7 @@ class Teeth(models.Model):
                     subject="Operation " + str(line.description.name) + " is created",
                     body="New service " + body + "added to Patient " + str(line.patient_id.partner_id.name),
                     message_type='comment',
-                    subtype_id=self.env.ref('mail.mt_note').id, )
+                    subtype_id=self.env.ref('mail.mt_note').id,notification_ids=notification_ids )
         return res
 
     def create_invoice(self):
