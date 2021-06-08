@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, models, fields ,_
+from odoo import api, models, fields, _
 import json
 from datetime import datetime
 from odoo.exceptions import UserError
+from odoo.tools import ustr, DEFAULT_SERVER_DATE_FORMAT as DF, \
+    DEFAULT_SERVER_DATETIME_FORMAT as DTF
 
 
 class CRM(models.Model):
@@ -28,16 +30,16 @@ class CRM(models.Model):
     occupation_id = fields.Many2one('medical.occupation', 'Occupation')
     birthday = fields.Date('Birth Date')
     gender = fields.Selection([('m', 'Male'), ('f', 'Female'), ], 'Gender', )
-    chief = fields.Many2one(comodel_name='chief.complaint',string="Chief Complaint", required=False, )
-    case = fields.Char(string="Case ID",compute='get_case_id')
+    chief = fields.Many2one(comodel_name='chief.complaint', string="Chief Complaint", required=False, )
+    case = fields.Char(string="Case ID", compute='get_case_id')
     appointment_count = fields.Integer(string="Appointments", required=False, compute='count_appointment')
-    name = fields.Char('Opportunity', required=False, index=True,compute="get_name_opportunity")
+    name = fields.Char('Opportunity', required=False, index=True, compute="get_name_opportunity")
     marital_status = fields.Selection(
         [('s', 'Single'), ('m', 'Married'), ('w', 'Widowed'), ('d', 'Divorced'), ('x', 'Separated'), ],
         'Marital Status')
-    is_create_patient = fields.Boolean(string="",  )
+    is_create_patient = fields.Boolean(string="", )
 
-    @api.depends('mobile','patient')
+    @api.depends('mobile', 'patient')
     def get_name_opportunity(self):
         for line in self:
             if line.patient and line.mobile:
@@ -70,7 +72,7 @@ class CRM(models.Model):
             'view_type': 'form',
             'name': 'Appointment',
             'domain': [('crm_id', '=', self.id)],
-            'context': {'default_crm_id': self.id,},
+            'context': {'default_crm_id': self.id, },
             'target': 'current',
 
         }
@@ -98,7 +100,6 @@ class CRM(models.Model):
         self.patient_id = patient.id
         self.is_create_patient = True
 
-
     def create_appointment(self):
 
         appointment_obj = self.env['medical.appointment']
@@ -106,8 +107,8 @@ class CRM(models.Model):
             raise UserError(_("Please create Patient."))
         vals = {
             'patient': self.patient_id.id,
-            'crm_id':self.id,
-            'chief':self.chief.id,
+            'crm_id': self.id,
+            'chief': self.chief.id,
         }
 
         appointment = appointment_obj.sudo().create(vals)
@@ -142,7 +143,7 @@ class Appointment(models.Model):
     def cancel(self):
         for rec in self:
             partners = [x.partner_id.id for x in self.env.ref('pragtech_dental_management.group_branch_manager').users]
-            body ='<a target=_BLANK href="/web?#id=' + str(
+            body = '<a target=_BLANK href="/web?#id=' + str(
                 rec.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + str(
                 rec.name) + '</a>'
             if rec.doctor:
@@ -153,9 +154,9 @@ class Appointment(models.Model):
                 self.sudo().message_post(
                     partner_ids=partners,
                     subject="Appointment " + str(rec.name) + " is Cancelled",
-                    body="Appointment " + body + "is Cancelled with patient "+ str(rec.patient.partner_id.name),
+                    body="Appointment " + body + "is Cancelled with patient " + str(rec.patient.partner_id.name),
                     message_type='comment',
-                    subtype_id=self.env.ref('mail.mt_note').id,)
+                    subtype_id=self.env.ref('mail.mt_note').id, )
         self.write({'state': 'cancel'})
 
     def notify_patient_coordinator(self):
@@ -163,13 +164,84 @@ class Appointment(models.Model):
             if not rec.patient_coordinator:
                 raise UserError(_("Please Add Patient Coordinator."))
             # partners = [x.partner_id.id for x in self.env.ref('pragtech_dental_management.group_branch_manager').users]
-            body ='<a target=_BLANK href="/web?#id=' + str(
+            body = '<a target=_BLANK href="/web?#id=' + str(
                 rec.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + str(
                 rec.name) + '</a>'
             if rec.patient_coordinator:
                 self.sudo().message_post(
                     partner_ids=[self.patient_coordinator.partner_id.id],
                     subject="Appointment " + str(rec.name) + "with patient " + str(rec.patient.partner_id.name),
-                    body="You will be coordinator in Appointment " + body + "with patient "+ str(rec.patient.partner_id.name),
+                    body="You will be coordinator in Appointment " + body + "with patient " + str(
+                        rec.patient.partner_id.name),
                     message_type='comment',
-                    subtype_id=self.env.ref('mail.mt_note').id,)
+                    subtype_id=self.env.ref('mail.mt_note').id, )
+
+
+class Teeth(models.Model):
+    _inherit = 'medical.teeth.treatment'
+
+    inv = fields.Boolean(string='Is Invoice?')
+    invc_id = fields.Many2one('account.move', string='Invoice')
+    account_id = fields.Many2one(comodel_name="account.account", string="Account", required=False, )
+
+    def create_invoice(self):
+        """Create invoice for Rent Schedule."""
+        for line in self:
+            if not line.account_id:
+                raise Warning(_('Please Add the incoming Account !!'))
+            self.ensure_one()
+            journal_id = self.env['account.journal'].search([
+                ('type', '=', 'sale')], limit=1)
+            inv_line_main = {
+                'name': line.description,
+                'price_unit': line.amount or 0.00,
+                'quantity': 1,
+                'account_id': line.account_id.id or False,
+            }
+            inv_values = {
+                'partner_id': line.patient_id.partner_id.id,
+                'type': 'out_invoice',
+                'invoice_date': datetime.now().strftime(DF) or False,
+                'journal_id': journal_id and journal_id.id or False,
+                'teeth_id': line.patient_id and line.patient_id.id or False,
+            }
+            acc_id = self.env['account.move'].create(inv_values)
+            acc_id.write({'invoice_line_ids': [(0, 0, inv_line_main)]})
+
+            self.write({'invc_id': acc_id.id, 'inv': True})
+            context = dict(self._context or {})
+            wiz_form_id = self.env['ir.model.data'].get_object_reference(
+                'account', 'view_move_form')[1]
+
+            return {
+                'view_type': 'form',
+                'view_id': wiz_form_id,
+                'view_mode': 'form',
+                'res_model': 'account.move',
+                'res_id': self.invc_id.id,
+                'type': 'ir.actions.act_window',
+                'target': 'current',
+                'context': context,
+            }
+
+    def open_invoice(self):
+        """Method Open Invoice."""
+        context = dict(self._context or {})
+        wiz_form_id = self.env['ir.model.data'].get_object_reference(
+            'account', 'view_move_form')[1]
+        return {
+            'view_type': 'form',
+            'view_id': wiz_form_id,
+            'view_mode': 'form',
+            'res_model': 'account.move',
+            'res_id': self.invc_id.id,
+            'type': 'ir.actions.act_window',
+            'target': 'current',
+            'context': context,
+        }
+
+
+class NewModule(models.Model):
+    _inherit = 'account.move'
+
+    teeth_id = fields.Many2one(comodel_name="medical.patient", string="", required=False, )
