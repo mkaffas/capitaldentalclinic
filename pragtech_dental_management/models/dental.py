@@ -830,9 +830,9 @@ class MedicalPatient(models.Model):
                                 vals['amount'] = p_brw.lst_price
                                 if appt_id:
                                     vals['appt_id'] = appt_id
-                                treatment_id = medical_teeth_treatment_obj.create(vals);
+                                treatment_id = medical_teeth_treatment_obj.create(vals)
                                 if each.get('multiple_teeth'):
-                                    full_mouth = each.get('multiple_teeth');
+                                    full_mouth = each.get('multiple_teeth')
                                     full_mouth = full_mouth.split('_')
                                     operate_on_tooth = []
                                     for each_teeth_from_full_mouth in full_mouth:
