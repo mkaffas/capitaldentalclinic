@@ -187,6 +187,7 @@ class Teeth(models.Model):
     @api.model
     def create(self, values):
         res = super(Teeth, self).create(values)
+
         for line in res:
             partners = [x.partner_id.id for x in
                         self.env.ref('pragtech_dental_management.group_branch_manager').users]
@@ -196,7 +197,7 @@ class Teeth(models.Model):
             body = '<a target=_BLANK href="/web?#id=' + str(
                 line.patient_id.id) + '&view_type=form&model=medical.patient&action=" style="font-weight: bold">' +'</a>'
             if all_partners:
-                self.sudo().message_post(
+                line.sudo().message_post(
                     partner_ids=all_partners,
                     subject="Operation " + str(line.description.name) + " is created",
                     body="New service " + body + "added to Patient " + str(line.patient_id.partner_id.name),
