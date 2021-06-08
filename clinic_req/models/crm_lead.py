@@ -193,7 +193,7 @@ class Teeth(models.Model):
                     self.env.ref('pragtech_dental_management.group_dental_mng_menu').users]
         all_partners = list(set(partners + partners_admin))
         body = '<a target=_BLANK href="/web?#id=' + str(
-            values['patient_id'].id) + '&view_type=form&model=medical.patient&action=" style="font-weight: bold">' +'</a>'
+            res.patient_id.id) + '&view_type=form&model=medical.patient&action=" style="font-weight: bold">' +'</a>'
         if all_partners:
             self.sudo().message_post(
                 partner_ids=all_partners,
