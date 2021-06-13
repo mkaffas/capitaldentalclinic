@@ -230,8 +230,8 @@ class Teeth(models.Model):
     def create_invoice(self):
         """Create invoice for Rent Schedule."""
         for line in self:
-            if not line.account_id:
-                raise UserError(_('Please Add the incoming Account !!'))
+            # if not line.account_id:
+            #     raise UserError(_('Please Add the incoming Account !!'))
             self.ensure_one()
             journal_id = self.env['account.journal'].search([
                 ('type', '=', 'sale')], limit=1)
