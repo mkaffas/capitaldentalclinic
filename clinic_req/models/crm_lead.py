@@ -183,6 +183,28 @@ class Teeth(models.Model):
     inv = fields.Boolean(string='Is Invoice?')
     invc_id = fields.Many2one('account.move', string='Invoice')
     account_id = fields.Many2one(comodel_name="account.account", string="Account", required=False, )
+    discount = fields.Float(string='Discount (%)', digits='Discount', default=0.0)
+    net_amount = fields.Float(string="Net Amount", compute="get_net_amount")
+
+    @api.constrains('discount')
+    def check(self):
+        if self.env.user.has_group('clinic_req.discount_user_group'):
+            obj = self.env['discount.limitation'].search([('group_id', '=', 'Discount User')], limit=1)
+            if obj.discount_limitation < self.discount:
+                raise UserError(_('You are not allowed this discount !!'))
+        elif self.env.user.has_group('clinic_req.discount_manager_group'):
+            obj = self.env['discount.limitation'].search([('group_id', '=', 'Discount Manager')], limit=1)
+            if obj.discount_limitation < self.discount:
+                raise UserError(_('You are not allowed this discount !!'))
+        elif self.env.user.has_group('clinic_req.discount_admin_group'):
+            obj = self.env['discount.limitation'].search([('group_id', '=', 'Discount Admin')], limit=1)
+            if obj.discount_limitation < self.discount:
+                raise UserError(_('You are not allowed this discount !!'))
+
+    @api.depends('discount', 'amount')
+    def get_net_amount(self):
+        for line in self:
+            line.net_amount = line.amount - ((line.amount * line.discount) / 100)
 
     @api.model
     def create(self, values):
@@ -192,17 +214,17 @@ class Teeth(models.Model):
             partners = [x.partner_id.id for x in
                         self.env.ref('pragtech_dental_management.group_branch_manager').users]
             partners_admin = [x.partner_id.id for x in
-                        self.env.ref('pragtech_dental_management.group_dental_mng_menu').users]
+                              self.env.ref('pragtech_dental_management.group_dental_mng_menu').users]
             all_partners = partners + partners_admin
             body = '<a target=_BLANK href="/web?#id=' + str(
-                line.patient_id.id) + '&view_type=form&model=medical.patient&action=" style="font-weight: bold">' +'</a>'
+                line.patient_id.id) + '&view_type=form&model=medical.patient&action=" style="font-weight: bold">' + '</a>'
             if all_partners:
                 line.sudo().message_post(
                     partner_ids=all_partners,
                     subject="Operation " + str(line.description.name) + " is created",
                     body="New service " + body + "added to Patient " + str(line.patient_id.partner_id.name),
                     message_type='comment',
-                    subtype_id=self.env.ref('mail.mt_note').id )
+                    subtype_id=self.env.ref('mail.mt_note').id)
         return res
 
     def create_invoice(self):
@@ -217,7 +239,8 @@ class Teeth(models.Model):
                 'name': line.description.name,
                 'price_unit': line.amount or 0.00,
                 'quantity': 1,
-                'account_id': line.account_id.id or False,
+                'discount': line.discount,
+                'account_id': line.description.property_account_income_id.id or line.description.categ_id.property_account_income_categ_id.id or False,
             }
             inv_values = {
                 'partner_id': line.patient_id.partner_id.id,

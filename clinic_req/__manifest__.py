@@ -12,8 +12,9 @@
         'pragtech_dental_management'
     ],
     'data': [
-        'views/crm.xml',
         'security/ir.model.access.csv',
+        'views/crm.xml',
+        'views/discount.xml',
     ],
     'images': ['static/description/banner.png'],
     'qweb': [
