@@ -179,6 +179,9 @@
             <xpath expr="//tree" position="attributes">
                 <attribute name="editable">bottom</attribute>
             </xpath>
+            <xpath expr="//field[@name='create_date']" position="before">
+                <field name="is_selected"/>
+            </xpath>
             <xpath expr="//field[@name='amount']" position="after">
                 <field name="inv" invisible="1"/>
                 <field name="account_id" invisible="1"/>
