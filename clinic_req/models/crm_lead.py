@@ -26,6 +26,7 @@ class CRM(models.Model):
                 partner.age = 0
 
     patient_id = fields.Many2one(comodel_name="medical.patient", string="", required=False, )
+    refer_patient_id = fields.Many2one(comodel_name="medical.patient", string="Referred By", required=False, )
     age = fields.Integer('Age', compute='compute_age')
     occupation_id = fields.Many2one('medical.occupation', 'Occupation')
     birthday = fields.Date('Birth Date')
@@ -177,6 +178,21 @@ class Appointment(models.Model):
                     subtype_id=self.env.ref('mail.mt_note').id, )
 
 
+class Patient(models.Model):
+    _inherit = 'medical.patient'
+    discount = fields.Float(string='Discount (%)', digits='Discount', default=0.0)
+
+    def select_all(self):
+        for line in self.teeth_treatment_ids:
+            line.is_selected = True
+
+    def get_all_discount(self):
+        for line in self.teeth_treatment_ids:
+            if line.is_selected == True:
+                line.discount = self.discount
+                line.is_selected = False
+
+
 class Teeth(models.Model):
     _inherit = 'medical.teeth.treatment'
 
@@ -185,6 +201,7 @@ class Teeth(models.Model):
     account_id = fields.Many2one(comodel_name="account.account", string="Account", required=False, )
     discount = fields.Float(string='Discount (%)', digits='Discount', default=0.0)
     net_amount = fields.Float(string="Net Amount", compute="get_net_amount")
+    is_selected = fields.Boolean(string="",)
 
     @api.constrains('discount')
     def check(self):
