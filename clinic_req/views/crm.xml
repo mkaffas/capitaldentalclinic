@@ -163,6 +163,8 @@
                 <group>
                     <button name="select_all" string="Select All" type="object" class="oe_highlight"/>
                     <button name="get_all_discount" string="Add Discount" type="object" class="oe_highlight" />
+                </group>
+                <group>
                     <field name="discount"/>
                 </group>
             </xpath>
