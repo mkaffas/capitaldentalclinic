@@ -150,15 +150,6 @@
                     </group>
                 </page>
             </xpath>
-        </field>
-    </record>
-
-    <!-- Inherit Form View to Modify it -->
-    <record id="edit_patient" model="ir.ui.view">
-        <field name="model">medical.patient</field>
-        <field name="inherit_id" ref="pragtech_dental_management.medical_patient_view"/>
-        <field name="arch" type="xml">
-
             <xpath expr="//page[8]/group" position="before">
                 <group>
                     <button name="select_all" string="Select All" type="object" class="oe_highlight"/>
@@ -168,9 +159,9 @@
                     <field name="discount"/>
                 </group>
             </xpath>
-
         </field>
     </record>
+
 
     <!-- Inherit Form View to Modify it -->
     <record id="edit_patient_teeth" model="ir.ui.view">
