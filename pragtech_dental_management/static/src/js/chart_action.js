@@ -718,18 +718,23 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                                                             selected_surface.length = 0;
                                                             if($("#" +'view_' + selected_tooth + '_top').attr('fill') == 'orange'){
                                                                 selected_surface.push('view_' + selected_tooth + '_top');
+                                                                $("#" +'view_' + selected_tooth + '_top').attr('fill','white');
                                                             }
                                                             if($("#" +'view_' + selected_tooth + '_bottom').attr('fill') == 'orange'){
                                                                 selected_surface.push('view_' + selected_tooth + '_bottom');
+                                                                $("#" +'view_' + selected_tooth + '_bottom').attr('fill','white');
                                                             }
                                                             if($("#" +'view_' + selected_tooth + '_center').attr('fill') == 'orange'){
                                                                 selected_surface.push('view_' + selected_tooth + '_center');
+                                                                $("#" +'view_' + selected_tooth + '_center').attr('fill','white');
                                                             }
                                                             if($("#" +'view_' + selected_tooth + '_right').attr('fill') == 'orange'){
                                                                 selected_surface.push('view_' + selected_tooth + '_right');
+                                                                $("#" +'view_' + selected_tooth + '_right').attr('fill','white');
                                                             }
                                                             if($("#" +'view_' + selected_tooth + '_left').attr('fill') == 'orange'){
                                                                 selected_surface.push('view_' + selected_tooth + '_left');
+                                                                $("#" +'view_' + selected_tooth + '_left').attr('fill','white');
                                                             }
 
 
