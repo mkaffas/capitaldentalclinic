@@ -84,7 +84,6 @@
             </field>
         </record>
 
-
         <record model="ir.ui.view" id="medical_appointment_view">
             <field name="name">Appointment</field>
             <field name="model">medical.appointment</field>
@@ -162,12 +161,27 @@
                         </group>
                     </sheet>
                     <div class="oe_chatter">
-                        <field name="message_follower_ids" widget="mail_followers"/>
-                        <field name="message_ids" widget="mail_thread"/>
+                        <field name="message_follower_ids"/>
+                        <field name="message_ids"/>
                     </div>
                 </form>
             </field>
         </record>
+
+        <record id="medical_appointment_gantt" model="ir.ui.view">
+            <field name="name">medical.appointment.gantt</field>
+            <field name="model">medical.appointment</field>
+            <field name="arch" type="xml">
+                <gantt js_class="planning_gantt" form_view_id="%(pragtech_dental_management.medical_appointment_view)d" date_start="appointment_sdate" date_stop="appointment_edate" default_group_by="room_id" default_scale="day"  plan="false" string="Schedule" total_row="True" scales="day,week,month,year" precision="{'day': 'hour:full', 'week': 'day:full', 'month': 'day:full', 'year': 'day:full'}"  display_unavailability="0" sample="0">
+                    <field name="name"/>
+                    <field name="appointment_sdate"/>
+                    <field name="appointment_edate"/>
+                    <field name="room_id"/>
+                    <field name="doctor"/>
+                </gantt>
+            </field>
+        </record>
+
         <!-- statusbar_colors='{"confirmed":"green","cancel":"red","draft":"blue","checkin":"blue","ready":"orange","done":"black","missed":"pink"}' -->
         <record model="ir.ui.view" id="medical_appointment_tree">
             <field name="name">Appointments</field>
@@ -197,9 +211,9 @@
             <field name="name">Appointments</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">medical.appointment</field>
-            <field name="view_mode">calendar,tree,form</field>
-            <field name="context">{'apt_id':True}</field>
-            <field name="view_id" ref="medical_appointment_tree"/>
+            <field name="view_mode">gantt,calendar,tree,form</field>
+            <field name="context">{'apt_id': True}</field>
+            <field name="view_id" eval="False"/>
         </record>
 
         <menuitem action="medical_action_form_appointment" id="medical_conf_appointment_add"
@@ -245,9 +259,9 @@
             <field name="name">Today's Appointment</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">medical.appointment</field>
-            <field name="view_mode">calendar,tree,form</field>
+            <field name="view_mode">gantt,calendar,tree,form</field>
             <!--<field name="domain">[('appointment_sdate','&gt;=',time.strftime('%Y-%m-%d-->
-                <!--00:00:01')),('appointment_sdate','&lt;=',time.strftime('%Y-%m-%d 23:59:59'))]-->
+            <!--00:00:01')),('appointment_sdate','&lt;=',time.strftime('%Y-%m-%d 23:59:59'))]-->
 
             <!--</field>-->
         </record>
@@ -491,7 +505,6 @@
                     <separator string="Notes"/>
                     <newline/>
                     <field name="notes" nolabel="1" colspan="4"/>
-
                 </form>
             </field>
         </record>
@@ -656,9 +669,9 @@
             <field name="name">Insurance Company</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">res.partner</field>
-            <field name="context">{"default_is_insurance_company":1,"search_default_is_insurance_company":1}
+            <field name="context">{"default_is_insurance_company": 1, "search_default_is_insurance_company": 1}
             </field>
-            <field name="domain">[('is_insurance_company','=',1)]</field>
+            <field name="domain">[('is_insurance_company', '=', 1)]</field>
         </record>
 
         <menuitem action="action_partner_health_insurance_company"
@@ -1129,9 +1142,9 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">res.partner</field>
             <!--<field name="view_type">form</field>-->
-            <field name="context">{"default_is_institution":1,"search_default_is_institution":1}
+            <field name="context">{"default_is_institution": 1, "search_default_is_institution": 1}
             </field>
-            <field name="domain">[('is_institution','=',1)]</field>
+            <field name="domain">[('is_institution', '=', 1)]</field>
         </record>
 
         <menuitem action="action_partner_health_center" id="menu_health_center_form"
@@ -1739,7 +1752,7 @@
             <field name="res_model">product.product</field>
             <field name="view_mode">kanban,tree,form</field>
             <!--<field name="view_type">form</field>-->
-            <field name="context">{"search_default_is_treatment":1,"default_is_treatment":1}
+            <field name="context">{"search_default_is_treatment": 1, "default_is_treatment": 1}
             </field>
             <field name="domain">[('is_treatment', '=', 1)]</field>
             <field name="view_id" ref="product.product_product_tree_view"/>
@@ -2026,9 +2039,9 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">product.category</field>
             <!--<field name="view_type">form</field>-->
-            <field name="context">{"default_treatment":1,"search_default_treatment":1}
+            <field name="context">{"default_treatment": 1, "search_default_treatment": 1}
             </field>
-            <field name="domain">[('treatment','=',1)]</field>
+            <field name="domain">[('treatment', '=', 1)]</field>
             <field name="search_view_id" ref="product.product_category_search_view"/>
             <field name="view_id" ref="product.product_category_list_view"/>
         </record>
@@ -2037,7 +2050,7 @@
                   id="menu_product_category_action_form_treatment" parent="medical_conf_procedure"
                   sequence="2"/>
 
-        <record model="ir.ui.view" id="medical_patient_medication_tree">
+        <record model="ir.ui.view" id="medical_patient_treatment_tree">
             <field name="name">Teeth Treatment</field>
             <field name="model">medical.teeth.treatment</field>
             <field name="type">tree</field>
@@ -2116,7 +2129,7 @@
             <!--<field name="view_type">form</field>-->
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="medical_patient_birthday_alert_tree_view"/>
-            <field name="domain">[('date_create','&gt;=',context_today().strftime('%Y-%m-%d')),('date_create','&lt;=',context_today().strftime('%Y-%m-%d'))]
+            <field name="domain">[('date_create', '&gt;=', context_today().strftime('%Y-%m-%d')), ('date_create', '&lt;=', context_today().strftime('%Y-%m-%d'))]
             </field>
             <!-- <field name="domain">[('create_date','&gt;=',context_today().strftime('%Y-%m-%d')),('create_date','&lt;=',context_today().strftime('%Y-%m-%d'))]</field> -->
         </record>
