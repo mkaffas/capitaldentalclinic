@@ -9,7 +9,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
 //	var Model = require('web.DataModel');
     var rpc = require('web.rpc');
     var session = require('web.session');
-     var web_client = require('web.web_client');
+    var web_client = require('web.web_client');
     var _t = core._t;
     var _lt = core._lt;
     var QWeb = core.qweb;
@@ -496,43 +496,43 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                     self.execute_create(false, self, false);
 
                     switch(selected_treatment.action) {
-                    case 'missing':
-                        if ($("#" + $(this).attr('id')).attr('class') == "teeth") {
-                            // $($("#" + $(this).attr('id')).attr('src', "/pragtech_dental_management/static/src/img/images.png").attr('class', 'blank'));
-                            $($("#" + $(this).attr('id')).attr('class', 'blank'));
-                            $($("#" + $(this).attr('id'))).css('visibility', 'hidden');
-                            $("#view_" + $(this).attr('id') + "_top,#view_" + $(this).attr('id') + "_left,#view_" + $(this).attr('id') + "_bottom,#view_" + $(this).attr('id') + "_right,#view_" + $(this).attr('id') + "_center").attr('visibility', 'hidden');
-                        } else {
-                            $($("#" + $(this).attr('id')).css('visibility', 'visible').attr('class', 'teeth'));
-                            $("#view_" + $(this).attr('id') + "_top,#view_" + $(this).attr('id') + "_left,#view_" + $(this).attr('id') + "_bottom,#view_" + $(this).attr('id') + "_right,#view_" + $(this).attr('id') + "_center").attr('visibility', 'visible');
-                            for (var op_id = 1; op_id <= operation_id; op_id++) {
-                                if (self.$('#operation_'+op_id)[0]) {
-                                    var got_op_id = (self.$('#operation_'+op_id)[0].id).substr(10);
-                                    if (parseInt(self.$('#tooth_'+got_op_id)[0].innerHTML) == parseInt(this.id)) {
-                                        var tr = document.getElementById('operation_' + got_op_id);
-                                        var desc_class = $("#desc_" + got_op_id).attr('class');
-                                        tr.parentNode.removeChild(tr);
-                                        for (var index = 0; index < treatment_lines.length; index++) {
-                                            if (treatment_lines[index].teeth_id == this.id) {
-                                                for (var i2 = 0; i2 < treatment_lines[index].values.length; i2++) {
-                                                    if (treatment_lines[index].values[i2].categ_id == parseInt(desc_class)) {
-                                                        treatment_lines.splice(index, 1);
-                                                        operation_id += 1;
-                                                        return;
+                        case 'missing':
+                            if ($("#" + $(this).attr('id')).attr('class') == "teeth") {
+                                // $($("#" + $(this).attr('id')).attr('src', "/pragtech_dental_management/static/src/img/images.png").attr('class', 'blank'));
+                                $($("#" + $(this).attr('id')).attr('class', 'blank'));
+                                $($("#" + $(this).attr('id'))).css('visibility', 'hidden');
+                                $("#view_" + $(this).attr('id') + "_top,#view_" + $(this).attr('id') + "_left,#view_" + $(this).attr('id') + "_bottom,#view_" + $(this).attr('id') + "_right,#view_" + $(this).attr('id') + "_center").attr('visibility', 'hidden');
+                            } else {
+                                $($("#" + $(this).attr('id')).css('visibility', 'visible').attr('class', 'teeth'));
+                                $("#view_" + $(this).attr('id') + "_top,#view_" + $(this).attr('id') + "_left,#view_" + $(this).attr('id') + "_bottom,#view_" + $(this).attr('id') + "_right,#view_" + $(this).attr('id') + "_center").attr('visibility', 'visible');
+                                for (var op_id = 1; op_id <= operation_id; op_id++) {
+                                    if (self.$('#operation_'+op_id)[0]) {
+                                        var got_op_id = (self.$('#operation_'+op_id)[0].id).substr(10);
+                                        if (parseInt(self.$('#tooth_'+got_op_id)[0].innerHTML) == parseInt(this.id)) {
+                                            var tr = document.getElementById('operation_' + got_op_id);
+                                            var desc_class = $("#desc_" + got_op_id).attr('class');
+                                            tr.parentNode.removeChild(tr);
+                                            for (var index = 0; index < treatment_lines.length; index++) {
+                                                if (treatment_lines[index].teeth_id == this.id) {
+                                                    for (var i2 = 0; i2 < treatment_lines[index].values.length; i2++) {
+                                                        if (treatment_lines[index].values[i2].categ_id == parseInt(desc_class)) {
+                                                            treatment_lines.splice(index, 1);
+                                                            operation_id += 1;
+                                                            return;
+                                                        }
                                                     }
                                                 }
                                             }
+                                            break;
                                         }
-                                        break;
                                     }
                                 }
                             }
-                        }
-                        break;
-                    case 'composite':
-                        break;
-                    default :
-                        break;
+                            break;
+                        case 'composite':
+                            break;
+                        default :
+                            break;
                     };
 
                 });
@@ -625,10 +625,10 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                             console.log("-------**-    ",$("#" + $(this).attr('id')).attr('fill'))
 //
                             if ($("#" + $(this).attr('id')).attr('fill') == 'orange') {
-                            $("#" + $(this).attr('id')).attr('fill', 'white');
-                            is_tooth_select = true
-                            var current_tooth_id = this.id.lastIndexOf("_")
-                            var res = this.id.slice(current_tooth_id, this.id.length);
+                                $("#" + $(this).attr('id')).attr('fill', 'white');
+                                is_tooth_select = true
+                                var current_tooth_id = this.id.lastIndexOf("_")
+                                var res = this.id.slice(current_tooth_id, this.id.length);
 
                             }
                             else{
@@ -954,77 +954,77 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                 method: 'get_teeth_code',
                 args: [this.patient_id],
             })
-            .then(function(res){
+                .then(function(res){
 
 //			new Model('teeth.code').call('get_teeth_code', [this.patient_id]).then(function(res) {
 
-                var name = "";
-                var j = 0;
-                var k = 7;
-                var l = 0;
+                    var name = "";
+                    var j = 0;
+                    var k = 7;
+                    var l = 0;
 
-                if (type == 'universal') {
-                    for (var i = 0; i < 16; i++) {
-                        name = "<td  width = '46px' id='teeth_" + i + "'>" + res[i] + "</td>";
-                        $('#upper_teeths').append(name);
+                    if (type == 'universal') {
+                        for (var i = 0; i < 16; i++) {
+                            name = "<td  width = '46px' id='teeth_" + i + "'>" + res[i] + "</td>";
+                            $('#upper_teeths').append(name);
+                        }
+                        for (var i = 31; i > 15; i--) {
+                            name = "<td  width = '46px' id='teeth_" + i + "'>" + res[i] + "</td>";
+                            $('#lower_teeths').append(name);
+
+                        }
+                    } else if (type == 'palmer') {
+                        for (var i = 7; i >= 0; i--) {
+                            name = "<td  width = '47px' id='teeth_" + i + "'>" + res[i] + "</td>";
+                            $('#upper_teeths').append(name);
+
+                        }
+                        for (var i = 7; i < 15; i++) {
+
+                            name = "<td  width = '47px' id='teeth_" + i + "'>" + res[j] + "</td>";
+                            $('#upper_teeths').append(name);
+                            j++;
+
+                        }
+                        for (var i = 23; i > 15; i--) {
+
+                            name = "<td  width = '47px' id='teeth_" + i + "'>" + res[k] + "</td>";
+                            $('#lower_teeths').append(name);
+                            k--;
+                        }
+                        for (var i = 24; i < 32; i++) {
+                            name = "<td  width = '47px' id='teeth_" + i + "'>" + res[l] + "</td>";
+                            $('#lower_teeths').append(name);
+                            l++;
+                        }
+
+                    } else if (type == 'iso') {
+                        for (var i = 0; i <= 7; i++) {
+
+                            name = "<td  width = '46px' id='teeth_" + i + "'>" + res[i] + "</td>";
+                            $('#upper_teeths').append(name);
+
+                        }
+                        for (var i = 8; i <= 15; i++) {
+
+                            name = "<td  width = '46px' id='teeth_" + i + "'>" + res[i] + "</td>";
+                            $('#upper_teeths').append(name);
+
+                        }
+                        for (var i = 31; i >= 24; i--) {
+
+                            name = "<td  width = '46px' id='teeth_" + i + "'>" + res[i] + "</td>";
+                            $('#lower_teeths').append(name);
+
+                        }
+                        for (var i = 23; i >= 16; i--) {
+                            name = "<td  width = '46px' id='teeth_" + i + "'>" + res[i] + "</td>";
+                            $('#lower_teeths').append(name);
+
+                        }
+
                     }
-                    for (var i = 31; i > 15; i--) {
-                        name = "<td  width = '46px' id='teeth_" + i + "'>" + res[i] + "</td>";
-                        $('#lower_teeths').append(name);
-
-                    }
-                } else if (type == 'palmer') {
-                    for (var i = 7; i >= 0; i--) {
-                        name = "<td  width = '47px' id='teeth_" + i + "'>" + res[i] + "</td>";
-                        $('#upper_teeths').append(name);
-
-                    }
-                    for (var i = 7; i < 15; i++) {
-
-                        name = "<td  width = '47px' id='teeth_" + i + "'>" + res[j] + "</td>";
-                        $('#upper_teeths').append(name);
-                        j++;
-
-                    }
-                    for (var i = 23; i > 15; i--) {
-
-                        name = "<td  width = '47px' id='teeth_" + i + "'>" + res[k] + "</td>";
-                        $('#lower_teeths').append(name);
-                        k--;
-                    }
-                    for (var i = 24; i < 32; i++) {
-                        name = "<td  width = '47px' id='teeth_" + i + "'>" + res[l] + "</td>";
-                        $('#lower_teeths').append(name);
-                        l++;
-                    }
-
-                } else if (type == 'iso') {
-                    for (var i = 0; i <= 7; i++) {
-
-                        name = "<td  width = '46px' id='teeth_" + i + "'>" + res[i] + "</td>";
-                        $('#upper_teeths').append(name);
-
-                    }
-                    for (var i = 8; i <= 15; i++) {
-
-                        name = "<td  width = '46px' id='teeth_" + i + "'>" + res[i] + "</td>";
-                        $('#upper_teeths').append(name);
-
-                    }
-                    for (var i = 31; i >= 24; i--) {
-
-                        name = "<td  width = '46px' id='teeth_" + i + "'>" + res[i] + "</td>";
-                        $('#lower_teeths').append(name);
-
-                    }
-                    for (var i = 23; i >= 16; i--) {
-                        name = "<td  width = '46px' id='teeth_" + i + "'>" + res[i] + "</td>";
-                        $('#lower_teeths').append(name);
-
-                    }
-
-                }
-            });
+                });
         },
         perform_action : function() {
             var $def = $.Deferred();
@@ -1078,10 +1078,10 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                 method: 'create_lines',
                 args: [this.patient_id, treatment_lines_2, this.patient_id, this.appointment_id],
             })
-            .then(function(res) {
-               treatment_lines_2 = new Array();
-               $def.resolve(res);
-            });
+                .then(function(res) {
+                    treatment_lines_2 = new Array();
+                    $def.resolve(res);
+                });
 //			new Model('medical.patient').call('create_lines', [this.patient_id, treatment_lines_2, this.patient_id, this.appointment_id]).then(function(res) {
 //				treatment_lines_2 = new Array();
 //				$def.resolve(res);
@@ -1095,15 +1095,15 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
 //				tag : 'history_back'
 //			});
 
-        web_client.do_action({
-                    type: 'ir.actions.act_window',
-                    res_model: 'medical.patient',
-                    views: [[false, 'form'], [false, 'kanban']],
-                    res_id: this.patient_id,
-                    target: 'current'
+            web_client.do_action({
+                type: 'ir.actions.act_window',
+                res_model: 'medical.patient',
+                views: [[false, 'form'], [false, 'kanban']],
+                res_id: this.patient_id,
+                target: 'current'
 
-                    });
-                this.trigger_up('history_back');
+            });
+            this.trigger_up('history_back');
         },
 
         check_if_tooth_present : function(tooth_id) {
@@ -1175,13 +1175,13 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
 //				$def.resolve(res);
 //			});
             rpc.query({
-                    model: 'product.product',
-                    method: 'get_treatment_charge',
-                    args: [treatment_id],
-                })
+                model: 'product.product',
+                method: 'get_treatment_charge',
+                args: [treatment_id],
+            })
                 .then(function(res){
                     $def.resolve(res);
-               });
+                });
             return $def;
         },
 
@@ -1332,7 +1332,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
 
                             }
                         });
-                }
+                    }
 
                 });
                 if (selected_treatment_temp.action == false) {
@@ -1389,105 +1389,105 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                         numbers = '-';
                     }
                     switch(numbers) {
-                    case 1:
-                        table_str += '<td class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Palmer[1] + '</td>';
-                        break;
-                    case 2:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[2] + '</td>';
-                        break;
-                    case 3:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[3] + '</td>';
-                        break;
-                    case 4:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[4] + '</td>';
-                        break;
-                    case 5:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[5] + '</td>';
-                        break;
-                    case 6:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[6] + '</td>';
-                        break;
-                    case 7:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[7] + '</td>';
-                        break;
-                    case 8:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[8] + '</td>';
-                        break;
-                    case 9:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[9] + '</td>';
-                        break;
-                    case 10:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[10] + '</td>';
-                        break;
-                    case 11:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[11] + '</td>';
-                        break;
-                    case 12:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[12] + '</td>';
-                        break;
-                    case 13:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[13] + '</td>';
-                        break;
-                    case 14:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[14] + '</td>';
-                        break;
-                    case 15:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[15] + '</td>';
-                        break;
-                    case 16:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[16] + '</td>';
-                        break;
-                    case 17:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[17] + '</td>';
-                        break;
-                    case 18:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[18] + '</td>';
-                        break;
-                    case 19:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[19] + '</td>';
-                        break;
-                    case 20:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[20] + '</td>';
-                        break;
-                    case 21:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[21] + '</td>';
-                        break;
-                    case 22:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[22] + '</td>';
-                        break;
-                    case 23:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[23] + '</td>';
-                        break;
-                    case 24:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[24] + '</td>';
-                        break;
-                    case 25:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[25] + '</td>';
-                        break;
-                    case 26:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[26] + '</td>';
-                        break;
-                    case 27:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[27] + '</td>';
-                        break;
-                    case 28:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[28] + '</td>';
-                        break;
-                    case 29:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[29] + '</td>';
-                        break;
-                    case 30:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[30] + '</td>';
-                        break;
-                    case 31:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[31] + '</td>';
-                        break;
-                    case 32:
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[32] + '</td>';
-                        break;
-                    case '-':
-                        table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + '-' + '</td>';
-                        break;
+                        case 1:
+                            table_str += '<td class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Palmer[1] + '</td>';
+                            break;
+                        case 2:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[2] + '</td>';
+                            break;
+                        case 3:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[3] + '</td>';
+                            break;
+                        case 4:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[4] + '</td>';
+                            break;
+                        case 5:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[5] + '</td>';
+                            break;
+                        case 6:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[6] + '</td>';
+                            break;
+                        case 7:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[7] + '</td>';
+                            break;
+                        case 8:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[8] + '</td>';
+                            break;
+                        case 9:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[9] + '</td>';
+                            break;
+                        case 10:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[10] + '</td>';
+                            break;
+                        case 11:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[11] + '</td>';
+                            break;
+                        case 12:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[12] + '</td>';
+                            break;
+                        case 13:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[13] + '</td>';
+                            break;
+                        case 14:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[14] + '</td>';
+                            break;
+                        case 15:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[15] + '</td>';
+                            break;
+                        case 16:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[16] + '</td>';
+                            break;
+                        case 17:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[17] + '</td>';
+                            break;
+                        case 18:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[18] + '</td>';
+                            break;
+                        case 19:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[19] + '</td>';
+                            break;
+                        case 20:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[20] + '</td>';
+                            break;
+                        case 21:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[21] + '</td>';
+                            break;
+                        case 22:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[22] + '</td>';
+                            break;
+                        case 23:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[23] + '</td>';
+                            break;
+                        case 24:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[24] + '</td>';
+                            break;
+                        case 25:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[25] + '</td>';
+                            break;
+                        case 26:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[26] + '</td>';
+                            break;
+                        case 27:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[27] + '</td>';
+                            break;
+                        case 28:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[28] + '</td>';
+                            break;
+                        case 29:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[29] + '</td>';
+                            break;
+                        case 30:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[30] + '</td>';
+                            break;
+                        case 31:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[31] + '</td>';
+                            break;
+                        case 32:
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + Palmer[32] + '</td>';
+                            break;
+                        case '-':
+                            table_str += '<td  class="' + selected_tooth_temp + '"id = "tooth_' + operation_id + '">' + '-' + '</td>';
+                            break;
 
                     }
                 } else if (type == 'universal') {
@@ -1496,105 +1496,105 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                     var numbers = parseInt(selected_tooth_temp);
 
                     switch(numbers) {
-                    case 1:
-                        table_str += '<td class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[1] + '</td>';
-                        break;
-                    case 2:
-                        table_str += '<td class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[2] + '</td>';
-                        break;
-                    case 3:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[3] + '</td>';
-                        break;
-                    case 4:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[4] + '</td>';
-                        break;
-                    case 5:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[5] + '</td>';
-                        break;
-                    case 6:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[6] + '</td>';
-                        break;
-                    case 7:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[7] + '</td>';
-                        break;
-                    case 8:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[8] + '</td>';
-                        break;
-                    case 9:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[9] + '</td>';
-                        break;
-                    case 10:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[10] + '</td>';
-                        break;
-                    case 11:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[11] + '</td>';
-                        break;
-                    case 12:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[12] + '</td>';
-                        break;
-                    case 13:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[13] + '</td>';
-                        break;
-                    case 14:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[14] + '</td>';
-                        break;
-                    case 15:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[15] + '</td>';
-                        break;
-                    case 16:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[16] + '</td>';
-                        break;
-                    case 17:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[17] + '</td>';
-                        break;
-                    case 18:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[18] + '</td>';
-                        break;
-                    case 19:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[19] + '</td>';
-                        break;
-                    case 20:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[20] + '</td>';
-                        break;
-                    case 21:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[21] + '</td>';
-                        break;
-                    case 22:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[22] + '</td>';
-                        break;
-                    case 23:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[23] + '</td>';
-                        break;
-                    case 24:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[24] + '</td>';
-                        break;
-                    case 25:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[25] + '</td>';
-                        break;
-                    case 26:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[26] + '</td>';
-                        break;
-                    case 27:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[27] + '</td>';
-                        break;
-                    case 28:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[28] + '</td>';
-                        break;
-                    case 29:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[29] + '</td>';
-                        break;
-                    case 30:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[30] + '</td>';
-                        break;
-                    case 31:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[31] + '</td>';
-                        break;
-                    case 32:
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[32] + '</td>';
-                        break;
-                    case '-':
-                        table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + '-' + '</td>';
-                        break;
+                        case 1:
+                            table_str += '<td class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[1] + '</td>';
+                            break;
+                        case 2:
+                            table_str += '<td class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[2] + '</td>';
+                            break;
+                        case 3:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[3] + '</td>';
+                            break;
+                        case 4:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[4] + '</td>';
+                            break;
+                        case 5:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[5] + '</td>';
+                            break;
+                        case 6:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[6] + '</td>';
+                            break;
+                        case 7:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[7] + '</td>';
+                            break;
+                        case 8:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[8] + '</td>';
+                            break;
+                        case 9:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[9] + '</td>';
+                            break;
+                        case 10:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[10] + '</td>';
+                            break;
+                        case 11:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[11] + '</td>';
+                            break;
+                        case 12:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[12] + '</td>';
+                            break;
+                        case 13:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[13] + '</td>';
+                            break;
+                        case 14:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[14] + '</td>';
+                            break;
+                        case 15:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[15] + '</td>';
+                            break;
+                        case 16:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[16] + '</td>';
+                            break;
+                        case 17:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[17] + '</td>';
+                            break;
+                        case 18:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[18] + '</td>';
+                            break;
+                        case 19:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[19] + '</td>';
+                            break;
+                        case 20:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[20] + '</td>';
+                            break;
+                        case 21:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[21] + '</td>';
+                            break;
+                        case 22:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[22] + '</td>';
+                            break;
+                        case 23:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[23] + '</td>';
+                            break;
+                        case 24:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[24] + '</td>';
+                            break;
+                        case 25:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[25] + '</td>';
+                            break;
+                        case 26:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[26] + '</td>';
+                            break;
+                        case 27:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[27] + '</td>';
+                            break;
+                        case 28:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[28] + '</td>';
+                            break;
+                        case 29:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[29] + '</td>';
+                            break;
+                        case 30:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[30] + '</td>';
+                            break;
+                        case 31:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[31] + '</td>';
+                            break;
+                        case 32:
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[32] + '</td>';
+                            break;
+                        case '-':
+                            table_str += '<td  class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + '-' + '</td>';
+                            break;
 
                     }
                 }
@@ -1713,9 +1713,9 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                 method: 'get_treatment_categs',
                 args: [self.patient_id],
             })
-            .then(function(treatment_list) {
-                $def.resolve(treatment_list);
-            });
+                .then(function(treatment_list) {
+                    $def.resolve(treatment_list);
+                });
             return $def;
         },
 
@@ -1738,12 +1738,12 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                 method: 'get_patient_history',
                 args: [self.patient_id, self.appointment_id],
             })
-            .then(function(patient_history) {
-                Missing_Tooth = patient_history[0];
-                patient_history.splice(0, 1);
-                other_patient_history = patient_history;
-                $def.resolve(patient_history);
-            });
+                .then(function(patient_history) {
+                    Missing_Tooth = patient_history[0];
+                    patient_history.splice(0, 1);
+                    other_patient_history = patient_history;
+                    $def.resolve(patient_history);
+                });
 
             return $def;
         },
@@ -1756,9 +1756,9 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                 method: 'get_user_name',
                 args: [dentist_id],
             })
-            .then(function(uname) {
-                user_name = uname;
-            });
+                .then(function(uname) {
+                    user_name = uname;
+                });
         },
     });
 

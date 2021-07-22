@@ -1,0 +1,28 @@
+version: '2.1'
+services:
+  db:
+    image: postgres:12
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
+    volumes:
+      - db-data:/var/lib/postgresql/data:rw,Z
+    tty: true
+    restart: always
+  odoo:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "${ODOO_PORT:-8014}:8069"
+    volumes:
+      - odoo-data:/var/lib/odoo:rw,z
+      - ${ODOO_3d_ADDONS:-./3rd-party-addons}:/mnt/extra-addons/3rd-party-addons:ro,z
+      - ${ODOO_ADDONS:-./}:/mnt/extra-addons:ro,z
+      - ${ODOO_CONF:-./}:/etc/odoo:ro,z
+    tty: true
+    restart: always
+volumes:
+  odoo-data:
+  db-data:
