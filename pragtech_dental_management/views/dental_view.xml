@@ -168,16 +168,55 @@
             </field>
         </record>
 
+        <record id="medical_appointment_popup_view" model="ir.ui.view">
+            <field name="name">medical.appointment.popup.view</field>
+            <field name="model">medical.appointment</field>
+            <field name="arch" type="xml">
+                <form string="Appointment" version="7.0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="patient" required="1" context="{'appointment_id_new':id}"/>
+                                <field name="appointment_sdate"/>
+                                <field name="room_id" invisible="1" force_save="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="Notes" string="Notes">
+                                <field name="comments" placeholder="Notes"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
         <record id="medical_appointment_gantt" model="ir.ui.view">
             <field name="name">medical.appointment.gantt</field>
             <field name="model">medical.appointment</field>
             <field name="arch" type="xml">
-                <gantt js_class="planning_gantt" form_view_id="%(pragtech_dental_management.medical_appointment_view)d" date_start="appointment_sdate" date_stop="appointment_edate" default_group_by="room_id" default_scale="day"  plan="false" string="Schedule" total_row="True" scales="day,week,month,year" precision="{'day': 'hour:full', 'week': 'day:full', 'month': 'day:full', 'year': 'day:full'}"  display_unavailability="0" sample="0">
+                <gantt js_class="planning_gantt" form_view_id="%(pragtech_dental_management.medical_appointment_popup_view)d" date_start="appointment_sdate" date_stop="appointment_edate" default_group_by="room_id" default_scale="day" plan="false" string="Schedule" total_row="True" scales="day,week,month,year" precision="{'day': 'hour:full', 'week': 'day:full', 'month': 'day:full', 'year': 'day:full'}" display_unavailability="0" sample="0">
                     <field name="name"/>
                     <field name="appointment_sdate"/>
                     <field name="appointment_edate"/>
                     <field name="room_id"/>
                     <field name="doctor"/>
+                    <templates>
+                        <div t-name="gantt-popover" class="container-fluid">
+                            <div class="row no-gutters">
+                                <div class="col">
+                                    <ul class="pl-1 mb-0">
+                                        <li><strong>Start: </strong> <t t-esc="userTimezoneStartDate.format('YYYY-MM-DD hh:mm:ss A')"/></li>
+                                        <li><strong>End: </strong> <t t-esc="userTimezoneStopDate.format('YYYY-MM-DD hh:mm:ss A')"/></li>
+                                        <li><strong>Doctor: </strong><t t-esc="doctor[1]" /></li>
+                                        <li><strong>Notes: </strong><t t-esc="comments"/></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </templates>
+
                 </gantt>
             </field>
         </record>

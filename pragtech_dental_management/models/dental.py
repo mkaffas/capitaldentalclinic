@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models, _
 import datetime
-# from mock import DEFAULT
-from datetime import datetime, timedelta
-from dateutil.relativedelta import relativedelta
-from odoo.exceptions import UserError, ValidationError
 import hashlib
 import time
+# from mock import DEFAULT
+from datetime import datetime, timedelta
+
+from dateutil.relativedelta import relativedelta
+
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError, ValidationError
 
 
 class ClaimManagement(models.Model):
@@ -16,7 +18,8 @@ class ClaimManagement(models.Model):
 
     claim_date = fields.Date(string='Claim Date')
     name = fields.Many2one('medical.patient', string='Patient')
-    insurance_company = fields.Many2one('res.partner', string='Insurance Company',
+    insurance_company = fields.Many2one('res.partner',
+                                        string='Insurance Company',
                                         domain="[('is_insurance_company', '=', True)]")
     insurance_policy_card = fields.Char(string='Insurance Policy Card')
     treatment_done = fields.Boolean(string='Treatment Done')
@@ -38,10 +41,12 @@ class InsurancePlan(models.Model):
     is_default = fields.Boolean(string='Default Plan',
                                 help='Check if this is the default plan when assigning this insurance company to a patient')
     name = fields.Char(related='product_insurance_plan_id.name')
-    product_insurance_plan_id = fields.Many2one('product.product', string='Plan', required=True,
+    product_insurance_plan_id = fields.Many2one('product.product',
+                                                string='Plan', required=True,
                                                 domain="[('type', '=', 'service'), ('is_insurance_plan', '=', True)]",
                                                 help='Insurance company plan')
-    company_id = fields.Many2one('res.partner', string='Insurance Company', required=True,
+    company_id = fields.Many2one('res.partner', string='Insurance Company',
+                                 required=True,
                                  domain="[('is_insurance_company', '=', '1')]")
     notes = fields.Text('Extra info')
     code = fields.Char(size=64, required=True, index=True)
@@ -63,38 +68,53 @@ class MedicalInsurance(models.Model):
     name = fields.Char(related="res_partner_insurance_id.name")
     res_partner_insurance_id = fields.Many2one('res.partner', 'Owner')
     number = fields.Char('Number', size=64, required=True)
-    company_id = fields.Many2one('res.partner', 'Insurance Company', domain="[('is_insurance_company', '=', '1')]",
+    company_id = fields.Many2one('res.partner', 'Insurance Company',
+                                 domain="[('is_insurance_company', '=', '1')]",
                                  required=True)
     member_since = fields.Date('Member since')
     member_exp = fields.Date('Expiration date')
-    category = fields.Char('Category', size=64, help="Insurance company plan / category")
-    type = fields.Selection([('state', 'State'), ('labour_union', 'Labour Union / Syndical'), ('private', 'Private'), ],
-                            'Insurance Type')
+    category = fields.Char('Category', size=64,
+                           help="Insurance company plan / category")
+    type = fields.Selection(
+        [('state', 'State'), ('labour_union', 'Labour Union / Syndical'),
+         ('private', 'Private'), ],
+        'Insurance Type')
     notes = fields.Text('Extra Info')
-    plan_id = fields.Many2one('medical.insurance.plan', 'Plan', help='Insurance company plan')
+    plan_id = fields.Many2one('medical.insurance.plan', 'Plan',
+                              help='Insurance company plan')
 
 
 class Partner(models.Model):
     _inherit = "res.partner"
     _description = "Res Partner"
 
-    date = fields.Date('Partner since', help="Date of activation of the partner or patient")
+    date = fields.Date('Partner since',
+                       help="Date of activation of the partner or patient")
     alias = fields.Char('alias', size=64)
     ref = fields.Char('ID Number')
-    is_person = fields.Boolean('Person', help="Check if the partner is a person.")
-    is_patient = fields.Boolean('Patient', help="Check if the partner is a patient")
-    is_doctor = fields.Boolean('Doctor', help="Check if the partner is a doctor")
-    is_institution = fields.Boolean('Institution', help="Check if the partner is a Medical Center")
-    is_insurance_company = fields.Boolean('Insurance Company', help="Check if the partner is a Insurance Company")
-    is_pharmacy = fields.Boolean('Pharmacy', help="Check if the partner is a Pharmacy")
+    is_person = fields.Boolean('Person',
+                               help="Check if the partner is a person.")
+    is_patient = fields.Boolean('Patient',
+                                help="Check if the partner is a patient")
+    is_doctor = fields.Boolean('Doctor',
+                               help="Check if the partner is a doctor")
+    is_institution = fields.Boolean('Institution',
+                                    help="Check if the partner is a Medical Center")
+    is_insurance_company = fields.Boolean('Insurance Company',
+                                          help="Check if the partner is a Insurance Company")
+    is_pharmacy = fields.Boolean('Pharmacy',
+                                 help="Check if the partner is a Pharmacy")
     middle_name = fields.Char('Middle Name', size=128, help="Middle Name")
     lastname = fields.Char('Last Name', size=128, help="Last Name")
     insurance_ids = fields.One2many('medical.insurance', 'name', "Insurance")
-    treatment_id = fields.Many2many('product.product', 'treatment_insurance_company_relation', 'treatment_id',
+    treatment_id = fields.Many2many('product.product',
+                                    'treatment_insurance_company_relation',
+                                    'treatment_id',
                                     'insurance_company_id', 'Treatment')
 
     _sql_constraints = [
-        ('ref_uniq', 'unique (ref)', 'The partner or patient code must be unique')
+        ('ref_uniq', 'unique (ref)',
+         'The partner or patient code must be unique')
     ]
 
     @api.depends('name', 'lastname')
@@ -118,18 +138,26 @@ class ProductProduct(models.Model):
     _description = "Product"
     _inherit = "product.product"
 
-    action_perform = fields.Selection([('action', 'Action'), ('missing', 'Missing'), ('composite', 'Composite')],
-                                      'Action perform', default='action')
-    is_medicament = fields.Boolean('Medicament', help="Check if the product is a medicament")
-    is_insurance_plan = fields.Boolean('Insurance Plan', help='Check if the product is an insurance plan')
-    is_treatment = fields.Boolean('Treatment', help="Check if the product is a Treatment")
+    action_perform = fields.Selection(
+        [('action', 'Action'), ('missing', 'Missing'),
+         ('composite', 'Composite')],
+        'Action perform', default='action')
+    is_medicament = fields.Boolean('Medicament',
+                                   help="Check if the product is a medicament")
+    is_insurance_plan = fields.Boolean('Insurance Plan',
+                                       help='Check if the product is an insurance plan')
+    is_treatment = fields.Boolean('Treatment',
+                                  help="Check if the product is a Treatment")
     is_planned_visit = fields.Boolean('Planned Visit')
     duration = fields.Selection(
-        [('three_months', 'Three Months'), ('six_months', 'Six Months'), ('one_year', 'One Year')], 'Duration')
+        [('three_months', 'Three Months'), ('six_months', 'Six Months'),
+         ('one_year', 'One Year')], 'Duration')
 
     #     insurance_company_ids = fields.One2many('res.partner','treatment_id',string="Insurance Company")
-    insurance_company_id = fields.Many2many('res.partner', 'treatment_insurance_company_relation',
-                                            'insurance_company_id', 'treatment_id', 'Insurance Company')
+    insurance_company_id = fields.Many2many('res.partner',
+                                            'treatment_insurance_company_relation',
+                                            'insurance_company_id',
+                                            'treatment_id', 'Insurance Company')
 
     def get_treatment_charge(self):
         return self.lst_price
@@ -158,12 +186,15 @@ class PathologyCategory(models.Model):
     @api.constrains('parent_id')
     def _check_parent_id(self):
         if not self._check_recursion():
-            raise ValidationError(_('Error ! You cannot create a recursive category.'))
+            raise ValidationError(
+                _('Error ! You cannot create a recursive category.'))
 
     name = fields.Char('Category Name', required=True, size=128)
-    parent_id = fields.Many2one('medical.pathology.category', 'Parent Category', index=True)
+    parent_id = fields.Many2one('medical.pathology.category', 'Parent Category',
+                                index=True)
     complete_name = fields.Char(compute='_name_get_fnc', string="Name")
-    child_ids = fields.One2many('medical.pathology.category', 'parent_id', 'Children Category')
+    child_ids = fields.One2many('medical.pathology.category', 'parent_id',
+                                'Children Category')
     active = fields.Boolean('Active', default=True, )
 
 
@@ -172,15 +203,19 @@ class MedicalPathology(models.Model):
     _description = "Diseases"
 
     name = fields.Char('Name', required=True, size=128, help="Disease name")
-    code = fields.Char('Code', size=32, required=True, help="Specific Code for the Disease (eg, ICD-10, SNOMED...)")
+    code = fields.Char('Code', size=32, required=True,
+                       help="Specific Code for the Disease (eg, ICD-10, SNOMED...)")
     category = fields.Many2one('medical.pathology.category', 'Disease Category')
-    chromosome = fields.Char('Affected Chromosome', size=128, help="chromosome number")
-    protein = fields.Char('Protein involved', size=128, help="Name of the protein(s) affected")
+    chromosome = fields.Char('Affected Chromosome', size=128,
+                             help="chromosome number")
+    protein = fields.Char('Protein involved', size=128,
+                          help="Name of the protein(s) affected")
     gene = fields.Char('Gene', size=128, help="Name of the gene(s) affected")
     info = fields.Text('Extra Info')
     line_ids = fields.One2many('medical.pathology.group.member', 'name',
-                               'Groups', help='Specify the groups this pathology belongs. Some'
-                                              ' automated processes act upon the code of the group')
+                               'Groups',
+                               help='Specify the groups this pathology belongs. Some'
+                                    ' automated processes act upon the code of the group')
 
     _sql_constraints = [
         ('code_uniq', 'unique (code)', 'The disease code must be unique')]
@@ -190,7 +225,8 @@ class MedicalPathology(models.Model):
         args = args or []
         recs = self.browse()
         if name:
-            recs = self.search(['|', ('name', operator, name), ('code', operator, name)])
+            recs = self.search(
+                ['|', ('name', operator, name), ('code', operator, name)])
         if not recs:
             recs = self.search([('name', operator, name)])
         return recs.name_get()
@@ -200,7 +236,8 @@ class MedicalPathologyGroup(models.Model):
     _description = 'Pathology Group'
     _name = 'medical.pathology.group'
 
-    name = fields.Char('Name', size=128, required=True, translate=True, help='Group name')
+    name = fields.Char('Name', size=128, required=True, translate=True,
+                       help='Group name')
     code = fields.Char('Code', size=128, required=True,
                        help='for example MDG6 code will contain the Millennium Development'
                             ' Goals # 6 diseases : Tuberculosis, Malaria and HIV/AIDS')
@@ -213,7 +250,8 @@ class MedicalPathologyGroupMember(models.Model):
     _name = 'medical.pathology.group.member'
 
     name = fields.Many2one('medical.pathology', 'Disease', readonly=True)
-    disease_group = fields.Many2one('medical.pathology.group', 'Group', required=True)
+    disease_group = fields.Many2one('medical.pathology.group', 'Group',
+                                    required=True)
 
 
 # TEMPLATE USED IN MEDICATION AND PRESCRIPTION ORDERS
@@ -222,15 +260,20 @@ class MedicalMedicationTemplate(models.Model):
     _name = "medical.medication.template"
     _description = "Template for medication"
 
-    medicament = fields.Many2one('medical.medicament', 'Medicament', help="Prescribed Medicament", required=True, )
+    medicament = fields.Many2one('medical.medicament', 'Medicament',
+                                 help="Prescribed Medicament", required=True, )
     indication = fields.Many2one('medical.pathology', 'Indication',
                                  help="Choose a disease for this medicament from the disease list. It can be an existing disease of the patient or a prophylactic.")
-    dose = fields.Float('Dose', help="Amount of medication (eg, 250 mg ) each time the patient takes it")
-    dose_unit = fields.Many2one('medical.dose.unit', 'dose unit', help="Unit of measure for the medication to be taken")
+    dose = fields.Float('Dose',
+                        help="Amount of medication (eg, 250 mg ) each time the patient takes it")
+    dose_unit = fields.Many2one('medical.dose.unit', 'dose unit',
+                                help="Unit of measure for the medication to be taken")
     route = fields.Many2one('medical.drug.route', 'Administration Route',
                             help="HL7 or other standard drug administration route code.")
-    form = fields.Many2one('medical.drug.form', 'Form', help="Drug form, such as tablet or gel")
-    qty = fields.Integer('x', default=1, help="Quantity of units (eg, 2 capsules) of the medicament")
+    form = fields.Many2one('medical.drug.form', 'Form',
+                           help="Drug form, such as tablet or gel")
+    qty = fields.Integer('x', default=1,
+                         help="Quantity of units (eg, 2 capsules) of the medicament")
     common_dosage = fields.Many2one('medical.medication.dosage', 'Frequency',
                                     help="Common / standard dosage frequency for this medicament")
     frequency = fields.Integer('Frequency',
@@ -248,10 +291,12 @@ class MedicalMedicationTemplate(models.Model):
     duration = fields.Integer('Treatment duration',
                               help="Period that the patient must take the medication. in minutes, hours, days, months, years or indefinately")
     duration_period = fields.Selection(
-        [('minutes', 'minutes'), ('hours', 'hours'), ('days', 'days'), ('months', 'months'), ('years', 'years'),
+        [('minutes', 'minutes'), ('hours', 'hours'), ('days', 'days'),
+         ('months', 'months'), ('years', 'years'),
          ('indefinite', 'indefinite')], 'Treatment Period', default='days',
         help="Period that the patient must take the medication. in minutes, hours, days, months, years or indefinately")
-    start_treatment = fields.Datetime('Start of treatment', default=fields.Datetime.now)
+    start_treatment = fields.Datetime('Start of treatment',
+                                      default=fields.Datetime.now)
     end_treatment = fields.Datetime('End of treatment')
 
     _sql_constraints = [
@@ -283,12 +328,15 @@ class MedicamentCategory(models.Model):
     @api.constrains('parent_id')
     def _check_parent_id(self):
         if not self._check_recursion():
-            raise ValidationError(_('Error ! You cannot create a recursive category.'))
+            raise ValidationError(
+                _('Error ! You cannot create a recursive category.'))
 
     name = fields.Char('Category Name', required=True, size=128)
-    parent_id = fields.Many2one('medicament.category', 'Parent Category', index=True)
+    parent_id = fields.Many2one('medicament.category', 'Parent Category',
+                                index=True)
     complete_name = fields.Char(compute='_name_get_fnc', string="Name")
-    child_ids = fields.One2many('medicament.category', 'parent_id', 'Children Category')
+    child_ids = fields.One2many('medicament.category', 'parent_id',
+                                'Children Category')
 
 
 class MedicalMedicament(models.Model):
@@ -304,24 +352,32 @@ class MedicalMedicament(models.Model):
     _name = "medical.medicament"
 
     name = fields.Char(related="product_medicament_id.name")
-    product_medicament_id = fields.Many2one('product.product', 'Name', required=True,
-                                            domain=[('is_medicament', '=', "1")], help="Commercial Name")
+    product_medicament_id = fields.Many2one('product.product', 'Name',
+                                            required=True,
+                                            domain=[
+                                                ('is_medicament', '=', "1")],
+                                            help="Commercial Name")
 
     category = fields.Many2one('medicament.category', 'Category')
-    active_component = fields.Char('Active component', size=128, help="Active Component")
-    therapeutic_action = fields.Char('Therapeutic effect', size=128, help="Therapeutic action")
+    active_component = fields.Char('Active component', size=128,
+                                   help="Active Component")
+    therapeutic_action = fields.Char('Therapeutic effect', size=128,
+                                     help="Therapeutic action")
     composition = fields.Text('Composition', help="Components")
     indications = fields.Text('Indication', help="Indications")
     dosage = fields.Text('Dosage Instructions', help="Dosage / Indications")
     overdosage = fields.Text('Overdosage', help="Overdosage")
     pregnancy_warning = fields.Boolean('Pregnancy Warning',
                                        help="Check when the drug can not be taken during pregnancy or lactancy")
-    pregnancy = fields.Text('Pregnancy and Lactancy', help="Warnings for Pregnant Women")
+    pregnancy = fields.Text('Pregnancy and Lactancy',
+                            help="Warnings for Pregnant Women")
     presentation = fields.Text('Presentation', help="Packaging")
     adverse_reaction = fields.Text('Adverse Reactions')
     storage = fields.Text('Storage Conditions')
-    price = fields.Float(related='product_medicament_id.lst_price', string='Price')
-    qty_available = fields.Float(related='product_medicament_id.qty_available', string='Quantity Available')
+    price = fields.Float(related='product_medicament_id.lst_price',
+                         string='Price')
+    qty_available = fields.Float(related='product_medicament_id.qty_available',
+                                 string='Quantity Available')
     notes = fields.Text('Extra Info')
     pregnancy_category = fields.Selection([
         ('A', 'A'),
@@ -362,11 +418,13 @@ class MedicalSpeciality(models.Model):
     _name = "medical.speciality"
     _description = "Medical Speciality"
 
-    name = fields.Char('Description', size=128, required=True, help="ie, Addiction Psychiatry")
+    name = fields.Char('Description', size=128, required=True,
+                       help="ie, Addiction Psychiatry")
     code = fields.Char('Code', size=128, help="ie, ADP")
 
     _sql_constraints = [
-        ('code_uniq', 'unique (name)', 'The Medical Specialty code must be unique')]
+        ('code_uniq', 'unique (name)',
+         'The Medical Specialty code must be unique')]
 
 
 class MedicalPhysician(models.Model):
@@ -381,15 +439,25 @@ class MedicalPhysician(models.Model):
     #         result.append((partner.id, name))
     #     return result
     name = fields.Char(related='res_partner_medical_physician_id.name')
-    res_partner_medical_physician_id = fields.Many2one('res.partner', 'Physician', required=True,
-                                                       domain=[('is_doctor', '=', "1"), ('is_person', '=', "1")],
+    res_partner_medical_physician_id = fields.Many2one('res.partner',
+                                                       'Physician',
+                                                       required=True,
+                                                       domain=[(
+                                                               'is_doctor', '=',
+                                                               "1"), (
+                                                               'is_person', '=',
+                                                               "1")],
                                                        help="Physician's Name, from the partner list")
-    institution = fields.Many2one('res.partner', 'Institution', domain=[('is_institution', '=', "1")],
+    institution = fields.Many2one('res.partner', 'Institution',
+                                  domain=[('is_institution', '=', "1")],
                                   help="Institution where she/he works")
     code = fields.Char('ID', size=128, help="MD License ID")
-    speciality = fields.Many2one('medical.speciality', 'Specialty', required=True, help="Specialty Code")
+    speciality = fields.Many2one('medical.speciality', 'Specialty',
+                                 required=True, help="Specialty Code")
     info = fields.Text('Extra info')
-    user_id = fields.Many2one('res.users', related='res_partner_medical_physician_id.user_id', string='Physician User',
+    user_id = fields.Many2one('res.users',
+                              related='res_partner_medical_physician_id.user_id',
+                              string='Physician User',
                               store=True)
 
 
@@ -399,13 +467,16 @@ class MedicalFamilyCode(models.Model):
     # _rec_name = "name"
 
     name = fields.Char(related="res_partner_family_medical_id.name")
-    res_partner_family_medical_id = fields.Many2one('res.partner', 'Name', required=True,
+    res_partner_family_medical_id = fields.Many2one('res.partner', 'Name',
+                                                    required=True,
                                                     help="Family code within an operational sector")
-    members_ids = fields.Many2many('res.partner', 'family_members_rel', 'family_id', 'members_id', 'Members',
+    members_ids = fields.Many2many('res.partner', 'family_members_rel',
+                                   'family_id', 'members_id', 'Members',
                                    domain=[('is_person', '=', "1")])
     info = fields.Text('Extra Information')
 
-    _sql_constraints = [('code_uniq', 'unique (res_partner_family_medical_id)', 'The Family code name must be unique')]
+    _sql_constraints = [('code_uniq', 'unique (res_partner_family_medical_id)',
+                         'The Family code name must be unique')]
 
 
 class MedicalOccupation(models.Model):
@@ -427,12 +498,14 @@ class AccountInvoice(models.Model):
     dentist = fields.Many2one('medical.physician', 'Dentist')
     patient = fields.Many2one('medical.patient')
     insurance_company = fields.Many2one('res.partner', 'Insurance Company',
-                                        domain=[('is_insurance_company', '=', True)])
+                                        domain=[('is_insurance_company', '=',
+                                                 True)])
 
     @api.onchange('partner_id')
     def partneronchange(self):
         if (self.partner_id and self.partner_id.is_patient):
-            patient_id = self.env['medical.patient'].search([('partner_id', '=', self.partner_id.id)])
+            patient_id = self.env['medical.patient'].search(
+                [('partner_id', '=', self.partner_id.id)])
             self.patient = patient_id.id
         else:
             self.patient = False
@@ -451,7 +524,8 @@ class website(models.Model):
 
     def get_type(self, record1):
         categ_type = record1['type']
-        categ_ids = self.env['product.category'].search([('name', '=', categ_type)])
+        categ_ids = self.env['product.category'].search(
+            [('name', '=', categ_type)])
         if categ_ids['type'] == 'view':
             return False
         return True
@@ -475,13 +549,16 @@ class website(models.Model):
                 model = r._name
                 sudo_record = r.sudo()
                 id = '%s_%s' % (r.id, hashlib.sha1(
-                    (str(sudo_record.write_date) or str(sudo_record.create_date) or '').encode('utf-8')).hexdigest()[
+                    (str(sudo_record.write_date) or str(
+                        sudo_record.create_date) or '').encode(
+                        'utf-8')).hexdigest()[
                                       0:7])
                 if cnt == 1:
                     size = '' if size is None else '/%s' % size
                 else:
                     size = '' if size is None else '%s' % size
-                lst.append('/website/image/%s/%s/%s%s' % (model, id, field, size))
+                lst.append(
+                    '/website/image/%s/%s/%s%s' % (model, id, field, size))
         return lst
 
 
@@ -504,9 +581,11 @@ class MedicalPatient(models.Model):
         args = args or []
         recs = self.browse()
         if name:
-            recs = self.search(['|', '|', '|', '|', '|', ('partner_id', operator, name), ('patient_id', operator, name),
-                                ('mobile', operator, name), ('other_mobile', operator, name),
-                                ('lastname', operator, name), ('middle_name', operator, name)])
+            recs = self.search(
+                ['|', '|', '|', '|', '|', ('partner_id', operator, name),
+                 ('patient_id', operator, name),
+                 ('mobile', operator, name), ('other_mobile', operator, name),
+                 ('lastname', operator, name), ('middle_name', operator, name)])
         if not recs:
             recs = self.search([('partner_id', operator, name)])
         return recs.name_get()
@@ -525,8 +604,9 @@ class MedicalPatient(models.Model):
     def onchange_partnerid(self):
         family_code_id = ""
         if self.partner_id:
-            self._cr.execute('select family_id from family_members_rel where members_id=%s limit 1',
-                             (self.partner_id.id,))
+            self._cr.execute(
+                'select family_id from family_members_rel where members_id=%s limit 1',
+                (self.partner_id.id,))
             a = self._cr.fetchone()
             if a:
                 family_code_id = a[0]
@@ -543,13 +623,15 @@ class MedicalPatient(models.Model):
             if (patient_dob):
                 dob = datetime.strptime(str(patient_dob), '%Y-%m-%d')
                 if patient_deceased:
-                    dod = datetime.strptime(str(patient_dod), '%Y-%m-%d %H:%M:%S')
+                    dod = datetime.strptime(str(patient_dod),
+                                            '%Y-%m-%d %H:%M:%S')
                     delta = relativedelta(dod, dob)
                     deceased = " (deceased)"
                 else:
                     delta = relativedelta(now, dob)
                     deceased = ''
-                years_months_days = str(delta.years) + "y " + str(delta.months) + "m " + str(
+                years_months_days = str(delta.years) + "y " + str(
+                    delta.months) + "m " + str(
                     delta.days) + "d" + deceased
             else:
                 years_months_days = "No DoB !"
@@ -587,61 +669,83 @@ class MedicalPatient(models.Model):
             if not patient_data.critical_info:
                 patient_data.critical_info = medical_alert
 
-
     _name = "medical.patient"
     _description = "Patient related information"
     _rec_name = "partner_id"
 
     medium_id = fields.Many2one('utm.medium', 'Medium')
     partner_id = fields.Many2one('res.partner', 'Patient', required="1",
-                                 domain=[('is_patient', '=', True), ('is_person', '=', True)], help="Patient Name")
+                                 domain=[('is_patient', '=', True),
+                                         ('is_person', '=', True)],
+                                 help="Patient Name")
     patient_id = fields.Char('Patient ID', size=64,
                              help="Patient Identifier provided by the Health Center. Is not the patient id from the partner form",
                              default=lambda self: _('New'))
-    ssn = fields.Char('SSN', size=128, help="Patient Unique Identification Number")
+    ssn = fields.Char('SSN', size=128,
+                      help="Patient Unique Identification Number")
     lastname = fields.Char(related='partner_id.lastname', string='Lastname')
-    middle_name = fields.Char(related='partner_id.middle_name', string='Middle Name')
-    family_code = fields.Many2one('medical.family_code', 'Family', help="Family Code")
-    identifier = fields.Char(string='SSN', related='partner_id.ref', help="Social Security Number or National ID")
+    middle_name = fields.Char(related='partner_id.middle_name',
+                              string='Middle Name')
+    family_code = fields.Many2one('medical.family_code', 'Family',
+                                  help="Family Code")
+    identifier = fields.Char(string='SSN', related='partner_id.ref',
+                             help="Social Security Number or National ID")
     current_insurance = fields.Many2one('medical.insurance', "Insurance",
                                         help="Insurance information. You may choose from the different insurances belonging to the patient")
-    sec_insurance = fields.Many2one('medical.insurance', "Insurance", domain="[('partner_id','=',partner_id)]",
+    sec_insurance = fields.Many2one('medical.insurance', "Insurance",
+                                    domain="[('partner_id','=',partner_id)]",
                                     help="Insurance information. You may choose from the different insurances belonging to the patient")
     dob = fields.Date('Date of Birth')
     age = fields.Char(compute='_patient_age', string='Patient Age',
                       help="It shows the age of the patient in years(y), months(m) and days(d).\nIf the patient has died, the age shown is the age at time of death, the age corresponding to the date on the death certificate. It will show also \"deceased\" on the field")
     sex = fields.Selection([('m', 'Male'), ('f', 'Female'), ], 'Sex', )
     marital_status = fields.Selection(
-        [('s', 'Single'), ('m', 'Married'), ('w', 'Widowed'), ('d', 'Divorced'), ('x', 'Separated'), ],
+        [('s', 'Single'), ('m', 'Married'), ('w', 'Widowed'), ('d', 'Divorced'),
+         ('x', 'Separated'), ],
         'Marital Status')
-    blood_type = fields.Selection([('A', 'A'), ('B', 'B'), ('AB', 'AB'), ('O', 'O'), ], 'Blood Type')
+    blood_type = fields.Selection(
+        [('A', 'A'), ('B', 'B'), ('AB', 'AB'), ('O', 'O'), ], 'Blood Type')
     rh = fields.Selection([('+', '+'), ('-', '-'), ], 'Rh')
-    user_id = fields.Many2one('res.users', related='partner_id.user_id', string='Doctor',
+    user_id = fields.Many2one('res.users', related='partner_id.user_id',
+                              string='Doctor',
                               help="Physician that logs in the local Medical system (HIS), on the health center. It doesn't necesarily has do be the same as the Primary Care doctor",
                               store=True)
-    medications = fields.One2many('medical.patient.medication', 'name', 'Medications')
-    prescriptions = fields.One2many('medical.prescription.order', 'name', "Prescriptions")
-    diseases_ids = fields.One2many('medical.patient.disease', 'name', 'Diseases')
-    critical_info = fields.Text(compute='_medical_alert', string='Medical Alert',
+    medications = fields.One2many('medical.patient.medication', 'name',
+                                  'Medications')
+    prescriptions = fields.One2many('medical.prescription.order', 'name',
+                                    "Prescriptions")
+    diseases_ids = fields.One2many('medical.patient.disease', 'name',
+                                   'Diseases')
+    critical_info = fields.Text(compute='_medical_alert',
+                                string='Medical Alert',
                                 help="Write any important information on the patient's disease, surgeries, allergies, ...")
     medical_history = fields.Text('Medical History')
-    critical_info_fun = fields.Text(compute='_medical_alert', string='Medical Alert',
+    critical_info_fun = fields.Text(compute='_medical_alert',
+                                    string='Medical Alert',
                                     help="Write any important information on the patient's disease, surgeries, allergies, ...")
     medical_history_fun = fields.Text('Medical History')
-    general_info = fields.Text('General Information', help="General information about the patient")
+    general_info = fields.Text('General Information',
+                               help="General information about the patient")
     deceased = fields.Boolean('Deceased', help="Mark if the patient has died")
     dod = fields.Datetime('Date of Death')
-    apt_id = fields.Many2many('medical.appointment', 'pat_apt_rel', 'patient', 'apid', 'Appointments')
-    attachment_ids = fields.One2many('ir.attachment', 'patient_id', 'attachments')
-    photo = fields.Binary(related='partner_id.image_1024', string='Picture', store=True)
-    report_date = fields.Date("Report Date:", default=fields.Datetime.to_string(fields.Datetime.now()))
+    apt_id = fields.Many2many('medical.appointment', 'pat_apt_rel', 'patient',
+                              'apid', 'Appointments')
+    attachment_ids = fields.One2many('ir.attachment', 'patient_id',
+                                     'attachments')
+    photo = fields.Binary(related='partner_id.image_1024', string='Picture',
+                          store=True)
+    report_date = fields.Date("Report Date:", default=fields.Datetime.to_string(
+        fields.Datetime.now()))
     occupation_id = fields.Many2one('medical.occupation', 'Occupation')
     primary_doctor_id = fields.Many2one('medical.physician', 'Primary Doctor', )
-    referring_doctor_id = fields.Many2one('medical.physician', 'Referring  Doctor', )
+    referring_doctor_id = fields.Many2one('medical.physician',
+                                          'Referring  Doctor', )
     note = fields.Text('Notes', help="Notes and To-Do")
     mobile = fields.Char('Mobile', related='partner_id.mobile')
     other_mobile = fields.Char('Other Mobile')
-    teeth_treatment_ids = fields.One2many('medical.teeth.treatment', 'patient_id', 'Operations', readonly=True)
+    teeth_treatment_ids = fields.One2many('medical.teeth.treatment',
+                                          'patient_id', 'Operations',
+                                          readonly=True)
     nationality_id = fields.Many2one('patient.nationality', 'Nationality')
     patient_complaint_ids = fields.One2many('patient.complaint', 'patient_id')
     receiving_treatment = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ],
@@ -649,12 +753,14 @@ class MedicalPatient(models.Model):
     receiving_medicine = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ],
                                           '2. Are you currently taking any prescribed medicines(tablets, inhalers, contraceptive or hormone) ?')
     medicine_yes = fields.Char('Note')
-    have_card = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ], '3. Are you carrying a medical warning card ?')
+    have_card = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ],
+                                 '3. Are you carrying a medical warning card ?')
     card_yes = fields.Char('Note')
     have_allergies = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ],
                                       '4. Do you suffer from any allergies to any medicines (penicillin) or substances (rubber / latex or food) ?')
     allergies_yes = fields.Char('Note')
-    have_feaver = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ], '5. Do you suffer from hay fever or eczema ?')
+    have_feaver = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ],
+                                   '5. Do you suffer from hay fever or eczema ?')
     have_ashtham = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ],
                                     '6. Do you suffer from bronchitis, asthma or other chest conditions ?')
     have_attacks = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ],
@@ -665,7 +771,8 @@ class MedicalPatient(models.Model):
     heart_yes = fields.Char('Note')
     have_diabetic = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ],
                                      '9. Are you diabetic(or is anyone in your family) ?')
-    have_arthritis = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ], '10. Do you suffer from arthritis ?')
+    have_arthritis = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ],
+                                      '10. Do you suffer from arthritis ?')
     have_bleeding = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ],
                                      '11. Do you suffer from bruising or persistent bleeding following injury, tooth extraction or surgery ?')
     bleeding_yes = fields.Char('Note')
@@ -681,7 +788,8 @@ class MedicalPatient(models.Model):
     have_reaction = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ],
                                      '16. Have you ever had a bad reaction to general or local anaesthetic ?')
     reaction_yes = fields.Char('Note')
-    have_surgery = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ], '17. Have you ever had heart surgery ?')
+    have_surgery = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ],
+                                    '17. Have you ever had heart surgery ?')
     surgery_yes = fields.Char('Note')
     have_tabacco = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ],
                                     '18. Do you smoke any tabacco products now (or in the past ) ?')
@@ -689,15 +797,18 @@ class MedicalPatient(models.Model):
                                    '19. Do you chew tabacco, pan, use gutkha or supari now (or in the past) ?')
     have_medicine = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ],
                                      '20. Is there any other information which your dentist might need to know about, such as self-prescribe medicine (eg. aspirin) ?')
-    have_pregnant = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ], '21. Are you currently pregnant ?')
+    have_pregnant = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ],
+                                     '21. Are you currently pregnant ?')
     pregnant_yes = fields.Char('Note')
-    have_breastfeeding = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ], '22. Are you currently breastfeeding ?')
+    have_breastfeeding = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ],
+                                          '22. Are you currently breastfeeding ?')
     updated_date = fields.Date('Updated Date')
     arebic = fields.Boolean('Arabic')
 
     _sql_constraints = [
         ('name_uniq', 'unique (partner_id)', 'The Patient already exists'),
-        ('patient_id_uniq', 'unique (patient_id)', 'The Patient ID already exists'), ]
+        ('patient_id_uniq', 'unique (patient_id)',
+         'The Patient ID already exists'), ]
 
     def get_img(self):
         for rec in self:
@@ -739,27 +850,36 @@ class MedicalPatient(models.Model):
             history_count += 1
             current_tooth_id = each_operation.teeth_id.internal_id
             if each_operation.description:
-                desc_brw = self.env['product.product'].browse(each_operation.description.id)
+                desc_brw = self.env['product.product'].browse(
+                    each_operation.description.id)
                 if desc_brw.action_perform == 'missing':
                     return_list[0].append(current_tooth_id)
-                self._cr.execute('select teeth from teeth_code_medical_teeth_treatment_rel where operation = %s' % (
-                each_operation.id,))
+                self._cr.execute(
+                    'select teeth from teeth_code_medical_teeth_treatment_rel where operation = %s' % (
+                        each_operation.id,))
                 multiple_teeth = self._cr.fetchall()
-                multiple_teeth_list = [multiple_teeth_each[0] for multiple_teeth_each in multiple_teeth]
+                multiple_teeth_list = [multiple_teeth_each[0] for
+                                       multiple_teeth_each in multiple_teeth]
                 total_multiple_teeth_list = []
                 for each_multiple_teeth_list in multiple_teeth_list:
-                    each_multiple_teeth_list_brw = self.env['teeth.code'].browse(each_multiple_teeth_list)
-                    total_multiple_teeth_list.append(each_multiple_teeth_list_brw.internal_id)
+                    each_multiple_teeth_list_brw = self.env[
+                        'teeth.code'].browse(each_multiple_teeth_list)
+                    total_multiple_teeth_list.append(
+                        each_multiple_teeth_list_brw.internal_id)
                     multiple_teeth_list = total_multiple_teeth_list
                 other_history = 0
                 if history_count > extra_history:
                     other_history = 1
-                return_list.append({'other_history': other_history, 'created_date': each_operation.create_date,
-                                    'status': each_operation.state, 'multiple_teeth': multiple_teeth_list,
-                                    'tooth_id': current_tooth_id, 'surface': each_operation.detail_description,
-                                    'desc': {'name': each_operation.description.name,
-                                             'id': each_operation.description.id,
-                                             'action': each_operation.description.action_perform}})
+                return_list.append({'other_history': other_history,
+                                    'created_date': each_operation.create_date,
+                                    'status': each_operation.state,
+                                    'multiple_teeth': multiple_teeth_list,
+                                    'tooth_id': current_tooth_id,
+                                    'surface': each_operation.detail_description,
+                                    'desc': {
+                                        'name': each_operation.description.name,
+                                        'id': each_operation.description.id,
+                                        'action': each_operation.description.action_perform}})
         return return_list
 
     def create_lines(self, treatment_lines, patient_id, appt_id):
@@ -778,11 +898,13 @@ class MedicalPatient(models.Model):
             prev_appt_operations.unlink()
         else:
             prev_pat_operations = medical_teeth_treatment_obj.search(
-                [('patient_id', '=', int(patient_id)), ('state', '!=', 'completed')])
+                [('patient_id', '=', int(patient_id)),
+                 ('state', '!=', 'completed')])
             prev_pat_operations.unlink()
 
         prev_pat_missing_operations = medical_teeth_treatment_obj.search(
-            [('patient_id', '=', int(patient_id)), ('state', '!=', 'completed')])
+            [('patient_id', '=', int(patient_id)),
+             ('state', '!=', 'completed')])
         for each_prev_pat_missing_operations in prev_pat_missing_operations:
             if each_prev_pat_missing_operations.description.action_perform == 'missing':
                 each_prev_pat_missing_operations.unlink()
@@ -800,7 +922,8 @@ class MedicalPatient(models.Model):
                             if 1:
                                 if (str(each.get('teeth_id')) != 'all'):
                                     actual_teeth_id = teeth_code_obj.search(
-                                        [('internal_id', '=', int(each.get('teeth_id')))])
+                                        [('internal_id', '=',
+                                          int(each.get('teeth_id')))])
                                     vals['teeth_id'] = actual_teeth_id[0].id
                                 vals['patient_id'] = patient
                                 desc = ''
@@ -810,13 +933,15 @@ class MedicalPatient(models.Model):
                                 vals['detail_description'] = desc.rstrip()
                                 dentist = int(each.get('dentist'))
                                 if dentist:
-                                    physician = medical_physician_obj.search([('id', '=', dentist)])
+                                    physician = medical_physician_obj.search(
+                                        [('id', '=', dentist)])
                                     if physician:
                                         dentist = physician.id
                                         vals['dentist'] = dentist
                                         current_physician = 1
                                 status = ''
-                                if each.get('status_name') and each.get('status_name') != 'false':
+                                if each.get('status_name') and each.get(
+                                        'status_name') != 'false':
                                     status_name = each.get('status_name')
                                     status = (str(each.get('status_name')))
                                     if status_name == 'in_progress':
@@ -830,23 +955,28 @@ class MedicalPatient(models.Model):
                                 vals['amount'] = p_brw.lst_price
                                 if appt_id:
                                     vals['appt_id'] = appt_id
-                                treatment_id = medical_teeth_treatment_obj.create(vals)
+                                treatment_id = medical_teeth_treatment_obj.create(
+                                    vals)
                                 if each.get('multiple_teeth'):
                                     full_mouth = each.get('multiple_teeth')
                                     full_mouth = full_mouth.split('_')
                                     operate_on_tooth = []
                                     for each_teeth_from_full_mouth in full_mouth:
                                         actual_teeth_id = teeth_code_obj.search(
-                                            [('internal_id', '=', int(each_teeth_from_full_mouth))])
-                                        operate_on_tooth.append(actual_teeth_id.id)
-                                    treatment_id.write({'teeth_code_rel': [(6, 0, operate_on_tooth)]})
+                                            [('internal_id', '=',
+                                              int(each_teeth_from_full_mouth))])
+                                        operate_on_tooth.append(
+                                            actual_teeth_id.id)
+                                    treatment_id.write({'teeth_code_rel': [
+                                        (6, 0, operate_on_tooth)]})
 
             #                                         cr.execute('insert into teeth_code_medical_teeth_treatment_rel(operation,teeth) values(%s,%s)' % (treatment_id,each_teeth_from_full_mouth))
             invoice_vals = {}
             invoice_line_vals = []
             # Creating invoice lines
             # get account id for products
-            jr_search = self.env['account.journal'].search([('type', '=', 'sale')])
+            jr_search = self.env['account.journal'].search(
+                [('type', '=', 'sale')])
             jr_brw = jr_search
             for each in treatment_lines:
                 if each.get('prev_record') == 'false':
@@ -854,8 +984,10 @@ class MedicalPatient(models.Model):
                         for each_val in each['values']:
                             each_line = [0, False]
                             product_dict = {}
-                            product_dict['product_id'] = int(each_val['categ_id'])
-                            p_brw = product_obj.browse(int(each_val['categ_id']))
+                            product_dict['product_id'] = int(
+                                each_val['categ_id'])
+                            p_brw = product_obj.browse(
+                                int(each_val['categ_id']))
                             if p_brw.action_perform != 'missing':
                                 desc = ''
                                 features = ''
@@ -865,15 +997,18 @@ class MedicalPatient(models.Model):
                                         features += desc + ' '
                                 if (each['teeth_id'] != 'all'):
                                     actual_teeth_id = teeth_code_obj.search(
-                                        [('internal_id', '=', int(each.get('teeth_id')))])
+                                        [('internal_id', '=',
+                                          int(each.get('teeth_id')))])
                                     invoice_name = actual_teeth_id.name_get()
-                                    product_dict['name'] = str(invoice_name[0][1]) + ' ' + features
+                                    product_dict['name'] = str(
+                                        invoice_name[0][1]) + ' ' + features
                                 else:
                                     product_dict['name'] = 'Full Mouth'
                                 product_dict['quantity'] = 1
                                 product_dict['price_unit'] = p_brw.lst_price
                                 acc_obj = self.env['account.account'].search(
-                                    [('name', '=', 'Local Sales'), ('user_type_id', '=', 'Income')], limit=1)
+                                    [('name', '=', 'Local Sales'),
+                                     ('user_type_id', '=', 'Income')], limit=1)
                                 for account_id in jr_brw:
                                     product_dict[
                                         'account_id'] = account_id.payment_debit_account_id.id if account_id.payment_debit_account_id else acc_obj.id
@@ -882,15 +1017,17 @@ class MedicalPatient(models.Model):
                             # Creating invoice dictionary
                             # invoice_vals['account_id'] = partner_brw.property_account_receivable_id.id
                             if patient_brw.current_insurance:
-                                invoice_vals['partner_id'] = patient_brw.current_insurance.company_id.id
+                                invoice_vals[
+                                    'partner_id'] = patient_brw.current_insurance.company_id.id
                             else:
                                 invoice_vals['partner_id'] = partner_brw.id
                             invoice_vals['patient_id'] = partner_brw.id
-                           # invoice_vals['partner_id'] = partner_brw.id
+                            # invoice_vals['partner_id'] = partner_brw.id
                             if current_physician:
                                 invoice_vals['dentist'] = physician[0].id
                             invoice_vals['move_type'] = 'out_invoice'
-                            invoice_vals['insurance_company'] = patient_brw.current_insurance.company_id.id
+                            invoice_vals[
+                                'insurance_company'] = patient_brw.current_insurance.company_id.id
                             invoice_vals['invoice_line_ids'] = invoice_line_vals
 
             # creating account invoice
@@ -901,7 +1038,8 @@ class MedicalPatient(models.Model):
 
     def get_back_address(self, active_patient):
         active_patient = str(active_patient)
-        action_rec = self.env['ir.actions.act_window'].search([('res_model', '=', 'medical.patient')])
+        action_rec = self.env['ir.actions.act_window'].search(
+            [('res_model', '=', 'medical.patient')])
         action_id = str(action_rec.id)
         address = '/web#id=' + active_patient + '&view_type=form&model=medical.patient&action=' + action_id
         return address
@@ -910,7 +1048,9 @@ class MedicalPatient(models.Model):
         new_date = ''
         if date1:
             search_id = self.env['res.lang'].search([('code', '=', lang)])
-            new_date = datetime.strftime(datetime.strptime(date1, '%Y-%m-%d %H:%M:%S').date(), search_id.date_format)
+            new_date = datetime.strftime(
+                datetime.strptime(date1, '%Y-%m-%d %H:%M:%S').date(),
+                search_id.date_format)
         return new_date
 
     def write(self, vals):
@@ -941,7 +1081,8 @@ class MedicalPatient(models.Model):
         c_date = datetime.today().strftime('%Y-%m-%d')
         result = False
         if vals.get('patient_id', 'New') == 'New':
-            vals['patient_id'] = self.env['ir.sequence'].next_by_code('medical.patient') or 'New'
+            vals['patient_id'] = self.env['ir.sequence'].next_by_code(
+                'medical.patient') or 'New'
         # if 'dob' in vals and vals.get('dob'):
         #     if (vals['dob'] > c_date):
         #         raise ValidationError(_('Birthdate cannot be After Current Date.'))
@@ -1016,14 +1157,17 @@ class MedicalPatient(models.Model):
         alert_date = datetime.strptime(str(alert_date1), "%Y-%m-%d")
         patient_ids = self.search([])
         for each_id in patient_ids:
-            birthday_alert_id = self.env['patient.birthday.alert'].search([('patient_id', '=', each_id.id)])
+            birthday_alert_id = self.env['patient.birthday.alert'].search(
+                [('patient_id', '=', each_id.id)])
             if not birthday_alert_id:
                 if each_id.dob:
                     dob = datetime.strptime(str(each_id.dob), "%Y-%m-%d")
                     if dob.day <= alert_date.day or dob.month <= alert_date.month or dob.year <= alert_date.year:
-                        self.env['patient.birthday.alert'].create({'patient_id': each_id.id,
-                                                                   'dob': dob,
-                                                                   'date_create': datetime.today().strftime('%Y-%m-%d')})
+                        self.env['patient.birthday.alert'].create(
+                            {'patient_id': each_id.id,
+                             'dob': dob,
+                             'date_create': datetime.today().strftime(
+                                 '%Y-%m-%d')})
 
         return True
 
@@ -1044,43 +1188,59 @@ class MedicalPatient(models.Model):
                     if service_id.description.is_planned_visit:
                         create_date_obj = service_id.create_date
                         if service_id.description.duration == 'three_months':
-                            check_date = (datetime.now().date() - timedelta(3 * 365 / 12)).isoformat()
+                            check_date = (datetime.now().date() - timedelta(
+                                3 * 365 / 12)).isoformat()
                         elif service_id.description.duration == 'six_months':
-                            check_date = (datetime.now().date() - timedelta(6 * 365 / 12)).isoformat()
+                            check_date = (datetime.now().date() - timedelta(
+                                6 * 365 / 12)).isoformat()
                         elif service_id.description.duration == 'one_year':
-                            check_date = (datetime.now().date() - timedelta(12 * 365 / 12)).isoformat()
-                            
+                            check_date = (datetime.now().date() - timedelta(
+                                12 * 365 / 12)).isoformat()
+
                         if str(create_date_obj)[0:10] < check_date:
                             flag1 = 0
                             for each_pat in patient_dict_sent:
-                                if each_pat['patient_id'] == each_id.id and each_pat[
-                                    'product_id'] == service_id.description.id:
+                                if each_pat['patient_id'] == each_id.id and \
+                                        each_pat[
+                                            'product_id'] == service_id.description.id:
                                     flag1 = 1
-                                    if str(service_id.create_date)[0:10] > each_pat['date']:
-                                        each_pat['date'] = str(service_id.create_date)[0:10]
+                                    if str(service_id.create_date)[0:10] > \
+                                            each_pat['date']:
+                                        each_pat['date'] = str(
+                                            service_id.create_date)[0:10]
                                     break
                             if flag1 == 0:
-                                patient_dict_sent.append({'patient_id': each_id.id, 'name': each_id.name.name
-                                                             , 'product_id': service_id.description.id,
-                                                          'pname': service_id.description.name,
-                                                          'date': str(service_id.create_date)[0:10]})
+                                patient_dict_sent.append(
+                                    {'patient_id': each_id.id,
+                                     'name': each_id.name.name
+                                        ,
+                                     'product_id': service_id.description.id,
+                                     'pname': service_id.description.name,
+                                     'date': str(service_id.create_date)[0:10]})
                         else:
                             flag2 = 0
                             for each_pat in patient_dict_not_sent:
-                                if each_pat['patient_id'] == each_id.id and each_pat[
-                                    'product_id'] == service_id.description.id:
+                                if each_pat['patient_id'] == each_id.id and \
+                                        each_pat[
+                                            'product_id'] == service_id.description.id:
                                     flag2 = 1
-                                    if str(service_id.create_date)[0:10] > each_pat['date']:
-                                        each_pat['date'] = str(service_id.create_date)[0:10]
+                                    if str(service_id.create_date)[0:10] > \
+                                            each_pat['date']:
+                                        each_pat['date'] = str(
+                                            service_id.create_date)[0:10]
                                     break
 
                             if flag2 == 0:
-
-                                patient_dict_not_sent.append({'patient_id': each_id.id, 'name': each_id.partner_id.name, 'product_id': service_id.description.id,
-                                                              'pname': service_id.description.name,'date': str(service_id.create_date)[0:10]})
+                                patient_dict_not_sent.append(
+                                    {'patient_id': each_id.id,
+                                     'name': each_id.partner_id.name,
+                                     'product_id': service_id.description.id,
+                                     'pname': service_id.description.name,
+                                     'date': str(service_id.create_date)[0:10]})
         for each_not_sent in patient_dict_not_sent:
             for each_sent in patient_dict_sent:
-                if each_sent['patient_id'] == each_not_sent['patient_id'] and each_sent['product_id'] == each_not_sent[
+                if each_sent['patient_id'] == each_not_sent['patient_id'] and \
+                        each_sent['product_id'] == each_not_sent[
                     'product_id']:
                     patient_dict_sent.remove(each_sent)
                     break
@@ -1089,13 +1249,15 @@ class MedicalPatient(models.Model):
         for each in patient_dict_not_sent:
             flag3 = 0
             for each_record in visit_ids:
-                if each_record.patient_name.id == each['patient_id'] and each_record.treatment_name.id == each[
+                if each_record.patient_name.id == each[
+                    'patient_id'] and each_record.treatment_name.id == each[
                     'product_id']:
                     flag3 = 1
                     break
             if flag3 == 0:
                 palnned_obj.create({'patient_name': each['patient_id'],
-                                    'treatment_name': each['product_id'], 'operated_date': each['date']})
+                                    'treatment_name': each['product_id'],
+                                    'operated_date': each['date']})
 
         return True
 
@@ -1123,24 +1285,30 @@ class MedicalPatientDisease(models.Model):
     _order = 'is_active desc, disease_severity desc, is_infectious desc, is_allergy desc, diagnosed_date desc'
 
     name = fields.Many2one('medical.patient', 'Patient ID', readonly=True)
-    pathology = fields.Many2one('medical.pathology', 'Disease', required=True, help="Disease")
-    disease_severity = fields.Selection([('1_mi', 'Mild'), ('2_mo', 'Moderate'), ('3_sv', 'Severe'), ], 'Severity',
-                                        index=True)
+    pathology = fields.Many2one('medical.pathology', 'Disease', required=True,
+                                help="Disease")
+    disease_severity = fields.Selection(
+        [('1_mi', 'Mild'), ('2_mo', 'Moderate'), ('3_sv', 'Severe'), ],
+        'Severity',
+        index=True)
     is_on_treatment = fields.Boolean('Currently on Treatment')
     is_infectious = fields.Boolean('Infectious Disease',
                                    help="Check if the patient has an infectious / transmissible disease")
     short_comment = fields.Char('Remarks', size=128,
                                 help="Brief, one-line remark of the disease. Longer description will go on the Extra info field")
-    doctor = fields.Many2one('medical.physician', 'Physician', help="Physician who treated or diagnosed the patient")
+    doctor = fields.Many2one('medical.physician', 'Physician',
+                             help="Physician who treated or diagnosed the patient")
     diagnosed_date = fields.Date('Date of Diagnosis')
     healed_date = fields.Date('Healed')
     is_active = fields.Boolean('Active disease', default=True)
-    age = fields.Integer('Age when diagnosed', help='Patient age at the moment of the diagnosis. Can be estimative')
+    age = fields.Integer('Age when diagnosed',
+                         help='Patient age at the moment of the diagnosis. Can be estimative')
     pregnancy_warning = fields.Boolean('Pregnancy warning')
     weeks_of_pregnancy = fields.Integer('Contracted in pregnancy week #')
     is_allergy = fields.Boolean('Allergic Disease')
     allergy_type = fields.Selection(
-        [('da', 'Drug Allergy'), ('fa', 'Food Allergy'), ('ma', 'Misc Allergy'), ('mc', 'Misc Contraindication'), ],
+        [('da', 'Drug Allergy'), ('fa', 'Food Allergy'), ('ma', 'Misc Allergy'),
+         ('mc', 'Misc Contraindication'), ],
         'Allergy type', index=True)
     pcs_code = fields.Many2one('medical.procedure', 'Code',
                                help="Procedure code, for example, ICD-10-PCS Code 7-character string")
@@ -1148,14 +1316,16 @@ class MedicalPatientDisease(models.Model):
     date_start_treatment = fields.Date('Start of treatment')
     date_stop_treatment = fields.Date('End of treatment')
     status = fields.Selection(
-        [('c', 'chronic'), ('s', 'status quo'), ('h', 'healed'), ('i', 'improving'), ('w', 'worsening'), ],
+        [('c', 'chronic'), ('s', 'status quo'), ('h', 'healed'),
+         ('i', 'improving'), ('w', 'worsening'), ],
         'Status of the disease', )
     extra_info = fields.Text('Extra Info')
 
     _sql_constraints = [
         ('validate_disease_period', "CHECK (diagnosed_date < healed_date )",
          "DIAGNOSED Date must be before HEALED Date !"),
-        ('end_treatment_date_before_start', "CHECK (date_start_treatment < date_stop_treatment )",
+        ('end_treatment_date_before_start',
+         "CHECK (date_start_treatment < date_stop_treatment )",
          "Treatment start Date must be before Treatment end Date !")
     ]
 
@@ -1203,25 +1373,28 @@ class MedicalMedicinePrag(models.Model):
     name = fields.Many2one('product.product', size=64, required=True, )
     code = fields.Char('Code', size=32)
     price = fields.Float()
-    qty_available = fields.Float(related="name.qty_available", string="Quantity Available")
-    
+    qty_available = fields.Float(related="name.qty_available",
+                                 string="Quantity Available")
 
     _sql_constraints = [
         ('drug_name_uniq', 'unique(name)', 'The Name must be unique !'),
     ]
-    
+
     @api.onchange('name')
     def onchange_name(self):
         if self.name:
             self.price = self.name.lst_price
+
 
 # MEDICATION DOSAGE
 class MedicalMedicationDosage(models.Model):
     _name = "medical.medication.dosage"
     _description = "Medicament Common Dosage combinations"
 
-    name = fields.Char('Frequency', size=256, help='Common frequency name', required=True, )
-    code = fields.Char('Code', size=64, help='Dosage Code, such as SNOMED, 229798009 = 3 times per day')
+    name = fields.Char('Frequency', size=256, help='Common frequency name',
+                       required=True, )
+    code = fields.Char('Code', size=64,
+                       help='Dosage Code, such as SNOMED, 229798009 = 3 times per day')
     abbreviation = fields.Char('Abbreviation', size=64,
                                help='Dosage abbreviation, such as tid in the US or tds in the UK')
 
@@ -1239,9 +1412,12 @@ class MedicalAppointment(models.Model):
     def _get_default_doctor(self):
         doc_ids = None
         partner_ids = [x.id for x in
-                       self.env['res.partner'].search([('user_id', '=', self.env.user.id), ('is_doctor', '=', True)])]
+                       self.env['res.partner'].search(
+                           [('user_id', '=', self.env.user.id),
+                            ('is_doctor', '=', True)])]
         if partner_ids:
-            doc_ids = [x.id for x in self.env['medical.physician'].search([('name', 'in', partner_ids)])]
+            doc_ids = [x.id for x in self.env['medical.physician'].search(
+                [('name', 'in', partner_ids)])]
         return doc_ids
 
     def delayed_time(self):
@@ -1256,17 +1432,21 @@ class MedicalAppointment(models.Model):
         def compute_time(checkin_time, ready_time):
             now = datetime.now()
             if checkin_time and ready_time:
-                ready_time = datetime.strptime(str(ready_time), '%Y-%m-%d %H:%M:%S')
-                checkin_time = datetime.strptime(str(checkin_time), '%Y-%m-%d %H:%M:%S')
+                ready_time = datetime.strptime(str(ready_time),
+                                               '%Y-%m-%d %H:%M:%S')
+                checkin_time = datetime.strptime(str(checkin_time),
+                                                 '%Y-%m-%d %H:%M:%S')
                 delta = relativedelta(ready_time, checkin_time)
-                years_months_days = str(delta.hours) + "h " + str(delta.minutes) + "m "
+                years_months_days = str(delta.hours) + "h " + str(
+                    delta.minutes) + "m "
             else:
                 years_months_days = "No Waiting time !"
 
             return years_months_days
 
         for patient_data in self:
-            patient_data.waiting_time = compute_time(patient_data.checkin_time, patient_data.ready_time)
+            patient_data.waiting_time = compute_time(patient_data.checkin_time,
+                                                     patient_data.ready_time)
 
     def create_payment(self):
 
@@ -1274,9 +1454,9 @@ class MedicalAppointment(models.Model):
 
         vals = {
             'payment_type': 'inbound',
-            'appointment_id':self.id,
-            'partner_id':self.patient.partner_id.id,
-            'amount':self.amount
+            'appointment_id': self.id,
+            'partner_id': self.patient.partner_id.id,
+            'amount': self.amount
         }
 
         payment = payment_obj.create(vals)
@@ -1310,24 +1490,34 @@ class MedicalAppointment(models.Model):
             'nodestroy': True,
             'target': 'current',
             'context': {'default_payment_type': 'inbound',
-                        'default_appointment_id':self.id,
-                        'default_partner_id':self.patient.partner_id.id,
-                        'default_amount':self.amount},
+                        'default_appointment_id': self.id,
+                        'default_partner_id': self.patient.partner_id.id,
+                        'default_amount': self.amount},
         }
 
-
-    is_payment = fields.Boolean(string="",  )
-    payment_id = fields.Many2one(comodel_name="account.payment", string="", required=False, )
-    operations = fields.One2many('medical.teeth.treatment', 'appt_id', 'Operations')
-    doctor = fields.Many2one('medical.physician', 'Dentist', help="Dentist's Name",
-                             default=_get_default_doctor,track_visibility='onchange',)
-    is_paid = fields.Boolean(string="Is Paid",readonly=True  )
-    amount = fields.Float(string="Amount",  required=False, )
-    name = fields.Char('Appointment ID', size=64, readonly=True, default=lambda self: _('New'))
-    patient = fields.Many2one('medical.patient', 'Patient', help="Patient Name", required=True,track_visibility='onchange', )
-    appointment_sdate = fields.Datetime('Appointment Start', required=True, default=fields.Datetime.now,track_visibility='onchange',)
-    appointment_edate = fields.Datetime('Appointment End', required=False,track_visibility='onchange', )
-    room_id = fields.Many2one('medical.hospital.oprating.room', 'Room', required=False,track_visibility='onchange', )
+    is_payment = fields.Boolean(string="", )
+    payment_id = fields.Many2one(comodel_name="account.payment", string="",
+                                 required=False, )
+    operations = fields.One2many('medical.teeth.treatment', 'appt_id',
+                                 'Operations')
+    doctor = fields.Many2one('medical.physician', 'Dentist',
+                             help="Dentist's Name",
+                             default=_get_default_doctor,
+                             track_visibility='onchange', )
+    is_paid = fields.Boolean(string="Is Paid", readonly=True)
+    amount = fields.Float(string="Amount", required=False, )
+    name = fields.Char('Appointment ID', size=64, readonly=True,
+                       default=lambda self: _('New'))
+    patient = fields.Many2one('medical.patient', 'Patient', help="Patient Name",
+                              required=True, track_visibility='onchange', )
+    appointment_sdate = fields.Datetime('Appointment Start', required=True,
+                                        default=fields.Datetime.now,
+                                        track_visibility='onchange', )
+    appointment_edate = fields.Datetime('Appointment End', required=False,
+                                        track_visibility='onchange', )
+    room_id = fields.Many2one('medical.hospital.oprating.room', 'Room',
+                              required=False, track_visibility='onchange',
+                              group_expand='_group_expand_room')
     urgency = fields.Boolean('Urgent', default=False)
     comments = fields.Text('Note')
     checkin_time = fields.Datetime('Checkin Time', readonly=True, )
@@ -1335,23 +1525,33 @@ class MedicalAppointment(models.Model):
     waiting_time = fields.Char('Waiting Time', compute='_waiting_time')
     no_invoice = fields.Boolean('Invoice exempt')
     invoice_done = fields.Boolean('Invoice Done')
-    user_id = fields.Many2one('res.users', related='doctor.user_id', string='doctor', store=True)
+    user_id = fields.Many2one('res.users', related='doctor.user_id',
+                              string='doctor', store=True)
     inv_id = fields.Many2one('account.move', 'Invoice', readonly=True)
     state = fields.Selection(
-        [('draft', 'Unconfirmed'), ('sms_send', 'Sms Send'), ('confirmed', 'Confirmed'), ('missed', 'Missed'),
-         ('checkin', 'Checked In'), ('ready', 'In Chair'), ('done', 'Completed'), ('cancel', 'Canceled')], 'State',
-        readonly=True, default='draft',track_visibility='onchange',)
+        [('draft', 'Unconfirmed'), ('sms_send', 'Sms Send'),
+         ('confirmed', 'Confirmed'), ('missed', 'Missed'),
+         ('checkin', 'Checked In'), ('ready', 'In Chair'),
+         ('done', 'Completed'), ('cancel', 'Canceled')], 'State',
+        readonly=True, default='draft', track_visibility='onchange', )
     apt_id = fields.Boolean(default=False)
-    apt_process_ids = fields.Many2many('medical.procedure', 'apt_process_rel', 'appointment_id', 'process_id',
+    apt_process_ids = fields.Many2many('medical.procedure', 'apt_process_rel',
+                                       'appointment_id', 'process_id',
                                        "Initial Treatment")
-    pres_id1 = fields.One2many('medical.prescription.order', 'pid1', 'Prescription')
-    patient_state = fields.Selection([('walkin', 'Walk In'), ('withapt', 'Come with Appointment')], 'Patients status',
-                                     required=True, default='withapt')
+    pres_id1 = fields.One2many('medical.prescription.order', 'pid1',
+                               'Prescription')
+    patient_state = fields.Selection(
+        [('walkin', 'Walk In'), ('withapt', 'Come with Appointment')],
+        'Patients status',
+        required=True, default='withapt')
     #     treatment_ids = fields.One2many ('medical.lab', 'apt_id', 'Treatments')
-    saleperson_id = fields.Many2one('res.users', 'Created By', default=lambda self: self.env.user)
-    delayed = fields.Boolean(compute='delayed_time', string='Delayed', store=True)
+    saleperson_id = fields.Many2one('res.users', 'Created By',
+                                    default=lambda self: self.env.user)
+    delayed = fields.Boolean(compute='delayed_time', string='Delayed',
+                             store=True)
     service_id = fields.Many2one('product.product', 'Consultation Service')
-    unit_id = fields.Many2one(comodel_name="medical.hospital.unit", string="", required=False, )
+    unit_id = fields.Many2one(comodel_name="medical.hospital.unit", string="",
+                              required=False, )
 
     _sql_constraints = [
         ('date_check', "CHECK (appointment_sdate <= appointment_edate)",
@@ -1361,8 +1561,16 @@ class MedicalAppointment(models.Model):
         new_date = ''
         if date1:
             search_id = self.env['res.lang'].search([('code', '=', lang)])
-            new_date = datetime.strftime(datetime.strptime(date1, '%Y-%m-%d %H:%M:%S').date(), search_id.date_format)
+            new_date = datetime.strftime(
+                datetime.strptime(date1, '%Y-%m-%d %H:%M:%S').date(),
+                search_id.date_format)
         return new_date
+
+    def _group_expand_room(self, stages, domain, order):
+        """ Expand kanban columnes for room """
+        room = self.env['medical.hospital.oprating.room'].search(
+            [])  # To display as 'Folded' Add fold boolean field in the related model
+        return room
 
     def done(self):
         return self.write({'state': 'done'})
@@ -1386,7 +1594,8 @@ class MedicalAppointment(models.Model):
             if not rec.appointment_edate:
                 appt_end_date = rec.appointment_sdate
             self.env['calendar.event'].create(
-                {'name': rec.name, 'partner_ids': [[6, 0, attandee_ids]], 'start': rec.appointment_sdate,
+                {'name': rec.name, 'partner_ids': [[6, 0, attandee_ids]],
+                 'start': rec.appointment_sdate,
                  'stop': appt_end_date, })
         self.write({'state': 'confirmed'})
 
@@ -1403,20 +1612,24 @@ class MedicalAppointment(models.Model):
 
     def checkin(self):
         for rec in self:
-            partners = [x.partner_id.id for x in self.env.ref('pragtech_dental_management.group_branch_manager').users]
-            body ='<a target=_BLANK href="/web?#id=' + str(
+            partners = [x.partner_id.id for x in self.env.ref(
+                'pragtech_dental_management.group_branch_manager').users]
+            body = '<a target=_BLANK href="/web?#id=' + str(
                 rec.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + str(
                 rec.name) + '</a>'
             if partners:
                 self.sudo().message_post(
                     partner_ids=partners,
-                    subject="Appointment " + str(rec.name) + " has been checked in",
-                    body="Patient " +str(rec.patient.name)+ " with Appointment " + str(rec.name) + " has been checked in " + body,
+                    subject="Appointment " + str(
+                        rec.name) + " has been checked in",
+                    body="Patient " + str(
+                        rec.patient.name) + " with Appointment " + str(
+                        rec.name) + " has been checked in " + body,
                     message_type='comment',
-                    subtype_id=self.env.ref('mail.mt_note').id,)
+                    subtype_id=self.env.ref('mail.mt_note').id, )
         checkin_time = time.strftime('%Y-%m-%d %H:%M:%S')
         self.write({'state': 'checkin', 'checkin_time': checkin_time})
-        
+
     def _prepare_invoice(self):
         invoice_vals = {
             'move_type': 'out_invoice',
@@ -1424,17 +1637,17 @@ class MedicalAppointment(models.Model):
             'invoice_user_id': self.saleperson_id and self.saleperson_id.id,
             'partner_id': self.patient.partner_id.id,
             'invoice_line_ids': [],
-            'dentist':self.doctor.id,
-            'invoice_date':datetime.today()
+            'dentist': self.doctor.id,
+            'invoice_date': datetime.today()
         }
         return invoice_vals
-    
+
     def create_invoices(self):
         invoice_vals = self._prepare_invoice()
         for line in self.operations:
             res = {}
             res.update({
-#                 'name': line.description.name,
+                #                 'name': line.description.name,
                 'product_id': line.description.id,
                 'price_unit': line.amount,
                 'quantity': 1.0,
@@ -1443,11 +1656,11 @@ class MedicalAppointment(models.Model):
         if self.service_id:
             res = {}
             res.update({
-                            'name': self.service_id.name,
-                            'product_id': self.service_id.id,
-                            'price_unit': self.service_id.lst_price,
-                            'quantity': 1.0,
-                    })
+                'name': self.service_id.name,
+                'product_id': self.service_id.id,
+                'price_unit': self.service_id.lst_price,
+                'quantity': 1.0,
+            })
             invoice_vals['invoice_line_ids'].append((0, 0, res))
         inv_id = self.env['account.move'].create(invoice_vals)
         if inv_id:
@@ -1459,54 +1672,78 @@ class MedicalAppointment(models.Model):
     def create(self, vals):
         for appointmnet in self:
             if appointmnet.room_id.id == vals['room_id']:
-                history_start_date = datetime.strptime(str(appointmnet.appointment_sdate), '%Y-%m-%d %H:%M:%S')
+                history_start_date = datetime.strptime(
+                    str(appointmnet.appointment_sdate), '%Y-%m-%d %H:%M:%S')
                 history_end_date = False
                 reservation_end_date = False
                 if appointmnet.appointment_edate:
-                    history_end_date = datetime.strptime(str(appointmnet.appointment_edate), '%Y-%m-%d %H:%M:%S')
-                reservation_start_date = datetime.strptime(str(vals['appointment_sdate']), '%Y-%m-%d %H:%M:%S')
+                    history_end_date = datetime.strptime(
+                        str(appointmnet.appointment_edate), '%Y-%m-%d %H:%M:%S')
+                reservation_start_date = datetime.strptime(
+                    str(vals['appointment_sdate']), '%Y-%m-%d %H:%M:%S')
                 #                 if vals.has_key('appointment_edate') and vals['appointment_edate']:
                 if 'appointment_edate' in vals and vals['appointment_edate']:
-                    reservation_end_date = datetime.strptime(str(vals['appointment_edate']), '%Y-%m-%d %H:%M:%S')
+                    reservation_end_date = datetime.strptime(
+                        str(vals['appointment_edate']), '%Y-%m-%d %H:%M:%S')
                 if history_end_date and reservation_end_date:
-                    if (history_start_date <= reservation_start_date < history_end_date) or (
+                    if (
+                            history_start_date <= reservation_start_date < history_end_date) or (
                             history_start_date < reservation_end_date <= history_end_date) or (
                             (reservation_start_date < history_start_date) and (
                             reservation_end_date >= history_end_date)):
                         raise ValidationError(
-                            _('Room  %s is booked in this reservation period!') % (appointmnet.room_id.name))
+                            _(
+                                'Room  %s is booked in this reservation period!') % (
+                                appointmnet.room_id.name))
                 elif history_end_date:
                     if (history_start_date <= reservation_start_date) or (
-                            history_start_date < reservation_end_date) or (reservation_start_date < history_start_date):
+                            history_start_date < reservation_end_date) or (
+                            reservation_start_date < history_start_date):
                         raise ValidationError(
-                            _('Room  %s is booked in this reservation period!') % (appointmnet.room_id.name))
+                            _(
+                                'Room  %s is booked in this reservation period!') % (
+                                appointmnet.room_id.name))
                 elif reservation_end_date:
-                    if (history_start_date <= reservation_start_date < history_end_date) or (
-                            history_start_date <= history_end_date) or (reservation_start_date < history_start_date):
+                    if (
+                            history_start_date <= reservation_start_date < history_end_date) or (
+                            history_start_date <= history_end_date) or (
+                            reservation_start_date < history_start_date):
                         raise ValidationError(
-                            _('Room  %s is booked in this reservation period!') % (appointmnet.room_id.name))
+                            _(
+                                'Room  %s is booked in this reservation period!') % (
+                                appointmnet.room_id.name))
             if appointmnet.doctor.id == vals['doctor']:
                 reservation_end_date = False
                 history_end_date = False
-                history_start_date = datetime.strptime(str(appointmnet.appointment_sdate), '%Y-%m-%d %H:%M:%S')
+                history_start_date = datetime.strptime(
+                    str(appointmnet.appointment_sdate), '%Y-%m-%d %H:%M:%S')
                 if appointmnet.appointment_edate:
-                    history_end_date = datetime.strptime(str(appointmnet.appointment_edate), '%Y-%m-%d %H:%M:%S')
-                reservation_start_date = datetime.strptime(str(vals['appointment_sdate']), '%Y-%m-%d %H:%M:%S')
+                    history_end_date = datetime.strptime(
+                        str(appointmnet.appointment_edate), '%Y-%m-%d %H:%M:%S')
+                reservation_start_date = datetime.strptime(
+                    str(vals['appointment_sdate']), '%Y-%m-%d %H:%M:%S')
                 if vals['appointment_edate']:
-                    reservation_end_date = datetime.strptime(str(vals['appointment_edate']), '%Y-%m-%d %H:%M:%S')
+                    reservation_end_date = datetime.strptime(
+                        str(vals['appointment_edate']), '%Y-%m-%d %H:%M:%S')
                 if (reservation_end_date and history_end_date) and (
-                        (history_start_date <= reservation_start_date < history_end_date) or (
-                        history_start_date < reservation_end_date <= history_end_date) or (
-                                (reservation_start_date < history_start_date) and (
-                                reservation_end_date >= history_end_date))):
+                        (
+                                history_start_date <= reservation_start_date < history_end_date) or (
+                                history_start_date < reservation_end_date <= history_end_date) or (
+                                (
+                                        reservation_start_date < history_start_date) and (
+                                        reservation_end_date >= history_end_date))):
                     raise ValidationError(
-                        _('Doctor  %s is booked in this reservation period !') % (appointmnet.doctor.name.name))
+                        _(
+                            'Doctor  %s is booked in this reservation period !') % (
+                            appointmnet.doctor.name.name))
 
         if vals.get('name', 'New') == 'New':
-            vals['name'] = self.env['ir.sequence'].next_by_code('medical.appointment') or 'New'
+            vals['name'] = self.env['ir.sequence'].next_by_code(
+                'medical.appointment') or 'New'
 
         result = super(MedicalAppointment, self).create(vals)
-        self._cr.execute('insert into pat_apt_rel(patient,apid) values (%s,%s)', (vals['patient'], result.id))
+        self._cr.execute('insert into pat_apt_rel(patient,apid) values (%s,%s)',
+                         (vals['patient'], result.id))
         return result
 
 
@@ -1516,10 +1753,12 @@ class MedicalPatientMedication(models.Model):
     _inherits = {'medical.medication.template': 'template'}
     _description = "Patient Medication"
 
-    template = fields.Many2one('medical.medication.template', 'Template ID', required=True, index=True,
+    template = fields.Many2one('medical.medication.template', 'Template ID',
+                               required=True, index=True,
                                ondelete="cascade")
     name = fields.Many2one('medical.patient', 'Patient ID', readonly=True)
-    doctor = fields.Many2one('medical.physician', 'Physician', help="Physician who prescribed the medicament")
+    doctor = fields.Many2one('medical.physician', 'Physician',
+                             help="Physician who prescribed the medicament")
     is_active = fields.Boolean('Active', default=True,
                                help="Check this option if the patient is currently taking the medication")
     discontinued = fields.Boolean('Discontinued')
@@ -1559,33 +1798,45 @@ class MedicalPrescriptionOrder(models.Model):
     @api.model
     def _get_default_doctor(self):
         doc_ids = None
-        partner_ids = self.env['res.partner'].search([('user_id', '=', self.env.user.id), ('is_doctor', '=', True)])
+        partner_ids = self.env['res.partner'].search(
+            [('user_id', '=', self.env.user.id), ('is_doctor', '=', True)])
         if partner_ids:
             partner_ids = [x.id for x in partner_ids]
-            doc_ids = [x.id for x in self.env['medical.physician'].search([('name', 'in', partner_ids)])]
+            doc_ids = [x.id for x in self.env['medical.physician'].search(
+                [('name', 'in', partner_ids)])]
         return doc_ids
 
     name = fields.Many2one('medical.patient', 'Patient ID', required=True, )
     prescription_id = fields.Char('Prescription ID', size=128, default='New',
                                   help='Type in the ID of this prescription')
-    prescription_date = fields.Datetime('Prescription Date', default=fields.Datetime.now)
-    user_id = fields.Many2one('res.users', 'Log In User', readonly=True, default=lambda self: self.env.user)
-    pharmacy = fields.Many2one('res.partner', 'Pharmacy', domain=[('is_pharmacy', '=', True)])
-    prescription_line = fields.One2many('medical.prescription.line', 'name', 'Prescription line')
+    prescription_date = fields.Datetime('Prescription Date',
+                                        default=fields.Datetime.now)
+    user_id = fields.Many2one('res.users', 'Log In User', readonly=True,
+                              default=lambda self: self.env.user)
+    pharmacy = fields.Many2one('res.partner', 'Pharmacy',
+                               domain=[('is_pharmacy', '=', True)])
+    prescription_line = fields.One2many('medical.prescription.line', 'name',
+                                        'Prescription line')
     notes = fields.Text('Prescription Notes')
     pid1 = fields.Many2one('medical.appointment', 'Appointment', )
-    doctor = fields.Many2one('medical.physician', 'Prescribing Doctor', help="Physician's Name",
+    doctor = fields.Many2one('medical.physician', 'Prescribing Doctor',
+                             help="Physician's Name",
                              default=_get_default_doctor)
     p_name = fields.Char('Demo', default=False)
     no_invoice = fields.Boolean('Invoice exempt')
     invoice_done = fields.Boolean('Invoice Done')
-    state = fields.Selection([('tobe', 'To be Invoiced'),('invoiced', 'Invoiced'),('cancel', 'Cancel')], 'Invoice Status', default='tobe')
+    state = fields.Selection(
+        [('tobe', 'To be Invoiced'), ('invoiced', 'Invoiced'),
+         ('cancel', 'Cancel')], 'Invoice Status', default='tobe')
     inv_id = fields.Many2one('account.move', 'Invoice', readonly=True)
-    pricelist_id = fields.Many2one('product.pricelist', 'Pricelist', required=True)
+    pricelist_id = fields.Many2one('product.pricelist', 'Pricelist',
+                                   required=True)
 
     _sql_constraints = [
-        ('pid1', 'unique (pid1)', 'Prescription must be unique per Appointment'),
-        ('prescription_id', 'unique (prescription_id)', 'Prescription ID must be unique')]
+        (
+        'pid1', 'unique (pid1)', 'Prescription must be unique per Appointment'),
+        ('prescription_id', 'unique (prescription_id)',
+         'Prescription ID must be unique')]
 
     @api.onchange('name')
     def onchange_name(self):
@@ -1602,7 +1853,8 @@ class MedicalPrescriptionOrder(models.Model):
     @api.model
     def create(self, vals):
         if vals.get('prescription_id', 'New') == 'New':
-            vals['prescription_id'] = self.env['ir.sequence'].next_by_code('medical.prescription') or 'New'
+            vals['prescription_id'] = self.env['ir.sequence'].next_by_code(
+                'medical.prescription') or 'New'
         result = super(MedicalPrescriptionOrder, self).create(vals)
         return result
 
@@ -1618,9 +1870,11 @@ class MedicalPrescriptionOrder(models.Model):
         new_date = ''
         if date1:
             search_id = self.env['res.lang'].search([('code', '=', lang)])
-            new_date = datetime.strftime(datetime.strptime(date1, '%Y-%m-%d %H:%M:%S').date(), search_id.date_format)
+            new_date = datetime.strftime(
+                datetime.strptime(date1, '%Y-%m-%d %H:%M:%S').date(),
+                search_id.date_format)
         return new_date
-    
+
     def _prepare_invoice(self):
         invoice_vals = {
             'move_type': 'out_invoice',
@@ -1628,19 +1882,19 @@ class MedicalPrescriptionOrder(models.Model):
             'invoice_user_id': self.user_id and self.user_id.id,
             'partner_id': self.name.partner_id.id,
             'invoice_line_ids': [],
-            'dentist':self.doctor.id,
-            'invoice_date':datetime.today()
+            'dentist': self.doctor.id,
+            'invoice_date': datetime.today()
         }
         return invoice_vals
-    
+
     def create_invoices(self):
         if not self.prescription_line:
-            raise UserError(_("Please add medicine line."))  
+            raise UserError(_("Please add medicine line."))
         invoice_vals = self._prepare_invoice()
         for line in self.prescription_line:
             res = {}
             res.update({
-#                 'name': line.medicine_id.name.name,
+                #                 'name': line.medicine_id.name.name,
                 'product_id': line.medicine_id.name.id,
                 'price_unit': line.medicine_id.price,
                 'quantity': 1.0,
@@ -1651,8 +1905,6 @@ class MedicalPrescriptionOrder(models.Model):
             self.inv_id = inv_id.id
             self.state = 'invoiced'
         return inv_id
-            
-
 
 
 # PRESCRIPTION LINE
@@ -1661,14 +1913,20 @@ class MedicalPrescriptionLine(models.Model):
     _name = "medical.prescription.line"
     _description = "Basic prescription object"
 
-    medicine_id = fields.Many2one('medical.medicine.prag', 'Medicine', required=True, ondelete="cascade")
+    medicine_id = fields.Many2one('medical.medicine.prag', 'Medicine',
+                                  required=True, ondelete="cascade")
     name = fields.Many2one('medical.prescription.order', 'Prescription ID')
     quantity = fields.Integer('Quantity', default=1)
-    note = fields.Char('Note', size=128, help='Short comment on the specific drug')
-    dose = fields.Float('Dose', help="Amount of medication (eg, 250 mg ) each time the patient takes it")
-    dose_unit = fields.Many2one('medical.dose.unit', 'Dose Unit', help="Unit of measure for the medication to be taken")
-    form = fields.Many2one('medical.drug.form', 'Form', help="Drug form, such as tablet or gel")
-    qty = fields.Integer('x', default=1, help="Quantity of units (eg, 2 capsules) of the medicament")
+    note = fields.Char('Note', size=128,
+                       help='Short comment on the specific drug')
+    dose = fields.Float('Dose',
+                        help="Amount of medication (eg, 250 mg ) each time the patient takes it")
+    dose_unit = fields.Many2one('medical.dose.unit', 'Dose Unit',
+                                help="Unit of measure for the medication to be taken")
+    form = fields.Many2one('medical.drug.form', 'Form',
+                           help="Drug form, such as tablet or gel")
+    qty = fields.Integer('x', default=1,
+                         help="Quantity of units (eg, 2 capsules) of the medicament")
     common_dosage = fields.Many2one('medical.medication.dosage', 'Frequency',
                                     help="Common / standard dosage frequency for this medicament")
     duration = fields.Integer('Duration',
@@ -1688,8 +1946,10 @@ class MedicalHospitalBuilding(models.Model):
     _name = "medical.hospital.building"
     _description = "Medical hospital Building"
 
-    name = fields.Char('Name', size=128, required=True, help="Name of the building within the institution")
-    institution = fields.Many2one('res.partner', 'Institution', domain=[('is_institution', '=', "1")],
+    name = fields.Char('Name', size=128, required=True,
+                       help="Name of the building within the institution")
+    institution = fields.Many2one('res.partner', 'Institution',
+                                  domain=[('is_institution', '=', "1")],
                                   help="Medical Center")
     code = fields.Char('Code', size=64)
     extra_info = fields.Text('Extra Info')
@@ -1698,8 +1958,10 @@ class MedicalHospitalBuilding(models.Model):
 class MedicalHospitalUnit(models.Model):
     _name = "medical.hospital.unit"
     _description = "Medical Hospital Unit"
-    name = fields.Char('Name', size=128, required=True, help="Name of the unit, eg Neonatal, Intensive Care, ...")
-    institution = fields.Many2one('res.partner', 'Institution', domain=[('is_institution', '=', "1")],
+    name = fields.Char('Name', size=128, required=True,
+                       help="Name of the unit, eg Neonatal, Intensive Care, ...")
+    institution = fields.Many2one('res.partner', 'Institution',
+                                  domain=[('is_institution', '=', "1")],
                                   help="Medical Center")
     code = fields.Char('Code', size=64)
     extra_info = fields.Text('Extra Info')
@@ -1709,15 +1971,19 @@ class MedicalHospitalOpratingRoom(models.Model):
     _name = "medical.hospital.oprating.room"
     _description = "Medical Hospital Oprating room"
 
-    name = fields.Char('Name', size=128, required=True, help='Name of the Operating Room')
-    institution = fields.Many2one('res.partner', 'Institution', domain=[('is_institution', '=', True)],
+    name = fields.Char('Name', size=128, required=True,
+                       help='Name of the Operating Room')
+    institution = fields.Many2one('res.partner', 'Institution',
+                                  domain=[('is_institution', '=', True)],
                                   help='Medical Center')
-    building = fields.Many2one('medical.hospital.building', 'Building', index=True)
+    building = fields.Many2one('medical.hospital.building', 'Building',
+                               index=True)
     unit = fields.Many2one('medical.hospital.unit', 'Unit')
     extra_info = fields.Text('Extra Info')
 
     _sql_constraints = [
-        ('name_uniq', 'unique (name, institution)', 'The Operating Room code must be unique per Health Center.')]
+        ('name_uniq', 'unique (name, institution)',
+         'The Operating Room code must be unique per Health Center.')]
 
 
 class MedicalProcedure(models.Model):
@@ -1732,7 +1998,8 @@ class MedicalProcedure(models.Model):
         args = args or []
         recs = self.browse()
         if name:
-            recs = self.search(['|', ('name', operator, name), ('description', operator, name)])
+            recs = self.search(['|', ('name', operator, name),
+                                ('description', operator, name)])
         if not recs:
             recs = self.search([('name', operator, name)])
         return recs.name_get()
@@ -1753,9 +2020,11 @@ class TeethCode(models.Model):
         for rec in self:
             #             if vals.has_key('palmer_name'):
             if 'palmer_name' in vals:
-                lst = self.search([('palmer_internal_id', '=', rec.palmer_internal_id)])
+                lst = self.search(
+                    [('palmer_internal_id', '=', rec.palmer_internal_id)])
                 #                 lst.write({'palmer_name': vals['palmer_name']})
-                super(TeethCode, lst).write({'palmer_name': vals['palmer_name']})
+                super(TeethCode, lst).write(
+                    {'palmer_name': vals['palmer_name']})
         return super(TeethCode, self).write(vals)
 
     @api.model
@@ -1805,7 +2074,8 @@ class ChartSelection(models.Model):
     _name = "chart.selection"
 
     type = fields.Selection(
-        [('universal', 'Universal Numbering System'), ('palmer', 'Palmer Method'), ('iso', 'ISO FDI Numbering System')],
+        [('universal', 'Universal Numbering System'),
+         ('palmer', 'Palmer Method'), ('iso', 'ISO FDI Numbering System')],
         'Select Chart Type', default='universal')
 
 
@@ -1820,15 +2090,20 @@ class ProductCategory(models.Model):
         treatment_list = []
         for each_rec in all_records:
             if each_rec.treatment == True:
-                treatment_list.append({'treatment_categ_id': each_rec.id, 'name': each_rec.name, 'treatments': []})
+                treatment_list.append(
+                    {'treatment_categ_id': each_rec.id, 'name': each_rec.name,
+                     'treatments': []})
 
-        product_rec = self.env['product.product'].search([('is_treatment', '=', True)])
+        product_rec = self.env['product.product'].search(
+            [('is_treatment', '=', True)])
         for each_product in product_rec:
             each_template = each_product.product_tmpl_id
             for each_treatment in treatment_list:
-                if each_template.categ_id.id == each_treatment['treatment_categ_id']:
+                if each_template.categ_id.id == each_treatment[
+                    'treatment_categ_id']:
                     each_treatment['treatments'].append(
-                        {'treatment_id': each_product.id, 'treatment_name': each_template.name,
+                        {'treatment_id': each_product.id,
+                         'treatment_name': each_template.name,
                          'action': each_product.action_perform})
                     break
 
@@ -1864,15 +2139,19 @@ class MedicalTeethTreatment(models.Model):
 
     patient_id = fields.Many2one('medical.patient', 'Patient Details')
     teeth_id = fields.Many2one('teeth.code', 'Tooth')
-    description = fields.Many2one('product.product', 'Description', domain=[('is_treatment', '=', True)])
+    description = fields.Many2one('product.product', 'Description',
+                                  domain=[('is_treatment', '=', True)])
     detail_description = fields.Text('Surface')
     state = fields.Selection(
-        [('planned', 'Planned'), ('condition', 'Condition'), ('completed', 'Completed'), ('in_progress', 'In Progress'),
+        [('planned', 'Planned'), ('condition', 'Condition'),
+         ('completed', 'Completed'), ('in_progress', 'In Progress'),
          ('invoiced', 'Invoiced')], 'Status', default='planned')
     dentist = fields.Many2one('medical.physician', 'Dentist')
     amount = fields.Float('Amount')
     appt_id = fields.Many2one('medical.appointment', 'Appointment ID')
-    teeth_code_rel = fields.Many2many('teeth.code', 'teeth_code_medical_teeth_treatment_rel', 'operation', 'teeth')
+    teeth_code_rel = fields.Many2many('teeth.code',
+                                      'teeth_code_medical_teeth_treatment_rel',
+                                      'operation', 'teeth')
 
 
 class PatientBirthdayAlert(models.Model):
@@ -1888,8 +2167,10 @@ class pland_visit_alert(models.Model):
     _name = "planned.visit.alert"
     _description = "Planned Visit Alert"
 
-    patient_name = fields.Many2one('medical.patient', 'Patient Name', readonly=True)
-    treatment_name = fields.Many2one('product.product', 'Treatment Name', readonly=True)
+    patient_name = fields.Many2one('medical.patient', 'Patient Name',
+                                   readonly=True)
+    treatment_name = fields.Many2one('product.product', 'Treatment Name',
+                                     readonly=True)
     operated_date = fields.Datetime('Last Operated Date', readonly=True)
 
 
@@ -1912,6 +2193,3 @@ class ir_attachment(models.Model):
     # _name = "ir.attachment"
 
     patient_id = fields.Many2one('medical.patient', 'Patient')
-
-
-
