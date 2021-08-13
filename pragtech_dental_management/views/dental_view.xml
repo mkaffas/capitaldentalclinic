@@ -196,7 +196,18 @@
             <field name="name">medical.appointment.gantt</field>
             <field name="model">medical.appointment</field>
             <field name="arch" type="xml">
-                <gantt js_class="planning_gantt" form_view_id="%(pragtech_dental_management.medical_appointment_popup_view)d" date_start="appointment_sdate" date_stop="appointment_edate" default_group_by="room_id" default_scale="day" plan="false" string="Schedule" total_row="True" scales="day,week,month,year" precision="{'day': 'hour:full', 'week': 'day:full', 'month': 'day:full', 'year': 'day:full'}" display_unavailability="0" sample="0">
+                <gantt js_class="planning_gantt"
+                       form_view_id="%(pragtech_dental_management.medical_appointment_popup_view)d"
+                       date_start="appointment_sdate"
+                       date_stop="appointment_edate"
+                       default_group_by="room_id"
+                       default_scale="day"
+                       plan="true"
+                       string="Schedule"
+                       total_row="True"
+                       scales="day,week,month,year"
+                       precision="{'day': 'hour:full', 'week': 'day:full', 'month': 'day:full', 'year': 'day:full'}"
+                       display_unavailability="1" sample="0">
                     <field name="name"/>
                     <field name="appointment_sdate"/>
                     <field name="appointment_edate"/>
@@ -209,7 +220,7 @@
                                     <ul class="pl-1 mb-0">
                                         <li><strong>Start: </strong> <t t-esc="userTimezoneStartDate.format('YYYY-MM-DD hh:mm:ss A')"/></li>
                                         <li><strong>End: </strong> <t t-esc="userTimezoneStopDate.format('YYYY-MM-DD hh:mm:ss A')"/></li>
-                                        <li><strong>Doctor: </strong><t t-esc="doctor[1]" /></li>
+                                        <li><strong>Doctor: </strong><t t-esc="doctor[1]"/></li>
                                         <li><strong>Notes: </strong><t t-esc="comments"/></li>
                                     </ul>
                                 </div>
@@ -913,219 +924,223 @@
             <field name="model">medical.patient</field>
             <field name="arch" type="xml">
                 <form string="Patient">
-                    <group col="6" colspan="6">
-                        <group col="4" colspan="4" string="Main Info">
-                            <field name="partner_id"
-                                   context="{'default_is_patient': 1, 'search_default_is_patient': 1,'search_default_is_person': 1,'default_is_person': 1}"/>
-                            <field name="patient_id"/>
-                            <field name="dob"/>
-                            <field name="report_date" invisible="1"/>
-                            <field name="sex"/>
-                            <field name="age"/>
-                            <field name="arebic" string="Arabic"/>
-                            <field name="id" invisible="1"/>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1><field name="patient_id" readonly="1"/></h1>
+                        </div>
+                        <group col="6" colspan="6">
+                            <group col="4" colspan="4" string="Main Info">
+                                <field name="partner_id"
+                                       context="{'default_is_patient': 1, 'search_default_is_patient': 1,'search_default_is_person': 1,'default_is_person': 1}"/>
+                                <field name="dob"/>
+                                <field name="report_date" invisible="1"/>
+                                <field name="sex"/>
+                                <field name="age"/>
+                                <field name="arebic" string="Arabic"/>
+                                <field name="id" invisible="1"/>
 
+                            </group>
+                            <group col="2" colspan="2" string="Picture" rowspan="1">
+                                <field name="photo" nolabel="1" img_width="120" img_height="120"
+                                       width="120" height="120" widget="image"/>
+                            </group>
                         </group>
-                        <group col="2" colspan="2" string="Picture" rowspan="1">
-                            <field name="photo" nolabel="1" img_width="120" img_height="120"
-                                   width="120" height="120" widget="image"/>
-                        </group>
-                    </group>
-                    <notebook>
-                        <page string="General Information">
-                            <group colspan="4" col="4" string="Patient General Information">
-                                <field name="family_code"/>
-                                <field name="blood_type"/>
-                                <field name="rh"/>
-                                <field name="current_insurance"/>
-                                <field name="marital_status"/>
-                                <field name="medium_id"/>
-                                <field name="occupation_id"/>
-                                <field name="primary_doctor_id"/>
-                                <field name="referring_doctor_id"/>
-                                <field name="mobile"/>
-                                <field name="nationality_id"/>
-                                <field name="other_mobile"/>
-                            </group>
-                            <separator colspan="4" string="Patient Extra Information"/>
-                            <newline/>
-                            <field colspan="4" name="general_info" nolabel="1"/>
-                            <newline/>
-                            <field colspan="4" name="note" nolabel="1" placeholder="Notes...."/>
-                            <newline/>
-                            <group colspan="4" col="4">
-                                <field name="deceased"/>
-                                <field name="dod"
-                                       attrs="{'invisible':[('deceased','=',False)],'required':[('deceased','=',True)]}"/>
-                            </group>
-                        </page>
-                        <page string="Medical Questionnaire">
-                            <group colspan="6" col="6">
-                                <field name="receiving_treatment"/>
+                        <notebook>
+                            <page string="General Information">
+                                <group colspan="4" col="4" string="Patient General Information">
+                                    <field name="family_code"/>
+                                    <field name="blood_type"/>
+                                    <field name="rh"/>
+                                    <field name="current_insurance"/>
+                                    <field name="marital_status"/>
+                                    <field name="medium_id"/>
+                                    <field name="occupation_id"/>
+                                    <field name="primary_doctor_id"/>
+                                    <field name="referring_doctor_id"/>
+                                    <field name="mobile"/>
+                                    <field name="nationality_id"/>
+                                    <field name="other_mobile"/>
+                                </group>
+                                <separator colspan="4" string="Patient Extra Information"/>
                                 <newline/>
-                                <field name="receiving_medicine"/>
-                                <field name="medicine_yes" placeholder="Note...." nolabel="1"
-                                       attrs="{'invisible':[('receiving_medicine', '!=', 'YES')]}"/>
+                                <field colspan="4" name="general_info" nolabel="1"/>
                                 <newline/>
-                                <field name="have_card"/>
-                                <field name="card_yes" placeholder="Note...." nolabel="1"
-                                       attrs="{'invisible':[('have_card', '!=', 'YES')]}"/>
+                                <field colspan="4" name="note" nolabel="1" placeholder="Notes...."/>
                                 <newline/>
-                                <field name="have_allergies"/>
-                                <field name="allergies_yes" placeholder="Note...."
-                                       nolabel="1" attrs="{'invisible':[('have_allergies', '!=', 'YES')]}"/>
-                                <newline/>
-                                <field name="have_feaver"/>
-                                <newline/>
-                                <field name="have_ashtham"/>
-                                <newline/>
-                                <field name="have_attacks"/>
-                                <field name="attacks_yes" placeholder="Note...." nolabel="1"
-                                       attrs="{'invisible':[('have_attacks', '!=', 'YES')]}"/>
-                                <newline/>
-                                <field name="have_heart"/>
-                                <field name="heart_yes" placeholder="Note...." nolabel="1"
-                                       attrs="{'invisible':[('have_heart', '!=', 'YES')]}"/>
-                                <newline/>
-                                <field name="have_diabetic"/>
-                                <newline/>
-                                <field name="have_arthritis"/>
-                                <newline/>
-                                <field name="have_bleeding"/>
-                                <field name="bleeding_yes" placeholder="Note...." nolabel="1"
-                                       attrs="{'invisible':[('have_bleeding', '!=', 'YES')]}"/>
-                                <newline/>
-                                <field name="have_infectious"/>
-                                <field name="infectious_yes" placeholder="Note...."
-                                       nolabel="1" attrs="{'invisible':[('have_infectious', '!=', 'YES')]}"/>
-                                <newline/>
-                                <field name="have_rheumatic"/>
-                                <newline/>
-                                <field name="have_liver"/>
-                                <newline/>
-                                <field name="have_serious"/>
-                                <newline/>
-                                <field name="have_reaction"/>
-                                <field name="reaction_yes" placeholder="Note...." nolabel="1"
-                                       attrs="{'invisible':[('have_reaction', '!=', 'YES')]}"/>
-                                <newline/>
-                                <field name="have_surgery"/>
-                                <field name="surgery_yes" placeholder="Note...." nolabel="1"
-                                       attrs="{'invisible':[('have_surgery', '!=', 'YES')]}"/>
-                                <newline/>
-                                <field name="have_tabacco"/>
-                                <newline/>
-                                <field name="have_gutkha"/>
-                                <newline/>
-                                <field name="have_medicine"/>
-                                <newline/>
-                                <field name="have_pregnant"/>
-                                <field name="pregnant_yes" placeholder="Note...." nolabel="1"
-                                       attrs="{'invisible':[('have_pregnant', '!=', 'YES')]}"/>
-                                <newline/>
-                                <field name="have_breastfeeding"/>
-                                <newline/>
-                                <field name="updated_date"/>
-                            </group>
-                        </page>
-                        <page string="Medical Alert"
-                              attrs="{'invisible':['|',('critical_info', '!=', False),('medical_history','!=',False)]}">
-                            <group colspan="4">
-                                <field name="critical_info_fun"/>
-                                <field name="medical_history_fun"/>
-                            </group>
-                        </page>
-                        <page string="Medical  Alert" class="medical_alert_class"
-                              attrs="{'invisible':[('critical_info', '=', False),('medical_history','=',False)]}">
-                            <group colspan="4">
-                                <field name="critical_info"/>
-                                <field name="medical_history"/>
-                            </group>
-                        </page>
-                        <page string="Prescriptions">
-                            <group colspan="4" col="8">
-                                <field name="prescriptions" string="Prescriptions History"
-                                       nolabel="1">
-                                    <tree string='Prescription'>
-                                        <field name="name"/>
-                                        <field name="doctor"/>
-                                        <field name="user_id"/>
-                                        <field name="prescription_date"/>
-                                    </tree>
-                                </field>
-                            </group>
-                        </page>
-                        <page string="Appointments">
-                            <group colspan="4">
-                                <field name="apt_id" nolabel="1">
+                                <group colspan="4" col="4">
+                                    <field name="deceased"/>
+                                    <field name="dod"
+                                           attrs="{'invisible':[('deceased','=',False)],'required':[('deceased','=',True)]}"/>
+                                </group>
+                            </page>
+                            <page string="Medical Questionnaire">
+                                <group colspan="6" col="6">
+                                    <field name="receiving_treatment"/>
+                                    <newline/>
+                                    <field name="receiving_medicine"/>
+                                    <field name="medicine_yes" placeholder="Note...." nolabel="1"
+                                           attrs="{'invisible':[('receiving_medicine', '!=', 'YES')]}"/>
+                                    <newline/>
+                                    <field name="have_card"/>
+                                    <field name="card_yes" placeholder="Note...." nolabel="1"
+                                           attrs="{'invisible':[('have_card', '!=', 'YES')]}"/>
+                                    <newline/>
+                                    <field name="have_allergies"/>
+                                    <field name="allergies_yes" placeholder="Note...."
+                                           nolabel="1" attrs="{'invisible':[('have_allergies', '!=', 'YES')]}"/>
+                                    <newline/>
+                                    <field name="have_feaver"/>
+                                    <newline/>
+                                    <field name="have_ashtham"/>
+                                    <newline/>
+                                    <field name="have_attacks"/>
+                                    <field name="attacks_yes" placeholder="Note...." nolabel="1"
+                                           attrs="{'invisible':[('have_attacks', '!=', 'YES')]}"/>
+                                    <newline/>
+                                    <field name="have_heart"/>
+                                    <field name="heart_yes" placeholder="Note...." nolabel="1"
+                                           attrs="{'invisible':[('have_heart', '!=', 'YES')]}"/>
+                                    <newline/>
+                                    <field name="have_diabetic"/>
+                                    <newline/>
+                                    <field name="have_arthritis"/>
+                                    <newline/>
+                                    <field name="have_bleeding"/>
+                                    <field name="bleeding_yes" placeholder="Note...." nolabel="1"
+                                           attrs="{'invisible':[('have_bleeding', '!=', 'YES')]}"/>
+                                    <newline/>
+                                    <field name="have_infectious"/>
+                                    <field name="infectious_yes" placeholder="Note...."
+                                           nolabel="1" attrs="{'invisible':[('have_infectious', '!=', 'YES')]}"/>
+                                    <newline/>
+                                    <field name="have_rheumatic"/>
+                                    <newline/>
+                                    <field name="have_liver"/>
+                                    <newline/>
+                                    <field name="have_serious"/>
+                                    <newline/>
+                                    <field name="have_reaction"/>
+                                    <field name="reaction_yes" placeholder="Note...." nolabel="1"
+                                           attrs="{'invisible':[('have_reaction', '!=', 'YES')]}"/>
+                                    <newline/>
+                                    <field name="have_surgery"/>
+                                    <field name="surgery_yes" placeholder="Note...." nolabel="1"
+                                           attrs="{'invisible':[('have_surgery', '!=', 'YES')]}"/>
+                                    <newline/>
+                                    <field name="have_tabacco"/>
+                                    <newline/>
+                                    <field name="have_gutkha"/>
+                                    <newline/>
+                                    <field name="have_medicine"/>
+                                    <newline/>
+                                    <field name="have_pregnant"/>
+                                    <field name="pregnant_yes" placeholder="Note...." nolabel="1"
+                                           attrs="{'invisible':[('have_pregnant', '!=', 'YES')]}"/>
+                                    <newline/>
+                                    <field name="have_breastfeeding"/>
+                                    <newline/>
+                                    <field name="updated_date"/>
+                                </group>
+                            </page>
+                            <page string="Medical Alert"
+                                  attrs="{'invisible':['|',('critical_info', '!=', False),('medical_history','!=',False)]}">
+                                <group colspan="4">
+                                    <field name="critical_info_fun"/>
+                                    <field name="medical_history_fun"/>
+                                </group>
+                            </page>
+                            <page string="Medical  Alert" class="medical_alert_class"
+                                  attrs="{'invisible':[('critical_info', '=', False),('medical_history','=',False)]}">
+                                <group colspan="4">
+                                    <field name="critical_info"/>
+                                    <field name="medical_history"/>
+                                </group>
+                            </page>
+                            <page string="Prescriptions">
+                                <group colspan="4" col="8">
+                                    <field name="prescriptions" string="Prescriptions History"
+                                           nolabel="1">
+                                        <tree string='Prescription'>
+                                            <field name="name"/>
+                                            <field name="doctor"/>
+                                            <field name="user_id"/>
+                                            <field name="prescription_date"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Appointments">
+                                <group colspan="4">
+                                    <field name="apt_id" nolabel="1">
+                                        <tree>
+                                            <field name="name"/>
+                                            <field name="apt_id"/>
+                                            <field name="appointment_sdate"/>
+                                            <field name="doctor"/>
+                                            <field name="room_id"/>
+                                            <field name="waiting_time"/>
+                                            <field name="patient_state"/>
+                                            <field name="state"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Chart">
+                                <button name="open_chart" type="object" string="Open Chart"></button>
+                                <!--<button name="open_chart" string="Open Chart" type="object"-->
+                                <!--class="btn-primary" />-->
+
+
+                            </page>
+                            <page string="Operations">
+                                <group colspan="4" col="8">
+                                    <field name="teeth_treatment_ids" string="Operations"
+                                           nolabel="1"/>
+                                </group>
+                            </page>
+                            <page string="Images">
+                                <button name="get_img" type="object" string="View Images"></button>
+                                <field name="attachment_ids">
                                     <tree>
                                         <field name="name"/>
-                                        <field name="apt_id"/>
-                                        <field name="appointment_sdate"/>
-                                        <field name="doctor"/>
-                                        <field name="room_id"/>
-                                        <field name="waiting_time"/>
-                                        <field name="patient_state"/>
-                                        <field name="state"/>
+                                        <field name="res_model"/>
+                                        <field name="res_field"/>
+                                        <field name="res_id"/>
+                                        <field name="type"/>
+                                        <field name="create_uid"/>
+                                        <field name="create_date"/>
+
                                     </tree>
                                 </field>
-                            </group>
-                        </page>
-                        <page string="Chart">
-                            <button name="open_chart" type="object" string="Open Chart"></button>
-                            <!--<button name="open_chart" string="Open Chart" type="object"-->
-                            <!--class="btn-primary" />-->
 
-
-                        </page>
-                        <page string="Operations">
-                            <group colspan="4" col="8">
-                                <field name="teeth_treatment_ids" string="Operations"
-                                       nolabel="1"/>
-                            </group>
-                        </page>
-                        <page string="Images">
-                            <button name="get_img" type="object" string="View Images"></button>
-                            <field name="attachment_ids">
-                                <tree>
-                                    <field name="name"/>
-                                    <field name="res_model"/>
-                                    <field name="res_field"/>
-                                    <field name="res_id"/>
-                                    <field name="type"/>
-                                    <field name="create_uid"/>
-                                    <field name="create_date"/>
-
-                                </tree>
-                            </field>
-
-                            <!-- <field name = "datas"/> -->
-                        </page>
-                        <page string="Patient Complaints">
-                            <group colspan="4" col="8">
-                                <field name="patient_complaint_ids"
-                                       context="{'search_default_patient_id': id,'default_patient_id': id}"
-                                       string="Complaints" nolabel="1">
-                                    <tree string="records">
-                                        <field name="complaint_subject"/>
-                                        <field name="complaint_date"/>
-                                        <field name="complaint"/>
-                                        <field name="action_ta"/>
-                                        <field name="patient_id" invisible="1"/>
-                                    </tree>
-                                    <form string="Records">
-                                        <group>
+                                <!-- <field name = "datas"/> -->
+                            </page>
+                            <page string="Patient Complaints">
+                                <group colspan="4" col="8">
+                                    <field name="patient_complaint_ids"
+                                           context="{'search_default_patient_id': id,'default_patient_id': id}"
+                                           string="Complaints" nolabel="1">
+                                        <tree string="records">
                                             <field name="complaint_subject"/>
                                             <field name="complaint_date"/>
                                             <field name="complaint"/>
                                             <field name="action_ta"/>
                                             <field name="patient_id" invisible="1"/>
-                                        </group>
-                                    </form>
-                                </field>
-                            </group>
-                        </page>
-                    </notebook>
+                                        </tree>
+                                        <form string="Records">
+                                            <group>
+                                                <field name="complaint_subject"/>
+                                                <field name="complaint_date"/>
+                                                <field name="complaint"/>
+                                                <field name="action_ta"/>
+                                                <field name="patient_id" invisible="1"/>
+                                            </group>
+                                        </form>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
                 </form>
             </field>
         </record>

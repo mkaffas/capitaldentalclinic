@@ -443,10 +443,10 @@ class MedicalPhysician(models.Model):
                                                        'Physician',
                                                        required=True,
                                                        domain=[(
-                                                               'is_doctor', '=',
-                                                               "1"), (
-                                                               'is_person', '=',
-                                                               "1")],
+                                                           'is_doctor', '=',
+                                                           "1"), (
+                                                           'is_person', '=',
+                                                           "1")],
                                                        help="Physician's Name, from the partner list")
     institution = fields.Many2one('res.partner', 'Institution',
                                   domain=[('is_institution', '=', "1")],
@@ -1069,47 +1069,19 @@ class MedicalPatient(models.Model):
         return super(MedicalPatient, self).write(vals)
 
     @api.model
-    def create(self, vals):
-        if vals.get('critical_info'):
-            vals['critical_info_fun'] = vals['critical_info']
-        elif vals.get('critical_info_fun'):
-            vals['critical_info'] = vals['critical_info_fun']
-        if vals.get('medical_history'):
-            vals['medical_history_fun'] = vals['medical_history']
-        elif vals.get('medical_history_fun'):
-            vals['medical_history'] = vals['medical_history_fun']
-        c_date = datetime.today().strftime('%Y-%m-%d')
-        result = False
-        if vals.get('patient_id', 'New') == 'New':
-            vals['patient_id'] = self.env['ir.sequence'].next_by_code(
-                'medical.patient') or 'New'
-        # if 'dob' in vals and vals.get('dob'):
-        #     if (vals['dob'] > c_date):
-        #         raise ValidationError(_('Birthdate cannot be After Current Date.'))
-        result = super(MedicalPatient, self).create(vals)
-        return result
-
-    #
-    #     def get_img(self):
-    #         for rec in self:
-    #             res = {}
-    #             img_lst_ids = []
-    #             imd = self.env['ir.model.data']
-    #             action_view_id = imd.xmlid_to_res_id('action_result_image_view')
-    #             for i in rec.attachment_ids:
-    #                 img_lst_ids.append(i.id)
-    #             res['image'] = img_lst_ids
-    #
-    #             return {
-    #             'type': 'ir.actions.client',
-    #             'name': 'Patient image',
-    #             'tag': 'result_images',
-    #             'params': {
-    #                'patient_id':  rec.id  or False,
-    #                'model':  'medical.patient',
-    #                'values': res
-    #             },
-    #         }
+    def create(self, vals_list):
+        if vals_list.get('critical_info'):
+            vals_list['critical_info_fun'] = vals_list['critical_info']
+        elif vals_list.get('critical_info_fun'):
+            vals_list['critical_info'] = vals_list['critical_info_fun']
+        if vals_list.get('medical_history'):
+            vals_list['medical_history_fun'] = vals_list['medical_history']
+        elif vals_list.get('medical_history_fun'):
+            vals_list['medical_history'] = vals_list['medical_history_fun']
+        if vals_list.get('patient_id', 'New') == 'New':
+            sequence = self.env['ir.sequence'].next_by_code('medical.patient')
+            vals_list.update(patient_id=sequence or '/')
+        return super().create(vals_list)
 
     def open_chart(self):
         for rec in self:
@@ -1503,20 +1475,20 @@ class MedicalAppointment(models.Model):
     doctor = fields.Many2one('medical.physician', 'Dentist',
                              help="Dentist's Name",
                              default=_get_default_doctor,
-                             track_visibility='onchange', )
+                             tracking=True, )
     is_paid = fields.Boolean(string="Is Paid", readonly=True)
     amount = fields.Float(string="Amount", required=False, )
     name = fields.Char('Appointment ID', size=64, readonly=True,
                        default=lambda self: _('New'))
     patient = fields.Many2one('medical.patient', 'Patient', help="Patient Name",
-                              required=True, track_visibility='onchange', )
+                              required=True, tracking=True, )
     appointment_sdate = fields.Datetime('Appointment Start', required=True,
                                         default=fields.Datetime.now,
-                                        track_visibility='onchange', )
+                                        tracking=True, )
     appointment_edate = fields.Datetime('Appointment End', required=False,
-                                        track_visibility='onchange', )
+                                        tracking=True, )
     room_id = fields.Many2one('medical.hospital.oprating.room', 'Room',
-                              required=False, track_visibility='onchange',
+                              required=False, tracking=True,
                               group_expand='_group_expand_room')
     urgency = fields.Boolean('Urgent', default=False)
     comments = fields.Text('Note')
@@ -1533,7 +1505,7 @@ class MedicalAppointment(models.Model):
          ('confirmed', 'Confirmed'), ('missed', 'Missed'),
          ('checkin', 'Checked In'), ('ready', 'In Chair'),
          ('done', 'Completed'), ('cancel', 'Canceled')], 'State',
-        readonly=True, default='draft', track_visibility='onchange', )
+        readonly=True, default='draft', tracking=True, )
     apt_id = fields.Boolean(default=False)
     apt_process_ids = fields.Many2many('medical.procedure', 'apt_process_rel',
                                        'appointment_id', 'process_id',
@@ -1670,80 +1642,11 @@ class MedicalAppointment(models.Model):
 
     @api.model
     def create(self, vals):
-        for appointmnet in self:
-            if appointmnet.room_id.id == vals['room_id']:
-                history_start_date = datetime.strptime(
-                    str(appointmnet.appointment_sdate), '%Y-%m-%d %H:%M:%S')
-                history_end_date = False
-                reservation_end_date = False
-                if appointmnet.appointment_edate:
-                    history_end_date = datetime.strptime(
-                        str(appointmnet.appointment_edate), '%Y-%m-%d %H:%M:%S')
-                reservation_start_date = datetime.strptime(
-                    str(vals['appointment_sdate']), '%Y-%m-%d %H:%M:%S')
-                #                 if vals.has_key('appointment_edate') and vals['appointment_edate']:
-                if 'appointment_edate' in vals and vals['appointment_edate']:
-                    reservation_end_date = datetime.strptime(
-                        str(vals['appointment_edate']), '%Y-%m-%d %H:%M:%S')
-                if history_end_date and reservation_end_date:
-                    if (
-                            history_start_date <= reservation_start_date < history_end_date) or (
-                            history_start_date < reservation_end_date <= history_end_date) or (
-                            (reservation_start_date < history_start_date) and (
-                            reservation_end_date >= history_end_date)):
-                        raise ValidationError(
-                            _(
-                                'Room  %s is booked in this reservation period!') % (
-                                appointmnet.room_id.name))
-                elif history_end_date:
-                    if (history_start_date <= reservation_start_date) or (
-                            history_start_date < reservation_end_date) or (
-                            reservation_start_date < history_start_date):
-                        raise ValidationError(
-                            _(
-                                'Room  %s is booked in this reservation period!') % (
-                                appointmnet.room_id.name))
-                elif reservation_end_date:
-                    if (
-                            history_start_date <= reservation_start_date < history_end_date) or (
-                            history_start_date <= history_end_date) or (
-                            reservation_start_date < history_start_date):
-                        raise ValidationError(
-                            _(
-                                'Room  %s is booked in this reservation period!') % (
-                                appointmnet.room_id.name))
-            if appointmnet.doctor.id == vals['doctor']:
-                reservation_end_date = False
-                history_end_date = False
-                history_start_date = datetime.strptime(
-                    str(appointmnet.appointment_sdate), '%Y-%m-%d %H:%M:%S')
-                if appointmnet.appointment_edate:
-                    history_end_date = datetime.strptime(
-                        str(appointmnet.appointment_edate), '%Y-%m-%d %H:%M:%S')
-                reservation_start_date = datetime.strptime(
-                    str(vals['appointment_sdate']), '%Y-%m-%d %H:%M:%S')
-                if vals['appointment_edate']:
-                    reservation_end_date = datetime.strptime(
-                        str(vals['appointment_edate']), '%Y-%m-%d %H:%M:%S')
-                if (reservation_end_date and history_end_date) and (
-                        (
-                                history_start_date <= reservation_start_date < history_end_date) or (
-                                history_start_date < reservation_end_date <= history_end_date) or (
-                                (
-                                        reservation_start_date < history_start_date) and (
-                                        reservation_end_date >= history_end_date))):
-                    raise ValidationError(
-                        _(
-                            'Doctor  %s is booked in this reservation period !') % (
-                            appointmnet.doctor.name.name))
-
-        if vals.get('name', 'New') == 'New':
-            vals['name'] = self.env['ir.sequence'].next_by_code(
-                'medical.appointment') or 'New'
-
-        result = super(MedicalAppointment, self).create(vals)
-        self._cr.execute('insert into pat_apt_rel(patient,apid) values (%s,%s)',
-                         (vals['patient'], result.id))
+        if vals.get('name', _('New')) == _('New'):
+            sequence = self.env['ir.sequence'].next_by_code('medical.appointment')
+            vals.update(name=sequence or '/')
+        result = super().create(vals)
+        result.apt_id = [(4, result.id)]
         return result
 
 
@@ -1834,7 +1737,8 @@ class MedicalPrescriptionOrder(models.Model):
 
     _sql_constraints = [
         (
-        'pid1', 'unique (pid1)', 'Prescription must be unique per Appointment'),
+            'pid1', 'unique (pid1)',
+            'Prescription must be unique per Appointment'),
         ('prescription_id', 'unique (prescription_id)',
          'Prescription ID must be unique')]
 
