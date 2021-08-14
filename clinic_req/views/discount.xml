@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="discount_category" model="ir.module.category">
+            <field name="name">Discount</field>
+            <field name="sequence" eval="1"/>
+        </record>
+
+        <record id="discount_user_group" model="res.groups">
+            <field name="name">Discount User</field>
+            <field name="category_id" ref="clinic_req.discount_category"/>
+        </record>
+
+        <record id="discount_manager_group" model="res.groups">
+            <field name="name">Discount Manager</field>
+            <field name="category_id" ref="clinic_req.discount_category"/>
+        </record>
+
+        <record id="discount_admin_group" model="res.groups">
+            <field name="name">Discount Admin</field>
+            <field name="category_id" ref="clinic_req.discount_category"/>
+        </record>
+
+        <record id="pos_discount_tree_view" model="ir.ui.view">
+            <field name="name">discount.limitation.tree</field>
+            <field name="model">discount.limitation</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="group_id" context="{'is_pos_discount': True}"
+                           domain="[('category_id','in',['Discount'])]" required="1"/>
+                    <field name="discount_limitation" required="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_discount" model="ir.actions.act_window">
+            <field name="name">Discount Scheme</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">discount.limitation</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="menu_discount" name="Discount Scheme" parent="pragtech_dental_management.medical_conf_menu"
+                  action="action_discount" sequence="5"/>
+    </data>
+</odoo>

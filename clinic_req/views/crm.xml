@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherit Form View to Modify it -->
+    <record id="edit_crm" model="ir.ui.view">
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//page[@name='internal_notes']" position="replace"/>
+            <xpath expr="//label[@for='contact_name']" position="replace"/>
+            <xpath expr="//page[@name='lead']/group/group[@class='mt48']" position="replace"/>
+            <xpath expr="//page[@name='lead']/group/group" position="replace"/>
+            <xpath expr="//sheet/group/group[3]" position="after">
+                <group string="Contact Information">
+                    <field name="partner_name"/>
+                    <label for="street_page_lead" string="Address"/>
+                    <div class="o_address_format">
+                        <field name="street" id="street_page_lead" placeholder="Street..." class="o_address_street"/>
+                        <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                        <field name="city" placeholder="City" class="o_address_city"/>
+                        <field name="state_id" class="o_address_state" placeholder="State"
+                               options="{&quot;no_open&quot;: True}"/>
+                        <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                        <field name="country_id" placeholder="Country" class="o_address_country"
+                               options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                    </div>
+                    <field name="website" widget="url" placeholder="e.g. https://www.odoo.com"/>
+                    <field name="lang_id" options="{'no_create': True}"/>
+                </group>
+            </xpath>
+            <xpath expr="//field[@name='medium_id']" position="replace"/>
+            <xpath expr="//sheet/group/group[2]/field[@name='partner_id']" position="replace">
+                <field name="patient" string="Patient" options="{'open': True, 'create': True}"/>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="before">
+                <field name="medium_id"/>
+            </xpath>
+            <xpath expr="//field[@name='phone_state']" position="after">
+                <!--<group class="mt48">-->
+
+                <field name="occupation_id" string="Occupation"/>
+                <field name="mobile" widget="phone" options="{'enable_sms': True}" required="1"/>
+                <field name="nationality" string="Nationality"/>
+                <field name="birthday"/>
+                <field name="age"/>
+                <field name="gender"/>
+                <!--</group>-->
+            </xpath>
+            <xpath expr="//div[@class='oe_button_box']" position="inside">
+                <button name="open_appointment" type="object" class="oe_stat_button" icon="fa-hand-o-right"
+                        context="{'default_patient':patient,'default_crm_id':active_id}">
+                    <field name="appointment_count" widget="statinfo" string="Appointments"/>
+                </button>
+            </xpath>
+            <!--<xpath expr="//field[@name='lang_id']" position="after">-->
+            <!---->
+            <!--</xpath>-->
+
+            <xpath expr="//page[@name='lead']" position="attributes">
+                <attribute name="string">Patient Information</attribute>
+            </xpath>
+
+            <!--<xpath expr="//field[@name='partner_id']" position="replace">-->
+            <!---->
+            <!--</xpath>-->
+
+            <xpath expr="//field[@name='medium_id']" position="attributes">
+                <attribute name="attrs">{'invisible':1}</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='tag_ids']" position="attributes">
+                <attribute name="string">Required Services</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_set_won_rainbowman']" position="after">
+                <field name="is_create_patient" invisible="1"/>
+                <button name="create_appointment" string="Appointment" type="object" class="oe_highlight"/>
+                <button name="create_patient" string="Create Patient" type="object" class="oe_highlight"
+                        attrs="{'invisible':[('is_create_patient','=',True)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='referred']" position="replace">
+                <field name="refer_patient_id"/>
+            </xpath>
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="chief"/>
+                <field name="case"/>
+            </xpath>
+
+            <xpath expr="//page[@name='lead']" position="after">
+                <page string="Internal Notes" name="internal_notes">
+                    <field name="description" placeholder="Add a description..."/>
+                </page>
+            </xpath>
+
+
+        </field>
+    </record>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="edit_dental_appointment" model="ir.ui.view">
+        <field name="model">medical.appointment</field>
+        <field name="inherit_id" ref="pragtech_dental_management.medical_appointment_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='no_invoice']" position="replace"/>
+            <xpath expr="//field[@name='checkin_time']" position="replace"/>
+            <xpath expr="//field[@name='ready_time']" position="replace"/>
+            <xpath expr="//field[@name='waiting_time']" position="replace"/>
+            <xpath expr="//field[@name='saleperson_id']" position="replace"/>
+            <xpath expr="//field[@name='comments']" position="after">
+                <field name="no_invoice"/>
+                <field name="checkin_time"/>
+                <field name="ready_time"/>
+                <field name="waiting_time"/>
+                <field name="saleperson_id"/>
+            </xpath>
+            <xpath expr="//field[@name='state']" position="replace">
+                <field name="state" widget="statusbar"
+                       statusbar_visible="draft,confirmed,checkin,ready,done,cancel"
+                       statusbar_colors='{"confirmed":"blue","ready":"blue","cancel":"red"}'/>
+            </xpath>
+            <xpath expr="//button[@name='missed']" position="after">
+                <button name="cancel" string="Cancelled" type="object" states="confirmed,checkin"/>
+            </xpath>
+            <xpath expr="//button[@name='create_payment']" position="after">
+                <button name="notify_patient_coordinator" string="Notify Patient Coordinator" type="object"
+                        attrs="{'invisible': [('state', 'not in', ['checkin'])]}"/>
+            </xpath>
+            <xpath expr="//field[@name='service_id']" position="after">
+                <field name="chief"/>
+            </xpath>
+            <xpath expr="//field[@name='patient_state']" position="before">
+                <field name="patient_coordinator"
+                       groups="pragtech_dental_management.group_dental_mng_menu,pragtech_dental_management.group_branch_manager"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="edit_patient" model="ir.ui.view">
+        <field name="model">medical.patient</field>
+        <field name="inherit_id" ref="pragtech_dental_management.medical_patient_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[8]" position="replace">
+                <page string="Operations"
+                      groups="pragtech_dental_management.group_dental_mng_menu,pragtech_dental_management.group_branch_manager">
+                    <group colspan="4" col="8">
+                        <field name="teeth_treatment_ids" string="Operations"
+                               nolabel="1" attrs="{'readonly':0}"/>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//page[8]/group" position="before">
+                <group>
+                    <button name="select_all" string="Select All" type="object" class="oe_highlight"/>
+                    <button name="get_all_discount" string="Add Discount" type="object" class="oe_highlight" />
+                </group>
+                <group>
+                    <field name="discount"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="edit_patient_teeth" model="ir.ui.view">
+        <field name="model">medical.teeth.treatment</field>
+        <field name="inherit_id" ref="pragtech_dental_management.medical_patient_treatment_tree"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//tree" position="attributes">
+                <attribute name="editable">bottom</attribute>
+            </xpath>
+            <xpath expr="//field[@name='create_date']" position="before">
+                <field name="is_selected"/>
+            </xpath>
+            <xpath expr="//field[@name='amount']" position="after">
+                <field name="inv" invisible="1"/>
+                <field name="account_id" invisible="1"/>
+                <field name="invc_id"/>
+                <field name="discount"/>
+                <field name="net_amount"/>
+                <button name="create_invoice"
+                        attrs="{'invisible':['|',
+                                        ('inv','=',True),
+                                        ('state','=','invoiced')]}"
+                        class="oe_highlight"
+                        string="Create Invoice"
+                        type="object" context="{'asset':1}"/>
+                <button name="open_invoice"
+                        attrs="{'invisible':[('inv','=',False)]}"
+                        class="oe_highlight"
+                        string="Open Invoice"
+                        type="object"
+                        context="{'openinvoice':1}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="edit_patient_teeth_form" model="ir.ui.view">
+        <field name="model">medical.teeth.treatment</field>
+        <field name="inherit_id" ref="pragtech_dental_management.medical_patient_medication_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount']" position="after">
+                <field name="inv" invisible="1"/>
+                <field name="account_id"/>
+                <field name="invc_id"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="action_chief" model="ir.actions.act_window">
+        <field name="name">Chief Complaint</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">chief.complaint</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="menu_chief" name="Chief Complaint" parent="pragtech_dental_management.medical_conf_menu"
+              action="action_chief" sequence="5"/>
+</odoo>

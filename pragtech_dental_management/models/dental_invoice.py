@@ -67,3 +67,14 @@ class AccountInvoice(models.Model):
                     'view_type': 'form',
                     'views': [(False, 'form')],
                     }
+
+class payment(models.Model):
+    _inherit = "account.payment"
+
+    appointment_id = fields.Many2one(comodel_name="medical.appointment", string="", required=False, )
+
+    def post(self):
+        res = super(payment, self).post()
+        for rec in self:
+            rec.appointment_id.is_paid = True
+        return res

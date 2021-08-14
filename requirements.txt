@@ -1,0 +1,9 @@
+imgkit==1.1.0
+git+https://github.com/OCA/openupgradelib.git@master
+python-Levenshtein-wheels==0.13.1
+pyfcm
+phonenumbers
+coverage==5.5
+flake8
+pylint
+pylint-odoo
