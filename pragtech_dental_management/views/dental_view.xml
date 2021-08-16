@@ -132,7 +132,7 @@
                                 <field name="room_id"/>
                                 <field name="appointment_sdate"/>
                                 <field name="appointment_edate"/>
-                                <field name="doctor"/>
+                                <field name="doctor" attrs="{'required':[('state','!=','draft')]}"/>
                                 <field name="service_id"
                                        domain="[('is_treatment', '=', True), ('type','=','service')]"/>
                                 <field name="urgency"/>
@@ -206,7 +206,7 @@
                        string="Schedule"
                        total_row="True"
                        scales="day,week,month,year"
-                       precision="{'day': 'hour:full', 'week': 'day:full', 'month': 'day:full', 'year': 'day:full'}"
+                       precision="{'day': 'hour:quarter', 'week': 'day:full', 'month': 'day:full', 'year': 'day:full'}"
                        display_unavailability="1" sample="0">
                     <field name="name"/>
                     <field name="appointment_sdate"/>
@@ -947,19 +947,40 @@
                         </group>
                         <notebook>
                             <page string="General Information">
-                                <group colspan="4" col="4" string="Patient General Information">
-                                    <field name="family_code"/>
-                                    <field name="blood_type"/>
-                                    <field name="rh"/>
-                                    <field name="current_insurance"/>
-                                    <field name="marital_status"/>
-                                    <field name="medium_id"/>
-                                    <field name="occupation_id"/>
-                                    <field name="primary_doctor_id"/>
-                                    <field name="referring_doctor_id"/>
-                                    <field name="mobile"/>
-                                    <field name="nationality_id"/>
-                                    <field name="other_mobile"/>
+                                <group string="Patient General Information">
+                                    <group>
+                                        <label for="street" string="Address"/>
+                                        <div class="o_address_format">
+                                            <field name="street" placeholder="Street..." class="o_address_street"/>
+                                            <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                            <field name="city" placeholder="City" class="o_address_city"/>
+                                            <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_quick_create': True}" context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"/>
+                                            <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                            <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <field name="function" placeholder="e.g. Sales Director"/>
+                                        <field name="phone" widget="phone"/>
+                                        <field name="mobile" widget="phone"/>
+                                        <field name="email" widget="email" context="{'gravatar_image': True}"/>
+                                    </group>
+                                    <group>
+                                        <field name="family_code"/>
+                                        <field name="blood_type"/>
+                                        <field name="rh"/>
+                                        <field name="current_insurance"/>
+                                        <field name="marital_status"/>
+                                        <field name="medium_id"/>
+                                    </group>
+                                    <group>
+                                        <field name="occupation_id"/>
+                                        <field name="primary_doctor_id"/>
+                                        <field name="referring_doctor_id"/>
+                                        <field name="mobile"/>
+                                        <field name="nationality_id"/>
+                                        <field name="other_mobile"/>
+                                    </group>
                                 </group>
                                 <separator colspan="4" string="Patient Extra Information"/>
                                 <newline/>
@@ -1141,6 +1162,24 @@
                             </page>
                         </notebook>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="medical_alert_view">
+            <field name="name">Patient</field>
+            <field name="model">medical.patient</field>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="medical_history" readonly="1" class="text-danger"/>
+                    <footer>
+                        <button string="Close" special="cancel"/>
+                    </footer>
                 </form>
             </field>
         </record>

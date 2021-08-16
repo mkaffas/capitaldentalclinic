@@ -1259,7 +1259,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                     table_str += '<td id = "surface_' + operation_id + '">Full Mouth</td>';
 
                     table_str += '<td id = "dentist_' + operation_id + '">' + user_name + '</td>';
-                    table_str += '<td id = "amount_' + operation_id + '">' + t_charge + '</td>';
+                    // table_str += '<td id = "amount_' + operation_id + '">' + t_charge + '</td>';
                     table_str += '<td class = "progress_table_actions" id = "action_' + operation_id + '">' + selected_treatment_temp.action + '</td>';
                     table_str += '<td class = "delete_td" id = "delete_' + operation_id + '">' + '<img src = "/pragtech_dental_management/static/src/img/delete.png" height = "20px" width = "20px"/>' + '</td>';
                     table_str += '<td style = "display:none" id = "previous_' + operation_id + '">' + is_prev_record + '</td>';
@@ -1290,7 +1290,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                         }
                     });
                     if (flag == false){
-                        $('#progres_table').append(table_str);
+                        $('#progres_table').prepend(table_str);
                         $('#delete_' + operation_id).click(function() {
                             var x = window.confirm("Are you sure you want to delete?");
                             if (x) {
@@ -1606,13 +1606,13 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                 self_var.increment_thread(selected_surface_temp);
                 table_str += '</td>';
                 table_str += '<td id = "dentist_' + operation_id + '">' + user_name + '</td>';
-                table_str += '<td id = "amount_' + operation_id + '">' + t_charge + '</td>';
+                // table_str += '<td id = "amount_' + operation_id + '">' + t_charge + '</td>';
                 table_str += '<td class = "progress_table_actions" id = "action_' + operation_id + '">' + selected_treatment_temp.action + '</td>';
                 table_str += '<td class = "delete_td" id = "delete_' + operation_id + '">' + '<img src = "/pragtech_dental_management/static/src/img/delete.png" height = "20px" width = "20px"/>' + '</td>';
                 table_str += '<td style = "display:none" id = "previous_' + operation_id + '">' + is_prev_record + '</td>';
                 table_str += '</tr>';
 
-                $('#progres_table').append(table_str);
+                $('#progres_table').prepend(table_str);
                 $('#operation_' + operation_id).click(function() {
                     var found = self_var.$el.find('.selected_operation');
                     if (found) {

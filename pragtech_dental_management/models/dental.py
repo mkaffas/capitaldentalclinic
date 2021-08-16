@@ -670,6 +670,7 @@ class MedicalPatient(models.Model):
                 patient_data.critical_info = medical_alert
 
     _name = "medical.patient"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Patient related information"
     _rec_name = "partner_id"
 
@@ -678,6 +679,16 @@ class MedicalPatient(models.Model):
                                  domain=[('is_patient', '=', True),
                                          ('is_person', '=', True)],
                                  help="Patient Name")
+    street = fields.Char(related='partner_id.street', store=True, readonly=False)
+    street2 = fields.Char(related='partner_id.street2', store=True, readonly=False)
+    zip = fields.Char(related='partner_id.zip', store=True, readonly=False)
+    city = fields.Char(related='partner_id.city', store=True, readonly=False)
+    state_id = fields.Many2one(related='partner_id.state_id', store=True, readonly=False)
+    country_id = fields.Many2one(related='partner_id.country_id', store=True, readonly=False)
+    email = fields.Char(related='partner_id.email', store=True, readonly=False)
+    phone = fields.Char(related='partner_id.phone', store=True, readonly=False)
+    mobile = fields.Char(related='partner_id.mobile', store=True, readonly=False)
+    function = fields.Char(related='partner_id.function', store=True, readonly=False)
     patient_id = fields.Char('Patient ID', size=64,
                              help="Patient Identifier provided by the Health Center. Is not the patient id from the partner form",
                              default=lambda self: _('New'))
@@ -1577,6 +1588,18 @@ class MedicalAppointment(models.Model):
     def ready(self):
         ready_time = time.strftime('%Y-%m-%d %H:%M:%S')
         self.write({'state': 'ready', 'ready_time': ready_time})
+        if self.patient.medical_history:
+            return {
+                'type': 'ir.actions.act_window',
+                'res_model': 'medical.patient',
+                'name': _('Medical Alert'),
+                'view_mode': 'form',
+                'target': 'new',
+                'res_id': self.patient.id,
+                'views': [(self.env.ref(
+                    'pragtech_dental_management.medical_alert_view'
+                ).id, 'form')],
+            }
         return True
 
     def missed(self):
@@ -1595,7 +1618,7 @@ class MedicalAppointment(models.Model):
                     subject="Appointment " + str(
                         rec.name) + " has been checked in",
                     body="Patient " + str(
-                        rec.patient.name) + " with Appointment " + str(
+                        rec.patient.partner_id.name) + " with Appointment " + str(
                         rec.name) + " has been checked in " + body,
                     message_type='comment',
                     subtype_id=self.env.ref('mail.mt_note').id, )
