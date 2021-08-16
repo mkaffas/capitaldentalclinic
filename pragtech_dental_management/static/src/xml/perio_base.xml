@@ -162,13 +162,14 @@
 								<td>
 									Dentist
 								</td>
-								<td>
-									Amount
-								</td>
+<!--								<td>-->
+<!--									Amount-->
+<!--								</td>-->
 								<td>
 									Action
 								</td>
 								<td style = "background:white" class = "delete_td">
+									Delete
 								</td>
 								<td style = "display:none">
 									Previous Record
@@ -176,8 +177,6 @@
 							</tr>
 						</thead>
 						<tbody id = "progres_table">
-							<tr>
-							</tr>
 						</tbody>
 					</table>
 				</div>
