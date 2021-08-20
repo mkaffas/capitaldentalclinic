@@ -231,7 +231,7 @@ class Teeth(models.Model):
             partners = [x.partner_id.id for x in
                         self.env.ref('pragtech_dental_management.group_branch_manager').users]
             partners_admin = [x.partner_id.id for x in
-                              self.env.ref('pragtech_dental_management.group_dental_mng_menu').users]
+                              self.env.ref('pragtech_dental_management.group_dental_admin').users]
             all_partners = partners + partners_admin
             body = '<a target=_BLANK href="/web?#id=' + str(
                 line.patient_id.id) + '&view_type=form&model=medical.patient&action=" style="font-weight: bold">' + '</a>'
