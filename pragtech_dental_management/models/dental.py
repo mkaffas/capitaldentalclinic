@@ -1514,7 +1514,8 @@ class MedicalAppointment(models.Model):
     state = fields.Selection(
         [('draft', 'Unconfirmed'), ('sms_send', 'Sms Send'),
          ('confirmed', 'Confirmed'), ('missed', 'Missed'),
-         ('checkin', 'Checked In'), ('ready', 'In Chair'),
+         ('checkin', 'Checked In'), ('in_room', 'In Room'),
+         ('ready', 'Session Started'),
          ('done', 'Completed'), ('cancel', 'Canceled')], 'State',
         readonly=True, default='draft', tracking=True, )
     apt_id = fields.Boolean(default=False)

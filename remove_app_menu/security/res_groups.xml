@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="category_apps" model="ir.module.category">
+        <field name="name">Apps</field>
+    </record>
+
+    <record id="group_show_hr_menu" model="res.groups">
+        <field name="name">Show Hr Menu</field>
+        <field name="category_id" ref="category_apps"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+    <record id="group_show_contacts_menu" model="res.groups">
+        <field name="name">Show Contacts Menu</field>
+        <field name="category_id" ref="category_apps"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+    <record id="group_show_website_menu" model="res.groups">
+        <field name="name">Show Website Menu</field>
+        <field name="category_id" ref="category_apps"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+    <record id="group_show_survey_menu" model="res.groups">
+        <field name="name">Show Survey Menu</field>
+        <field name="category_id" ref="category_apps"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+    <record id="group_show_link_tracker_menu" model="res.groups">
+        <field name="name">Show Link Tracker Menu</field>
+        <field name="category_id" ref="category_apps"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+    <record id="group_show_discuss_menu" model="res.groups">
+        <field name="name">Show Discuss Menu</field>
+        <field name="category_id" ref="category_apps"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+    <record id="group_show_calendar_menu" model="res.groups">
+        <field name="name">Show Calendar Menu</field>
+        <field name="category_id" ref="category_apps"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+    <record id="group_show_note_menu" model="res.groups">
+        <field name="name">Show Note Menu</field>
+        <field name="category_id" ref="category_apps"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="group_show_planning_menu" model="res.groups">
+        <field name="name">Show Planning Menu</field>
+        <field name="category_id" ref="category_apps"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="group_show_purchase_menu" model="res.groups">
+        <field name="name">Show Purchase Menu</field>
+        <field name="category_id" ref="category_apps"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="group_show_sale_menu" model="res.groups">
+        <field name="name">Show Sale Menu</field>
+        <field name="category_id" ref="category_apps"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="group_show_stock_menu" model="res.groups">
+        <field name="name">Show Stock Menu</field>
+        <field name="category_id" ref="category_apps"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="group_show_account_menu" model="res.groups">
+        <field name="name">Show Account Menu</field>
+        <field name="category_id" ref="category_apps"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+</odoo>

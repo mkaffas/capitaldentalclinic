@@ -130,7 +130,7 @@
             </xpath>
             <xpath expr="//field[@name='patient_state']" position="before">
                 <field name="patient_coordinator"
-                       groups="pragtech_dental_management.group_dental_mng_menu,pragtech_dental_management.group_branch_manager"/>
+                       groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager"/>
             </xpath>
 
         </field>
@@ -143,7 +143,7 @@
         <field name="arch" type="xml">
             <xpath expr="//page[8]" position="replace">
                 <page string="Operations"
-                      groups="pragtech_dental_management.group_dental_mng_menu,pragtech_dental_management.group_branch_manager">
+                      groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager">
                     <group colspan="4" col="8">
                         <field name="teeth_treatment_ids" string="Operations"
                                nolabel="1" attrs="{'readonly':0}"/>
