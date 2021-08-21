@@ -2770,7 +2770,7 @@ msgid "Demo"
 msgstr "Demo"
 
 #. module: dental_management
-#: model:res.groups,name:dental_management.group_dental_mng_menu
+#: model:res.groups,name:dental_management.group_dental_admin
 msgid "Dental / Admin"
 msgstr "Dental / Admin"
 

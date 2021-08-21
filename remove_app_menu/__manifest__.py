@@ -1,0 +1,30 @@
+# pylint: skip-file
+{
+    'name': 'Remove App Menu',
+    'summary': 'Remove App Menu',
+    'author': 'Muhamed Abd El-Rhman, IBN ABBAS',
+    'website': 'http://www.ibn-abbas.com',
+    'version': '13.0.0.1.0',
+    'category': 'Tools',
+    'license': 'AGPL-3',
+    'depends': [
+        'hr',
+        'website',
+        'mail',
+        'calendar',
+        'note',
+        'utm',
+        'planning',
+        'purchase',
+        'sale',
+        'stock',
+        'account',
+    ],
+    'data': [
+        'security/res_groups.xml',
+        'views/ir_ui_menu.xml',
+    ],
+    'installable': True,
+    'application': False,
+    'auto_install': False,
+}
