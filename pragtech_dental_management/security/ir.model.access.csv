@@ -29,7 +29,6 @@ access_hospital_oprating_room_user,medical.hospital.oprating.room,model_medical_
 access_procedure_code_user,medical.procedure,model_medical_procedure,group_dental_user_menu,1,1,1,1
 access_teeth_code_user,teeth.code,model_teeth_code,group_dental_user_menu,1,1,1,1
 access_ir_attachment_user,ir.attachment,base.model_ir_attachment,group_dental_user_menu,1,1,1,1
-
 access_patient_nationality_user,patient.nationality,model_patient_nationality,group_dental_user_menu,1,1,1,1
 access_purchase_report_scheduler_user,purchase.report.scheduler,model_purchase_report_scheduler,group_dental_user_menu,1,1,1,1
 access_patient_birthday_alert_user,patient.birthday.alert,model_patient_birthday_alert,group_dental_user_menu,1,1,1,1
@@ -37,7 +36,6 @@ access_planned_visit_alert_user,planned.visit.alert,model_planned_visit_alert,gr
 access_financing_agreement_user,financing.agreement,model_financing_agreement,group_dental_user_menu,1,1,1,1
 access_payment_schedule_user,payment.schedule,model_payment_schedule,group_dental_user_menu,1,1,1,1
 access_medical_occupation_user,medical.occupation,model_medical_occupation,group_dental_admin,1,1,1,1
-,,,,,,,
 access_insurance_plan_mng,medical.insurance.plan,model_medical_insurance_plan,group_dental_admin,1,1,1,1
 access_insurance_mng,medical.insurance,model_medical_insurance,group_dental_admin,1,1,1,1
 access_partner_patient_mng,res.partner,base.model_res_partner,group_dental_admin,1,1,1,1
@@ -68,7 +66,6 @@ access_hospital_oprating_room_mng,medical.hospital.oprating.room,model_medical_h
 access_procedure_code_mng,medical.procedure,model_medical_procedure,group_dental_admin,1,1,1,1
 access_teeth_code_mng,teeth.code,model_teeth_code,group_dental_admin,1,1,1,1
 access_ir_attachment_mng,ir.attachment,base.model_ir_attachment,group_dental_admin,1,1,1,1
-
 access_patient_nationality_mng,patient.nationality,model_patient_nationality,group_dental_admin,1,1,1,1
 access_purchase_report_scheduler_mng,purchase.report.scheduler,model_purchase_report_scheduler,group_dental_admin,1,1,1,1
 access_patient_birthday_alert_mng,patient.birthday.alert,model_patient_birthday_alert,group_dental_admin,1,1,1,1
@@ -76,7 +73,6 @@ access_planned_visit_alert_mng,planned.visit.alert,model_planned_visit_alert,gro
 access_financing_agreement_mng,financing.agreement,model_financing_agreement,group_dental_admin,1,1,1,1
 access_payment_schedule_mng,payment.schedule,model_payment_schedule,group_dental_admin,1,1,1,1
 access_medical_occupation_mng,medical.occupation,model_medical_occupation,group_dental_admin,1,1,1,1
-,,,,,,,
 access_insurance_plan_doc,medical.insurance.plan,model_medical_insurance_plan,group_dental_doc_menu,1,1,1,1
 access_insurance_doc,medical.insurance,model_medical_insurance,group_dental_doc_menu,1,1,1,1
 access_partner_patient_doc,res.partner,base.model_res_partner,group_dental_doc_menu,1,1,1,1
@@ -107,7 +103,6 @@ access_hospital_oprating_room_doc,medical.hospital.oprating.room,model_medical_h
 access_procedure_code_doc,medical.procedure,model_medical_procedure,group_dental_doc_menu,1,1,1,1
 access_teeth_code_doc,teeth.code,model_teeth_code,group_dental_doc_menu,1,1,1,1
 access_ir_attachment_doc,ir.attachment,base.model_ir_attachment,group_dental_doc_menu,1,1,1,1
-
 access_patient_complaint_doc,patient.complaint,model_patient_complaint,group_dental_doc_menu,1,1,1,1
 access_medical_teeth_treatment_doc,medical.teeth.treatment,model_medical_teeth_treatment,group_dental_doc_menu,1,1,1,1
 access_patient_nationality_doc,patient.nationality,model_patient_nationality,group_dental_doc_menu,1,1,1,1
@@ -124,10 +119,4 @@ access_income_by_procedure_wizard,income.by.procedure.wizard,model_income_by_pro
 access_patient_by_procedure_wizard,patient.by.procedure.wizard,model_patient_by_procedure_wizard,base.group_user,1,1,1,1
 access_income_by_insurance_company_wizard,income.by.insurance.company.wizard,model_income_by_insurance_company_wizard,base.group_user,1,1,1,1
 access_patient_by_doctor_report_wizard,patient.by.doctor.report.wizard,model_patient_by_doctor_report_wizard,base.group_user,1,1,1,1
-
-
-
-
-
-
-
+access_user_patient_stage,patient.by.doctor.report.wizard,model_patient_stage,base.group_user,1,1,1,1

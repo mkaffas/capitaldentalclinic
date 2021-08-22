@@ -56,6 +56,7 @@ dental app
         'views/alert_data.xml',
         'views/financing_view.xml',
         'views/dental_invoice_view.xml',
+        'views/patient_stage.xml',
         'report/account_invoice_report_view.xml',
         'report/report_income_by_doctor.xml',
         'report/report_patient_by_doctor.xml',
