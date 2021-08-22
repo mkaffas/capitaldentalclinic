@@ -1144,7 +1144,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">medical.patient</field>
         <field name="view_mode">kanban,tree,form</field>
-        <field name="view_id" ref="medical_patient_tree"/>
+        <field name="view_id" ref="medical_patient_kanban"/>
     </record>
 
 
