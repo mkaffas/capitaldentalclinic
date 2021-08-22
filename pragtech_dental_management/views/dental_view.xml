@@ -763,11 +763,13 @@
                 <separator orientation="vertical"/>
                 <field name="partner_id"/>
                 <field name="lastname"/>
+                <field name="stage_id"/>
                 <field name="patient_id" string="Patient ID"/>
                 <newline/>
                 <group expand="1" string="Group By...">
                     <filter string="Sex" name="sex" icon="terp-personal" domain="[]"
                             context="{'group_by':'sex'}"/>
+                    <filter string="Stage" name="group_by_stage_id" context="{'group_by':'stage_id'}"/>
                 </group>
             </search>
         </field>
@@ -778,10 +780,19 @@
         <field name="model">medical.patient</field>
         <field name="arch" type="xml">
             <form string="Patient">
+                <header>
+                    <field name="stage_id" widget="statusbar" options="{'clickable': '1'}"/>
+                </header>
                 <sheet>
                     <div class="oe_title">
                         <h1><field name="patient_id" readonly="1"/></h1>
                     </div>
+                    <group>
+                        <group>
+                            <field name="coordinator_id"/>
+                        </group>
+                    </group>
+
                     <group col="6" colspan="6">
                         <group col="4" colspan="4" string="Main Info">
                             <field name="partner_id"
@@ -1050,10 +1061,81 @@
             <tree string='Patient Information'>
                 <field name="partner_id"/>
                 <field name="patient_id"/>
+                <field name="coordinator_id"/>
                 <field name="sex"/>
                 <field name="dob"/>
                 <field name="deceased"/>
+                <field name="stage_id"/>
             </tree>
+        </field>
+    </record>
+
+    <record id="medical_patient_kanban" model="ir.ui.view">
+        <field name="name">medical.patient.kanban</field>
+        <field name="model">medical.patient</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="stage_id" class="o_kanban_small_column">
+                <field name="partner_id"/>
+                <field name="color"/>
+                <field name="patient_id"/>
+                <field name="sex"/>
+                <field name="dob"/>
+                <field name="deceased"/>
+                <field name="stage_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
+                            <div class="o_dropdown_kanban dropdown">
+
+                                <a class="dropdown-toggle o-no-caret btn" role="button" data-toggle="dropdown" data-display="static" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                    <span class="fa fa-ellipsis-v"/>
+                                </a>
+                                <div class="dropdown-menu" role="menu">
+                                    <t t-if="widget.editable"><a role="menuitem" type="edit" class="dropdown-item">Edit</a></t>
+                                    <t t-if="widget.deletable"><a role="menuitem" type="delete" class="dropdown-item">Delete</a></t>
+                                    <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                </div>
+                            </div>
+                            <div class="oe_kanban_body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            Patient:
+                                        </div>
+                                        <div class="col-6">
+                                            <field name="partner_id"/>
+                                        </div>
+                                        <div class="col-6">
+                                            Patient ID:
+                                        </div>
+                                        <div class="col-6">
+                                            <field name="patient_id"/>
+                                        </div>
+                                        <div class="col-6">
+                                            Sex:
+                                        </div>
+                                        <div class="col-6">
+                                            <field name="sex"/>
+                                        </div>
+                                        <div class="col-6">
+                                            Date Of Birth:
+                                        </div>
+                                        <div class="col-6">
+                                            <field name="dob"/>
+                                        </div>
+                                        <div class="col-6">
+                                            Deceased:
+                                        </div>
+                                        <div class="col-6">
+                                            <field name="deceased" widget="boolean_toggle"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
         </field>
     </record>
 
@@ -1061,7 +1143,7 @@
         <field name="name">Patients</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">medical.patient</field>
-
+        <field name="view_mode">kanban,tree,form</field>
         <field name="view_id" ref="medical_patient_tree"/>
     </record>
 

@@ -674,6 +674,11 @@ class MedicalPatient(models.Model):
     _description = "Patient related information"
     _rec_name = "partner_id"
 
+    stage_id = fields.Many2one(
+        'patient.stage',
+        group_expand='_group_expand_stage'
+    )
+
     medium_id = fields.Many2one('utm.medium', 'Medium')
     partner_id = fields.Many2one('res.partner', 'Patient', required="1",
                                  domain=[('is_patient', '=', True),
@@ -815,11 +820,20 @@ class MedicalPatient(models.Model):
                                           '22. Are you currently breastfeeding ?')
     updated_date = fields.Date('Updated Date')
     arebic = fields.Boolean('Arabic')
+    color = fields.Integer()
+    coordinator_id = fields.Many2one(
+        'res.users'
+    )
 
     _sql_constraints = [
         ('name_uniq', 'unique (partner_id)', 'The Patient already exists'),
         ('patient_id_uniq', 'unique (patient_id)',
          'The Patient ID already exists'), ]
+
+    def _group_expand_stage(self, stages, domain, order):
+        """ Expand kanban columnes for stage """
+        stage = self.env['patient.stage'].search([])
+        return stage
 
     def get_img(self):
         for rec in self:
