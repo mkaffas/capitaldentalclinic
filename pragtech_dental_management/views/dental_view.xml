@@ -812,7 +812,7 @@
                     <notebook>
                         <page string="General Information">
                             <group string="Patient General Information">
-                                <group groups="pragtech_dental_management.group_dental_admin">
+                                <group groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager">
                                     <label for="street" string="Address"/>
                                     <div class="o_address_format">
                                         <field name="street" placeholder="Street..." class="o_address_street"/>
@@ -823,7 +823,7 @@
                                         <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
                                     </div>
                                 </group>
-                                <group groups="pragtech_dental_management.group_dental_admin">
+                                <group groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager">
                                     <field name="function" placeholder="e.g. Sales Director"/>
                                     <field name="phone" widget="phone"/>
                                     <field name="mobile" widget="phone"/>
@@ -940,7 +940,7 @@
                                 <field name="medical_history"/>
                             </group>
                         </page>
-                        <page string="Prescriptions" groups="pragtech_dental_management.group_dental_admin">
+                        <page string="Prescriptions" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager">
                             <group colspan="4" col="8">
                                 <field name="prescriptions" string="Prescriptions History"
                                        nolabel="1">
@@ -972,7 +972,7 @@
                         <page string="Chart">
                             <button name="open_chart" type="object" string="Open Chart"></button>
                         </page>
-                        <page string="Operations" groups="pragtech_dental_management.group_dental_admin">
+                        <page string="Operations" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager">
                             <group colspan="4" col="8">
                                 <field name="teeth_treatment_ids" string="Operations"
                                        nolabel="1"/>
@@ -992,7 +992,7 @@
                                 </tree>
                             </field>
                         </page>
-                        <page string="Patient Complaints" groups="pragtech_dental_management.group_dental_admin">
+                        <page string="Patient Complaints" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager">
                             <group colspan="4" col="8">
                                 <field name="patient_complaint_ids"
                                        context="{'search_default_patient_id': id,'default_patient_id': id}"
@@ -2069,7 +2069,7 @@
     </record>
 
     <menuitem name="Dental Management" id="medical_menu"/>
-    <menuitem name="Configuration" id="medical_conf_menu" parent="medical_menu" groups="pragtech_dental_management.group_dental_admin"
+    <menuitem name="Configuration" id="medical_conf_menu" parent="medical_menu" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"
               sequence="12"/>
 
     <menuitem name="Appointments" id="medical_appointment_menu"
@@ -2082,7 +2082,7 @@
               sequence="2"/>
 
     <menuitem name="Prescriptions" id="medical_prescription_menu"
-              parent="medical_menu" sequence="3" groups="pragtech_dental_management.group_dental_admin"/>
+              parent="medical_menu" sequence="3" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"/>
 
     <menuitem name="Medical Procedures" id="medical_conf_procedure"
               parent="medical_conf_menu" sequence="4"/>
@@ -2103,13 +2103,13 @@
               parent="medical_conf_menu" sequence="9"/>
 
     <menuitem name="Reporting" id="medical_reporting_menu"
-              parent="medical_menu" sequence="11" groups="pragtech_dental_management.group_dental_admin"/>
+              parent="medical_menu" sequence="11" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"/>
 
     <menuitem name="Alerts" id="medical_patient_birthday_menu"
-              parent="medical_menu" sequence="4" groups="pragtech_dental_management.group_dental_admin"/>
+              parent="medical_menu" sequence="4" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"/>
 
     <menuitem name="Reports" id="dental_report_menu" parent="medical_menu"
-              sequence="6" groups="pragtech_dental_management.group_dental_admin"/>
+              sequence="6" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"/>
 
     <menuitem action="medical_action_form_appointment" id="medical_conf_appointment_add"
               parent="medical_appointment_menu" sequence="2"/>
@@ -2134,7 +2134,7 @@
               parent="medical_conf_physicians"/>
 
     <menuitem action="medical_action_tree_family_code" id="medical_conf_edit_family_code"
-              parent="medical_patients_menu" sequence="1" groups="pragtech_dental_management.group_dental_admin"/>
+              parent="medical_patients_menu" sequence="1" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"/>
 
     <menuitem action="medical_patient_action_tree" parent="medical_patients_menu"
               id="medical_edit_patient" sequence="2"/>
@@ -2189,11 +2189,11 @@
               sequence="1"/>
 
     <menuitem action="action_patient_complaint" name="Patient Complaints"
-              id="patient_complaint_submenu" parent="medical_patients_menu" groups="pragtech_dental_management.group_dental_admin"
+              id="patient_complaint_submenu" parent="medical_patients_menu" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"
               sequence="4"/>
 
     <menuitem action="medical_action_insurance" name="Insurance"
-              id="patient_insurance_submenu" parent="medical_patients_menu" groups="pragtech_dental_management.group_dental_admin"
+              id="patient_insurance_submenu" parent="medical_patients_menu" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"
               sequence="5"/>
 
     <menuitem action="medical_action_insurance" id="medical_conf_edit_insurance"
