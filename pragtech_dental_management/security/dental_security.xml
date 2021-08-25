@@ -12,7 +12,6 @@
 
     <record id="group_dental_doc_menu" model="res.groups">
         <field name="name">Doctor</field>
-        <field name="implied_ids" eval="[(4, ref('group_dental_user_menu'))]"/>
         <field name="category_id" ref="dental_category"/>
     </record>
 
