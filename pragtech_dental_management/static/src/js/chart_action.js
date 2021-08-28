@@ -1261,7 +1261,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                     table_str += '<td id = "dentist_' + operation_id + '">' + user_name + '</td>';
                     // table_str += '<td id = "amount_' + operation_id + '">' + t_charge + '</td>';
                     table_str += '<td class = "progress_table_actions" id = "action_' + operation_id + '">' + selected_treatment_temp.action + '</td>';
-                    table_str += '<td class = "delete_td" id = "delete_' + operation_id + '">' + '<img src = "/pragtech_dental_management/static/src/img/delete.png" height = "20px" width = "20px"/>' + '</td>';
+                    // table_str += '<td class = "delete_td" id = "delete_' + operation_id + '">' + '<img src = "/pragtech_dental_management/static/src/img/delete.png" height = "20px" width = "20px"/>' + '</td>';
                     table_str += '<td style = "display:none" id = "previous_' + operation_id + '">' + is_prev_record + '</td>';
                     table_str += '</tr>';
                     var html_table_data = "";
@@ -1608,7 +1608,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                 table_str += '<td id = "dentist_' + operation_id + '">' + user_name + '</td>';
                 // table_str += '<td id = "amount_' + operation_id + '">' + t_charge + '</td>';
                 table_str += '<td class = "progress_table_actions" id = "action_' + operation_id + '">' + selected_treatment_temp.action + '</td>';
-                table_str += '<td class = "delete_td" id = "delete_' + operation_id + '">' + '<img src = "/pragtech_dental_management/static/src/img/delete.png" height = "20px" width = "20px"/>' + '</td>';
+                // table_str += '<td class = "delete_td" id = "delete_' + operation_id + '">' + '<img src = "/pragtech_dental_management/static/src/img/delete.png" height = "20px" width = "20px"/>' + '</td>';
                 table_str += '<td style = "display:none" id = "previous_' + operation_id + '">' + is_prev_record + '</td>';
                 table_str += '</tr>';
 

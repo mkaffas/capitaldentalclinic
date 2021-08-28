@@ -168,9 +168,9 @@
 								<td>
 									Action
 								</td>
-								<td style = "background:white" class = "delete_td">
-									Delete
-								</td>
+<!--								<td style = "background:white" class = "delete_td">-->
+<!--									Delete-->
+<!--								</td>-->
 								<td style = "display:none">
 									Previous Record
 								</td>
