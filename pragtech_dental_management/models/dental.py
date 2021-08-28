@@ -431,23 +431,18 @@ class MedicalPhysician(models.Model):
     _name = "medical.physician"
     _description = "Information about the doctor"
 
-    # @api.depends('name')
-    # def name_get(self):
-    #     result = []
-    #     for partner in self:
-    #         name = partner.name.name
-    #         result.append((partner.id, name))
-    #     return result
     name = fields.Char(related='res_partner_medical_physician_id.name')
-    res_partner_medical_physician_id = fields.Many2one('res.partner',
-                                                       'Physician',
-                                                       required=True,
-                                                       domain=[(
-                                                           'is_doctor', '=',
-                                                           "1"), (
-                                                           'is_person', '=',
-                                                           "1")],
-                                                       help="Physician's Name, from the partner list")
+    res_partner_medical_physician_id = fields.Many2one(
+        'res.partner',
+        'Physician',
+        required=True,
+    )
+    user_id = fields.Many2one(
+        'res.users',
+        related='res_partner_medical_physician_id.user_id',
+        string='Physician User',
+        store=True
+    )
     institution = fields.Many2one('res.partner', 'Institution',
                                   domain=[('is_institution', '=', "1")],
                                   help="Institution where she/he works")
@@ -455,10 +450,6 @@ class MedicalPhysician(models.Model):
     speciality = fields.Many2one('medical.speciality', 'Specialty',
                                  required=True, help="Specialty Code")
     info = fields.Text('Extra info')
-    user_id = fields.Many2one('res.users',
-                              related='res_partner_medical_physician_id.user_id',
-                              string='Physician User',
-                              store=True)
 
 
 class MedicalFamilyCode(models.Model):
@@ -684,16 +675,22 @@ class MedicalPatient(models.Model):
                                  domain=[('is_patient', '=', True),
                                          ('is_person', '=', True)],
                                  help="Patient Name")
-    street = fields.Char(related='partner_id.street', store=True, readonly=False)
-    street2 = fields.Char(related='partner_id.street2', store=True, readonly=False)
+    street = fields.Char(related='partner_id.street', store=True,
+                         readonly=False)
+    street2 = fields.Char(related='partner_id.street2', store=True,
+                          readonly=False)
     zip = fields.Char(related='partner_id.zip', store=True, readonly=False)
     city = fields.Char(related='partner_id.city', store=True, readonly=False)
-    state_id = fields.Many2one(related='partner_id.state_id', store=True, readonly=False)
-    country_id = fields.Many2one(related='partner_id.country_id', store=True, readonly=False)
+    state_id = fields.Many2one(related='partner_id.state_id', store=True,
+                               readonly=False)
+    country_id = fields.Many2one(related='partner_id.country_id', store=True,
+                                 readonly=False)
     email = fields.Char(related='partner_id.email', store=True, readonly=False)
     phone = fields.Char(related='partner_id.phone', store=True, readonly=False)
-    mobile = fields.Char(related='partner_id.mobile', store=True, readonly=False)
-    function = fields.Char(related='partner_id.function', store=True, readonly=False)
+    mobile = fields.Char(related='partner_id.mobile', store=True,
+                         readonly=False)
+    function = fields.Char(related='partner_id.function', store=True,
+                           readonly=False)
     patient_id = fields.Char('Patient ID', size=64,
                              help="Patient Identifier provided by the Health Center. Is not the patient id from the partner form",
                              default=lambda self: _('New'))
@@ -1405,6 +1402,29 @@ class MedicalAppointment(models.Model):
     _description = "Medical Appointment"
     _order = "appointment_sdate desc"
 
+    def name_get(self):
+        """
+            Override name_get:
+             - change display_name to be name - patient
+        """
+        return self.mapped(
+            lambda r: (r.id, '%s - %s' % (r.name, r.patient.partner_id.name)))
+
+    def action_edit(self):
+        """ :return Medical Appointment action """
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'medical.appointment',
+            'name': _('Medical Appointment'),
+            'view_mode': 'form',
+            'context': {'form_view_initial_mode': 'edit'},
+            'res_id': self.id,
+            'views': [(self.env.ref(
+                'pragtech_dental_management.medical_appointment_view').id,
+                       'form')],
+        }
+
     @api.model
     def _get_default_doctor(self):
         doc_ids = None
@@ -1522,7 +1542,8 @@ class MedicalAppointment(models.Model):
     waiting_time = fields.Char('Waiting Time', compute='_waiting_time')
     no_invoice = fields.Boolean('Invoice exempt')
     invoice_done = fields.Boolean('Invoice Done')
-    user_id = fields.Many2one('res.users', related='doctor.user_id',
+    user_id = fields.Many2one('res.users',
+                              related='doctor.user_id',
                               string='doctor', store=True)
     inv_id = fields.Many2one('account.move', 'Invoice', readonly=True)
     state = fields.Selection(
@@ -1681,7 +1702,8 @@ class MedicalAppointment(models.Model):
     @api.model
     def create(self, vals):
         if vals.get('name', _('New')) == _('New'):
-            sequence = self.env['ir.sequence'].next_by_code('medical.appointment')
+            sequence = self.env['ir.sequence'].next_by_code(
+                'medical.appointment')
             vals.update(name=sequence or '/')
         result = super().create(vals)
         result.apt_id = [(4, result.id)]

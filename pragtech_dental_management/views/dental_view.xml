@@ -1,6 +1,5 @@
 <odoo>
 
-
     <record id="action_result_image_view2" model="ir.actions.client">
         <field name="name">Result Images</field>
         <field name="res_model">medical.patient</field>
@@ -85,6 +84,7 @@
                             <field name="appointment_sdate"/>
                             <field name="appointment_edate"/>
                             <field name="doctor" attrs="{'required':[('state','!=','draft')]}"/>
+                            <field name="user_id"/>
                             <field name="service_id"
                                    domain="[('is_treatment', '=', True), ('type','=','service')]"/>
                             <field name="urgency"/>
@@ -117,12 +117,15 @@
         <field name="name">medical.appointment.popup.view</field>
         <field name="model">medical.appointment</field>
         <field name="arch" type="xml">
-            <form string="Appointment" version="7.0">
+            <form string="Appointment">
+                <header>
+                    <button name="action_edit" string="Edit" type="object"/>
+                </header>
                 <sheet>
                     <group>
                         <group>
                             <field name="patient" required="1" context="{'appointment_id_new':id}"/>
-                            <field name="doctor"/>
+                            <field name="doctor" required="1"/>
                             <field name="appointment_sdate"/>
                             <field name="appointment_edate"/>
                             <field name="room_id" invisible="1" force_save="1"/>
@@ -152,21 +155,25 @@
                    string="Schedule"
                    total_row="True"
                    scales="day,week,month,year"
-                   precision="{'day': 'hour:quarter', 'week': 'day:full', 'month': 'day:full', 'year': 'day:full'}"
-                   display_unavailability="1" sample="0">
+                   precision="{'day': 'hour:half', 'week': 'day:full', 'month': 'day:full', 'year': 'day:full'}"
+                   display_unavailability="1"
+                   sample="0">
                 <field name="name"/>
+                <field name="user_id"/>
                 <field name="appointment_sdate"/>
-                <field name="appointment_edate"/>
                 <field name="room_id"/>
+                <field name="appointment_edate"/>
                 <field name="doctor"/>
+                <field name="patient"/>
                 <templates>
                     <div t-name="gantt-popover" class="container-fluid">
                         <div class="row no-gutters">
                             <div class="col">
                                 <ul class="pl-1 mb-0">
+                                    <li><strong>Doctor: </strong><t t-esc="doctor[1]"/></li>
+                                    <li><strong>Patient: </strong><t t-esc="patient[1]"/></li>
                                     <li><strong>Start: </strong> <t t-esc="userTimezoneStartDate.format('YYYY-MM-DD hh:mm:ss A')"/></li>
                                     <li><strong>End: </strong> <t t-esc="userTimezoneStopDate.format('YYYY-MM-DD hh:mm:ss A')"/></li>
-                                    <li><strong>Doctor: </strong><t t-esc="doctor[1]"/></li>
                                     <li><strong>Notes: </strong><t t-esc="comments"/></li>
                                 </ul>
                             </div>
@@ -261,6 +268,7 @@
                         <group colspan="4" col="4">
                             <field name="res_partner_medical_physician_id" required="1"
                                    context="{'default_is_doctor': 1, 'search_default_is_doctor': 1}"/>
+                            <field name="user_id"/>
                             <field name="speciality"/>
                             <field name="institution"
                                    context="{'default_is_institution': 1, 'search_default_is_institution': 1}"/>
