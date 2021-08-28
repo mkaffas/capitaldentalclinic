@@ -31,7 +31,7 @@
     <record id="model_medical_appointment_rule" model="ir.rule">
         <field name="name">Doctor Rule</field>
         <field name="model_id" ref="model_medical_appointment"/>
-        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field name="domain_force">[('doctor.res_partner_medical_physician_id.user_ids', '=', user.id)]</field>
         <field name="groups" eval="[(4, ref('group_dental_doc_menu'))]"/>
     </record>
 

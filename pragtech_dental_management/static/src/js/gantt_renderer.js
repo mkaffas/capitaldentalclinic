@@ -8,10 +8,21 @@ odoo.define('pragtech_dental_management.GanttRenderer', function (require) {
             var token = this.SCALES[this.state.scale].interval;
             var stopDate = this.state.stopDate;
             var day = this.state.startDate;
+            var str_day = day.toString();
+            var day_start = moment(str_day).set({
+                hour: 9,
+                minute: 0,
+                second: 0
+            });
+            var day_end = moment(str_day).set({
+                hour: 24,
+                minute: 0,
+                second: 0
+            });
             var dates = [];
             while (day <= stopDate) {
                 dates.push(day);
-                if (token == 'hour' && !day.isBetween(moment('9:00:00', 'HH:mm:ss'), moment('24:00:00', 'HH:mm:ss'))) {
+                if (token == 'hour' && !day.isBetween(day_start, day_end)) {
                     dates.pop()
                 }
                 day = day.clone().add(1, token);
