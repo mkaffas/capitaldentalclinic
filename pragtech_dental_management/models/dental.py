@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-
 import datetime
 import hashlib
 import time
 # from mock import DEFAULT
 from datetime import datetime, timedelta
 
+import pytz
+from dateutil import parser
 from dateutil.relativedelta import relativedelta
 
 from odoo import _, api, fields, models
@@ -895,6 +896,7 @@ class MedicalPatient(models.Model):
                 return_list.append({'other_history': other_history,
                                     'created_date': each_operation.create_date,
                                     'status': each_operation.state,
+                                    'completion_date': each_operation.completion_date,
                                     'multiple_teeth': multiple_teeth_list,
                                     'tooth_id': current_tooth_id,
                                     'surface': each_operation.detail_description,
@@ -953,8 +955,9 @@ class MedicalPatient(models.Model):
                                     if each_val:
                                         desc += each_val + ' '
                                 vals['detail_description'] = desc.rstrip()
-                                dentist = int(each.get('dentist'))
+                                dentist = each.get('dentist')
                                 if dentist:
+                                    dentist = int(each.get('dentist'))
                                     physician = medical_physician_obj.search(
                                         [('id', '=', dentist)])
                                     if physician:
@@ -975,6 +978,12 @@ class MedicalPatient(models.Model):
                                 vals['state'] = status
                                 p_brw = product_obj.browse(vals['description'])
                                 vals['amount'] = p_brw.lst_price
+                                completion_date = each.get('completion_date',
+                                                           False)
+                                if completion_date:
+                                    completion_date = parser.parse(
+                                        completion_date)
+                                    vals['completion_date'] = completion_date
                                 if appt_id:
                                     vals['appt_id'] = appt_id
                                 treatment_id = medical_teeth_treatment_obj.create(
@@ -1621,6 +1630,10 @@ class MedicalAppointment(models.Model):
     def sms_send(self):
         return self.write({'state': 'sms_send'})
 
+    def action_in_room(self):
+        """ Action In Room """
+        self.write({'state': 'in_room'})
+
     def ready(self):
         ready_time = time.strftime('%Y-%m-%d %H:%M:%S')
         self.write({'state': 'ready', 'ready_time': ready_time})
@@ -2105,6 +2118,7 @@ class MedicalTeethTreatment(models.Model):
     teeth_id = fields.Many2one('teeth.code', 'Tooth')
     description = fields.Many2one('product.product', 'Description',
                                   domain=[('is_treatment', '=', True)])
+    completion_date = fields.Datetime()
     detail_description = fields.Text('Surface')
     state = fields.Selection(
         [('planned', 'Planned'), ('condition', 'Condition'),
