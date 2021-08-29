@@ -1,4 +1,4 @@
-odoo.define('pragtech_dental_management.chart_action', function(require) {
+odoo.define('pragtech_dental_management.chart_action', function (require) {
     "use strict";
 
     var core = require('web.core');
@@ -45,10 +45,10 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
     var type = '';
 
     var DentalChartView = AbstractAction.extend({
-        template : "DentalChartView",
+        template: "DentalChartView",
 
-        init : function(parent, options) {
-            this._super(parent,options);
+        init: function (parent, options) {
+            this._super(parent, options);
             var self = this;
             operation_id = 0;
             selected_treatment = '';
@@ -76,38 +76,38 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
 
             if (type == 'palmer') {
                 var palmer = {
-                    '1' : '8-1x',
-                    '2' : '7-1x',
-                    '3' : '6-1x',
-                    '4' : '5-1x',
-                    '5' : '4-1x',
-                    '6' : '3-1x',
-                    '7' : '2-1x',
-                    '8' : '1-1x',
-                    '9' : '1-2x',
-                    '10' : '2-2x',
-                    '11' : '3-2x',
-                    '12' : '4-2x',
-                    '13' : '5-2x',
-                    '14' : '6-2x',
-                    '15' : '7-2x',
-                    '16' : '8-2x',
-                    '17' : '8-3x',
-                    '18' : '7-3x',
-                    '19' : '6-3x',
-                    '20' : '5-3x',
-                    '21' : '4-3x',
-                    '22' : '3-3x',
-                    '23' : '2-3x',
-                    '24' : '1-3x',
-                    '25' : '1-4x',
-                    '26' : '2-4x',
-                    '27' : '3-4x',
-                    '28' : '4-4x',
-                    '29' : '5-4x',
-                    '30' : '6-4x',
-                    '31' : '7-4x',
-                    '32' : '8-4x',
+                    '1': '8-1x',
+                    '2': '7-1x',
+                    '3': '6-1x',
+                    '4': '5-1x',
+                    '5': '4-1x',
+                    '6': '3-1x',
+                    '7': '2-1x',
+                    '8': '1-1x',
+                    '9': '1-2x',
+                    '10': '2-2x',
+                    '11': '3-2x',
+                    '12': '4-2x',
+                    '13': '5-2x',
+                    '14': '6-2x',
+                    '15': '7-2x',
+                    '16': '8-2x',
+                    '17': '8-3x',
+                    '18': '7-3x',
+                    '19': '6-3x',
+                    '20': '5-3x',
+                    '21': '4-3x',
+                    '22': '3-3x',
+                    '23': '2-3x',
+                    '24': '1-3x',
+                    '25': '1-4x',
+                    '26': '2-4x',
+                    '27': '3-4x',
+                    '28': '4-4x',
+                    '29': '5-4x',
+                    '30': '6-4x',
+                    '31': '7-4x',
+                    '32': '8-4x',
 
                 };
                 Palmer = palmer;
@@ -115,43 +115,43 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
 
             if (type == 'iso') {
                 var iso = {
-                    '1' : '18',
-                    '2' : '17',
-                    '3' : '16',
-                    '4' : '15',
-                    '5' : '14',
-                    '6' : '13',
-                    '7' : '12',
-                    '8' : '11',
-                    '9' : '21',
-                    '10' : '22',
-                    '11' : '23',
-                    '12' : '24',
-                    '13' : '25',
-                    '14' : '26',
-                    '15' : '27',
-                    '16' : '28',
-                    '17' : '38',
-                    '18' : '37',
-                    '19' : '36',
-                    '20' : '35',
-                    '21' : '34',
-                    '22' : '33',
-                    '23' : '32',
-                    '24' : '31',
-                    '25' : '41',
-                    '26' : '42',
-                    '27' : '43',
-                    '28' : '44',
-                    '29' : '45',
-                    '30' : '46',
-                    '31' : '47',
-                    '32' : '48',
+                    '1': '18',
+                    '2': '17',
+                    '3': '16',
+                    '4': '15',
+                    '5': '14',
+                    '6': '13',
+                    '7': '12',
+                    '8': '11',
+                    '9': '21',
+                    '10': '22',
+                    '11': '23',
+                    '12': '24',
+                    '13': '25',
+                    '14': '26',
+                    '15': '27',
+                    '16': '28',
+                    '17': '38',
+                    '18': '37',
+                    '19': '36',
+                    '20': '35',
+                    '21': '34',
+                    '22': '33',
+                    '23': '32',
+                    '24': '31',
+                    '25': '41',
+                    '26': '42',
+                    '27': '43',
+                    '28': '44',
+                    '29': '45',
+                    '30': '46',
+                    '31': '47',
+                    '32': '48',
                 };
                 Iso = iso;
             }
 
-            self.patient_history().then(function(res) {
+            self.patient_history().then(function (res) {
                 self.write_patient_history(self, other_patient_history);
                 var cnt = 1;
                 var cnt2 = 1;
@@ -455,7 +455,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                     }
                     cnt++;
                 }
-                _.each(other_patient_history, function(each_operation) {
+                _.each(other_patient_history, function (each_operation) {
                     if (each_operation.tooth_id)
                         self.color_surfaces(svg, each_operation['surface'].split(' '), each_operation['tooth_id'], self);
                     else {
@@ -467,7 +467,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                     }
                 });
 
-                $("img").click(function() {
+                $("img").click(function () {
                     if (!selected_treatment) {
                         if ($(this).attr('class') == 'selected_tooth') {
                             $(this).removeClass('selected_tooth');
@@ -495,7 +495,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                     selected_tooth = this.id;
                     self.execute_create(false, self, false);
 
-                    switch(selected_treatment.action) {
+                    switch (selected_treatment.action) {
                         case 'missing':
                             if ($("#" + $(this).attr('id')).attr('class') == "teeth") {
                                 // $($("#" + $(this).attr('id')).attr('src', "/pragtech_dental_management/static/src/img/images.png").attr('class', 'blank'));
@@ -506,9 +506,9 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                                 $($("#" + $(this).attr('id')).css('visibility', 'visible').attr('class', 'teeth'));
                                 $("#view_" + $(this).attr('id') + "_top,#view_" + $(this).attr('id') + "_left,#view_" + $(this).attr('id') + "_bottom,#view_" + $(this).attr('id') + "_right,#view_" + $(this).attr('id') + "_center").attr('visibility', 'visible');
                                 for (var op_id = 1; op_id <= operation_id; op_id++) {
-                                    if (self.$('#operation_'+op_id)[0]) {
-                                        var got_op_id = (self.$('#operation_'+op_id)[0].id).substr(10);
-                                        if (parseInt(self.$('#tooth_'+got_op_id)[0].innerHTML) == parseInt(this.id)) {
+                                    if (self.$('#operation_' + op_id)[0]) {
+                                        var got_op_id = (self.$('#operation_' + op_id)[0].id).substr(10);
+                                        if (parseInt(self.$('#tooth_' + got_op_id)[0].innerHTML) == parseInt(this.id)) {
                                             var tr = document.getElementById('operation_' + got_op_id);
                                             var desc_class = $("#desc_" + got_op_id).attr('class');
                                             tr.parentNode.removeChild(tr);
@@ -533,11 +533,12 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                             break;
                         default :
                             break;
-                    };
+                    }
+                    ;
 
                 });
 
-                $(".view").click(function() {
+                $(".view").click(function () {
                     if (!cont || update) {
                         selected_surface.length = 0;
                         cont = true;
@@ -556,7 +557,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                     var found_selected_operation = self.$el.find('.selected_operation');
                     if (found_selected_operation[0]) {
                         var op_id = ((found_selected_operation[0].id).split('_'))[1];
-                        if ($('#status_' + op_id)[0].innerHTML == 'Completed'){
+                        if ($('#status_' + op_id)[0].innerHTML == 'Completed') {
                             alert('Cannot update Completed record');
                             $('#operation_' + op_id).removeClass('selected_operation');
                             return;
@@ -564,7 +565,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                         var s = (($("#" + this.id).attr('class')).split(' '))[1];
                         if (((this.id).split('_'))[1] == $('#tooth_' + op_id).attr('class')) {
                             update = true;
-                            var surf_old_list = ($('#surface_'+op_id)[0].innerHTML).split(' ');
+                            var surf_old_list = ($('#surface_' + op_id)[0].innerHTML).split(' ');
                             var got = 0;
                             for (var in_list = 0; in_list < surf_old_list.length; in_list++) {
                                 if (surf_old_list[in_list] == s) {
@@ -572,16 +573,16 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                                     var index = selected_surface.indexOf(this.id);
                                     selected_surface.splice(index, 1);
                                     $('#surface_' + op_id).empty();
-                                    _.each(surf_old_list, function(sol) {
+                                    _.each(surf_old_list, function (sol) {
                                         if (sol != s)
-                                            $('#surface_'+op_id)[0].innerHTML += sol + ' ';
+                                            $('#surface_' + op_id)[0].innerHTML += sol + ' ';
                                     });
                                     self.decrement_thread([this.id]);
                                     break;
                                 }
                             }
                             if (got == 0) {
-                                $('#surface_'+op_id)[0].innerHTML += s + ' ';
+                                $('#surface_' + op_id)[0].innerHTML += s + ' ';
                                 selected_surface.push(this.id);
                                 self.increment_thread([this.id]);
                             }
@@ -611,18 +612,18 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                         if ($("#" + $(this).attr('id')).attr('fill') == 'white') {
                             $("#" + $(this).attr('id')).attr('fill', 'orange');
                             var available = selected_surface.indexOf(this.id);
-                            if(available == -1 && is_tooth_select == false){
+                            if (available == -1 && is_tooth_select == false) {
 
                                 selected_surface.push(this.id);
                             }
 
-                        } else if (parseInt(($("#" + $(this).attr('id')).attr('class')).split(' ')[3]) == 0){
+                        } else if (parseInt(($("#" + $(this).attr('id')).attr('class')).split(' ')[3]) == 0) {
                             is_tooth_select = false
                             $("#" + $(this).attr('id')).attr('fill', 'white');
                             var index = selected_surface.indexOf(this.id);
                             selected_surface.splice(index, 1);
                         } else {
-                            console.log("-------**-    ",$("#" + $(this).attr('id')).attr('fill'))
+                            console.log("-------**-    ", $("#" + $(this).attr('id')).attr('fill'))
 //
                             if ($("#" + $(this).attr('id')).attr('fill') == 'orange') {
                                 $("#" + $(this).attr('id')).attr('fill', 'white');
@@ -630,8 +631,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                                 var current_tooth_id = this.id.lastIndexOf("_")
                                 var res = this.id.slice(current_tooth_id, this.id.length);
 
-                            }
-                            else{
+                            } else {
                                 selected_surface.push(this.id);
 
                             }
@@ -640,13 +640,13 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
 //					console.log('selected_surface',selected_surface,selected_surface.length)
                 });
 
-                self.get_treatment_cats().then(function(res) {
+                self.get_treatment_cats().then(function (res) {
                     var treatment_list = res;
                     var total_list_div = '';
                     for (var j = 0; j < treatment_list.length; j++) {
                         total_list_div += '<div class="panel-heading"><h4 class="panel-title"><a id="categ_' + treatment_list[j].treatment_categ_id + '"data-toggle="collapse" href="#collapse' + treatment_list[j].treatment_categ_id + '">' + treatment_list[j].name + '</a></h4></div>';
                         total_list_div += '<div id="collapse' + treatment_list[j].treatment_categ_id + '" class="panel-collapse collapse"><div class="panel-body">';
-                        _.each(treatment_list[j].treatments, function(each_one) {
+                        _.each(treatment_list[j].treatments, function (each_one) {
                             if (each_one.action == 'missing') {
                                 missing = each_one.treatment_id;
                             }
@@ -658,7 +658,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                     $('#total_list_div').append(total_list_div);
                     self.categ_list = treatment_list;
                     for (var i = 0; i < self.categ_list.length; i++) {
-                        $('#categ_' + self.categ_list[i].treatment_categ_id).click(function() {
+                        $('#categ_' + self.categ_list[i].treatment_categ_id).click(function () {
                             if (selected_surface) {
                                 var found_selected_categ = self.$el.find('.selected_category');
                                 if (found_selected_categ) {
@@ -670,11 +670,11 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                                 self.$('#treatments_list').empty();
                                 for (var k = 0; k < self.categ_list.length; k++) {
                                     if (self.categ_list[k].treatment_categ_id == categ_no) {
-                                        _.each(self.categ_list[k].treatments, function(each_treatment) {
+                                        _.each(self.categ_list[k].treatments, function (each_treatment) {
                                             $('#treat_' + categ_no + '_' + each_treatment.treatment_id).attr('data-selected', 'false');
-                                            $('#treat_' + categ_no + '_' + each_treatment.treatment_id).click(function() {
+                                            $('#treat_' + categ_no + '_' + each_treatment.treatment_id).click(function () {
                                                 if (full_mouth_selected == 1) {
-                                                    self.put_data_full_mouth(self, full_mouth_teeth, full_mouth_selected, each_treatment, false, false, false, false);
+                                                    self.put_data_full_mouth(self, full_mouth_teeth, full_mouth_selected, each_treatment, false, false, false, false, false);
                                                     return;
                                                 }
                                                 cont = false;
@@ -684,7 +684,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                                                 }
                                                 is_tooth_select = false
                                                 if (selected_surface[0]) {
-                                                    if(each_treatment.action != 'missing'){
+                                                    if (each_treatment.action != 'missing') {
                                                         var found = self.$el.find('.selected_treatment');
                                                         if (found) {
                                                             found.removeClass("selected_treatment");
@@ -692,12 +692,11 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                                                         $('#treat_' + categ_no + '_' + each_treatment.treatment_id).attr('class', 'selected_treatment');
                                                         selected_treatment = each_treatment;
                                                         self.execute_create(true, self, selected_surface);
-                                                    }
-                                                    else{
+                                                    } else {
                                                         var answer = confirm('Complete tooth has to be missing, not the selected surfaces.\nClick OK to remove the complete tooth')
-                                                        if(answer){
+                                                        if (answer) {
                                                             var tooth_id = selected_surface[0].split('_')[1]
-                                                            $('#'+tooth_id).attr('class','selected_tooth')
+                                                            $('#' + tooth_id).attr('class', 'selected_tooth')
                                                             found_selected_tooth = self.$el.find('.selected_tooth');
                                                         }
                                                     }
@@ -713,28 +712,28 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                                                         }
                                                         $('#treat_' + categ_no + '_' + each_treatment.treatment_id).attr('class', 'selected_treatment');
                                                         selected_treatment = each_treatment;
-                                                        _.each(found_selected_tooth, function(each_found_selected_tooth) {
+                                                        _.each(found_selected_tooth, function (each_found_selected_tooth) {
                                                             selected_tooth = each_found_selected_tooth.id;
                                                             selected_surface.length = 0;
-                                                            if($("#" +'view_' + selected_tooth + '_top').attr('fill') == 'orange'){
+                                                            if ($("#" + 'view_' + selected_tooth + '_top').attr('fill') == 'orange') {
                                                                 selected_surface.push('view_' + selected_tooth + '_top');
-                                                                $("#" +'view_' + selected_tooth + '_top').attr('fill','white');
+                                                                $("#" + 'view_' + selected_tooth + '_top').attr('fill', 'white');
                                                             }
-                                                            if($("#" +'view_' + selected_tooth + '_bottom').attr('fill') == 'orange'){
+                                                            if ($("#" + 'view_' + selected_tooth + '_bottom').attr('fill') == 'orange') {
                                                                 selected_surface.push('view_' + selected_tooth + '_bottom');
-                                                                $("#" +'view_' + selected_tooth + '_bottom').attr('fill','white');
+                                                                $("#" + 'view_' + selected_tooth + '_bottom').attr('fill', 'white');
                                                             }
-                                                            if($("#" +'view_' + selected_tooth + '_center').attr('fill') == 'orange'){
+                                                            if ($("#" + 'view_' + selected_tooth + '_center').attr('fill') == 'orange') {
                                                                 selected_surface.push('view_' + selected_tooth + '_center');
-                                                                $("#" +'view_' + selected_tooth + '_center').attr('fill','white');
+                                                                $("#" + 'view_' + selected_tooth + '_center').attr('fill', 'white');
                                                             }
-                                                            if($("#" +'view_' + selected_tooth + '_right').attr('fill') == 'orange'){
+                                                            if ($("#" + 'view_' + selected_tooth + '_right').attr('fill') == 'orange') {
                                                                 selected_surface.push('view_' + selected_tooth + '_right');
-                                                                $("#" +'view_' + selected_tooth + '_right').attr('fill','white');
+                                                                $("#" + 'view_' + selected_tooth + '_right').attr('fill', 'white');
                                                             }
-                                                            if($("#" +'view_' + selected_tooth + '_left').attr('fill') == 'orange'){
+                                                            if ($("#" + 'view_' + selected_tooth + '_left').attr('fill') == 'orange') {
                                                                 selected_surface.push('view_' + selected_tooth + '_left');
-                                                                $("#" +'view_' + selected_tooth + '_left').attr('fill','white');
+                                                                $("#" + 'view_' + selected_tooth + '_left').attr('fill', 'white');
                                                             }
 
 
@@ -775,8 +774,8 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
             });
         },
 
-        perform_missing_action : function(missing_tooth_ids) {
-            _.each(missing_tooth_ids, function(each_of_missing_tooth_ids) {
+        perform_missing_action: function (missing_tooth_ids) {
+            _.each(missing_tooth_ids, function (each_of_missing_tooth_ids) {
                 // $('#' + String(each_of_missing_tooth_ids)).attr('src', "/pragtech_dental_management/static/src/img/images.png");
                 $('#' + String(each_of_missing_tooth_ids)).css('visibility', 'hidden').attr('class', 'blank');
                 $('#view_' + String(each_of_missing_tooth_ids) + '_top').attr('visibility', 'hidden');
@@ -787,8 +786,8 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
             });
         },
 
-        remove_missing_action : function(missing_tooth_ids) {
-            _.each(missing_tooth_ids, function(each_of_missing_tooth_ids) {
+        remove_missing_action: function (missing_tooth_ids) {
+            _.each(missing_tooth_ids, function (each_of_missing_tooth_ids) {
                 $('#' + String(each_of_missing_tooth_ids)).css('visibility', 'visible').attr('class', 'teeth');
                 ;
                 $('#view_' + String(each_of_missing_tooth_ids) + '_top').attr('visibility', 'visible');
@@ -799,22 +798,22 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
             });
         },
 
-        remove_selection_action : function(nonselection_ids) {
-            _.each(nonselection_ids, function(each_of_nonselection_ids) {
-                if (document.getElementById('view_'+String(each_of_nonselection_ids)+"_top").classList[3] == '0')
+        remove_selection_action: function (nonselection_ids) {
+            _.each(nonselection_ids, function (each_of_nonselection_ids) {
+                if (document.getElementById('view_' + String(each_of_nonselection_ids) + "_top").classList[3] == '0')
                     $('#view_' + String(each_of_nonselection_ids) + '_top').attr('fill', 'white');
-                if (document.getElementById('view_'+String(each_of_nonselection_ids)+"_bottom").classList[3] == '0')
+                if (document.getElementById('view_' + String(each_of_nonselection_ids) + "_bottom").classList[3] == '0')
                     $('#view_' + String(each_of_nonselection_ids) + '_bottom').attr('fill', 'white');
-                if (document.getElementById('view_'+String(each_of_nonselection_ids)+"_left").classList[3] == '0')
+                if (document.getElementById('view_' + String(each_of_nonselection_ids) + "_left").classList[3] == '0')
                     $('#view_' + String(each_of_nonselection_ids) + '_left').attr('fill', 'white');
-                if (document.getElementById('view_'+String(each_of_nonselection_ids)+"_right").classList[3] == '0')
+                if (document.getElementById('view_' + String(each_of_nonselection_ids) + "_right").classList[3] == '0')
                     $('#view_' + String(each_of_nonselection_ids) + '_right').attr('fill', 'white');
-                if (document.getElementById('view_'+String(each_of_nonselection_ids)+"_center").classList[3] == '0')
+                if (document.getElementById('view_' + String(each_of_nonselection_ids) + "_center").classList[3] == '0')
                     $('#view_' + String(each_of_nonselection_ids) + '_center').attr('fill', 'white');
             });
         },
-        add_selection_action : function(selection_ids) {
-            _.each(selection_ids, function(each_of_selection_ids) {
+        add_selection_action: function (selection_ids) {
+            _.each(selection_ids, function (each_of_selection_ids) {
                 $('#view_' + String(each_of_selection_ids) + '_top').attr('fill', 'orange');
                 $('#view_' + String(each_of_selection_ids) + '_bottom').attr('fill', 'orange');
                 $('#view_' + String(each_of_selection_ids) + '_left').attr('fill', 'orange');
@@ -822,8 +821,8 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                 $('#view_' + String(each_of_selection_ids) + '_center').attr('fill', 'orange');
             });
         },
-        color_surfaces : function(svg_var, surface_to_color, tooth_id, self_var) {
-            _.each(surface_to_color, function(each_surface_to_color) {
+        color_surfaces: function (svg_var, surface_to_color, tooth_id, self_var) {
+            _.each(surface_to_color, function (each_surface_to_color) {
                 if (each_surface_to_color) {
                     var found_surface_to_color = $(svg_var).find("." + tooth_id + "_" + each_surface_to_color);
                     $('#' + found_surface_to_color[0].id).attr('fill', 'orange');
@@ -832,37 +831,36 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
             });
         },
 
-        write_patient_history : function(self_var, res) {
+        write_patient_history: function (self_var, res) {
             var is_prev_record_from_write = false;
-            _.each(res, function(each_operation) {
+            _.each(res, function (each_operation) {
                 selected_treatment = {
-                    'treatment_id' : each_operation['desc']['id'],
-                    'treatment_name' : each_operation['desc']['name'],
-                    'action' : each_operation['desc']['action']
+                    'treatment_id': each_operation['desc']['id'],
+                    'treatment_name': each_operation['desc']['name'],
+                    'action': each_operation['desc']['action']
                 };
-                console.log('selected_treatment',selected_treatment)
+                console.log('selected_treatment', selected_treatment)
                 is_prev_record_from_write = false;
                 if (each_operation['status'] == 'completed') {
                     is_prev_record_from_write = true;
                 }
                 if (each_operation['status'] == 'in_progress')
                     each_operation['status'] = 'in_progress';
-                if (each_operation['tooth_id']){
+                if (each_operation['tooth_id']) {
                     console.log("Prgogresss  111")
-                    self_var.put_data(self_var, each_operation['surface'].split(' '), each_operation['tooth_id'], false, each_operation['status'], each_operation['created_date'], is_prev_record_from_write, each_operation['other_history']);
-                }
-                else {
-                    self_var.put_data_full_mouth(self_var, each_operation.multiple_teeth, 1, selected_treatment, each_operation['status'], each_operation['created_date'], is_prev_record_from_write, each_operation['other_history']);
+                    self_var.put_data(self_var, each_operation['surface'].split(' '), each_operation['tooth_id'], false, each_operation['status'], each_operation['created_date'], each_operation['completion_date'], is_prev_record_from_write, each_operation['other_history']);
+                } else {
+                    self_var.put_data_full_mouth(self_var, each_operation.multiple_teeth, 1, selected_treatment, each_operation['status'], each_operation['created_date'], each_operation['completion_date'], is_prev_record_from_write, each_operation['other_history']);
                 }
             });
             selected_treatment = '';
         },
 
-        renderElement : function(parent, options) {
+        renderElement: function (parent, options) {
             this._super(parent);
             var self = this;
 
-            self.$('#select_full_mouth').change(function() {
+            self.$('#select_full_mouth').change(function () {
                 if (this.checked) {
                     full_mouth_selected = 1;
                 } else {
@@ -887,15 +885,15 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                         self.$('#view_' + select_all_tooth + "_bottom").attr('fill', 'orange');
                     } else if (!miss) {
                         full_mouth.push(select_all_tooth);
-                        if (document.getElementById('view_'+select_all_tooth+"_center").classList[3] == 0)
+                        if (document.getElementById('view_' + select_all_tooth + "_center").classList[3] == 0)
                             self.$('#view_' + select_all_tooth + "_center").attr('fill', 'white');
-                        if (document.getElementById('view_'+select_all_tooth+"_top").classList[3] == 0)
+                        if (document.getElementById('view_' + select_all_tooth + "_top").classList[3] == 0)
                             self.$('#view_' + select_all_tooth + "_top").attr('fill', 'white');
-                        if (document.getElementById('view_'+select_all_tooth+"_bottom").classList[3] == 0)
+                        if (document.getElementById('view_' + select_all_tooth + "_bottom").classList[3] == 0)
                             self.$('#view_' + select_all_tooth + "_bottom").attr('fill', 'white');
                         if (document.getElementById('view_' + select_all_tooth + "_right").classList[3] == 0)
                             self.$('#view_' + select_all_tooth + "_right").attr('fill', 'white');
-                        if (document.getElementById('view_'+select_all_tooth+"_left").classList[3] == 0)
+                        if (document.getElementById('view_' + select_all_tooth + "_left").classList[3] == 0)
                             self.$('#view_' + select_all_tooth + "_left").attr('fill', 'white');
                     }
                 }
@@ -913,21 +911,22 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
 //					}
 //				});
 //			});
-            self.$('.myButton').click(function() {
+            self.$('.myButton').click(function () {
                 console.log('on click .myButton')
                 var current_obj = this;
                 var found = $('.selected_operation').find('.progress_table_actions');
-                _.each(found, function(each_found) {
+                _.each(found, function (each_found) {
                     if (each_found.innerText != 'missing') {
                         var actual_id = each_found.id.substr(7);
 
-                        if ($('#status_'+actual_id).attr('status_name') != 'completed') {
-                            $('#status_'+actual_id).attr('status_name', current_obj.id)
-                            $('#status_'+actual_id)[0].innerHTML = (current_obj.innerHTML).trim();
-
-                        }
-                        else if($('#status_'+actual_id).attr('status_name') == 'completed') {
-                            $('#status_'+actual_id)[0].innerHTML = $('#completed').text().trim();
+                        if ($('#status_' + actual_id).attr('status_name') != 'completed') {
+                            $('#status_' + actual_id).attr('status_name', current_obj.id)
+                            $('#status_' + actual_id)[0].innerHTML = (current_obj.innerHTML).trim();
+                            if ((current_obj.innerHTML).trim() === "Completed"){
+                                $('#completion_date_' + actual_id)[0].innerHTML = new Date().toLocaleString();
+                            }
+                        } else if ($('#status_' + actual_id).attr('status_name') == 'completed') {
+                            $('#status_' + actual_id)[0].innerHTML = $('#completed').text().trim();
                         }
                     }
                 });
@@ -937,15 +936,15 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
 
             });
 
-            self.$('#heading').click(function() {
+            self.$('#heading').click(function () {
                 var found = self.$el.find('.selected_operation');
                 if (found) {
                     found.removeClass("selected_operation");
                 }
             });
-            self.$('#close_screen').click(function() {
+            self.$('#close_screen').click(function () {
                 console.log("Perform Action  click on close button::::::   ")
-                self.perform_action().then(function() {
+                self.perform_action().then(function () {
                     self.window_close();
                 });
             });
@@ -954,7 +953,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                 method: 'get_teeth_code',
                 args: [this.patient_id],
             })
-                .then(function(res){
+                .then(function (res) {
 
 //			new Model('teeth.code').call('get_teeth_code', [this.patient_id]).then(function(res) {
 
@@ -1026,7 +1025,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                     }
                 });
         },
-        perform_action : function() {
+        perform_action: function () {
             var $def = $.Deferred();
             var p_id;
             var treatment_lines_2 = new Array();
@@ -1038,6 +1037,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                         $('#operation_' + op).removeClass('selected_operation');
                         var teeth_id = document.getElementById('tooth_' + op);
                         var created_date = document.getElementById('date_time_' + op);
+                        var completion_date = document.getElementById('completion_date_' + op).innerHTML;
                         var prev_record = document.getElementById('previous_' + op);
                         var status_id = document.getElementById('status_' + op);
                         var status_name = $(status_id).attr('status_name');
@@ -1050,25 +1050,29 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                         var all_teeth = op_id.className;
                         var values = [];
                         var vals = [];
-                        _.each(surface_list, function(each_surface) {
+                        _.each(surface_list, function (each_surface) {
                             vals.push(each_surface);
                         });
                         var categ_list = new Array();
                         categ_list.push({
-                            'categ_id' : categ_id,
-                            'values' : vals
+                            'categ_id': categ_id,
+                            'values': vals
                         });
                         values.push(categ_list);
                         var actual_tooth = String(teeth_id.id);
-                        treatment_lines_2.push({
-                            'status' : String(status_id.innerHTML),
-                            'status_name' : status_name,
-                            'teeth_id' : tooth,
-                            'dentist' : dentist_id,
-                            'values' : categ_list,
-                            'prev_record' : prev_record.innerHTML,
-                            'multiple_teeth' : all_teeth,
-                        });
+                        var vals_dict = {
+                            'status': String(status_id.innerHTML),
+                            'status_name': status_name,
+                            'teeth_id': tooth,
+                            'dentist': dentist_id,
+                            'values': categ_list,
+                            'prev_record': prev_record.innerHTML,
+                            'multiple_teeth': all_teeth,
+                        }
+                        if (completion_date != 'undefined' && completion_date != 'false'){
+                            vals_dict.completion_date = completion_date
+                        }
+                        treatment_lines_2.push(vals_dict);
                     }
                 }
             }
@@ -1078,7 +1082,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                 method: 'create_lines',
                 args: [this.patient_id, treatment_lines_2, this.patient_id, this.appointment_id],
             })
-                .then(function(res) {
+                .then(function (res) {
                     treatment_lines_2 = new Array();
                     $def.resolve(res);
                 });
@@ -1089,7 +1093,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
             return $def;
 
         },
-        window_close : function() {
+        window_close: function () {
 //			this.do_action({
 //				type : 'ir.actions.client',
 //				tag : 'history_back'
@@ -1106,7 +1110,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
             this.trigger_up('history_back');
         },
 
-        check_if_tooth_present : function(tooth_id) {
+        check_if_tooth_present: function (tooth_id) {
             for (var i = 0; i < treatment_lines.length; i++) {
                 if (treatment_lines[i]['tooth_id'] == tooth_id) {
                     return 1;
@@ -1114,7 +1118,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
             }
             return 0;
         },
-        execute_create : function(attrs, self_var, selected_surface_temp) {
+        execute_create: function (attrs, self_var, selected_surface_temp) {
             if (!selected_surface_temp) {
                 selected_surface_temp = selected_surface;
             }
@@ -1124,21 +1128,21 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
             record['tooth_id'] = selected_tooth;
             record['dentist'] = dentist_id;
             var surfaces = new Array();
-            _.each(selected_surface_temp, function(each_surface) {
-                var surface = ($('#'+each_surface).attr('class')).split(' ')[1];
+            _.each(selected_surface_temp, function (each_surface) {
+                var surface = ($('#' + each_surface).attr('class')).split(' ')[1];
                 surfaces.push(surface);
             });
             var d = new Array();
             d = {
-                'treatment_id' : selected_treatment['treatment_id'],
-                'vals' : surfaces
+                'treatment_id': selected_treatment['treatment_id'],
+                'vals': surfaces
             };
             var selected_tooth_temp = selected_tooth;
             if (attrs) {
                 if (!tooth_present) {
                     record['treatments'].push(d);
                     treatment_lines.push(record);
-                    this.put_data(self_var, surfaces, selected_tooth_temp, selected_surface_temp, 'planned', false, false, false);
+                    this.put_data(self_var, surfaces, selected_tooth_temp, selected_surface_temp, 'planned', false, false, false, false);
                 } else {
                     var treatment_present = 0;
                     for (var i = 0; i < treatment_lines.length; i++) {
@@ -1152,7 +1156,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                             if (!treatment_present) {
                                 var x = treatment_lines;
                                 treatment_lines[i]['treatments'].push(d);
-                                this.put_data(self_var, surfaces, selected_tooth_temp, selected_surface_temp, false, false, false, false);
+                                this.put_data(self_var, surfaces, selected_tooth_temp, selected_surface_temp, false, false, false, false, false);
                             }
                         }
                     }
@@ -1163,13 +1167,13 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                     record['treatments'].push(d);
                     treatment_lines.push(record);
                     surfaces.length = 0;
-                    this.put_data(self_var, surfaces, selected_tooth_temp, false, false, false, false);
+                    this.put_data(self_var, surfaces, selected_tooth_temp, false, false, false, false, false, false);
                 } else {
 
                 }
             }
         },
-        get_treatment_charge : function(treatment_id) {
+        get_treatment_charge: function (treatment_id) {
             var $def = $.Deferred();
 //			new Model('product.product').call('get_treatment_charge', [treatment_id]).then(function(res) {
 //				$def.resolve(res);
@@ -1179,31 +1183,31 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                 method: 'get_treatment_charge',
                 args: [treatment_id],
             })
-                .then(function(res){
+                .then(function (res) {
                     $def.resolve(res);
                 });
             return $def;
         },
 
-        decrement_thread : function(selected_surf) {
-            _.each(selected_surf, function(ss) {
-                var prev_cnt = ($('#'+ss).attr('class').split(' ')[3]);
+        decrement_thread: function (selected_surf) {
+            _.each(selected_surf, function (ss) {
+                var prev_cnt = ($('#' + ss).attr('class').split(' ')[3]);
                 var new_cnt = String(parseInt(prev_cnt) - 1);
                 document.getElementById(ss).classList.remove(prev_cnt);
                 document.getElementById(ss).classList.add(new_cnt);
             });
         },
 
-        increment_thread : function(selected_surf) {
-            _.each(selected_surf, function(ss) {
+        increment_thread: function (selected_surf) {
+            _.each(selected_surf, function (ss) {
                 var m = $('#' + ss).attr('class').split(' ');
-                var prev_cnt = ($('#'+ss).attr('class').split(' ')[3]);
+                var prev_cnt = ($('#' + ss).attr('class').split(' ')[3]);
                 var new_cnt = String(parseInt(prev_cnt) + 1);
                 document.getElementById(ss).classList.remove(prev_cnt);
                 document.getElementById(ss).classList.add(new_cnt);
             });
         },
-        put_data_full_mouth : function(self_var, full_mouth_teeth_temp, full_mouth, selected_treatment_temp, status_to_define, created_date, is_prev_record, other_history) {
+        put_data_full_mouth: function (self_var, full_mouth_teeth_temp, full_mouth, selected_treatment_temp, status_to_define, created_date, completion_date, is_prev_record, other_history) {
             if (selected_treatment_temp.action == 'missing') {
                 self_var.perform_missing_action(full_mouth_teeth_temp);
             }
@@ -1213,12 +1217,12 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                 var completed_text = $('#completed').text().trim();
                 var inprogress_text = $('#in_progress').text().trim();
                 var status_defined = status_to_define_temp.toLowerCase();
-                if (status_to_define){
-                    if(status_to_define == 'completed'){
+                if (status_to_define) {
+                    if (status_to_define == 'completed') {
                         status_to_define_temp = completed_text;
-                    }else if(status_to_define == 'in_progress'){
+                    } else if (status_to_define == 'in_progress') {
                         status_to_define_temp = inprogress_text;
-                    }else if(status_to_define == 'planned'){
+                    } else if (status_to_define == 'planned') {
                         status_to_define_temp = panned_text;
                     }
                 }
@@ -1228,7 +1232,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                     today = created_date;
                 }
                 var table_str = '';
-                this.get_treatment_charge(selected_treatment_temp.treatment_id).then(function(t_charge) {
+                this.get_treatment_charge(selected_treatment_temp.treatment_id).then(function (t_charge) {
 
                     if (!t_charge) {
                         t_charge = '0.0';
@@ -1237,7 +1241,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                     var total_teeth = '';
                     var surf_list = new Array();
                     var name_list = new Array();
-                    _.each(full_mouth_teeth_temp, function(each_full_mouth_teeth_temp) {
+                    _.each(full_mouth_teeth_temp, function (each_full_mouth_teeth_temp) {
                         total_teeth += '_' + each_full_mouth_teeth_temp;
                         surf_list.push('view_' + each_full_mouth_teeth_temp + '_center');
                         surf_list.push('view_' + each_full_mouth_teeth_temp + '_right');
@@ -1255,11 +1259,12 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                     table_str += '<td class = "' + selected_treatment_temp.treatment_id + '" ' + 'id = "desc_' + operation_id + '">' + selected_treatment_temp.treatment_name + '</td>';
                     table_str += '<td class = "' + 'all' + '" id = "tooth_' + operation_id + '">' + '-' + '</td>';
 
-                    table_str += '<td id = "status_' + operation_id +'" status_name = "'+status_to_define+'">' + status_to_define_temp + '</td>';
+                    table_str += '<td id = "status_' + operation_id + '" status_name = "' + status_to_define + '">' + status_to_define_temp + '</td>';
                     table_str += '<td id = "surface_' + operation_id + '">Full Mouth</td>';
 
-                    table_str += '<td id = "dentist_' + operation_id + '">' + user_name + '</td>';
-                    // table_str += '<td id = "amount_' + operation_id + '">' + t_charge + '</td>';
+                    table_str += '<td style="display: none" id="dentist_' + operation_id + '">' + user_name + '</td>';
+                    table_str += '<td id = "completion_date_' + operation_id + '">' + completion_date + '</td>';
+                    table_str += '<td style="display: none" id="amount_' + operation_id + '">' + t_charge + '</td>';
                     table_str += '<td class = "progress_table_actions" id = "action_' + operation_id + '">' + selected_treatment_temp.action + '</td>';
                     // table_str += '<td class = "delete_td" id = "delete_' + operation_id + '">' + '<img src = "/pragtech_dental_management/static/src/img/delete.png" height = "20px" width = "20px"/>' + '</td>';
                     table_str += '<td style = "display:none" id = "previous_' + operation_id + '">' + is_prev_record + '</td>';
@@ -1271,27 +1276,26 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                             if (html_table_data.length == 0 || bRowStarted == true) {
                                 html_table_data += $(this).text();
                                 bRowStarted = false;
-                            }
-                            else
+                            } else
                                 html_table_data += " | " + $(this).text();
                         });
                         html_table_data += "\n";
                         bRowStarted = true;
                     });
                     var flag = false
-                    _.each(html_table_data.split('\n'), function(name_treatment) {
+                    _.each(html_table_data.split('\n'), function (name_treatment) {
                         var description = name_treatment.split('|')[1]
-                        var str1 = ""+description
-                        var str2 = ""+selected_treatment_temp.treatment_name
+                        var str1 = "" + description
+                        var str2 = "" + selected_treatment_temp.treatment_name
                         var n = str1.trim()
                         var n1 = str2.trim()
-                        if (n === n1){
+                        if (n === n1) {
                             flag = true
                         }
                     });
-                    if (flag == false){
+                    if (flag == false) {
                         $('#progres_table').prepend(table_str);
-                        $('#delete_' + operation_id).click(function() {
+                        $('#delete_' + operation_id).click(function () {
                             var x = window.confirm("Are you sure you want to delete?");
                             if (x) {
                                 update = false;
@@ -1314,7 +1318,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                                     var action_id = action.innerHTML;
                                     {
                                         var surf_list = new Array();
-                                        _.each(full_mouth_teeth_temp, function(tooth_id) {
+                                        _.each(full_mouth_teeth_temp, function (tooth_id) {
                                             surf_list.push('view_' + tooth_id + '_center');
                                             surf_list.push('view_' + tooth_id + '_right');
                                             surf_list.push('view_' + tooth_id + '_left');
@@ -1339,7 +1343,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                 }
             }
         },
-        put_data : function(self_var, surfaces, selected_tooth_temp, selected_surface_temp, status_defined, created_date, is_prev_record, other_history) {
+        put_data: function (self_var, surfaces, selected_tooth_temp, selected_surface_temp, status_defined, created_date, completion_date, is_prev_record, other_history) {
 
             if (!selected_tooth_temp) {
                 selected_tooth_temp = '-';
@@ -1355,18 +1359,18 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
             var completed_text = $('#completed').text().trim()
             var inprogress_text = $('#in_progress').text().trim()
             if (status_defined)
-                if(status_defined == 'completed'){
+                if (status_defined == 'completed') {
                     status_to_use = completed_text;
-                }else if(status_defined == 'in_progress'){
+                } else if (status_defined == 'in_progress') {
                     status_to_use = inprogress_text;
-                }else if(status_defined == 'planned'){
+                } else if (status_defined == 'planned') {
                     status_to_use = panned_text;
                 }
-            if (status_to_use == 'planned'){
+            if (status_to_use == 'planned') {
                 status_to_use = panned_text;
 //				status_to_use = status_to_use.substr(0, 1).toUpperCase() + status_to_use.substr(1);
             }
-            this.get_treatment_charge(selected_treatment_temp.treatment_id).then(function(t_charge) {
+            this.get_treatment_charge(selected_treatment_temp.treatment_id).then(function (t_charge) {
                 if (!t_charge) {
                     t_charge = '0.0';
                 }
@@ -1388,7 +1392,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                     if (selected_tooth_temp == '-') {
                         numbers = '-';
                     }
-                    switch(numbers) {
+                    switch (numbers) {
                         case 1:
                             table_str += '<td class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Palmer[1] + '</td>';
                             break;
@@ -1495,7 +1499,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                 } else if (type == 'iso') {
                     var numbers = parseInt(selected_tooth_temp);
 
-                    switch(numbers) {
+                    switch (numbers) {
                         case 1:
                             table_str += '<td class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[1] + '</td>';
                             break;
@@ -1598,29 +1602,30 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
 
                     }
                 }
-                table_str += '<td id = "status_' + operation_id +'" status_name = "'+status_defined+'">' + status_to_use + '</td>';
+                table_str += '<td id = "status_' + operation_id + '" status_name = "' + status_defined + '">' + status_to_use + '</td>';
                 table_str += '<td id = "surface_' + operation_id + '">';
-                _.each(surfaces, function(each_surf) {
+                _.each(surfaces, function (each_surf) {
                     table_str += each_surf + ' ';
                 });
                 self_var.increment_thread(selected_surface_temp);
                 table_str += '</td>';
-                table_str += '<td id = "dentist_' + operation_id + '">' + user_name + '</td>';
-                // table_str += '<td id = "amount_' + operation_id + '">' + t_charge + '</td>';
+                table_str += '<td style="display: none" id = "dentist_' + operation_id + '">' + user_name + '</td>';
+                table_str += '<td style="display: none" id = "amount_' + operation_id + '">' + t_charge + '</td>';
+                table_str += '<td id = "completion_date_' + operation_id + '">' + completion_date + '</td>';
                 table_str += '<td class = "progress_table_actions" id = "action_' + operation_id + '">' + selected_treatment_temp.action + '</td>';
                 // table_str += '<td class = "delete_td" id = "delete_' + operation_id + '">' + '<img src = "/pragtech_dental_management/static/src/img/delete.png" height = "20px" width = "20px"/>' + '</td>';
                 table_str += '<td style = "display:none" id = "previous_' + operation_id + '">' + is_prev_record + '</td>';
                 table_str += '</tr>';
 
                 $('#progres_table').prepend(table_str);
-                $('#operation_' + operation_id).click(function() {
+                $('#operation_' + operation_id).click(function () {
                     var found = self_var.$el.find('.selected_operation');
                     if (found) {
                         found.removeClass("selected_operation");
                     }
                     $(this).attr('class', 'selected_operation');
                 });
-                $('#delete_' + operation_id).click(function() {
+                $('#delete_' + operation_id).click(function () {
                     var x = window.confirm("Are you sure you want to delete?");
                     if (x) {
                         update = false;
@@ -1638,12 +1643,13 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                         var status_name = $(status).attr('status_name')
                         if (status_name == 'completed' || status_name == 'in_progress') {
                             alert('Cannot delete');
-                        }else {
+                        } else {
                             var action = document.getElementById('action_' + actual_id);
-                            var action_id = action.innerHTML; {
+                            var action_id = action.innerHTML;
+                            {
                                 var surface_vals = ($('#surface_' + actual_id).text()).split(' ');
                                 var surf_list = new Array();
-                                _.each(surface_vals, function(sv) {
+                                _.each(surface_vals, function (sv) {
                                     if ($('#view_' + tooth_id + '_center').attr('class').split(' ')[1] == sv) {
                                         surf_list.push('view_' + tooth_id + '_center');
                                     }
@@ -1702,7 +1708,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                 });
             });
         },
-        get_treatment_cats : function() {
+        get_treatment_cats: function () {
             var $def = $.Deferred();
             var self = this;
 //			new Model('product.category').call('get_treatment_categs', [self.patient_id]).then(function(treatment_list) {
@@ -1713,13 +1719,13 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                 method: 'get_treatment_categs',
                 args: [self.patient_id],
             })
-                .then(function(treatment_list) {
+                .then(function (treatment_list) {
                     $def.resolve(treatment_list);
                 });
             return $def;
         },
 
-        patient_history : function() {
+        patient_history: function () {
 
             var $def = $.Deferred();
             var self = this;
@@ -1738,7 +1744,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                 method: 'get_patient_history',
                 args: [self.patient_id, self.appointment_id],
             })
-                .then(function(patient_history) {
+                .then(function (patient_history) {
                     Missing_Tooth = patient_history[0];
                     patient_history.splice(0, 1);
                     other_patient_history = patient_history;
@@ -1747,7 +1753,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
 
             return $def;
         },
-        get_user : function() {
+        get_user: function () {
 //			new Model('res.partner').call('get_user_name', [uid]).then(function(uname) {
 //				user_name = uname;
 //			});
@@ -1756,7 +1762,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
                 method: 'get_user_name',
                 args: [dentist_id],
             })
-                .then(function(uname) {
+                .then(function (uname) {
                     user_name = uname;
                 });
         },
@@ -1764,7 +1770,7 @@ odoo.define('pragtech_dental_management.chart_action', function(require) {
 
     core.action_registry.add('dental_chart', DentalChartView);
     return {
-        DentalChartView : DentalChartView,
+        DentalChartView: DentalChartView,
     };
 
 });

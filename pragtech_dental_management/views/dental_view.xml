@@ -56,8 +56,10 @@
                     <button name="missed" string="Missed" type="object" states="confirmed"/>
                     <button name="checkin" string="Checked In" type="object"
                             states="confirmed"/>
-                    <button name="ready" string="Start Session" type="object"
+                    <button name="action_in_room" string="In Room" type="object"
                             states="checkin"/>
+                    <button name="ready" string="Start Session" type="object"
+                            states="in_room"/>
                     <field name="is_payment" invisible="1"/>
                     <button name="open_payment" string="Open Payment" type="object"
                             attrs="{'invisible': [('is_payment','=',False)]}"/>
@@ -70,7 +72,7 @@
                     <button name="cancel" string="Cancel" type="object"
                             states="draft,confirmed"/>
                     <field name="state" widget="statusbar"
-                           statusbar_visible="draft,confirmed,checkin,ready,done"
+                           statusbar_visible="draft,confirmed,checkin,in_room,ready,done"
                            statusbar_colors='{"confirmed":"blue","ready":"blue","cancel":"red"}'/>
                 </header>
                 <sheet>
@@ -1928,6 +1930,7 @@
                 <field name="state"/>
                 <field name="dentist"/>
                 <field name="detail_description"/>
+                <field name="completion_date"/>
                 <field name="amount"/>
             </tree>
         </field>
