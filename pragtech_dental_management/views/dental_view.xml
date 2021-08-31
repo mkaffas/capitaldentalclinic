@@ -49,13 +49,10 @@
                 <header>
                     <button name="confirm_appointment" string="Confirm" type="object"
                             attrs="{'invisible': ['|',('patient_state', '=', 'withapt'),('state', 'in', ('sms_send', 'confirmed','missed','checkin','ready','done','cancel'))]}"/>
-                    <button name="send_state" string="Send SMS" type="object"
-                            attrs="{'invisible': ['|',('patient_state', '=', 'walkin'),('state', 'in', ('sms_send', 'confirmed','missed','checkin','ready','done','cancel'))]}"/>
-                    <button name="confirm" string="Confirm" type="object"
-                            states="sms_send"/>
+                    <button name="confirm" string="Confirm" type="object" states="sms_send"/>
+                    <button name="checkin" string="Checked In" type="object" states="confirmed,postpone" class="oe_highlight"/>
+                    <button name="action_postpone" string="Postpone" type="object" states="confirmed"/>
                     <button name="missed" string="Missed" type="object" states="confirmed"/>
-                    <button name="checkin" string="Checked In" type="object"
-                            states="confirmed"/>
                     <button name="action_in_room" string="In Room" type="object"
                             states="checkin"/>
                     <button name="ready" string="Start Session" type="object"
@@ -69,6 +66,8 @@
                             attrs="{'invisible': ['|','|',('invoice_done', '=', True),('state', '!=', 'confirmed'),('no_invoice', '=', True)]}"/>
                     <button name="done" string="Completed" type="object"
                             states="ready"/>
+                    <button name="send_state" string="Send SMS" type="object"
+                            attrs="{'invisible': ['|',('patient_state', '=', 'walkin'),('state', 'in', ('sms_send', 'confirmed','missed','checkin','ready','done','cancel'))]}"/>
                     <button name="cancel" string="Cancel" type="object"
                             states="draft,confirmed"/>
                     <field name="state" widget="statusbar"
@@ -82,10 +81,11 @@
                             <field name="patient_state"/>
                             <field name="patient" required="1" context="{'appointment_id_new':id}"/>
                             <field name="unit_id"/>
+                            <field name="branch_id" required="1"/>
                             <field name="room_id"/>
                             <field name="appointment_sdate"/>
                             <field name="appointment_edate"/>
-                            <field name="doctor" attrs="{'required':[('state','!=','draft')]}"/>
+                            <field name="doctor" required="1"/>
                             <field name="user_id"/>
                             <field name="service_id"
                                    domain="[('is_treatment', '=', True), ('type','=','service')]"/>
@@ -98,6 +98,7 @@
                             <field name="user_id" invisible="1"/>
                             <field name="invoice_done" invisible="1"/>
                             <field name="id" invisible="1"/>
+                            <field name="color" invisible="1"/>
                             <newline/>
                             <field name="pres_id1"
                                    context="{'default_patient_id':patient, 'physician_id':doctor, 'default_pid1':id, 'prescription_date':appointment_sdate}"
@@ -128,6 +129,8 @@
                         <group>
                             <field name="patient" required="1" context="{'appointment_id_new':id}"/>
                             <field name="doctor" required="1"/>
+                            <field name="branch_id" required="1"/>
+                            <field name="room_id" required="1"/>
                             <field name="appointment_sdate"/>
                             <field name="appointment_edate"/>
                             <field name="room_id" invisible="1" force_save="1"/>
@@ -154,6 +157,7 @@
                    default_group_by="room_id"
                    default_scale="day"
                    plan="true"
+                   color="color"
                    string="Schedule"
                    total_row="True"
                    scales="day,week,month,year"
@@ -161,22 +165,27 @@
                    display_unavailability="1"
                    sample="0">
                 <field name="name"/>
+                <field name="state"/>
+                <field name="color"/>
                 <field name="user_id"/>
                 <field name="appointment_sdate"/>
                 <field name="room_id"/>
                 <field name="appointment_edate"/>
                 <field name="doctor"/>
+                <field name="branch_id"/>
                 <field name="patient"/>
                 <templates>
                     <div t-name="gantt-popover" class="container-fluid">
                         <div class="row no-gutters">
                             <div class="col">
                                 <ul class="pl-1 mb-0">
+                                    <li><strong>Branch: </strong><t t-esc="branch_id[1]"/></li>
                                     <li><strong>Doctor: </strong><t t-esc="doctor[1]"/></li>
                                     <li><strong>Patient: </strong><t t-esc="patient[1]"/></li>
                                     <li><strong>Start: </strong> <t t-esc="userTimezoneStartDate.format('YYYY-MM-DD hh:mm:ss A')"/></li>
                                     <li><strong>End: </strong> <t t-esc="userTimezoneStopDate.format('YYYY-MM-DD hh:mm:ss A')"/></li>
                                     <li><strong>Notes: </strong><t t-esc="comments"/></li>
+                                    <li><strong>State: </strong><t t-esc="state"/></li>
                                 </ul>
                             </div>
                         </div>
@@ -215,7 +224,8 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">medical.appointment</field>
         <field name="view_mode">gantt,calendar,tree,form</field>
-        <field name="context">{'apt_id': True}</field>
+        <field name="context">{'apt_id': True, 'search_default_group_by_branch_id': 1, 'search_default_group_by_room_id': 1}</field>
+
         <field name="view_id" eval="False"/>
     </record>
 
@@ -242,8 +252,8 @@
                 <group expand="1" string="Group By...">
                     <filter string="Dentist" icon="terp-personal" domain="[]" name="dentist"
                             context="{'group_by':'doctor'}"/>
-                    <filter string="Room" icon="terp-personal" domain="[]" name="room"
-                            context="{'group_by':'room_id'}"/>
+                    <filter string="Branch" name="group_by_branch_id" context="{'group_by':'branch_id'}"/>
+                    <filter string="Room" name="group_by_room_id" context="{'group_by':'room_id'}"/>
                     <filter string="Created By" icon="terp-personal" domain="[]" name="ctreated_bu"
                             context="{'group_by':'saleperson_id'}"/>
                     <filter string="Date" icon="terp-go-month" domain="[]" name="date"
@@ -258,6 +268,7 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">medical.appointment</field>
         <field name="view_mode">gantt,calendar,tree,form</field>
+        <field name="context">{'search_default_group_by_branch_id': 1, 'search_default_group_by_room_id': 1}</field>
     </record>
 
     <record model="ir.ui.view" id="medical_physician_view">
@@ -1286,15 +1297,21 @@
         <field name="model">medical.hospital.oprating.room</field>
         <field name="arch" type="xml">
             <form string="Dental Clinic Operating Rooms">
-                <group colspan="4" col="4">
-                    <field name="name" required="1"/>
-                    <field name="institution"
-                           context="{'default_is_institution': 1, 'search_default_is_institution': 1}"/>
-                    <field name="building"/>
-                    <field name="unit"/>
-                    <newline/>
-                    <field name="extra_info" colspan="4"/>
-                </group>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Name" required="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="branch_id"/>
+                            <field name="institution"
+                                   context="{'default_is_institution': 1, 'search_default_is_institution': 1}"/>
+                            <field name="building"/>
+                            <field name="unit"/>
+                            <field name="extra_info" colspan="4"/>
+                        </group>
+                    </group>
+                </sheet>
             </form>
         </field>
     </record>
@@ -1307,6 +1324,7 @@
         <field name="arch" type="xml">
             <tree string='Dental Clinic Center Building Info'>
                 <field name="name"/>
+                <field name="branch_id"/>
                 <field name="institution"/>
                 <field name="building"/>
                 <field name="unit"/>
@@ -1314,10 +1332,26 @@
         </field>
     </record>
 
+    <record id="medical_hospital_oprating_room_search" model="ir.ui.view">
+        <field name="name">medical.hospital.oprating.room.search</field>
+        <field name="model">medical.hospital.oprating.room</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="branch_id"/>
+                <group expand="0" string="Group By">
+                    <filter string="Branch" name="group_by_branch_id" context="{'group_by':'branch_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
     <record model="ir.actions.act_window" id="medical_action_form_hospital_oprating_room">
         <field name="name">Operating Rooms</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">medical.hospital.oprating.room</field>
+        <field name="context">{'search_default_group_by_branch_id': 1}</field>
         <field name="view_id" ref="medical_hospital_oprating_room_tree"/>
     </record>
 
