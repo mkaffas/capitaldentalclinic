@@ -120,3 +120,4 @@ access_patient_by_procedure_wizard,patient.by.procedure.wizard,model_patient_by_
 access_income_by_insurance_company_wizard,income.by.insurance.company.wizard,model_income_by_insurance_company_wizard,base.group_user,1,1,1,1
 access_patient_by_doctor_report_wizard,patient.by.doctor.report.wizard,model_patient_by_doctor_report_wizard,base.group_user,1,1,1,1
 access_user_patient_stage,patient.by.doctor.report.wizard,model_patient_stage,base.group_user,1,1,1,1
+accses_dental_branch_user,accses.dental.branch.user,model_dental_branch,base.group_user,1,1,1,1

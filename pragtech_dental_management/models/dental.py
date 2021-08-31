@@ -5,7 +5,6 @@ import time
 # from mock import DEFAULT
 from datetime import datetime, timedelta
 
-import pytz
 from dateutil import parser
 from dateutil.relativedelta import relativedelta
 
@@ -1417,7 +1416,7 @@ class MedicalAppointment(models.Model):
              - change display_name to be name - patient
         """
         return self.mapped(
-            lambda r: (r.id, '%s - %s' % (r.name, r.patient.partner_id.name)))
+            lambda r: (r.id, r.patient.partner_id.name))
 
     def action_edit(self):
         """ :return Medical Appointment action """
@@ -1541,9 +1540,12 @@ class MedicalAppointment(models.Model):
                                         tracking=True, )
     appointment_edate = fields.Datetime('Appointment End', required=False,
                                         tracking=True, )
-    room_id = fields.Many2one('medical.hospital.oprating.room', 'Room',
-                              required=False, tracking=True,
-                              group_expand='_group_expand_room')
+    room_id = fields.Many2one(
+        'medical.hospital.oprating.room', 'Room',
+        required=False, tracking=True,
+        domain="[('branch_id', '=', branch_id)]",
+        group_expand='_group_expand_room'
+    )
     urgency = fields.Boolean('Urgent', default=False)
     comments = fields.Text('Note')
     checkin_time = fields.Datetime('Checkin Time', readonly=True, )
@@ -1557,7 +1559,7 @@ class MedicalAppointment(models.Model):
     inv_id = fields.Many2one('account.move', 'Invoice', readonly=True)
     state = fields.Selection(
         [('draft', 'Unconfirmed'), ('sms_send', 'Sms Send'),
-         ('confirmed', 'Confirmed'), ('missed', 'Missed'),
+         ('confirmed', 'Confirmed'), ('missed', 'Missed'), ('postpone', 'Postpone'),
          ('checkin', 'Checked In'), ('in_room', 'In Room'),
          ('ready', 'Session Started'),
          ('done', 'Completed'), ('cancel', 'Canceled')], 'State',
@@ -1572,6 +1574,7 @@ class MedicalAppointment(models.Model):
         [('walkin', 'Walk In'), ('withapt', 'Come with Appointment')],
         'Patients status',
         required=True, default='withapt')
+    color = fields.Integer(compute='_compute_color')
     #     treatment_ids = fields.One2many ('medical.lab', 'apt_id', 'Treatments')
     saleperson_id = fields.Many2one('res.users', 'Created By',
                                     default=lambda self: self.env.user)
@@ -1580,10 +1583,75 @@ class MedicalAppointment(models.Model):
     service_id = fields.Many2one('product.product', 'Consultation Service')
     unit_id = fields.Many2one(comodel_name="medical.hospital.unit", string="",
                               required=False, )
+    branch_id = fields.Many2one(
+        'dental.branch', group_expand='_group_expand_branch'
+    )
 
     _sql_constraints = [
         ('date_check', "CHECK (appointment_sdate <= appointment_edate)",
          "Appointment Start Date must be before Appointment End Date !"), ]
+
+    @api.constrains('appointment_sdate', 'appointment_edate', 'room_id')
+    def _check_room_overlaps(self):
+        """ Validate dates to prevent overlaps """
+        for record in self:
+            start = record.appointment_sdate
+            end = record.appointment_edate
+            overlaps = self.search([
+                ('id', '!=', record.id), ('room_id', '=', record.room_id.id),
+                '|', '&',
+                ('appointment_sdate', '<=', start),
+                ('appointment_edate', '>=', start), '&',
+                ('appointment_sdate', '<=', end),
+                ('appointment_edate', '>=', end),
+            ])
+            if overlaps:
+                raise ValidationError(_("Room Cannot have more than "
+                                        "one appointment in the same time"))
+
+    @api.constrains('appointment_sdate', 'appointment_edate', 'doctor')
+    def _check_doctor_overlaps(self):
+        """ Validate dates to prevent overlaps """
+        for record in self:
+            start = record.appointment_sdate
+            end = record.appointment_edate
+            overlaps = self.search([
+                ('id', '!=', record.id), ('doctor', '=', record.doctor.id),
+                '|', '&',
+                ('appointment_sdate', '<=', start),
+                ('appointment_edate', '>=', start), '&',
+                ('appointment_sdate', '<=', end),
+                ('appointment_edate', '>=', end),
+            ])
+            if overlaps:
+                raise ValidationError(_("Doctor Cannot have more than "
+                                        "one appointment in the same time"))
+
+    @api.constrains('appointment_sdate', 'appointment_edate', 'patient')
+    def _check_patient_overlaps(self):
+        """ Validate dates to prevent overlaps """
+        for record in self:
+            start = record.appointment_sdate
+            end = record.appointment_edate
+            overlaps = self.search([
+                ('id', '!=', record.id), ('patient', '=', record.patient.id),
+                '|', '&',
+                ('appointment_sdate', '<=', start),
+                ('appointment_edate', '>=', start), '&',
+                ('appointment_sdate', '<=', end),
+                ('appointment_edate', '>=', end),
+            ])
+            if overlaps:
+                raise ValidationError(_("Patient Cannot have more than "
+                                        "one appointment in the same time"))
+
+    @api.depends('state')
+    def _compute_color(self):
+        """ Compute color value """
+        states = ['draft', 'sms_send', 'confirmed', 'missed', 'postpone',
+                  'checkin', 'in_room', 'ready', 'done', 'cancel']
+        for rec in self:
+            rec.color = states.index(rec.state)
 
     def get_date(self, date1, lang):
         new_date = ''
@@ -1600,8 +1668,17 @@ class MedicalAppointment(models.Model):
             [])  # To display as 'Folded' Add fold boolean field in the related model
         return room
 
+    def _group_expand_branch(self, stages, domain, order):
+        """ Expand kanban columnes for room """
+        branch = self.env['dental.branch'].search(
+            [])  # To display as 'Folded' Add fold boolean field in the related model
+        return branch
+
     def done(self):
         return self.write({'state': 'done'})
+
+    def action_postpone(self):
+        return self.write({'state': 'postpone'})
 
     def cancel(self):
         return self.write({'state': 'cancel'})
@@ -1610,7 +1687,20 @@ class MedicalAppointment(models.Model):
         return self.write({'state': 'confirmed'})
 
     def send_state(self):
-        return self.write({'state': 'sms_send'})
+        self.write({'state': 'sms_send'})
+        return {
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'name': _("Send SMS Text Message"),
+            'res_model': 'sms.composer',
+            'target': 'new',
+            'views': [(False, "form")],
+            'context': {
+                'default_res_model': 'res.partner',
+                'default_res_id': self.patient.partner_id.id,
+                'default_composition_mode': 'comment',
+            },
+        }
 
     def confirm(self):
         for rec in self:
@@ -1957,6 +2047,9 @@ class MedicalHospitalOpratingRoom(models.Model):
                                index=True)
     unit = fields.Many2one('medical.hospital.unit', 'Unit')
     extra_info = fields.Text('Extra Info')
+    branch_id = fields.Many2one(
+        'dental.branch', required=True
+    )
 
     _sql_constraints = [
         ('name_uniq', 'unique (name, institution)',
