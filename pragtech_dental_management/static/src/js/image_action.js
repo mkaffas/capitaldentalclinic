@@ -42,7 +42,6 @@ odoo.define('pragtech_dental_management.image_action', function(require) {
                     views: [[false, 'form'], [false, 'kanban']],
                     res_id: this.patient_id,
                     target: 'current'
-
                     });
     			this.trigger_up('history_back');
 		},
