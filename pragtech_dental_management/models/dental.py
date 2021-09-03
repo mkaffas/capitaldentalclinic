@@ -1559,7 +1559,8 @@ class MedicalAppointment(models.Model):
     inv_id = fields.Many2one('account.move', 'Invoice', readonly=True)
     state = fields.Selection(
         [('draft', 'Unconfirmed'), ('sms_send', 'Sms Send'),
-         ('confirmed', 'Confirmed'), ('missed', 'Missed'), ('postpone', 'Postpone'),
+         ('confirmed', 'Confirmed'), ('missed', 'Missed'),
+         ('postpone', 'Postpone'),
          ('checkin', 'Checked In'), ('in_room', 'In Room'),
          ('ready', 'Session Started'),
          ('done', 'Completed'), ('cancel', 'Canceled')], 'State',
@@ -2185,28 +2186,6 @@ class MedicalTeethTreatment(models.Model):
     _name = "medical.teeth.treatment"
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    #     def name_search(self, name, args=None, operator='ilike', limit=100):
-    #         x = super(medical_teeth_treatment, self).name_search(self)
-    #         return x
-    #
-    #     def name_get(self):
-    #         x = super(medical_teeth_treatment, self).name_get()
-    #         return x
-    #
-    #     def _get_tooth_name(self, cr, uid, ids, name, args, context):
-    #         res = {}
-    #         self_obj = self.browse(cr, uid, ids, context)
-    #         for obj in self_obj:
-    #             tooth = self.pool.get('ir.model.data').get_object(cr, uid, 'pragtech_dental_management', 'teeth_chart_first_record')
-    #             if tooth:
-    #                 if tooth.type == 'iso':
-    #                     res[obj.id] = obj.teeth_id.iso
-    #                 elif tooth.type == 'palmer':
-    #                     res[obj.id] = obj.teeth_id.palmer_name
-    #                 else:
-    #                     res[obj.id] = obj.teeth_id.name
-    #         return res
-
     patient_id = fields.Many2one('medical.patient', 'Patient Details')
     teeth_id = fields.Many2one('teeth.code', 'Tooth')
     description = fields.Many2one('product.product', 'Description',
@@ -2216,7 +2195,9 @@ class MedicalTeethTreatment(models.Model):
     state = fields.Selection(
         [('planned', 'Planned'), ('condition', 'Condition'),
          ('completed', 'Completed'), ('in_progress', 'In Progress'),
-         ('invoiced', 'Invoiced')], 'Status', default='planned')
+         ('extra_session', 'Extra Session'), ('invoiced', 'Invoiced')],
+        'Status', default='planned'
+    )
     dentist = fields.Many2one('medical.physician', 'Dentist')
     amount = fields.Float('Amount')
     appt_id = fields.Many2one('medical.appointment', 'Appointment ID')

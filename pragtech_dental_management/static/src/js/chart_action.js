@@ -899,18 +899,6 @@ odoo.define('pragtech_dental_management.chart_action', function (require) {
                 }
                 full_mouth_teeth = full_mouth;
             });
-//			self.$('.myButton').click(function() {
-//				var current_obj = this;
-//				var found = self.$el.find('.progress_table_actions');
-//				_.each(found, function(each_found) {
-//					if (each_found.innerText != 'missing') {
-//						var actual_id = each_found.id.substr(7);
-//						if ($('#status_'+actual_id)[0].innerHTML != 'Completed') {
-//							$('#status_'+actual_id)[0].innerHTML = (current_obj.innerHTML).trim();
-//						}
-//					}
-//				});
-//			});
             self.$('.myButton').click(function () {
                 console.log('on click .myButton')
                 var current_obj = this;
@@ -928,6 +916,7 @@ odoo.define('pragtech_dental_management.chart_action', function (require) {
                         } else if ($('#status_' + actual_id).attr('status_name') == 'completed') {
                             $('#status_' + actual_id)[0].innerHTML = $('#completed').text().trim();
                         }
+                        $(each_found).parent().removeClass('selected_operation')
                     }
                 });
                 if (!found.length) {
@@ -1619,11 +1608,12 @@ odoo.define('pragtech_dental_management.chart_action', function (require) {
 
                 $('#progres_table').prepend(table_str);
                 $('#operation_' + operation_id).click(function () {
-                    var found = self_var.$el.find('.selected_operation');
+                    var found = this.className == 'selected_operation';
                     if (found) {
-                        found.removeClass("selected_operation");
+                        $(this).removeClass("selected_operation");
+                    }else {
+                        $(this).addClass("selected_operation");
                     }
-                    $(this).attr('class', 'selected_operation');
                 });
                 $('#delete_' + operation_id).click(function () {
                     var x = window.confirm("Are you sure you want to delete?");
