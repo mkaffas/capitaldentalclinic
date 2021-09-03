@@ -1,19 +1,20 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, models, fields, _
-import json
 from datetime import datetime
+
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
-from odoo.tools import ustr, DEFAULT_SERVER_DATE_FORMAT as DF, \
-    DEFAULT_SERVER_DATETIME_FORMAT as DTF
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 
 
 class CRM(models.Model):
     _inherit = "crm.lead",
 
     patient = fields.Char('Patient', required=True, )
-    appointment_id = fields.Many2one('medical.appointment', 'Patient', required=True, )
-    nationality = fields.Many2one(comodel_name="res.country", string="nationality", required=False, )
+    appointment_id = fields.Many2one('medical.appointment', 'Patient',
+                                     required=True, )
+    nationality = fields.Many2one(comodel_name="res.country",
+                                  string="nationality", required=False, )
 
     @api.depends('birthday')
     def compute_age(self):
@@ -21,22 +22,29 @@ class CRM(models.Model):
             if partner.birthday:
                 today = fields.date.today()
                 born = datetime.strptime(str(partner.birthday), '%Y-%m-%d')
-                partner.age = today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+                partner.age = today.year - born.year - (
+                            (today.month, today.day) < (born.month, born.day))
             else:
                 partner.age = 0
 
-    patient_id = fields.Many2one(comodel_name="medical.patient", string="", required=False, )
-    refer_patient_id = fields.Many2one(comodel_name="medical.patient", string="Referred By", required=False, )
+    patient_id = fields.Many2one(comodel_name="medical.patient", string="",
+                                 required=False, )
+    refer_patient_id = fields.Many2one(comodel_name="medical.patient",
+                                       string="Referred By", required=False, )
     age = fields.Integer('Age', compute='compute_age')
     occupation_id = fields.Many2one('medical.occupation', 'Occupation')
     birthday = fields.Date('Birth Date')
     gender = fields.Selection([('m', 'Male'), ('f', 'Female'), ], 'Gender', )
-    chief = fields.Many2one(comodel_name='chief.complaint', string="Chief Complaint", required=False, )
+    chief = fields.Many2one(comodel_name='chief.complaint',
+                            string="Chief Complaint", required=False, )
     case = fields.Char(string="Case ID", compute='get_case_id')
-    appointment_count = fields.Integer(string="Appointments", required=False, compute='count_appointment')
-    name = fields.Char('Opportunity', required=False, index=True, compute="get_name_opportunity")
+    appointment_count = fields.Integer(string="Appointments", required=False,
+                                       compute='count_appointment')
+    name = fields.Char('Opportunity', required=False, index=True,
+                       compute="get_name_opportunity")
     marital_status = fields.Selection(
-        [('s', 'Single'), ('m', 'Married'), ('w', 'Widowed'), ('d', 'Divorced'), ('x', 'Separated'), ],
+        [('s', 'Single'), ('m', 'Married'), ('w', 'Widowed'), ('d', 'Divorced'),
+         ('x', 'Separated'), ],
         'Marital Status')
     is_create_patient = fields.Boolean(string="", )
 
@@ -60,7 +68,8 @@ class CRM(models.Model):
         for line in self:
             appointment_count = 0
             if line.id:
-                records = self.env['medical.appointment'].search([('crm_id', '=', line.id)])
+                records = self.env['medical.appointment'].search(
+                    [('crm_id', '=', line.id)])
                 for rec in records:
                     appointment_count += 1
             line.appointment_count = appointment_count
@@ -137,25 +146,32 @@ class Chief_Complaint(models.Model):
 class Appointment(models.Model):
     _inherit = 'medical.appointment'
 
-    crm_id = fields.Many2one(comodel_name="crm.lead", string="", required=False, )
-    patient_coordinator = fields.Many2one(comodel_name="res.users", string="Patient Coordinator", required=False, )
-    chief = fields.Many2one(comodel_name='chief.complaint', string="Chief Complaint", required=False, )
+    crm_id = fields.Many2one(comodel_name="crm.lead", string="",
+                             required=False, )
+    patient_coordinator = fields.Many2one(comodel_name="res.users",
+                                          string="Patient Coordinator",
+                                          required=False, )
+    chief = fields.Many2one(comodel_name='chief.complaint',
+                            string="Chief Complaint", required=False, )
 
     def cancel(self):
         for rec in self:
-            partners = [x.partner_id.id for x in self.env.ref('pragtech_dental_management.group_branch_manager').users]
+            partners = self.env.ref(
+                'pragtech_dental_management.group_branch_manager').users.filtered(
+                lambda r: r.partner_id).mapped('partner_id.id')
             body = '<a target=_BLANK href="/web?#id=' + str(
                 rec.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + str(
                 rec.name) + '</a>'
-            if rec.doctor:
+            if rec.doctor.user_id.partner_id:
                 partners.append(rec.doctor.user_id.partner_id.id)
-            if rec.patient_coordinator:
+            if rec.patient_coordinator.partner_id:
                 partners.append(rec.patient_coordinator.partner_id.id)
             if partners:
-                self.sudo().message_post(
+                rec.sudo().message_post(
                     partner_ids=partners,
                     subject="Appointment " + str(rec.name) + " is Cancelled",
-                    body="Appointment " + body + "is Cancelled with patient " + str(rec.patient.partner_id.name),
+                    body="Appointment " + body + "is Cancelled with patient " + str(
+                        rec.patient.partner_id.name),
                     message_type='comment',
                     subtype_id=self.env.ref('mail.mt_note').id, )
         self.write({'state': 'cancel'})
@@ -171,7 +187,9 @@ class Appointment(models.Model):
             if rec.patient_coordinator:
                 self.sudo().message_post(
                     partner_ids=[self.patient_coordinator.partner_id.id],
-                    subject="Appointment " + str(rec.name) + "with patient " + str(rec.patient.partner_id.name),
+                    subject="Appointment " + str(
+                        rec.name) + "with patient " + str(
+                        rec.patient.partner_id.name),
                     body="You will be coordinator in Appointment " + body + "with patient " + str(
                         rec.patient.partner_id.name),
                     message_type='comment',
@@ -180,7 +198,8 @@ class Appointment(models.Model):
 
 class Patient(models.Model):
     _inherit = 'medical.patient'
-    discount = fields.Float(string='Discount (%)', digits='Discount', default=0.0)
+    discount = fields.Float(string='Discount (%)', digits='Discount',
+                            default=0.0)
 
     def select_all(self):
         for line in self.teeth_treatment_ids:
@@ -198,48 +217,58 @@ class Teeth(models.Model):
 
     inv = fields.Boolean(string='Is Invoice?')
     invc_id = fields.Many2one('account.move', string='Invoice')
-    account_id = fields.Many2one(comodel_name="account.account", string="Account", required=False, )
-    discount = fields.Float(string='Discount (%)', digits='Discount', default=0.0)
+    account_id = fields.Many2one(comodel_name="account.account",
+                                 string="Account", required=False, )
+    discount = fields.Float(string='Discount (%)', digits='Discount',
+                            default=0.0)
     net_amount = fields.Float(string="Net Amount", compute="get_net_amount")
-    is_selected = fields.Boolean(string="",)
+    is_selected = fields.Boolean(string="", )
 
     @api.constrains('discount')
     def check(self):
         if self.env.user.has_group('clinic_req.discount_user_group'):
-            obj = self.env['discount.limitation'].search([('group_id', '=', 'Discount User')], limit=1)
+            obj = self.env['discount.limitation'].search(
+                [('group_id', '=', 'Discount User')], limit=1)
             if obj.discount_limitation < self.discount:
                 raise UserError(_('You are not allowed this discount !!'))
         elif self.env.user.has_group('clinic_req.discount_manager_group'):
-            obj = self.env['discount.limitation'].search([('group_id', '=', 'Discount Manager')], limit=1)
+            obj = self.env['discount.limitation'].search(
+                [('group_id', '=', 'Discount Manager')], limit=1)
             if obj.discount_limitation < self.discount:
                 raise UserError(_('You are not allowed this discount !!'))
         elif self.env.user.has_group('clinic_req.discount_admin_group'):
-            obj = self.env['discount.limitation'].search([('group_id', '=', 'Discount Admin')], limit=1)
+            obj = self.env['discount.limitation'].search(
+                [('group_id', '=', 'Discount Admin')], limit=1)
             if obj.discount_limitation < self.discount:
                 raise UserError(_('You are not allowed this discount !!'))
 
     @api.depends('discount', 'amount')
     def get_net_amount(self):
         for line in self:
-            line.net_amount = line.amount - ((line.amount * line.discount) / 100)
+            line.net_amount = line.amount - (
+                        (line.amount * line.discount) / 100)
 
     @api.model
     def create(self, values):
         res = super(Teeth, self).create(values)
 
         for line in res:
-            partners = [x.partner_id.id for x in
-                        self.env.ref('pragtech_dental_management.group_branch_manager').users]
-            partners_admin = [x.partner_id.id for x in
-                              self.env.ref('pragtech_dental_management.group_dental_admin').users]
+            partners = self.env.ref(
+                'pragtech_dental_management.group_branch_manager').users.filtered(
+                lambda r: r.partner_id).mapped('partner_id.id')
+            partners_admin = self.env.ref(
+                'pragtech_dental_management.group_dental_admin').users.filtered(
+                lambda r: r.partner_id).mapped('partner_id.id')
             all_partners = partners + partners_admin
             body = '<a target=_BLANK href="/web?#id=' + str(
                 line.patient_id.id) + '&view_type=form&model=medical.patient&action=" style="font-weight: bold">' + '</a>'
             if all_partners:
                 line.sudo().message_post(
                     partner_ids=all_partners,
-                    subject="Operation " + str(line.description.name) + " is created",
-                    body="New service " + body + "added to Patient " + str(line.patient_id.partner_id.name),
+                    subject="Operation " + str(
+                        line.description.name) + " is created",
+                    body="New service " + body + "added to Patient " + str(
+                        line.patient_id.partner_id.name),
                     message_type='comment',
                     subtype_id=self.env.ref('mail.mt_note').id)
         return res
@@ -307,4 +336,5 @@ class Teeth(models.Model):
 class NewModule(models.Model):
     _inherit = 'account.move'
 
-    teeth_id = fields.Many2one(comodel_name="medical.patient", string="", required=False, )
+    teeth_id = fields.Many2one(comodel_name="medical.patient", string="",
+                               required=False, )
