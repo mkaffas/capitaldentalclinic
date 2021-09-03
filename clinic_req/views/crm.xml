@@ -118,9 +118,6 @@
                        statusbar_visible="draft,confirmed,checkin,ready,done,cancel"
                        statusbar_colors='{"confirmed":"blue","ready":"blue","cancel":"red"}'/>
             </xpath>
-            <xpath expr="//button[@name='missed']" position="after">
-                <button name="cancel" string="Cancelled" type="object" states="confirmed,checkin"/>
-            </xpath>
             <xpath expr="//button[@name='create_payment']" position="after">
                 <button name="notify_patient_coordinator" string="Notify Patient Coordinator" type="object"
                         attrs="{'invisible': [('state', 'not in', ['checkin'])]}"/>

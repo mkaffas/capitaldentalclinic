@@ -45,34 +45,22 @@
         <field name="name">Appointment</field>
         <field name="model">medical.appointment</field>
         <field name="arch" type="xml">
-            <form string="Appointment" version="7.0">
+            <form>
                 <header>
-                    <button name="confirm_appointment" string="Confirm" type="object"
-                            attrs="{'invisible': ['|',('patient_state', '=', 'withapt'),('state', 'in', ('sms_send', 'confirmed','missed','checkin','ready','done','cancel'))]}"/>
-                    <button name="confirm" string="Confirm" type="object" states="sms_send"/>
-                    <button name="checkin" string="Checked In" type="object" states="confirmed,postpone" class="oe_highlight"/>
-                    <button name="action_postpone" string="Postpone" type="object" states="confirmed"/>
-                    <button name="missed" string="Missed" type="object" states="confirmed"/>
-                    <button name="action_in_room" string="In Room" type="object"
-                            states="checkin"/>
-                    <button name="ready" string="Start Session" type="object"
-                            states="in_room"/>
                     <field name="is_payment" invisible="1"/>
-                    <button name="open_payment" string="Open Payment" type="object"
-                            attrs="{'invisible': [('is_payment','=',False)]}"/>
-                    <button name="create_payment" string="Make Payment" type="object"
-                            attrs="{'invisible': ['|',('is_payment','=',True),('state', 'not in', ['checkin'])]}"/>
-                    <button name="create_invoices" string="Create Invoice" type="object"
-                            attrs="{'invisible': ['|','|',('invoice_done', '=', True),('state', '!=', 'confirmed'),('no_invoice', '=', True)]}"/>
-                    <button name="done" string="Completed" type="object"
-                            states="ready"/>
-                    <button name="send_state" string="Send SMS" type="object"
-                            attrs="{'invisible': ['|',('patient_state', '=', 'walkin'),('state', 'in', ('sms_send', 'confirmed','missed','checkin','ready','done','cancel'))]}"/>
-                    <button name="cancel" string="Cancel" type="object"
-                            states="draft,confirmed"/>
-                    <field name="state" widget="statusbar"
-                           statusbar_visible="draft,confirmed,checkin,in_room,ready,done"
-                           statusbar_colors='{"confirmed":"blue","ready":"blue","cancel":"red"}'/>
+                    <button name="confirm_appointment" string="Confirm" type="object" attrs="{'invisible': ['|',('patient_state', '=', 'withapt'),('state', 'in', ('sms_send', 'confirmed','missed','checkin','ready','done','cancel'))]}"/>
+                    <button name="confirm" string="Confirm" type="object" states="sms_send" class="oe_highlight"/>
+                    <button name="checkin" string="Checked In" type="object" states="confirmed,postpone" class="oe_highlight"/>
+                    <button name="action_postpone" string="Postpone" type="object" states="sms_send,confirmed"/>
+                    <button name="missed" string="Missed" type="object" states="sms_send,confirmed"/>
+                    <button name="action_in_room" string="In Room" type="object" states="checkin" class="oe_highlight"/>
+                    <button name="ready" string="Start Session" type="object" states="in_room" class="oe_highlight"/>
+                    <button name="open_payment" string="Open Payment" type="object" attrs="{'invisible': [('is_payment','=',False)]}"/>
+                    <button name="create_payment" string="Make Payment" type="object" attrs="{'invisible': ['|',('is_payment','=',True),('state', 'not in', ['checkin'])]}"/>
+                    <button name="done" string="Completed" type="object" states="ready"/>
+                    <button name="send_state" string="Send SMS" type="object" attrs="{'invisible': ['|',('patient_state', '=', 'walkin'),('state', 'in', ('sms_send', 'confirmed','missed','checkin','ready','done','cancel'))]}"/>
+                    <button name="cancel" string="Cancel" type="object" states="draft,confirmed,sms_send"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,checkin,in_room,ready,done" statusbar_colors='{"confirmed":"blue","ready":"blue","cancel":"red"}'/>
                 </header>
                 <sheet>
                     <group>
