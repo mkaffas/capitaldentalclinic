@@ -1696,13 +1696,12 @@ class MedicalAppointment(models.Model):
             'type': 'ir.actions.act_window',
             'view_mode': 'form',
             'name': _("Send SMS Text Message"),
-            'res_model': 'sms.composer',
+            'res_model': 'sms.eg',
             'target': 'new',
             'views': [(False, "form")],
             'context': {
-                'default_res_model': 'res.partner',
-                'default_res_id': self.patient.partner_id.id,
-                'default_composition_mode': 'comment',
+                'default_partner_ids': [(4, self.patient.partner_id.id)],
+                'default_message': 'comment',
             },
         }
 

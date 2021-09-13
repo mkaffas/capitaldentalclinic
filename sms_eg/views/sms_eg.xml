@@ -6,12 +6,13 @@
         <field name="model">sms.eg</field>
         <field name="arch" type="xml">
             <form>
-                <header>
+                <header invisible="context.get('default_partner_ids')">
                     <button name="send_sms_eg" string="Send" class="oe_highlight" states="draft" type="object"/>
+                    <button name="send_sms_eg" string="ReSend" class="oe_highlight" states="error" type="object"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,sent"/>
                 </header>
                 <sheet>
-                    <div class="oe_title">
+                    <div class="oe_title" invisible="context.get('default_partner_ids')">
                         <h1><field name="name" placeholder="Name"/></h1>
                     </div>
                     <group>
@@ -26,6 +27,11 @@
                         </page>
                     </notebook>
                 </sheet>
+                <footer invisible="not context.get('default_partner_ids')">
+                    <button name="send_sms_eg" string="Send" class="oe_highlight" states="draft" type="object"/>
+                    <button name="send_sms_eg" string="ReSend" class="oe_highlight" states="error" type="object"/>
+                    <button string="Cancel" special="cancel" />
+                </footer>
             </form>
         </field>
     </record>
