@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sms_eg_full_permission,sms_eg.sms_eg,model_sms_eg,,1,1,1,1
+access_sms_eg_template_full_permission,sms_eg.sms_eg_template,model_sms_eg_template,,1,1,1,1

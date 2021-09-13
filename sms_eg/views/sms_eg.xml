@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sms_eg_form" model="ir.ui.view">
+        <field name="name">view.sms.eg.form</field>
+        <field name="model">sms.eg</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="send_sms_eg" string="Send" class="oe_highlight" states="draft" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="partner_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            <field name="sms_eg_template_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="message" string="Message">
+                            <field name="message"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sms_eg_tree" model="ir.ui.view">
+        <field name="name">view.sms.eg.tree</field>
+        <field name="model">sms.eg</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sms_eg_action" model="ir.actions.act_window">
+        <field name="name">SMS EG</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sms.eg</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Send SMS to your customers
+            </p>
+            <p>
+                Send SMS your customers to keep them updated with new offers, services and news.
+            </p>
+        </field>
+    </record>
+    
+    <menuitem id="sms_eg_root_menu" 
+              name="SMS EG"
+              parent="base.menu_custom"
+              sequence="0"/>
+
+    <menuitem id="sms_eg_menu"
+              name="SMS EG"
+              action="sms_eg_action"
+              parent="sms_eg_root_menu"
+              sequence="10"/>
+
+</odoo>

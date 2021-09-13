@@ -1649,10 +1649,13 @@ class MedicalAppointment(models.Model):
     @api.depends('state')
     def _compute_color(self):
         """ Compute color value """
-        states = ['draft', 'sms_send', 'confirmed', 'missed', 'postpone',
-                  'checkin', 'in_room', 'ready', 'done', 'cancel']
+        states = {
+            'draft': 3, 'sms_send': 2, 'confirmed': 10, 'missed': 9,
+            'postpone': 6, 'checkin': 11, 'in_room': 7, 'ready': 5,
+            'done': 8, 'cancel': 1,
+        }
         for rec in self:
-            rec.color = states.index(rec.state)
+            rec.color = states.get(rec.state)
 
     def get_date(self, date1, lang):
         new_date = ''

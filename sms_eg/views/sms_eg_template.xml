@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sms_eg_template_form" model="ir.ui.view">
+        <field name="name">view.sms.eg.template.form</field>
+        <field name="model">sms.eg.template</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Name"/></h1>
+                    </div>
+                    <notebook>
+                        <page name="message" string="Message">
+                            <field name="message"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="sms_eg_template_tree" model="ir.ui.view">
+        <field name="name">view.sms.eg.template.tree</field>
+        <field name="model">sms.eg.template</field>
+        <field name="arch" type="xml">
+            <tree string="SMS EG Template List">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sms_eg_template_action" model="ir.actions.act_window">
+        <field name="name">SMS Templates</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sms.eg.template</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to create a new SMS template
+            </p><p>
+            A template will be useful to save time to create a message that is sent very often.
+            Also, it will be so handy for mass SMS.
+        </p>
+        </field>
+    </record>
+
+    <menuitem id="sms_eg_template_menu"
+              name="SMS EG Template"
+              action="sms_eg_template_action"
+              parent="sms_eg_root_menu"
+              sequence="10"/>
+
+</odoo>
