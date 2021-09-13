@@ -62,7 +62,7 @@ class SmsEg(models.Model):
                     headers={'content-type': 'application/json',
                              'accept': 'application/json',
                              'accept-language': 'en-US'})
-                if response.json()[0].get('type') == 'success':
+                if response.json().get('type') == 'success':
                     rec.state = 'sent'
                     self.name = self.env['ir.sequence'].next_by_code(
                         'sms.eg.sequence')
