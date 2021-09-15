@@ -11,8 +11,7 @@ class CRM(models.Model):
     _inherit = "crm.lead",
 
     patient = fields.Char('Patient', required=True, )
-    appointment_id = fields.Many2one('medical.appointment', 'Patient',
-                                     required=True, )
+    appointment_id = fields.Many2one('medical.appointment', 'Patient')
     nationality = fields.Many2one(comodel_name="res.country",
                                   string="nationality", required=False, )
 
