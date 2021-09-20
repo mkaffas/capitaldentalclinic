@@ -166,10 +166,10 @@
         <field name="inherit_id" ref="pragtech_dental_management.medical_patient_view"/>
         <field name="arch" type="xml">
 
-            <xpath expr="//page[8]/field[@name='teeth_treatment_ids']/tree" position="attributes">
+            <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree" position="attributes">
                 <attribute name="editable">bottom</attribute>
             </xpath>
-            <xpath expr="//page[8]/field[@name='teeth_treatment_ids']/tree/field[@name='create_date']" position="before">
+            <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree/field[@name='create_date']" position="before">
                 <field name="is_selected"/>
             </xpath>
             <xpath expr="//sheet" position="after">
@@ -184,7 +184,7 @@
                     </button>
                 </div>
             </xpath>
-            <xpath expr="//page[8]/field[@name='teeth_treatment_ids']/tree/field[@name='amount']" position="after">
+            <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree/field[@name='amount']" position="after">
                 <field name="inv" invisible="1"/>
                 <field name="account_id" invisible="1"/>
                 <field name="invc_id"/>
