@@ -138,15 +138,15 @@
         <field name="model">medical.patient</field>
         <field name="inherit_id" ref="pragtech_dental_management.medical_patient_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[8]" position="replace">
-                <page string="Operations"
-                      groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager">
-                    <group colspan="4" col="8">
-                        <field name="teeth_treatment_ids" string="Operations"
-                               nolabel="1" attrs="{'readonly':0}"/>
-                    </group>
-                </page>
-            </xpath>
+            <!--<xpath expr="//page[8]" position="replace">-->
+                <!--<page string="Operations"-->
+                      <!--groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager">-->
+                    <!--<group colspan="4" col="8">-->
+                        <!--<field name="teeth_treatment_ids" string="Operations"-->
+                               <!--nolabel="1" attrs="{'readonly':0}"/>-->
+                    <!--</group>-->
+                <!--</page>-->
+            <!--</xpath>-->
             <xpath expr="//page[8]/group" position="before">
                 <group>
                     <button name="select_all" string="Select All" type="object" class="oe_highlight"/>
