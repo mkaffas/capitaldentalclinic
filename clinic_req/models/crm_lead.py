@@ -22,7 +22,7 @@ class CRM(models.Model):
                 today = fields.date.today()
                 born = datetime.strptime(str(partner.birthday), '%Y-%m-%d')
                 partner.age = today.year - born.year - (
-                            (today.month, today.day) < (born.month, born.day))
+                        (today.month, today.day) < (born.month, born.day))
             else:
                 partner.age = 0
 
@@ -199,6 +199,33 @@ class Patient(models.Model):
     _inherit = 'medical.patient'
     discount = fields.Float(string='Discount (%)', digits='Discount',
                             default=0.0)
+    service_amount = fields.Float(string="Service amount before tax", compute="get_amount_totals", )
+    service_net = fields.Float(string="Service net amount", compute="get_amount_totals", )
+    total_discount = fields.Float(string="Total Discount", compute="get_amount_totals", )
+    total_payment = fields.Float(string="Total payment", compute="get_amount_totals", )
+    total_net = fields.Float(string="Total Net", compute="get_amount_totals", )
+
+    @api.depends('teeth_treatment_ids', 'teeth_treatment_ids.amount', 'teeth_treatment_ids.discount',
+                 'teeth_treatment_ids.net_amount')
+    def get_amount_totals(self):
+        service_amount = 0
+        service_net = 0
+        total_payment = 0
+        for record in self:
+            for line in record.teeth_treatment_ids:
+                service_amount += line.amount
+                service_net += line.net_amount
+            record.total_discount = service_amount - service_net
+            record.service_amount = service_amount
+            record.service_net = service_net
+            obj_payment = self.env['account.payment'].search([('partner_id', '=', record.partner_id.id)])
+            for payment in obj_payment:
+                if payment.payment_type == 'inbound':
+                    total_payment += payment.amount
+                elif payment.payment_type == 'outbound':
+                    total_payment -= payment.amount
+            record.total_payment = total_payment
+            record.total_net = record.service_net - record.total_payment
 
     def select_all(self):
         for line in self.teeth_treatment_ids:
@@ -245,7 +272,7 @@ class Teeth(models.Model):
     def get_net_amount(self):
         for line in self:
             line.net_amount = line.amount - (
-                        (line.amount * line.discount) / 100)
+                    (line.amount * line.discount) / 100)
 
     @api.model
     def create(self, values):
@@ -298,7 +325,7 @@ class Teeth(models.Model):
             }
             acc_id = self.env['account.move'].create(inv_values)
             acc_id.write({'invoice_line_ids': [(0, 0, inv_line_main)]})
-
+            acc_id.action_post()
             self.write({'invc_id': acc_id.id, 'inv': True})
             context = dict(self._context or {})
             wiz_form_id = self.env['ir.model.data'].get_object_reference(

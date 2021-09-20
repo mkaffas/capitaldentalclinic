@@ -163,16 +163,28 @@
     <!-- Inherit Form View to Modify it -->
     <record id="edit_patient_teeth" model="ir.ui.view">
         <field name="model">medical.teeth.treatment</field>
-        <field name="inherit_id" ref="pragtech_dental_management.medical_patient_treatment_tree"/>
+        <field name="inherit_id" ref="pragtech_dental_management.medical_patient_view"/>
         <field name="arch" type="xml">
 
-            <xpath expr="//tree" position="attributes">
+            <xpath expr="//field[@name='teeth_treatment_ids']/tree" position="attributes">
                 <attribute name="editable">bottom</attribute>
             </xpath>
-            <xpath expr="//field[@name='create_date']" position="before">
+            <xpath expr="//field[@name='teeth_treatment_ids']/tree/field[@name='create_date']" position="before">
                 <field name="is_selected"/>
             </xpath>
-            <xpath expr="//field[@name='amount']" position="after">
+            <xpath expr="//sheet" position="after">
+                <div class="oe_button_box" name="button_box">
+                    <button type="object"
+                        class="oe_stat_button"
+                        id="partner_ledger_button"
+                        icon="fa-pencil-square-o"
+                        name="open_partner_ledger"
+                        string="Partner Ledger"
+                        context="{'default_partner_id': partner_id}">
+                    </button>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='teeth_treatment_ids']/tree/field[@name='amount']" position="after">
                 <field name="inv" invisible="1"/>
                 <field name="account_id" invisible="1"/>
                 <field name="invc_id"/>
