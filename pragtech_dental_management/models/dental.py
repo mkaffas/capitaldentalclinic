@@ -1649,10 +1649,13 @@ class MedicalAppointment(models.Model):
     @api.depends('state')
     def _compute_color(self):
         """ Compute color value """
-        states = ['draft', 'sms_send', 'confirmed', 'missed', 'postpone',
-                  'checkin', 'in_room', 'ready', 'done', 'cancel']
+        states = {
+            'draft': 3, 'sms_send': 2, 'confirmed': 10, 'missed': 9,
+            'postpone': 6, 'checkin': 11, 'in_room': 7, 'ready': 5,
+            'done': 8, 'cancel': 1,
+        }
         for rec in self:
-            rec.color = states.index(rec.state)
+            rec.color = states.get(rec.state)
 
     def get_date(self, date1, lang):
         new_date = ''
@@ -1693,13 +1696,12 @@ class MedicalAppointment(models.Model):
             'type': 'ir.actions.act_window',
             'view_mode': 'form',
             'name': _("Send SMS Text Message"),
-            'res_model': 'sms.composer',
+            'res_model': 'sms.eg',
             'target': 'new',
             'views': [(False, "form")],
             'context': {
-                'default_res_model': 'res.partner',
-                'default_res_id': self.patient.partner_id.id,
-                'default_composition_mode': 'comment',
+                'default_partner_ids': [(4, self.patient.partner_id.id)],
+                'default_message': 'comment',
             },
         }
 
