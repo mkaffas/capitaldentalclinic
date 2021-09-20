@@ -139,18 +139,18 @@
         <field name="inherit_id" ref="pragtech_dental_management.medical_patient_view"/>
         <field name="arch" type="xml">
             <!--<xpath expr="//page[8]" position="replace">-->
-                <!--<page string="Operations"-->
-                      <!--groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager">-->
-                    <!--<group colspan="4" col="8">-->
-                        <!--<field name="teeth_treatment_ids" string="Operations"-->
-                               <!--nolabel="1" attrs="{'readonly':0}"/>-->
-                    <!--</group>-->
-                <!--</page>-->
+            <!--<page string="Operations"-->
+            <!--groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager">-->
+            <!--<group colspan="4" col="8">-->
+            <!--<field name="teeth_treatment_ids" string="Operations"-->
+            <!--nolabel="1" attrs="{'readonly':0}"/>-->
+            <!--</group>-->
+            <!--</page>-->
             <!--</xpath>-->
             <xpath expr="//page[8]/group" position="before">
                 <group>
                     <button name="select_all" string="Select All" type="object" class="oe_highlight"/>
-                    <button name="get_all_discount" string="Add Discount" type="object" class="oe_highlight" />
+                    <button name="get_all_discount" string="Add Discount" type="object" class="oe_highlight"/>
                 </group>
                 <group>
                     <field name="discount"/>
@@ -160,22 +160,34 @@
             <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree" position="attributes">
                 <attribute name="editable">bottom</attribute>
             </xpath>
-            <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree/field[@name='create_date']" position="before">
+            <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree/field[@name='create_date']"
+                   position="before">
                 <field name="is_selected"/>
             </xpath>
             <xpath expr="//sheet" position="after">
                 <div class="oe_button_box" name="button_box">
                     <button type="object"
-                        class="oe_stat_button"
-                        id="partner_ledger_button"
-                        icon="fa-pencil-square-o"
-                        name="open_partner_ledger"
-                        string="Partner Ledger"
-                        context="{'default_partner_id': partner_id}">
+                            class="oe_stat_button"
+                            id="partner_ledger_button"
+                            icon="fa-pencil-square-o"
+                            name="open_partner_ledger"
+                            string="Partner Ledger"
+                            context="{'default_partner_id': partner_id}">
                     </button>
                 </div>
             </xpath>
-            <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree/field[@name='amount']" position="after">
+            <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']"
+                   position="after">
+                <group class="oe_subtotal_footer oe_right">
+                    <field name="service_amount"/>
+                    <field name="service_net"/>
+                    <field name="total_discount"/>
+                    <field name="total_payment"/>
+                    <field name="total_net" class="oe_subtotal_footer_separator"/>
+                </group>
+            </xpath>
+            <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree/field[@name='amount']"
+                   position="after">
                 <field name="inv" invisible="1"/>
                 <field name="account_id" invisible="1"/>
                 <field name="invc_id"/>
