@@ -226,6 +226,18 @@ class Patient(models.Model):
                     total_payment -= payment.amount
             record.total_payment = total_payment
             record.total_net = record.service_net - record.total_payment
+                    
+    def open_partner_ledger(self):
+        return {
+            'type': 'ir.actions.client',
+            'name': _('Partner Ledger'),
+            'tag': 'account_report',
+            'params': {
+                'options': {'partner_ids': [self.id]},
+                'ignore_session': 'both',
+            },
+            'context': "{'model':'account.partner.ledger'}"
+        }
 
     def select_all(self):
         for line in self.teeth_treatment_ids:
