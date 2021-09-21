@@ -127,6 +127,7 @@
                     </body>
                 </div>
                 <div class="states" width="100%" style="margin-top: 311px;margin-left: -86px;">
+                    <button id='planned' class="myButton">Planned</button>
                     <button id="in_progress" class="myButton">In Progress</button>
                     <button id='extra_session' class="myButton">Extra Session</button>
                     <button id='completed' class="myButton">Completed</button>
