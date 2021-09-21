@@ -48,19 +48,26 @@
             <form>
                 <header>
                     <field name="is_payment" invisible="1"/>
-                    <button name="confirm_appointment" string="Confirm" type="object" attrs="{'invisible': ['|',('patient_state', '=', 'withapt'),('state', 'in', ('sms_send', 'confirmed','missed','checkin','ready','done','cancel'))]}"/>
+                    <button name="confirm_appointment" string="Confirm" type="object"
+                            attrs="{'invisible': ['|',('patient_state', '=', 'withapt'),('state', 'in', ('sms_send', 'confirmed','missed','checkin','ready','done','cancel'))]}"/>
                     <button name="confirm" string="Confirm" type="object" states="sms_send" class="oe_highlight"/>
-                    <button name="checkin" string="Checked In" type="object" states="confirmed,postpone" class="oe_highlight"/>
+                    <button name="checkin" string="Checked In" type="object" states="confirmed,postpone"
+                            class="oe_highlight"/>
                     <button name="action_postpone" string="Postpone" type="object" states="sms_send,confirmed"/>
                     <button name="missed" string="Missed" type="object" states="sms_send,confirmed"/>
                     <button name="action_in_room" string="In Room" type="object" states="checkin" class="oe_highlight"/>
                     <button name="ready" string="Start Session" type="object" states="in_room" class="oe_highlight"/>
-                    <button name="open_payment" string="Open Payment" type="object" attrs="{'invisible': [('is_payment','=',False)]}"/>
-                    <button name="create_payment" string="Make Payment" type="object" attrs="{'invisible': ['|',('is_payment','=',True),('state', 'not in', ['checkin'])]}"/>
+                    <button name="open_payment" string="Open Payment" type="object"
+                            attrs="{'invisible': [('is_payment','=',False)]}"/>
+                    <button name="create_payment" string="Make Payment" type="object"
+                            attrs="{'invisible': ['|',('is_payment','=',True),('state', 'not in', ['checkin'])]}"/>
                     <button name="done" string="Completed" type="object" states="ready"/>
-                    <button name="send_state" string="Send SMS" type="object" attrs="{'invisible': ['|',('patient_state', '=', 'walkin'),('state', 'in', ('sms_send', 'confirmed','missed','checkin','ready','done','cancel'))]}"/>
+                    <button name="send_state" string="Send SMS" type="object"
+                            attrs="{'invisible': ['|',('patient_state', '=', 'walkin'),('state', 'in', ('sms_send', 'confirmed','missed','checkin','ready','done','cancel'))]}"/>
                     <button name="cancel" string="Cancel" type="object" states="draft,confirmed,sms_send"/>
-                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,checkin,in_room,ready,done" statusbar_colors='{"confirmed":"blue","ready":"blue","cancel":"red"}'/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,confirmed,checkin,in_room,ready,done"
+                           statusbar_colors='{"confirmed":"blue","ready":"blue","cancel":"red"}'/>
                 </header>
                 <sheet>
                     <group>
@@ -167,13 +174,34 @@
                         <div class="row no-gutters">
                             <div class="col">
                                 <ul class="pl-1 mb-0">
-                                    <li><strong>Branch: </strong><t t-esc="branch_id[1]"/></li>
-                                    <li><strong>Doctor: </strong><t t-esc="doctor[1]"/></li>
-                                    <li><strong>Patient: </strong><t t-esc="patient[1]"/></li>
-                                    <li><strong>Start: </strong> <t t-esc="userTimezoneStartDate.format('YYYY-MM-DD hh:mm:ss A')"/></li>
-                                    <li><strong>End: </strong> <t t-esc="userTimezoneStopDate.format('YYYY-MM-DD hh:mm:ss A')"/></li>
-                                    <li><strong>Notes: </strong><t t-esc="comments"/></li>
-                                    <li><strong>State: </strong><t t-esc="state"/></li>
+                                    <li>
+                                        <strong>Branch:</strong>
+                                        <t t-esc="branch_id[1]"/>
+                                    </li>
+                                    <li>
+                                        <strong>Doctor:</strong>
+                                        <t t-esc="doctor[1]"/>
+                                    </li>
+                                    <li>
+                                        <strong>Patient:</strong>
+                                        <t t-esc="patient[1]"/>
+                                    </li>
+                                    <li>
+                                        <strong>Start:</strong>
+                                        <t t-esc="userTimezoneStartDate.format('YYYY-MM-DD hh:mm:ss A')"/>
+                                    </li>
+                                    <li>
+                                        <strong>End:</strong>
+                                        <t t-esc="userTimezoneStopDate.format('YYYY-MM-DD hh:mm:ss A')"/>
+                                    </li>
+                                    <li>
+                                        <strong>Notes:</strong>
+                                        <t t-esc="comments"/>
+                                    </li>
+                                    <li>
+                                        <strong>State:</strong>
+                                        <t t-esc="state"/>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -212,7 +240,9 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">medical.appointment</field>
         <field name="view_mode">gantt,calendar,tree,form</field>
-        <field name="context">{'apt_id': True, 'search_default_group_by_branch_id': 1, 'search_default_group_by_room_id': 1}</field>
+        <field name="context">{'apt_id': True, 'search_default_group_by_branch_id': 1,
+            'search_default_group_by_room_id': 1}
+        </field>
 
         <field name="view_id" eval="False"/>
     </record>
@@ -794,7 +824,9 @@
                 </header>
                 <sheet>
                     <div class="oe_title">
-                        <h1><field name="patient_id" readonly="1"/></h1>
+                        <h1>
+                            <field name="patient_id" readonly="1"/>
+                        </h1>
                     </div>
                     <group>
                         <group>
@@ -827,9 +859,12 @@
                                         <field name="street" placeholder="Street..." class="o_address_street"/>
                                         <field name="street2" placeholder="Street 2..." class="o_address_street"/>
                                         <field name="city" placeholder="City" class="o_address_city"/>
-                                        <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_quick_create': True}" context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"/>
+                                        <field name="state_id" class="o_address_state" placeholder="State"
+                                               options="{'no_open': True, 'no_quick_create': True}"
+                                               context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"/>
                                         <field name="zip" placeholder="ZIP" class="o_address_zip"/>
-                                        <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                        <field name="country_id" placeholder="Country" class="o_address_country"
+                                               options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
                                     </div>
                                 </group>
                                 <group groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager">
@@ -949,7 +984,8 @@
                                 <field name="medical_history"/>
                             </group>
                         </page>
-                        <page string="Prescriptions" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager">
+                        <page string="Prescriptions"
+                              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager">
                             <group colspan="4" col="8">
                                 <field name="prescriptions" string="Prescriptions History"
                                        nolabel="1">
@@ -981,10 +1017,22 @@
                         <page string="Chart">
                             <button name="open_chart" type="object" string="Open Chart"></button>
                         </page>
-                        <page string="Operations" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager">
+                        <page string="Operations"
+                              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager">
                             <group colspan="4" col="8">
-                                <field name="teeth_treatment_ids" string="Operations"
-                                       nolabel="1"/>
+                                <field name="teeth_treatment_ids" string="Operations" readonly="0"
+                                       nolabel="1">
+                                    <tree>
+                                        <field name="create_date"/>
+                                        <field name="description"/>
+                                        <field name="teeth_id"/>
+                                        <field name="state"/>
+                                        <field name="dentist"/>
+                                        <field name="detail_description"/>
+                                        <field name="completion_date"/>
+                                        <field name="amount"/>
+                                    </tree>
+                                </field>
                             </group>
                         </page>
                         <page string="Images">
@@ -1001,7 +1049,8 @@
                                 </tree>
                             </field>
                         </page>
-                        <page string="Patient Complaints" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager">
+                        <page string="Patient Complaints"
+                              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager">
                             <group colspan="4" col="8">
                                 <field name="patient_complaint_ids"
                                        context="{'search_default_patient_id': id,'default_patient_id': id}"
@@ -1096,12 +1145,17 @@
                         <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
                             <div class="o_dropdown_kanban dropdown">
 
-                                <a class="dropdown-toggle o-no-caret btn" role="button" data-toggle="dropdown" data-display="static" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                <a class="dropdown-toggle o-no-caret btn" role="button" data-toggle="dropdown"
+                                   data-display="static" href="#" aria-label="Dropdown menu" title="Dropdown menu">
                                     <span class="fa fa-ellipsis-v"/>
                                 </a>
                                 <div class="dropdown-menu" role="menu">
-                                    <t t-if="widget.editable"><a role="menuitem" type="edit" class="dropdown-item">Edit</a></t>
-                                    <t t-if="widget.deletable"><a role="menuitem" type="delete" class="dropdown-item">Delete</a></t>
+                                    <t t-if="widget.editable">
+                                        <a role="menuitem" type="edit" class="dropdown-item">Edit</a>
+                                    </t>
+                                    <t t-if="widget.deletable">
+                                        <a role="menuitem" type="delete" class="dropdown-item">Delete</a>
+                                    </t>
                                     <ul class="oe_kanban_colorpicker" data-field="color"/>
                                 </div>
                             </div>
@@ -1287,7 +1341,9 @@
             <form string="Dental Clinic Operating Rooms">
                 <sheet>
                     <div class="oe_title">
-                        <h1><field name="name" placeholder="Name" required="1"/></h1>
+                        <h1>
+                            <field name="name" placeholder="Name" required="1"/>
+                        </h1>
                     </div>
                     <group>
                         <group>
@@ -1985,6 +2041,13 @@
         </field>
     </record>
 
+    <record id="teeth_action" model="ir.actions.act_window">
+        <field name="name">Teeth Operations</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">medical.teeth.treatment</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
     <record id="medical_patient_birthday_alert_form" model="ir.ui.view">
         <field name="name">Today Birthday</field>
         <field name="model">patient.birthday.alert</field>
@@ -2018,7 +2081,8 @@
         <field name="res_model">patient.birthday.alert</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" ref="medical_patient_birthday_alert_tree_view"/>
-        <field name="domain">[('date_create', '&gt;=', context_today().strftime('%Y-%m-%d')), ('date_create', '&lt;=', context_today().strftime('%Y-%m-%d'))]
+        <field name="domain">[('date_create', '&gt;=', context_today().strftime('%Y-%m-%d')), ('date_create', '&lt;=',
+            context_today().strftime('%Y-%m-%d'))]
         </field>
 
     </record>
@@ -2102,7 +2166,8 @@
     </record>
 
     <menuitem name="Dental Management" id="medical_menu"/>
-    <menuitem name="Configuration" id="medical_conf_menu" parent="medical_menu" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"
+    <menuitem name="Configuration" id="medical_conf_menu" parent="medical_menu"
+              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"
               sequence="12"/>
 
     <menuitem name="Appointments" id="medical_appointment_menu"
@@ -2115,7 +2180,8 @@
               sequence="2"/>
 
     <menuitem name="Prescriptions" id="medical_prescription_menu"
-              parent="medical_menu" sequence="3" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"/>
+              parent="medical_menu" sequence="3"
+              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"/>
 
     <menuitem name="Medical Procedures" id="medical_conf_procedure"
               parent="medical_conf_menu" sequence="4"/>
@@ -2136,13 +2202,16 @@
               parent="medical_conf_menu" sequence="9"/>
 
     <menuitem name="Reporting" id="medical_reporting_menu"
-              parent="medical_menu" sequence="11" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"/>
+              parent="medical_menu" sequence="11"
+              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"/>
 
     <menuitem name="Alerts" id="medical_patient_birthday_menu"
-              parent="medical_menu" sequence="4" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"/>
+              parent="medical_menu" sequence="4"
+              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"/>
 
     <menuitem name="Reports" id="dental_report_menu" parent="medical_menu"
-              sequence="6" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"/>
+              sequence="6"
+              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"/>
 
     <menuitem action="medical_action_form_appointment" id="medical_conf_appointment_add"
               parent="medical_appointment_menu" sequence="2"/>
@@ -2167,10 +2236,13 @@
               parent="medical_conf_physicians"/>
 
     <menuitem action="medical_action_tree_family_code" id="medical_conf_edit_family_code"
-              parent="medical_patients_menu" sequence="1" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"/>
+              parent="medical_patients_menu" sequence="1"
+              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"/>
 
     <menuitem action="medical_patient_action_tree" parent="medical_patients_menu"
               id="medical_edit_patient" sequence="2"/>
+
+    <menuitem id="treatment_menu" name="Teeth Operations" parent="medical_menu" action="teeth_action" sequence="5"/>
 
     <menuitem action="action_partner_health_center" id="menu_health_center_form"
               parent="medical_conf_hospital" sequence="0"/>
@@ -2222,11 +2294,13 @@
               sequence="1"/>
 
     <menuitem action="action_patient_complaint" name="Patient Complaints"
-              id="patient_complaint_submenu" parent="medical_patients_menu" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"
+              id="patient_complaint_submenu" parent="medical_patients_menu"
+              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"
               sequence="4"/>
 
     <menuitem action="medical_action_insurance" name="Insurance"
-              id="patient_insurance_submenu" parent="medical_patients_menu" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"
+              id="patient_insurance_submenu" parent="medical_patients_menu"
+              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"
               sequence="5"/>
 
     <menuitem action="medical_action_insurance" id="medical_conf_edit_insurance"
