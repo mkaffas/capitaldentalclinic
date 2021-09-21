@@ -216,6 +216,14 @@
         <field name="model">medical.teeth.treatment</field>
         <field name="inherit_id" ref="pragtech_dental_management.medical_patient_medication_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//sheet" position="after">
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"
+                           groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </xpath>
             <xpath expr="//field[@name='amount']" position="after">
                 <field name="inv" invisible="1"/>
                 <field name="account_id"/>
