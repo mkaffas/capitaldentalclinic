@@ -2188,24 +2188,24 @@ class MedicalTeethTreatment(models.Model):
     _name = "medical.teeth.treatment"
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    patient_id = fields.Many2one('medical.patient', 'Patient Details')
-    teeth_id = fields.Many2one('teeth.code', 'Tooth')
+    patient_id = fields.Many2one('medical.patient', 'Patient Details',tracking=True)
+    teeth_id = fields.Many2one('teeth.code', 'Tooth',tracking=True)
     description = fields.Many2one('product.product', 'Description',
-                                  domain=[('is_treatment', '=', True)])
-    completion_date = fields.Datetime()
-    detail_description = fields.Text('Surface')
+                                  domain=[('is_treatment', '=', True)],tracking=True)
+    completion_date = fields.Datetime(tracking=True)
+    detail_description = fields.Text('Surface',tracking=True)
     state = fields.Selection(
         [('planned', 'Planned'), ('condition', 'Condition'),
          ('completed', 'Completed'), ('in_progress', 'In Progress'),
          ('extra_session', 'Extra Session'), ('invoiced', 'Invoiced')],
-        'Status', default='planned'
+        'Status', default='planned',tracking=True
     )
-    dentist = fields.Many2one('medical.physician', 'Dentist')
-    amount = fields.Float('Amount')
-    appt_id = fields.Many2one('medical.appointment', 'Appointment ID')
+    dentist = fields.Many2one('medical.physician', 'Dentist',tracking=True)
+    amount = fields.Float('Amount',tracking=True)
+    appt_id = fields.Many2one('medical.appointment', 'Appointment ID',tracking=True)
     teeth_code_rel = fields.Many2many('teeth.code',
                                       'teeth_code_medical_teeth_treatment_rel',
-                                      'operation', 'teeth')
+                                      'operation', 'teeth',tracking=True)
 
 
 class PatientBirthdayAlert(models.Model):

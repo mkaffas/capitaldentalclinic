@@ -2041,6 +2041,14 @@
         </field>
     </record>
 
+    <record id="teeth_action" model="ir.actions.act_window">
+        <field name="name">Teeth Operations</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">medical.teeth.treatment</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+    </record>
+
     <record id="medical_patient_birthday_alert_form" model="ir.ui.view">
         <field name="name">Today Birthday</field>
         <field name="model">patient.birthday.alert</field>
@@ -2234,6 +2242,8 @@
 
     <menuitem action="medical_patient_action_tree" parent="medical_patients_menu"
               id="medical_edit_patient" sequence="2"/>
+
+    <menuitem id="treatment_menu" name="Teeth Operations" parent="medical_patients_menu" action="" sequence="5"/>
 
     <menuitem action="action_partner_health_center" id="menu_health_center_form"
               parent="medical_conf_hospital" sequence="0"/>

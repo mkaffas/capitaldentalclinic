@@ -257,7 +257,7 @@ class Teeth(models.Model):
     invc_id = fields.Many2one('account.move', string='Invoice')
     account_id = fields.Many2one(comodel_name="account.account",
                                  string="Account", required=False, )
-    discount = fields.Float(string='Discount (%)', digits='Discount',
+    discount = fields.Float(string='Discount (%)', digits='Discount',tracking=True,
                             default=0.0)
     net_amount = fields.Float(string="Net Amount", compute="get_net_amount")
     is_selected = fields.Boolean(string="", )
@@ -339,20 +339,20 @@ class Teeth(models.Model):
             acc_id.write({'invoice_line_ids': [(0, 0, inv_line_main)]})
             acc_id.action_post()
             self.write({'invc_id': acc_id.id, 'inv': True})
-            context = dict(self._context or {})
-            wiz_form_id = self.env['ir.model.data'].get_object_reference(
-                'account', 'view_move_form')[1]
-
-            return {
-                'view_type': 'form',
-                'view_id': wiz_form_id,
-                'view_mode': 'form',
-                'res_model': 'account.move',
-                'res_id': self.invc_id.id,
-                'type': 'ir.actions.act_window',
-                'target': 'current',
-                'context': context,
-            }
+            # context = dict(self._context or {})
+            # wiz_form_id = self.env['ir.model.data'].get_object_reference(
+            #     'account', 'view_move_form')[1]
+            #
+            # return {
+            #     'view_type': 'form',
+            #     'view_id': wiz_form_id,
+            #     'view_mode': 'form',
+            #     'res_model': 'account.move',
+            #     'res_id': self.invc_id.id,
+            #     'type': 'ir.actions.act_window',
+            #     'target': 'current',
+            #     'context': context,
+            # }
 
     def open_invoice(self):
         """Method Open Invoice."""

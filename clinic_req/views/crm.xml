@@ -180,8 +180,8 @@
                    position="after">
                 <group class="oe_subtotal_footer oe_right">
                     <field name="service_amount"/>
-                    <field name="service_net"/>
                     <field name="total_discount"/>
+                    <field name="service_net"/>
                     <field name="total_payment"/>
                     <field name="total_net" class="oe_subtotal_footer_separator"/>
                 </group>
