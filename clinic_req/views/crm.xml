@@ -242,4 +242,7 @@
     <!-- This Menu Item must have a parent and an action -->
     <menuitem id="menu_chief" name="Chief Complaint" parent="pragtech_dental_management.medical_conf_menu"
               action="action_chief" sequence="5"/>
+
+    <menuitem id="menu_patient_payment" name="Patient Payment" parent="pragtech_dental_management.medical_patients_menu"
+              action="account.action_account_payments" sequence="5"/>
 </odoo>
