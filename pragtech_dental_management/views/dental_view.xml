@@ -2046,7 +2046,6 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">medical.teeth.treatment</field>
         <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
     </record>
 
     <record id="medical_patient_birthday_alert_form" model="ir.ui.view">
