@@ -164,7 +164,7 @@
                    position="before">
                 <field name="is_selected"/>
             </xpath>
-            <xpath expr="//sheet" position="after">
+            <xpath expr="//div[@class='oe_title']" position="before">
                 <div class="oe_button_box" name="button_box">
                     <button type="object"
                             class="oe_stat_button"

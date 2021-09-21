@@ -2242,7 +2242,7 @@
     <menuitem action="medical_patient_action_tree" parent="medical_patients_menu"
               id="medical_edit_patient" sequence="2"/>
 
-    <menuitem id="treatment_menu" name="Teeth Operations" parent="medical_patients_menu" action="" sequence="5"/>
+    <menuitem id="treatment_menu" name="Teeth Operations" parent="medical_menu" action="teeth_action" sequence="5"/>
 
     <menuitem action="action_partner_health_center" id="menu_health_center_form"
               parent="medical_conf_hospital" sequence="0"/>

@@ -233,7 +233,7 @@ class Patient(models.Model):
             'name': _('Partner Ledger'),
             'tag': 'account_report',
             'params': {
-                'options': {'partner_ids': [self.id]},
+                'options': {'partner_ids': [self.partner_id.id]},
                 'ignore_session': 'both',
             },
             'context': "{'model':'account.partner.ledger'}"
