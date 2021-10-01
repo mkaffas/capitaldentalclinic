@@ -87,24 +87,38 @@ class CRM(models.Model):
         }
 
     def create_patient(self):
-        partner_obj = self.env['res.partner']
-
-        # vals_partner =
-        partner = partner_obj.sudo().create({
+        partner_obj = self.env['res.partner'].sudo()
+        partner = partner_obj.create({
             'name': self.patient,
             'is_patient': True,
-            'type': 'contact'
-
+            'type': 'contact',
+            'mobile': self.mobile,
+            'email': self.email_from,
+            'phone': self.phone,
+            'street': self.street,
+            'street2': self.street2,
+            'zip': self.zip,
+            'city': self.city,
+            'state_id': self.state_id.id,
+            'country_id': self.country_id.id,
         })
-        patient_obj = self.env['medical.patient']
-        patient = patient_obj.sudo().create({
+        patient_obj = self.env['medical.patient'].sudo()
+        patient = patient_obj.create({
             'partner_id': partner.id,
             'dob': self.birthday,
             'sex': self.gender,
             'marital_status': self.marital_status,
-            'other_mobile': self.mobile,
+            'mobile': self.mobile,
             'occupation_id': self.occupation_id.id,
             'medium_id': self.medium_id.id,
+            'source_id': self.source_id.id,
+            'referred': self.referred,
+            'email': self.email_from,
+            'phone': self.phone,
+            'chief': self.chief,
+            'tag_ids': self.tag_ids.ids,
+            'nationality_id': self.nationality.id,
+            'note': self.description,
         })
         self.patient_id = patient.id
         self.is_create_patient = True
@@ -199,13 +213,23 @@ class Patient(models.Model):
     _inherit = 'medical.patient'
     discount = fields.Float(string='Discount (%)', digits='Discount',
                             default=0.0)
-    service_amount = fields.Float(string="Service amount before tax", compute="get_amount_totals", )
-    service_net = fields.Float(string="Service net amount", compute="get_amount_totals", )
-    total_discount = fields.Float(string="Total Discount", compute="get_amount_totals", )
-    total_payment = fields.Float(string="Total payment", compute="get_amount_totals", )
+    service_amount = fields.Float(string="Service amount before tax",
+                                  compute="get_amount_totals", )
+    service_net = fields.Float(string="Service net amount",
+                               compute="get_amount_totals", )
+    total_discount = fields.Float(string="Total Discount",
+                                  compute="get_amount_totals", )
+    total_payment = fields.Float(string="Total payment",
+                                 compute="get_amount_totals", )
     total_net = fields.Float(string="Total Net", compute="get_amount_totals", )
+    chief = fields.Many2one(comodel_name='chief.complaint',
+                            string="Chief Complaint", required=False, )
+    tag_ids = fields.Many2many(
+        'crm.tag'
+    )
 
-    @api.depends('teeth_treatment_ids', 'teeth_treatment_ids.amount', 'teeth_treatment_ids.discount',
+    @api.depends('teeth_treatment_ids', 'teeth_treatment_ids.amount',
+                 'teeth_treatment_ids.discount',
                  'teeth_treatment_ids.net_amount')
     def get_amount_totals(self):
         service_amount = 0
@@ -218,7 +242,8 @@ class Patient(models.Model):
             record.total_discount = service_amount - service_net
             record.service_amount = service_amount
             record.service_net = service_net
-            obj_payment = self.env['account.payment'].search([('partner_id', '=', record.partner_id.id)])
+            obj_payment = self.env['account.payment'].search(
+                [('partner_id', '=', record.partner_id.id)])
             for payment in obj_payment:
                 if payment.payment_type == 'inbound':
                     total_payment += payment.amount
@@ -226,7 +251,7 @@ class Patient(models.Model):
                     total_payment -= payment.amount
             record.total_payment = total_payment
             record.total_net = record.service_net - record.total_payment
-                    
+
     def open_partner_ledger(self):
         return {
             'type': 'ir.actions.client',
@@ -257,7 +282,8 @@ class Teeth(models.Model):
     invc_id = fields.Many2one('account.move', string='Invoice')
     account_id = fields.Many2one(comodel_name="account.account",
                                  string="Account", required=False, )
-    discount = fields.Float(string='Discount (%)', digits='Discount',tracking=True,
+    discount = fields.Float(string='Discount (%)', digits='Discount',
+                            tracking=True,
                             default=0.0)
     net_amount = fields.Float(string="Net Amount", compute="get_net_amount")
     is_selected = fields.Boolean(string="", )
