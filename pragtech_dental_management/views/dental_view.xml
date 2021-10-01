@@ -828,43 +828,42 @@
                             <field name="patient_id" readonly="1"/>
                         </h1>
                     </div>
+                    <field name="photo" widget="image" class="oe_avatar"/>
                     <group>
                         <group>
                             <field name="coordinator_id"/>
                         </group>
                     </group>
-
-                    <group col="6" colspan="6">
-                        <group col="4" colspan="4" string="Main Info">
+                    <group string="Main Info">
+                        <group>
                             <field name="partner_id"
                                    context="{'default_is_patient': 1, 'search_default_is_patient': 1,'search_default_is_person': 1,'default_is_person': 1}"/>
                             <field name="dob"/>
                             <field name="report_date" invisible="1"/>
                             <field name="sex"/>
                             <field name="age"/>
-                            <field name="arebic" string="Arabic"/>
-                            <field name="id" invisible="1"/>
                         </group>
-                        <group col="2" colspan="2" string="Picture" rowspan="1">
-                            <field name="photo" nolabel="1" img_width="120" img_height="120"
-                                   width="120" height="120" widget="image"/>
+                        <group>
+                            <field name="google_review" widget="boolean_toggle"/>
+                            <field name="video_review" widget="boolean_toggle"/>
+                            <field name="user_portal" widget="boolean_toggle"/>
+                            <field name="arebic" string="Arabic" widget="boolean_toggle"/>
                         </group>
                     </group>
+                    <group>
+                    </group>
                     <notebook>
-                        <page string="General Information">
-                            <group string="Patient General Information">
+                        <page string="Patient Information">
+                            <group string="General Information">
                                 <group groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager">
                                     <label for="street" string="Address"/>
                                     <div class="o_address_format">
                                         <field name="street" placeholder="Street..." class="o_address_street"/>
                                         <field name="street2" placeholder="Street 2..." class="o_address_street"/>
                                         <field name="city" placeholder="City" class="o_address_city"/>
-                                        <field name="state_id" class="o_address_state" placeholder="State"
-                                               options="{'no_open': True, 'no_quick_create': True}"
-                                               context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"/>
+                                        <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_quick_create': True}" context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"/>
                                         <field name="zip" placeholder="ZIP" class="o_address_zip"/>
-                                        <field name="country_id" placeholder="Country" class="o_address_country"
-                                               options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                        <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
                                     </div>
                                 </group>
                                 <group groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager">
@@ -881,6 +880,8 @@
                                     <field name="current_insurance"/>
                                     <field name="marital_status"/>
                                     <field name="medium_id"/>
+                                    <field name="source_id"/>
+                                    <field name="referred"/>
                                 </group>
                                 <group>
                                     <field name="occupation_id"/>
@@ -889,84 +890,51 @@
                                     <field name="nationality_id"/>
                                 </group>
                             </group>
-                            <separator colspan="4" string="Patient Extra Information"/>
-                            <newline/>
-                            <field colspan="4" name="general_info" nolabel="1"/>
-                            <newline/>
-                            <field colspan="4" name="note" nolabel="1" placeholder="Notes...."/>
-                            <newline/>
-                            <group colspan="4" col="4">
+                            <separator string="Extra Information"/>
+                            <field name="general_info" nolabel="1"/>
+                            <field name="note" nolabel="1" placeholder="Notes...."/>
+                            <group>
                                 <field name="deceased"/>
                                 <field name="dod"
                                        attrs="{'invisible':[('deceased','=',False)],'required':[('deceased','=',True)]}"/>
                             </group>
                         </page>
                         <page string="Medical Questionnaire">
-                            <group colspan="6" col="6">
+                            <group class="o_label_nowrap">
                                 <field name="receiving_treatment"/>
-                                <newline/>
                                 <field name="receiving_medicine"/>
                                 <field name="medicine_yes" placeholder="Note...." nolabel="1"
                                        attrs="{'invisible':[('receiving_medicine', '!=', 'YES')]}"/>
-                                <newline/>
                                 <field name="have_card"/>
                                 <field name="card_yes" placeholder="Note...." nolabel="1"
                                        attrs="{'invisible':[('have_card', '!=', 'YES')]}"/>
-                                <newline/>
                                 <field name="have_allergies"/>
-                                <field name="allergies_yes" placeholder="Note...."
-                                       nolabel="1" attrs="{'invisible':[('have_allergies', '!=', 'YES')]}"/>
-                                <newline/>
+                                <field name="allergies_yes" placeholder="Note...." nolabel="1" attrs="{'invisible':[('have_allergies', '!=', 'YES')]}"/>
                                 <field name="have_feaver"/>
-                                <newline/>
                                 <field name="have_ashtham"/>
-                                <newline/>
                                 <field name="have_attacks"/>
-                                <field name="attacks_yes" placeholder="Note...." nolabel="1"
-                                       attrs="{'invisible':[('have_attacks', '!=', 'YES')]}"/>
-                                <newline/>
+                                <field name="attacks_yes" placeholder="Note...." nolabel="1" attrs="{'invisible':[('have_attacks', '!=', 'YES')]}"/>
                                 <field name="have_heart"/>
-                                <field name="heart_yes" placeholder="Note...." nolabel="1"
-                                       attrs="{'invisible':[('have_heart', '!=', 'YES')]}"/>
-                                <newline/>
+                                <field name="heart_yes" placeholder="Note...." nolabel="1" attrs="{'invisible':[('have_heart', '!=', 'YES')]}"/>
                                 <field name="have_diabetic"/>
-                                <newline/>
                                 <field name="have_arthritis"/>
-                                <newline/>
                                 <field name="have_bleeding"/>
-                                <field name="bleeding_yes" placeholder="Note...." nolabel="1"
-                                       attrs="{'invisible':[('have_bleeding', '!=', 'YES')]}"/>
-                                <newline/>
+                                <field name="bleeding_yes" placeholder="Note...." nolabel="1" attrs="{'invisible':[('have_bleeding', '!=', 'YES')]}"/>
                                 <field name="have_infectious"/>
-                                <field name="infectious_yes" placeholder="Note...."
-                                       nolabel="1" attrs="{'invisible':[('have_infectious', '!=', 'YES')]}"/>
-                                <newline/>
+                                <field name="infectious_yes" placeholder="Note...." nolabel="1" attrs="{'invisible':[('have_infectious', '!=', 'YES')]}"/>
                                 <field name="have_rheumatic"/>
-                                <newline/>
                                 <field name="have_liver"/>
-                                <newline/>
                                 <field name="have_serious"/>
-                                <newline/>
                                 <field name="have_reaction"/>
-                                <field name="reaction_yes" placeholder="Note...." nolabel="1"
-                                       attrs="{'invisible':[('have_reaction', '!=', 'YES')]}"/>
-                                <newline/>
+                                <field name="reaction_yes" placeholder="Note...." nolabel="1" attrs="{'invisible':[('have_reaction', '!=', 'YES')]}"/>
                                 <field name="have_surgery"/>
-                                <field name="surgery_yes" placeholder="Note...." nolabel="1"
-                                       attrs="{'invisible':[('have_surgery', '!=', 'YES')]}"/>
-                                <newline/>
+                                <field name="surgery_yes" placeholder="Note...." nolabel="1" attrs="{'invisible':[('have_surgery', '!=', 'YES')]}"/>
                                 <field name="have_tabacco"/>
-                                <newline/>
                                 <field name="have_gutkha"/>
-                                <newline/>
                                 <field name="have_medicine"/>
-                                <newline/>
                                 <field name="have_pregnant"/>
-                                <field name="pregnant_yes" placeholder="Note...." nolabel="1"
-                                       attrs="{'invisible':[('have_pregnant', '!=', 'YES')]}"/>
-                                <newline/>
+                                <field name="pregnant_yes" placeholder="Note...." nolabel="1" attrs="{'invisible':[('have_pregnant', '!=', 'YES')]}"/>
                                 <field name="have_breastfeeding"/>
-                                <newline/>
                                 <field name="updated_date"/>
                             </group>
                         </page>
