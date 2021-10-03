@@ -670,7 +670,9 @@ class MedicalPatient(models.Model):
         group_expand='_group_expand_stage'
     )
 
-    medium_id = fields.Many2one('utm.medium', 'Medium')
+    medium_id = fields.Many2one('utm.medium')
+    source_id = fields.Many2one('utm.source')
+    referred = fields.Char()
     partner_id = fields.Many2one('res.partner', 'Patient', required="1",
                                  domain=[('is_patient', '=', True),
                                          ('is_person', '=', True)],
@@ -711,7 +713,7 @@ class MedicalPatient(models.Model):
     dob = fields.Date('Date of Birth')
     age = fields.Char(compute='_patient_age', string='Patient Age',
                       help="It shows the age of the patient in years(y), months(m) and days(d).\nIf the patient has died, the age shown is the age at time of death, the age corresponding to the date on the death certificate. It will show also \"deceased\" on the field")
-    sex = fields.Selection([('m', 'Male'), ('f', 'Female'), ], 'Sex', )
+    sex = fields.Selection([('m', 'Male'), ('f', 'Female'), ], 'Gender', )
     marital_status = fields.Selection(
         [('s', 'Single'), ('m', 'Married'), ('w', 'Widowed'), ('d', 'Divorced'),
          ('x', 'Separated'), ],
@@ -745,8 +747,10 @@ class MedicalPatient(models.Model):
                               'apid', 'Appointments')
     attachment_ids = fields.One2many('ir.attachment', 'patient_id',
                                      'attachments')
-    photo = fields.Binary(related='partner_id.image_1024', string='Picture',
-                          store=True)
+    photo = fields.Binary(
+        related='partner_id.image_1024',
+        string='Picture',
+        store=True)
     report_date = fields.Date("Report Date:", default=fields.Datetime.to_string(
         fields.Datetime.now()))
     occupation_id = fields.Many2one('medical.occupation', 'Occupation')
@@ -759,7 +763,7 @@ class MedicalPatient(models.Model):
     teeth_treatment_ids = fields.One2many('medical.teeth.treatment',
                                           'patient_id', 'Operations',
                                           readonly=True)
-    nationality_id = fields.Many2one('patient.nationality', 'Nationality')
+    nationality_id = fields.Many2one('res.country', 'Nationality')
     patient_complaint_ids = fields.One2many('patient.complaint', 'patient_id')
     receiving_treatment = fields.Selection([('YES', 'YES'), ('NO', 'NO'), ],
                                            '1. Are you currently receiving treatment from a doctor hospital or clinic ?')
@@ -821,6 +825,9 @@ class MedicalPatient(models.Model):
     coordinator_id = fields.Many2one(
         'res.users'
     )
+    google_review = fields.Boolean()
+    video_review = fields.Boolean()
+    user_portal = fields.Boolean()
 
     _sql_constraints = [
         ('name_uniq', 'unique (partner_id)', 'The Patient already exists'),
@@ -2220,10 +2227,12 @@ class MedicalTeethTreatment(models.Model):
     _name = "medical.teeth.treatment"
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
+
     patient_id = fields.Many2one('medical.patient', 'Patient Details', tracking=True)
     teeth_id = fields.Many2one('teeth.code', 'Tooth', tracking=True)
     description = fields.Many2one('product.product', 'Description',
                                   domain=[('is_treatment', '=', True)], tracking=True)
+
     completion_date = fields.Datetime(tracking=True)
     detail_description = fields.Text('Surface', tracking=True)
     state = fields.Selection(
@@ -2234,7 +2243,9 @@ class MedicalTeethTreatment(models.Model):
     )
     dentist = fields.Many2one('medical.physician', 'Dentist', tracking=True)
     amount = fields.Float('Amount', tracking=True)
+
     appt_id = fields.Many2one('medical.appointment', 'Appointment ID', tracking=True)
+
     teeth_code_rel = fields.Many2many('teeth.code',
                                       'teeth_code_medical_teeth_treatment_rel',
                                       'operation', 'teeth', tracking=True)
