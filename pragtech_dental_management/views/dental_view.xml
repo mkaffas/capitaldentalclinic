@@ -51,9 +51,10 @@
                     <button name="confirm_appointment" string="Confirm" type="object"
                             attrs="{'invisible': ['|',('patient_state', '=', 'withapt'),('state', 'in', ('sms_send', 'confirmed','missed','checkin','ready','done','cancel'))]}"/>
                     <button name="confirm" string="Confirm" type="object" states="sms_send" class="oe_highlight"/>
-                    <button name="checkin" string="Checked In" type="object" states="confirmed,postpone"
+                    <button name="checkin" string="Checked In" type="object" states="confirmed"
                             class="oe_highlight"/>
                     <button name="action_postpone" string="Postpone" type="object" states="sms_send,confirmed"/>
+                    <button name="action_appointment" string="Create Appointment" type="object" states="postpone"/>
                     <button name="missed" string="Missed" type="object" states="sms_send,confirmed"/>
                     <button name="action_in_room" string="In Room" type="object" states="checkin" class="oe_highlight"/>
                     <button name="ready" string="Start Session" type="object" states="in_room" class="oe_highlight"/>
@@ -63,7 +64,7 @@
                             attrs="{'invisible': ['|',('is_payment','=',True),('state', 'not in', ['checkin'])]}"/>
                     <button name="done" string="Completed" type="object" states="ready"/>
                     <button name="send_state" string="Send SMS" type="object"
-                            attrs="{'invisible': ['|',('patient_state', '=', 'walkin'),('state', 'in', ('sms_send', 'confirmed','missed','checkin','ready','done','cancel'))]}"/>
+                            attrs="{'invisible': ['|',('patient_state', '=', 'walkin'),('state', 'in', ('sms_send', 'confirmed','missed','checkin','ready','done','cancel','postpone'))]}"/>
                     <button name="cancel" string="Cancel" type="object" states="draft,confirmed,sms_send"/>
                     <field name="state" widget="statusbar"
                            statusbar_visible="draft,confirmed,checkin,in_room,ready,done"
@@ -73,23 +74,23 @@
                     <group>
                         <group colspan="4" col="4">
                             <field name="name"/>
-                            <field name="patient_state"/>
-                            <field name="patient" required="1" context="{'appointment_id_new':id}"/>
-                            <field name="unit_id"/>
-                            <field name="branch_id" required="1"/>
-                            <field name="room_id"/>
-                            <field name="appointment_sdate"/>
-                            <field name="appointment_edate"/>
-                            <field name="doctor" required="1"/>
-                            <field name="user_id"/>
+                            <field name="patient_state" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="patient" required="1" context="{'appointment_id_new':id}" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="unit_id" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="branch_id" required="1" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="room_id" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="appointment_sdate" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="appointment_edate" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="doctor" required="1" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="user_id" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
                             <field name="service_id"
-                                   domain="[('is_treatment', '=', True), ('type','=','service')]"/>
-                            <field name="urgency"/>
-                            <field name="no_invoice"/>
-                            <field name="checkin_time"/>
-                            <field name="ready_time"/>
-                            <field name="waiting_time"/>
-                            <field name="saleperson_id"/>
+                                   domain="[('is_treatment', '=', True), ('type','=','service')]" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="urgency" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="no_invoice" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="checkin_time" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="ready_time" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="waiting_time" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="saleperson_id" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
                             <field name="user_id" invisible="1"/>
                             <field name="invoice_done" invisible="1"/>
                             <field name="id" invisible="1"/>
@@ -97,9 +98,9 @@
                             <newline/>
                             <field name="pres_id1"
                                    context="{'default_patient_id':patient, 'physician_id':doctor, 'default_pid1':id, 'prescription_date':appointment_sdate}"
-                                   colspan="4"/>
-                            <field name="operations" colspan="4" readonly="1"/>
-                            <field name="comments" colspan="4"/>
+                                   colspan="4" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="operations" colspan="4" readonly="1" />
+                            <field name="comments" colspan="4" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
                         </group>
                     </group>
                 </sheet>

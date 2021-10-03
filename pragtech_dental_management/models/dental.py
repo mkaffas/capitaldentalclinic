@@ -1545,8 +1545,15 @@ class MedicalAppointment(models.Model):
     appointment_sdate = fields.Datetime('Appointment Start', required=True,
                                         default=fields.Datetime.now,
                                         tracking=True, )
+
+    def get_end_date(self):
+        current_date_and_time = datetime.now()
+        minutes_added = timedelta(minutes=30)
+        future_date_and_time = current_date_and_time + minutes_added
+        return future_date_and_time
+
     appointment_edate = fields.Datetime('Appointment End', required=False,
-                                        tracking=True, )
+                                        tracking=True, default=get_end_date)
     room_id = fields.Many2one(
         'medical.hospital.oprating.room', 'Room',
         required=False, tracking=True,
@@ -1598,6 +1605,31 @@ class MedicalAppointment(models.Model):
     _sql_constraints = [
         ('date_check', "CHECK (appointment_sdate <= appointment_edate)",
          "Appointment Start Date must be before Appointment End Date !"), ]
+
+    def action_appointment(self):
+
+        appointment_obj = self.env['medical.appointment']
+        vals = {
+            'patient': self.patient.id,
+            'doctor': False,
+            'room_id': self.room_id.id,
+            'branch_id': self.branch_id.id,
+        }
+
+        appointment = appointment_obj.sudo().create(vals)
+        # self.appointment_id = appointment.id
+        wiz_form_id = self.env['ir.model.data'].get_object_reference(
+            'pragtech_dental_management', 'medical_appointment_gantt')[1]
+        return {
+            'view_type': 'gantt',
+            'view_id': wiz_form_id,
+            'view_mode': 'gantt',
+            'res_model': 'medical.appointment',
+            'res_id': appointment.id,
+            'nodestroy': True,
+            'target': 'current',
+            'type': 'ir.actions.act_window',
+        }
 
     @api.constrains('appointment_sdate', 'appointment_edate', 'room_id')
     def _check_room_overlaps(self):
@@ -2195,12 +2227,12 @@ class MedicalTeethTreatment(models.Model):
     _name = "medical.teeth.treatment"
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    patient_id = fields.Many2one('medical.patient', 'Patient Details',
-                                 tracking=True)
+
+    patient_id = fields.Many2one('medical.patient', 'Patient Details', tracking=True)
     teeth_id = fields.Many2one('teeth.code', 'Tooth', tracking=True)
     description = fields.Many2one('product.product', 'Description',
-                                  domain=[('is_treatment', '=', True)],
-                                  tracking=True)
+                                  domain=[('is_treatment', '=', True)], tracking=True)
+
     completion_date = fields.Datetime(tracking=True)
     detail_description = fields.Text('Surface', tracking=True)
     state = fields.Selection(
@@ -2211,8 +2243,9 @@ class MedicalTeethTreatment(models.Model):
     )
     dentist = fields.Many2one('medical.physician', 'Dentist', tracking=True)
     amount = fields.Float('Amount', tracking=True)
-    appt_id = fields.Many2one('medical.appointment', 'Appointment ID',
-                              tracking=True)
+
+    appt_id = fields.Many2one('medical.appointment', 'Appointment ID', tracking=True)
+
     teeth_code_rel = fields.Many2many('teeth.code',
                                       'teeth_code_medical_teeth_treatment_rel',
                                       'operation', 'teeth', tracking=True)

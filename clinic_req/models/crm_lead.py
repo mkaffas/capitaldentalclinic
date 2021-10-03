@@ -46,6 +46,15 @@ class CRM(models.Model):
          ('x', 'Separated'), ],
         'Marital Status')
     is_create_patient = fields.Boolean(string="", )
+    branch_id = fields.Many2one(
+        'dental.branch', group_expand='_group_expand_branch', required=True
+    )
+    room_id = fields.Many2one(
+        'medical.hospital.oprating.room', 'Room',
+        required=False, tracking=True,
+        domain="[('branch_id', '=', branch_id)]",
+        group_expand='_group_expand_room'
+    )
 
     @api.depends('mobile', 'patient')
     def get_name_opportunity(self):
@@ -132,16 +141,18 @@ class CRM(models.Model):
             'patient': self.patient_id.id,
             'crm_id': self.id,
             'chief': self.chief.id,
+            'room_id': self.room_id.id,
+            'branch_id': self.branch_id.id,
         }
 
         appointment = appointment_obj.sudo().create(vals)
         self.appointment_id = appointment.id
         wiz_form_id = self.env['ir.model.data'].get_object_reference(
-            'pragtech_dental_management', 'medical_appointment_view')[1]
+            'pragtech_dental_management', 'medical_appointment_gantt')[1]
         return {
-            'view_type': 'form',
+            'view_type': 'gantt',
             'view_id': wiz_form_id,
-            'view_mode': 'form',
+            'view_mode': 'gantt',
             'res_model': 'medical.appointment',
             'res_id': appointment.id,
             'nodestroy': True,
@@ -163,9 +174,10 @@ class Appointment(models.Model):
                              required=False, )
     patient_coordinator = fields.Many2one(comodel_name="res.users",
                                           string="Patient Coordinator",
-                                          required=False, )
+                                          related='patient.coordinator_id')
     chief = fields.Many2one(comodel_name='chief.complaint',
                             string="Chief Complaint", required=False, )
+
 
     def cancel(self):
         for rec in self:
