@@ -333,7 +333,6 @@ class Patient(models.Model):
     def service_confirmation(self):
         for line in self.teeth_treatment_ids:
             if line.is_selected == True and line.inv == False:
-                self.ensure_one()
                 journal_id = self.env['account.journal'].search([
                     ('type', '=', 'sale')], limit=1)
                 inv_line_main = {
