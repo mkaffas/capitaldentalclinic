@@ -351,10 +351,10 @@ class Patient(models.Model):
                     'journal_id': journal_id and journal_id.id or False,
                     'teeth_id': line.patient_id and line.patient_id.id or False,
                 }
-                # acc_id = self.env['account.move'].create(inv_values)
-                # acc_id.write({'invoice_line_ids': [(0, 0, inv_line_main)]})
-                # acc_id.action_post()
-                # line.write({'invc_id': acc_id.id, 'inv': True})
+                acc_id = self.env['account.move'].sudo().create(inv_values)
+                acc_id.sudo().write({'invoice_line_ids': [(0, 0, inv_line_main)]})
+                acc_id.action_post()
+                line.sudo().write({'invc_id': acc_id.id, 'inv': True})
 
     def get_all_discount(self):
         for line in self.teeth_treatment_ids:
