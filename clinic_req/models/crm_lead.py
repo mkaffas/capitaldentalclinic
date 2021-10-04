@@ -46,8 +46,10 @@ class CRM(models.Model):
          ('x', 'Separated'), ],
         'Marital Status')
     is_create_patient = fields.Boolean(string="", )
+    referring_doctor_id = fields.Many2one('medical.physician',
+                                          'Referring  Doctor', )
     branch_id = fields.Many2one(
-        'dental.branch', group_expand='_group_expand_branch', required=True
+        'dental.branch', group_expand='_group_expand_branch',
     )
     room_id = fields.Many2one(
         'medical.hospital.oprating.room', 'Room',
@@ -153,6 +155,12 @@ class Chief_Complaint(models.Model):
     name = fields.Char()
 
 
+class Survey(models.Model):
+    _inherit = 'survey.survey'
+
+    appointment_id = fields.Many2one(comodel_name="medical.appointment", string="", required=False, )
+
+
 class Appointment(models.Model):
     _inherit = 'medical.appointment'
 
@@ -206,6 +214,22 @@ class Appointment(models.Model):
                     message_type='comment',
                     subtype_id=self.env.ref('mail.mt_note').id, )
 
+    def open_survey(self):
+        """Method Open survey."""
+        context = dict(self._context or {})
+        wiz_form_id = self.env['ir.model.data'].get_object_reference(
+            'survey', 'survey_form')[1]
+        return {
+            'view_type': 'form',
+            'view_id': wiz_form_id,
+            'view_mode': 'form',
+            'res_model': 'survey.survey',
+            # 'res_id': self.invc_id.id,
+            'type': 'ir.actions.act_window',
+            'target': 'current',
+            'context': {'default_appointment_id':self.id},
+        }
+
 
 class Patient(models.Model):
     _inherit = 'medical.patient'
@@ -216,6 +240,29 @@ class Patient(models.Model):
     total_discount = fields.Float(string="Total Discount", compute="get_amount_totals", )
     total_payment = fields.Float(string="Total payment", compute="get_amount_totals", )
     total_net = fields.Float(string="Total Net", compute="get_amount_totals", )
+
+    def action_appointment(self):
+
+        appointment_obj = self.env['medical.appointment']
+        vals = {
+            'patient': self.patient.id,
+            'doctor': False,
+        }
+
+        appointment = appointment_obj.sudo().create(vals)
+        # self.appointment_id = appointment.id
+        wiz_form_id = self.env['ir.model.data'].get_object_reference(
+            'pragtech_dental_management', 'medical_appointment_gantt')[1]
+        return {
+            'view_type': 'gantt',
+            'view_id': wiz_form_id,
+            'view_mode': 'gantt',
+            'res_model': 'medical.appointment',
+            'res_id': appointment.id,
+            'nodestroy': True,
+            'target': 'current',
+            'type': 'ir.actions.act_window',
+        }
 
     @api.depends('teeth_treatment_ids', 'teeth_treatment_ids.amount', 'teeth_treatment_ids.discount',
                  'teeth_treatment_ids.net_amount')
@@ -254,6 +301,15 @@ class Patient(models.Model):
     def select_all(self):
         for line in self.teeth_treatment_ids:
             line.is_selected = True
+
+    def unselect_all(self):
+        for line in self.teeth_treatment_ids:
+            line.is_selected = False
+
+    def service_confirmation(self):
+        for line in self.teeth_treatment_ids:
+            if line.is_selected == True and line.inv == False:
+                line.create_invoice()
 
     def get_all_discount(self):
         for line in self.teeth_treatment_ids:
