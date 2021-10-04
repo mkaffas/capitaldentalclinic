@@ -333,7 +333,29 @@ class Patient(models.Model):
     def service_confirmation(self):
         for line in self.teeth_treatment_ids:
             if line.is_selected == True and line.inv == False:
-                line.create_invoice(line)
+                self.ensure_one()
+                journal_id = self.env['account.journal'].search([
+                    ('type', '=', 'sale')], limit=1)
+                inv_line_main = {
+                    'name': line.description.name,
+                    'price_unit': line.amount or 0.00,
+                    'quantity': 1,
+                    'discount': line.discount,
+                    'account_id': line.description.property_account_income_id.id or line.description.categ_id.property_account_income_categ_id.id or False,
+                }
+                inv_values = {
+                    'partner_id': line.patient_id.partner_id.id,
+                    'patient_id': line.patient_id.id,
+                    'dentist': line.dentist.id,
+                    'move_type': 'out_invoice',
+                    'invoice_date': datetime.now().strftime(DF) or False,
+                    'journal_id': journal_id and journal_id.id or False,
+                    'teeth_id': line.patient_id and line.patient_id.id or False,
+                }
+                acc_id = self.env['account.move'].create(inv_values)
+                acc_id.write({'invoice_line_ids': [(0, 0, inv_line_main)]})
+                acc_id.action_post()
+                line.write({'invc_id': acc_id.id, 'inv': True})
 
     def get_all_discount(self):
         for line in self.teeth_treatment_ids:
@@ -404,9 +426,9 @@ class Teeth(models.Model):
                     subtype_id=self.env.ref('mail.mt_note').id)
         return res
 
-    def create_invoice(self,record):
+    def create_invoice(self):
         """Create invoice for Rent Schedule."""
-        for line in record:
+        for line in self:
             # if not line.account_id:
             #     raise UserError(_('Please Add the incoming Account !!'))
             self.ensure_one()
