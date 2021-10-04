@@ -333,7 +333,7 @@ class Patient(models.Model):
     def service_confirmation(self):
         for line in self.teeth_treatment_ids:
             if line.is_selected == True and line.inv == False:
-                line.create_invoice()
+                line.create_invoice(line.id)
 
     def get_all_discount(self):
         for line in self.teeth_treatment_ids:
@@ -404,9 +404,9 @@ class Teeth(models.Model):
                     subtype_id=self.env.ref('mail.mt_note').id)
         return res
 
-    def create_invoice(self):
+    def create_invoice(self,record):
         """Create invoice for Rent Schedule."""
-        for line in self:
+        for line in record:
             # if not line.account_id:
             #     raise UserError(_('Please Add the incoming Account !!'))
             self.ensure_one()
