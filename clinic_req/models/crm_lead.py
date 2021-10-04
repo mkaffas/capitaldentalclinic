@@ -333,7 +333,7 @@ class Patient(models.Model):
     def service_confirmation(self):
         for line in self.teeth_treatment_ids:
             if line.is_selected == True and line.inv == False:
-                line.create_invoice(line.id)
+                line.create_invoice(line)
 
     def get_all_discount(self):
         for line in self.teeth_treatment_ids:
