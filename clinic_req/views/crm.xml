@@ -75,7 +75,8 @@
             </xpath>
             <xpath expr="//button[@name='action_set_won_rainbowman']" position="after">
                 <field name="is_create_patient" invisible="1"/>
-                <button name="create_appointment" string="Appointment" type="object" class="oe_highlight"/>
+                <button name="create_appointment" string="Appointment" type="object" class="oe_highlight"
+                        attrs="{'invisible':[('is_create_patient','=',False)]}"/>
                 <button name="create_patient" string="Create Patient" type="object" class="oe_highlight"
                         attrs="{'invisible':[('is_create_patient','=',True)]}"/>
             </xpath>
@@ -154,7 +155,7 @@
             <!--</page>-->
             <!--</xpath>-->
             <xpath expr="//header" position="inside">
-                <button name="action_appointment" string="Create Appointment" type="object" states="postpone"/>
+                <button name="action_appointment" string="Create Appointment" type="object"/>
             </xpath>
             <xpath expr="//page[8]/group" position="before">
                 <group>
