@@ -172,7 +172,10 @@
                     <button name="get_all_discount" string="Add Discount" type="object" class="oe_highlight"/>
                 </group>
             </xpath>
-
+            <field name="nationality_id" position="after">
+                <field name="chief"/>
+                <field name="tag_ids" widget="many2many_tags"/>
+            </field>
             <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree" position="attributes">
                 <attribute name="editable">bottom</attribute>
             </xpath>
