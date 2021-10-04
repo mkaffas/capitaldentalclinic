@@ -343,8 +343,8 @@ class Patient(models.Model):
                     'account_id': line.description.property_account_income_id.id or line.description.categ_id.property_account_income_categ_id.id or False,
                 }
                 inv_values = {
-                    'partner_id': line.patient_id.partner_id.id,
-                    'patient_id': line.patient_id.id,
+                    'partner_id': self.partner_id.id,
+                    'patient_id': self.id,
                     'dentist': line.dentist.id,
                     'move_type': 'out_invoice',
                     'invoice_date': datetime.now().strftime(DF) or False,
