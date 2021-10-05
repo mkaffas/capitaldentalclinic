@@ -1655,17 +1655,18 @@ class MedicalAppointment(models.Model):
         for record in self:
             start = record.appointment_sdate
             end = record.appointment_edate
-            overlaps = self.search([
-                ('id', '!=', record.id), ('doctor', '=', record.doctor.id),
-                '|', '&',
-                ('appointment_sdate', '<=', start),
-                ('appointment_edate', '>=', start), '&',
-                ('appointment_sdate', '<=', end),
-                ('appointment_edate', '>=', end),
-            ])
-            if overlaps:
-                raise ValidationError(_("Doctor Cannot have more than "
-                                        "one appointment in the same time"))
+            if record.doctor:
+                overlaps = self.search([
+                    ('id', '!=', record.id), ('doctor', '=', record.doctor.id),
+                    '|', '&',
+                    ('appointment_sdate', '<=', start),
+                    ('appointment_edate', '>=', start), '&',
+                    ('appointment_sdate', '<=', end),
+                    ('appointment_edate', '>=', end),
+                ])
+                if overlaps:
+                    raise ValidationError(_("Doctor Cannot have more than "
+                                            "one appointment in the same time"))
 
     @api.constrains('appointment_sdate', 'appointment_edate', 'patient')
     def _check_patient_overlaps(self):

@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="edit_mail_activity" model="ir.ui.view">
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="mail.mail_activity_view_form_popup"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='summary']" position="after">
+                <field name="patient_id"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="activity_menu" name="Activities" action="mail.mail_activity_action" sequence="5"/>
     <!-- Inherit Form View to Modify it -->
     <record id="edit_crm" model="ir.ui.view">
         <field name="model">crm.lead</field>

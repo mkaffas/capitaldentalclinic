@@ -28,6 +28,16 @@ class CRM(models.Model):
 
     patient_id = fields.Many2one(comodel_name="medical.patient", string="",
                                  required=False, )
+    # activity_ids = fields.Many2many(comodel_name="mail.activity", string="Activities",compute="get_activity" )
+    #
+    # @api.depends('patient_id')
+    # def get_activity(self):
+    #     for line in self:
+    #         list_activity = []
+    #         for activity in self.env['mail.activity'].search([('patient_id','=',line.patient_id.id)]):
+    #             list_activity.append(activity.id)
+    #         line.activity_ids = [(6, 0, list_activity)]
+
     refer_patient_id = fields.Many2one(comodel_name="medical.patient",
                                        string="Referred By", required=False, )
     age = fields.Integer('Age', compute='compute_age')
@@ -173,6 +183,12 @@ class Survey(models.Model):
     _inherit = 'survey.survey'
 
     appointment_id = fields.Many2one(comodel_name="medical.appointment", string="", required=False, )
+
+
+class Activites(models.Model):
+    _inherit = 'mail.activity'
+
+    patient_id = fields.Many2one(comodel_name="medical.patient", string="Patient",required=False, )
 
 
 class Appointment(models.Model):

@@ -10,7 +10,8 @@
         'base',
         'crm',
         'pragtech_dental_management',
-        'survey'
+        'survey',
+        'mail'
     ],
     'data': [
         'security/ir.model.access.csv',
