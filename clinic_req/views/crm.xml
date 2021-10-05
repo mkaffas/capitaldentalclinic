@@ -14,6 +14,18 @@
         </field>
     </record>
 
+    <record id="edit_mail_activity_tree" model="ir.ui.view">
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="mail.mail_activity_view_tree"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='summary']" position="after">
+                <field name="patient_id"/>
+            </xpath>
+
+        </field>
+    </record>
+
     <!-- This Menu Item must have a parent and an action -->
     <menuitem id="activity_menu" name="Activities" action="mail.mail_activity_action" sequence="5"/>
     <!-- Inherit Form View to Modify it -->
