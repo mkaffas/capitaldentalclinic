@@ -1542,7 +1542,7 @@ class MedicalAppointment(models.Model):
                        default=lambda self: _('New'))
     patient = fields.Many2one('medical.patient', 'Patient', help="Patient Name",
                               required=True, tracking=True, )
-    appointment_sdate = fields.Datetime('Appointment Start', required=True,
+    appointment_sdate = fields.Datetime('Appointment Start', 
                                         default=fields.Datetime.now,
                                         tracking=True, )
 
