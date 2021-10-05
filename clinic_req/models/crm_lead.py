@@ -286,6 +286,8 @@ class Patient(models.Model):
         vals = {
             'patient': self.id,
             'doctor': False,
+            'appointment_edate': False,
+            'appointment_sdate': False,
         }
 
         appointment = appointment_obj.sudo().create(vals)
