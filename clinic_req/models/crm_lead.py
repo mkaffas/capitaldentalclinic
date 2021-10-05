@@ -349,7 +349,7 @@ class Patient(models.Model):
                     'move_type': 'out_invoice',
                     'invoice_date': datetime.now().strftime(DF) or False,
                     'journal_id': journal_id and journal_id.id or False,
-                    'teeth_id': line.patient_id and line.patient_id.id or False,
+                    'teeth_id': self.id or False,
                 }
                 acc_id = self.env['account.move'].sudo().create(inv_values)
                 acc_id.sudo().write({'invoice_line_ids': [(0, 0, inv_line_main)]})
