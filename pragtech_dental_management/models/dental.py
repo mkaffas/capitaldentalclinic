@@ -1612,6 +1612,8 @@ class MedicalAppointment(models.Model):
         vals = {
             'patient': self.patient.id,
             'doctor': False,
+            'appointment_edate': False,
+            'appointment_sdate': False,
             'room_id': self.room_id.id,
             'branch_id': self.branch_id.id,
         }
