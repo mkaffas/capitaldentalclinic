@@ -344,8 +344,8 @@ class Patient(models.Model):
                 }
                 inv_values = {
                     'partner_id': self.partner_id.id,
-                    'patient_id': self.id,
-                    'dentist': line.dentist.id,
+                    # 'patient_id': self.id,
+                    # 'dentist': line.dentist.id,
                     'move_type': 'out_invoice',
                     'invoice_date': datetime.now().strftime(DF) or False,
                     'journal_id': journal_id and journal_id.id or False,
