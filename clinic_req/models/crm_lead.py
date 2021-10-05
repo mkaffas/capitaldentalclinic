@@ -284,7 +284,7 @@ class Patient(models.Model):
 
         appointment_obj = self.env['medical.appointment']
         vals = {
-            'patient': self.patient.id,
+            'patient': self.partner_id.id,
             'doctor': False,
         }
 
