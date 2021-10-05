@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="edit_mail_activity" model="ir.ui.view">
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="mail.mail_activity_view_form_popup"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='summary']" position="after">
+                <field name="patient_id"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="activity_menu" name="Activities" action="mail.mail_activity_action" sequence="5"/>
     <!-- Inherit Form View to Modify it -->
     <record id="edit_crm" model="ir.ui.view">
         <field name="model">crm.lead</field>
@@ -38,8 +54,8 @@
             <xpath expr="//field[@name='phone_state']" position="after">
                 <!--<group class="mt48">-->
 
-                <field name="branch_id"/>
-                <field name="room_id"/>
+                <field name="branch_id" invisible="1"/>
+                <field name="room_id" invisible="1"/>
                 <field name="occupation_id" string="Occupation"/>
                 <field name="mobile" widget="phone" options="{'enable_sms': True}" required="1"/>
                 <field name="nationality" string="Nationality"/>
@@ -75,12 +91,14 @@
             </xpath>
             <xpath expr="//button[@name='action_set_won_rainbowman']" position="after">
                 <field name="is_create_patient" invisible="1"/>
-                <button name="create_appointment" string="Appointment" type="object" class="oe_highlight" attrs="{'invisible':[('is_create_patient','=',False)]}"/>
+                <button name="create_appointment" string="Appointment" type="object" class="oe_highlight"
+                        attrs="{'invisible':[('is_create_patient','=',False)]}"/>
                 <button name="create_patient" string="Create Patient" type="object" class="oe_highlight"
                         attrs="{'invisible':[('is_create_patient','=',True)]}"/>
             </xpath>
             <xpath expr="//field[@name='referred']" position="replace">
                 <field name="refer_patient_id"/>
+                <field name="referring_doctor_id"/>
             </xpath>
             <xpath expr="//field[@name='tag_ids']" position="after">
                 <field name="chief"/>
@@ -123,6 +141,9 @@
             <xpath expr="//button[@name='create_payment']" position="after">
                 <button name="notify_patient_coordinator" string="Notify Patient Coordinator" type="object"
                         attrs="{'invisible': [('state', 'not in', ['checkin'])]}"/>
+
+                <button name="open_survey" string="Open Survey" type="object"
+                        attrs="{'invisible': [('state', '=', 'done')]}"/>
             </xpath>
             <xpath expr="//field[@name='service_id']" position="after">
                 <field name="chief"/>
@@ -140,13 +161,31 @@
         <field name="model">medical.patient</field>
         <field name="inherit_id" ref="pragtech_dental_management.medical_patient_view"/>
         <field name="arch" type="xml">
+            <!--<xpath expr="//page[8]" position="replace">-->
+            <!--<page string="Operations"-->
+            <!--groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager">-->
+            <!--<group colspan="4" col="8">-->
+            <!--<field name="teeth_treatment_ids" string="Operations"-->
+            <!--nolabel="1" attrs="{'readonly':0}"/>-->
+            <!--</group>-->
+            <!--</page>-->
+            <!--</xpath>-->
+            <xpath expr="//header" position="inside">
+                <button name="action_appointment" string="Create Appointment" type="object"/>
+            </xpath>
             <xpath expr="//page[8]/group" position="before">
                 <group>
-                    <button name="select_all" string="Select All" type="object" class="oe_highlight"/>
-                    <button name="get_all_discount" string="Add Discount" type="object" class="oe_highlight"/>
+                    <group>
+                        <button name="select_all" string="Select All" type="object" class="oe_highlight"/>
+                        <button name="unselect_all" string="Unselect All" type="object" class="oe_highlight"/>
+                        <button name="service_confirmation" string="Services Confirmation" type="object"
+                                class="oe_highlight"/>
+                    </group>
                 </group>
+
                 <group>
                     <field name="discount"/>
+                    <button name="get_all_discount" string="Add Discount" type="object" class="oe_highlight"/>
                 </group>
             </xpath>
             <field name="nationality_id" position="after">
@@ -189,13 +228,13 @@
                 <field name="invc_id"/>
                 <field name="discount"/>
                 <field name="net_amount"/>
-                <button name="create_invoice"
-                        attrs="{'invisible':['|',
-                                        ('inv','=',True),
-                                        ('state','=','invoiced')]}"
-                        class="oe_highlight"
-                        string="Create Invoice"
-                        type="object" context="{'asset':1}"/>
+                <!--<button name="create_invoice"-->
+                <!--attrs="{'invisible':['|',-->
+                <!--('inv','=',True),-->
+                <!--('state','=','invoiced')]}"-->
+                <!--class="oe_highlight"-->
+                <!--string="Create Invoice"-->
+                <!--type="object" context="{'asset':1}"/>-->
                 <button name="open_invoice"
                         attrs="{'invisible':[('inv','=',False)]}"
                         class="oe_highlight"

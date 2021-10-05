@@ -9,7 +9,9 @@
     'depends': [
         'base',
         'crm',
-        'pragtech_dental_management'
+        'pragtech_dental_management',
+        'survey',
+        'mail'
     ],
     'data': [
         'security/ir.model.access.csv',

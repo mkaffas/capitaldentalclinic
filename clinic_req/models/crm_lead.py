@@ -28,6 +28,16 @@ class CRM(models.Model):
 
     patient_id = fields.Many2one(comodel_name="medical.patient", string="",
                                  required=False, )
+    # activity_ids = fields.Many2many(comodel_name="mail.activity", string="Activities",compute="get_activity" )
+    #
+    # @api.depends('patient_id')
+    # def get_activity(self):
+    #     for line in self:
+    #         list_activity = []
+    #         for activity in self.env['mail.activity'].search([('patient_id','=',line.patient_id.id)]):
+    #             list_activity.append(activity.id)
+    #         line.activity_ids = [(6, 0, list_activity)]
+
     refer_patient_id = fields.Many2one(comodel_name="medical.patient",
                                        string="Referred By", required=False, )
     age = fields.Integer('Age', compute='compute_age')
@@ -46,8 +56,10 @@ class CRM(models.Model):
          ('x', 'Separated'), ],
         'Marital Status')
     is_create_patient = fields.Boolean(string="", )
+    referring_doctor_id = fields.Many2one('medical.physician',
+                                          'Referring  Doctor', )
     branch_id = fields.Many2one(
-        'dental.branch', group_expand='_group_expand_branch', required=True
+        'dental.branch', group_expand='_group_expand_branch',
     )
     room_id = fields.Many2one(
         'medical.hospital.oprating.room', 'Room',
@@ -167,6 +179,18 @@ class Chief_Complaint(models.Model):
     name = fields.Char()
 
 
+class Survey(models.Model):
+    _inherit = 'survey.survey'
+
+    appointment_id = fields.Many2one(comodel_name="medical.appointment", string="", required=False, )
+
+
+class Activites(models.Model):
+    _inherit = 'mail.activity'
+
+    patient_id = fields.Many2one(comodel_name="medical.patient", string="Patient",required=False, )
+
+
 class Appointment(models.Model):
     _inherit = 'medical.appointment'
 
@@ -220,6 +244,22 @@ class Appointment(models.Model):
                     message_type='comment',
                     subtype_id=self.env.ref('mail.mt_note').id, )
 
+    def open_survey(self):
+        """Method Open survey."""
+        context = dict(self._context or {})
+        wiz_form_id = self.env['ir.model.data'].get_object_reference(
+            'survey', 'survey_form')[1]
+        return {
+            'view_type': 'form',
+            'view_id': wiz_form_id,
+            'view_mode': 'form',
+            'res_model': 'survey.survey',
+            # 'res_id': self.invc_id.id,
+            'type': 'ir.actions.act_window',
+            'target': 'current',
+            'context': {'default_appointment_id':self.id},
+        }
+
 
 class Patient(models.Model):
     _inherit = 'medical.patient'
@@ -240,8 +280,30 @@ class Patient(models.Model):
         'crm.tag'
     )
 
-    @api.depends('teeth_treatment_ids', 'teeth_treatment_ids.amount',
-                 'teeth_treatment_ids.discount',
+    def action_appointment(self):
+
+        appointment_obj = self.env['medical.appointment']
+        vals = {
+            'patient': self.patient.id,
+            'doctor': False,
+        }
+
+        appointment = appointment_obj.sudo().create(vals)
+        # self.appointment_id = appointment.id
+        wiz_form_id = self.env['ir.model.data'].get_object_reference(
+            'pragtech_dental_management', 'medical_appointment_gantt')[1]
+        return {
+            'view_type': 'gantt',
+            'view_id': wiz_form_id,
+            'view_mode': 'gantt',
+            'res_model': 'medical.appointment',
+            'res_id': appointment.id,
+            'nodestroy': True,
+            'target': 'current',
+            'type': 'ir.actions.act_window',
+        }
+
+    @api.depends('teeth_treatment_ids', 'teeth_treatment_ids.amount', 'teeth_treatment_ids.discount',
                  'teeth_treatment_ids.net_amount')
     def get_amount_totals(self):
         service_amount = 0
@@ -279,6 +341,36 @@ class Patient(models.Model):
     def select_all(self):
         for line in self.teeth_treatment_ids:
             line.is_selected = True
+
+    def unselect_all(self):
+        for line in self.teeth_treatment_ids:
+            line.is_selected = False
+
+    def service_confirmation(self):
+        for line in self.teeth_treatment_ids:
+            if line.is_selected == True and line.inv == False:
+                journal_id = self.env['account.journal'].search([
+                    ('type', '=', 'sale')], limit=1)
+                inv_line_main = {
+                    'name': line.description.name,
+                    'price_unit': line.amount or 0.00,
+                    'quantity': 1,
+                    'discount': line.discount,
+                    'account_id': line.description.property_account_income_id.id or line.description.categ_id.property_account_income_categ_id.id or False,
+                }
+                inv_values = {
+                    'partner_id': self.partner_id.id,
+                    # 'patient_id': self.id,
+                    'dentist': line.dentist.id,
+                    'move_type': 'out_invoice',
+                    'invoice_date': datetime.now().strftime(DF) or False,
+                    'journal_id': journal_id and journal_id.id or False,
+                    'teeth_id': self.id or False,
+                }
+                acc_id = self.env['account.move'].sudo().create(inv_values)
+                acc_id.sudo().write({'invoice_line_ids': [(0, 0, inv_line_main)]})
+                acc_id.action_post()
+                line.sudo().write({'invc_id': acc_id.id, 'inv': True})
 
     def get_all_discount(self):
         for line in self.teeth_treatment_ids:
