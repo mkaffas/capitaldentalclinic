@@ -7,6 +7,7 @@
 		        <script type="text/javascript" src="/pragtech_dental_management/static/src/js/chart_action.js"></script>
 		        <script type="text/javascript" src="/pragtech_dental_management/static/src/js/image_action.js"></script>
 		        <script type="text/javascript" src="/pragtech_dental_management/static/src/js/gantt_renderer.js"></script>
+		        <script type="text/javascript" src="/pragtech_dental_management/static/src/js/gantt_controller.js"></script>
 		        <link rel="stylesheet" href="/pragtech_dental_management/static/src/css/base_new.css" />
 		    </xpath>
 		</template>		

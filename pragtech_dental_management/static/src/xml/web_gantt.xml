@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+
+    <div t-extend="GanttView">
+        <t t-jquery="span.d-xl-inline-block" t-operation="replace"/>
+        <t t-jquery="b" t-operation="replace">
+            <b t-esc="slot.format('h a')"/>
+        </t>
+    </div>
+
+</templates>

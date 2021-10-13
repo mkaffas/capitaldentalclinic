@@ -62,7 +62,9 @@ dental app
         'report/report_income_by_doctor.xml',
         'report/report_patient_by_doctor.xml',
     ],
-    'qweb': ['static/src/xml/perio_base.xml'],
+    'qweb': [
+        'static/src/xml/*.xml',
+    ],
     'images': ['images/Animated-dental-management.gif'],
     'live_test_url': 'http://www.pragtech.co.in/company/proposal-form.html?id=103&name=Odoo-Dental-Management',
     'license': 'OPL-1',

@@ -1542,7 +1542,7 @@ class MedicalAppointment(models.Model):
                        default=lambda self: _('New'))
     patient = fields.Many2one('medical.patient', 'Patient', help="Patient Name",
                               required=True, tracking=True, )
-    appointment_sdate = fields.Datetime('Appointment Start', 
+    appointment_sdate = fields.Datetime('Appointment Start',
                                         default=fields.Datetime.now,
                                         tracking=True, )
 
@@ -1554,6 +1554,14 @@ class MedicalAppointment(models.Model):
 
     appointment_edate = fields.Datetime('Appointment End', required=False,
                                         tracking=True, default=get_end_date)
+
+    @api.onchange('appointment_sdate')
+    def _onchange_appointment_sdate(self):
+        """ appointment_sdate """
+        self.appointment_edate = self.appointment_sdate + relativedelta(
+            minutes=30, seconds=-1
+        )
+
     room_id = fields.Many2one(
         'medical.hospital.oprating.room', 'Room',
         required=False, tracking=True,
@@ -2230,11 +2238,12 @@ class MedicalTeethTreatment(models.Model):
     _name = "medical.teeth.treatment"
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-
-    patient_id = fields.Many2one('medical.patient', 'Patient Details', tracking=True)
+    patient_id = fields.Many2one('medical.patient', 'Patient Details',
+                                 tracking=True)
     teeth_id = fields.Many2one('teeth.code', 'Tooth', tracking=True)
     description = fields.Many2one('product.product', 'Description',
-                                  domain=[('is_treatment', '=', True)], tracking=True)
+                                  domain=[('is_treatment', '=', True)],
+                                  tracking=True)
 
     completion_date = fields.Datetime(tracking=True)
     detail_description = fields.Text('Surface', tracking=True)
@@ -2247,7 +2256,8 @@ class MedicalTeethTreatment(models.Model):
     dentist = fields.Many2one('medical.physician', 'Dentist', tracking=True)
     amount = fields.Float('Amount', tracking=True)
 
-    appt_id = fields.Many2one('medical.appointment', 'Appointment ID', tracking=True)
+    appt_id = fields.Many2one('medical.appointment', 'Appointment ID',
+                              tracking=True)
 
     teeth_code_rel = fields.Many2many('teeth.code',
                                       'teeth_code_medical_teeth_treatment_rel',
