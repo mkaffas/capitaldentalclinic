@@ -244,6 +244,7 @@
                 <field name="inv" invisible="1"/>
                 <field name="account_id" invisible="1"/>
                 <field name="invc_id"/>
+                <field name="discount_amount"/>
                 <field name="discount"/>
                 <field name="net_amount"/>
                 <!--<button name="create_invoice"-->
