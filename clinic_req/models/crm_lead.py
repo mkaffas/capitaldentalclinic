@@ -279,6 +279,7 @@ class Patient(models.Model):
     tag_ids = fields.Many2many(
         'crm.tag'
     )
+    wizard_dentist_id = fields.Many2one(comodel_name="medical.physician", string="Dentist", required=False, )
 
     def action_appointment(self):
 
@@ -339,6 +340,11 @@ class Patient(models.Model):
             },
             'context': "{'model':'account.partner.ledger'}"
         }
+
+    def dentist_multi_choose(self):
+        for line in self.teeth_treatment_ids:
+            if self.wizard_dentist_id:
+                line.dentist = self.wizard_dentist_id.id
 
     def select_all(self):
         for line in self.teeth_treatment_ids:
@@ -417,6 +423,20 @@ class Teeth(models.Model):
         for line in self:
             line.net_amount = line.amount - (
                     (line.amount * line.discount) / 100)
+
+    discount_amount = fields.Float(string="Discount Amount",  required=False, )
+
+    @api.onchange('discount', 'amount')
+    def get_discount_amount(self):
+        for line in self:
+            line.discount_amount = (line.amount * line.discount) / 100
+
+    @api.onchange('discount_amount', 'amount')
+    def get_discount(self):
+        for line in self:
+            if line.amount != 0 :
+                line.discount = ( line.discount_amount / (line.amount)) * 100
+
 
     @api.model
     def create(self, values):

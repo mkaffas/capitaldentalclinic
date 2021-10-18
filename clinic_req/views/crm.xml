@@ -192,6 +192,12 @@
                         <button name="unselect_all" string="Unselect All" type="object" class="oe_highlight"/>
                         <button name="service_confirmation" string="Services Confirmation" type="object"
                                 class="oe_highlight"/>
+
+                    </group>
+                    <group>
+                        <field name="wizard_dentist_id"/>
+                        <button name="dentist_multi_choose" string="Dentist Multi choose" type="object"
+                                class="oe_highlight"/>
                     </group>
                 </group>
 
