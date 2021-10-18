@@ -280,6 +280,10 @@ class Patient(models.Model):
         'crm.tag'
     )
     wizard_dentist_id = fields.Many2one(comodel_name="medical.physician", string="Dentist", required=False, )
+    discount_for_total = fields.Float(string='Additional Discount total (%)', digits='Discount',
+                            tracking=True,
+                            default=0.0)
+
 
     def action_appointment(self):
 
@@ -307,11 +311,12 @@ class Patient(models.Model):
         }
 
     @api.depends('teeth_treatment_ids', 'teeth_treatment_ids.amount', 'teeth_treatment_ids.discount',
-                 'teeth_treatment_ids.net_amount')
+                 'teeth_treatment_ids.net_amount','discount_for_total')
     def get_amount_totals(self):
         service_amount = 0
         service_net = 0
         total_payment = 0
+        total_net = 0
         for record in self:
             for line in record.teeth_treatment_ids:
                 service_amount += line.amount
@@ -327,7 +332,9 @@ class Patient(models.Model):
                 elif payment.payment_type == 'outbound':
                     total_payment -= payment.amount
             record.total_payment = total_payment
-            record.total_net = record.service_net - record.total_payment
+            total_net = record.service_net - record.total_payment
+            record.total_net = total_net - (total_net * record.discount_for_total) / 100
+
 
     def open_partner_ledger(self):
         return {

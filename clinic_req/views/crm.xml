@@ -236,6 +236,7 @@
                     <field name="total_discount"/>
                     <field name="service_net"/>
                     <field name="total_payment"/>
+                    <field name="discount_for_total"/>
                     <field name="total_net" class="oe_subtotal_footer_separator"/>
                 </group>
             </xpath>
