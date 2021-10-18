@@ -1592,10 +1592,10 @@ odoo.define('pragtech_dental_management.chart_action', function (require) {
                     }
                 }
                 table_str += '<td id = "status_' + operation_id + '" status_name = "' + status_defined + '">' + status_to_use + '</td>';
-                table_str += '<td id = "surface_' + operation_id + '">';
-                _.each(surfaces, function (each_surf) {
-                    table_str += each_surf + ' ';
-                });
+                // table_str += '<td id = "surface_' + operation_id + '">';
+                // _.each(surfaces, function (each_surf) {
+                //     table_str += each_surf + ' ';
+                // });
                 self_var.increment_thread(selected_surface_temp);
                 table_str += '</td>';
                 table_str += '<td style="display: none" id = "dentist_' + operation_id + '">' + user_name + '</td>';
