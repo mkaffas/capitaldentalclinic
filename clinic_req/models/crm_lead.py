@@ -270,7 +270,7 @@ class Patient(models.Model):
     service_net = fields.Float(string="Service net amount",
                                compute="get_amount_totals", )
     total_discount = fields.Float(string="Total Discount",
-                                  compute="get_amount_totals", )
+                                  compute="get_amount_totals", tracking=True)
     total_payment = fields.Float(string="Total payment",
                                  compute="get_amount_totals", )
     total_net = fields.Float(string="Total Net", compute="get_amount_totals", )
@@ -464,24 +464,25 @@ class Teeth(models.Model):
         res = super(Teeth, self).create(values)
 
         for line in res:
-            partners = self.env.ref(
-                'pragtech_dental_management.group_branch_manager').users.filtered(
-                lambda r: r.partner_id).mapped('partner_id.id')
-            partners_admin = self.env.ref(
-                'pragtech_dental_management.group_dental_admin').users.filtered(
-                lambda r: r.partner_id).mapped('partner_id.id')
-            all_partners = partners + partners_admin
-            body = '<a target=_BLANK href="/web?#id=' + str(
-                line.patient_id.id) + '&view_type=form&model=medical.patient&action=" style="font-weight: bold">' + '</a>'
-            if all_partners:
-                line.sudo().message_post(
-                    partner_ids=all_partners,
-                    subject="Operation " + str(
-                        line.description.name) + " is created",
-                    body="New service " + body + "added to Patient " + str(
-                        line.patient_id.partner_id.name),
-                    message_type='comment',
-                    subtype_id=self.env.ref('mail.mt_note').id)
+            if not self.env.user.has_group('group_dental_admin'):
+                partners = self.env.ref(
+                    'pragtech_dental_management.group_branch_manager').users.filtered(
+                    lambda r: r.partner_id).mapped('partner_id.id')
+                partners_admin = self.env.ref(
+                    'pragtech_dental_management.group_dental_admin').users.filtered(
+                    lambda r: r.partner_id).mapped('partner_id.id')
+                all_partners = partners
+                body = '<a target=_BLANK href="/web?#id=' + str(
+                    line.patient_id.id) + '&view_type=form&model=medical.patient&action=" style="font-weight: bold">' + '</a>'
+                if all_partners:
+                    line.sudo().message_post(
+                        partner_ids=all_partners,
+                        subject="Operation " + str(
+                            line.description.name) + " is created",
+                        body="New service " + body + "added to Patient " + str(
+                            line.patient_id.partner_id.name),
+                        message_type='comment',
+                        subtype_id=self.env.ref('mail.mt_note').id)
         return res
 
     def create_invoice(self):

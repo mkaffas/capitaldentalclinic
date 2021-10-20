@@ -215,10 +215,10 @@
             <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree" position="attributes">
                 <attribute name="editable">bottom</attribute>
             </xpath>
-            <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree/field[@name='create_date']"
-                   position="before">
-                <field name="is_selected"/>
-            </xpath>
+            <!--<xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree/field[@name='create_date']"-->
+                   <!--position="before">-->
+                <!--<field name="is_selected"/>-->
+            <!--</xpath>-->
             <xpath expr="//div[@class='oe_title']" position="before">
                 <div class="oe_button_box" name="button_box">
                     <button type="object"

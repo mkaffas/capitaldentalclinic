@@ -1993,7 +1993,8 @@
         <field name="type">tree</field>
         <field name="arch" type="xml">
             <tree string='Operations'>
-                <field name="create_date"/>
+                <field name="create_date" widget="selection"/>
+                <field name="create_uid"/>
                 <field name="description"/>
                 <field name="teeth_id"/>
                 <field name="state"/>

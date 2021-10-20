@@ -667,7 +667,7 @@ class MedicalPatient(models.Model):
 
     stage_id = fields.Many2one(
         'patient.stage',
-        group_expand='_group_expand_stage'
+        group_expand='_group_expand_stage',traking=True
     )
 
     medium_id = fields.Many2one('utm.medium')
