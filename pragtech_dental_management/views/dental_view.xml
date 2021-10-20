@@ -75,16 +75,22 @@
                         <group colspan="4" col="4">
                             <field name="name"/>
                             <field name="patient_state" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
-                            <field name="patient" required="1" context="{'appointment_id_new':id}" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="patient" required="1" context="{'appointment_id_new':id}"
+                                   attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
                             <field name="unit_id" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
-                            <field name="branch_id" required="1" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="branch_id" required="1"
+                                   attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
                             <field name="room_id" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
-                            <field name="appointment_sdate" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
-                            <field name="appointment_edate" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
-                            <field name="doctor" required="1" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="appointment_sdate"
+                                   attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="appointment_edate"
+                                   attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="doctor" required="1"
+                                   attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
                             <field name="user_id" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
                             <field name="service_id"
-                                   domain="[('is_treatment', '=', True), ('type','=','service')]" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                                   domain="[('is_treatment', '=', True), ('type','=','service')]"
+                                   attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
                             <field name="urgency" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
                             <field name="no_invoice" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
                             <field name="checkin_time" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
@@ -99,8 +105,9 @@
                             <field name="pres_id1"
                                    context="{'default_patient_id':patient, 'physician_id':doctor, 'default_pid1':id, 'prescription_date':appointment_sdate}"
                                    colspan="4" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
-                            <field name="operations" colspan="4" readonly="1" />
-                            <field name="comments" colspan="4" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="operations" colspan="4" readonly="1"/>
+                            <field name="comments" colspan="4"
+                                   attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
                         </group>
                     </group>
                 </sheet>
@@ -862,9 +869,12 @@
                                         <field name="street" placeholder="Street..." class="o_address_street"/>
                                         <field name="street2" placeholder="Street 2..." class="o_address_street"/>
                                         <field name="city" placeholder="City" class="o_address_city"/>
-                                        <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_quick_create': True}" context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"/>
+                                        <field name="state_id" class="o_address_state" placeholder="State"
+                                               options="{'no_open': True, 'no_quick_create': True}"
+                                               context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"/>
                                         <field name="zip" placeholder="ZIP" class="o_address_zip"/>
-                                        <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                        <field name="country_id" placeholder="Country" class="o_address_country"
+                                               options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
                                     </div>
                                 </group>
                                 <group groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager">
@@ -910,31 +920,39 @@
                                 <field name="card_yes" placeholder="Note...." nolabel="1"
                                        attrs="{'invisible':[('have_card', '!=', 'YES')]}"/>
                                 <field name="have_allergies"/>
-                                <field name="allergies_yes" placeholder="Note...." nolabel="1" attrs="{'invisible':[('have_allergies', '!=', 'YES')]}"/>
+                                <field name="allergies_yes" placeholder="Note...." nolabel="1"
+                                       attrs="{'invisible':[('have_allergies', '!=', 'YES')]}"/>
                                 <field name="have_feaver"/>
                                 <field name="have_ashtham"/>
                                 <field name="have_attacks"/>
-                                <field name="attacks_yes" placeholder="Note...." nolabel="1" attrs="{'invisible':[('have_attacks', '!=', 'YES')]}"/>
+                                <field name="attacks_yes" placeholder="Note...." nolabel="1"
+                                       attrs="{'invisible':[('have_attacks', '!=', 'YES')]}"/>
                                 <field name="have_heart"/>
-                                <field name="heart_yes" placeholder="Note...." nolabel="1" attrs="{'invisible':[('have_heart', '!=', 'YES')]}"/>
+                                <field name="heart_yes" placeholder="Note...." nolabel="1"
+                                       attrs="{'invisible':[('have_heart', '!=', 'YES')]}"/>
                                 <field name="have_diabetic"/>
                                 <field name="have_arthritis"/>
                                 <field name="have_bleeding"/>
-                                <field name="bleeding_yes" placeholder="Note...." nolabel="1" attrs="{'invisible':[('have_bleeding', '!=', 'YES')]}"/>
+                                <field name="bleeding_yes" placeholder="Note...." nolabel="1"
+                                       attrs="{'invisible':[('have_bleeding', '!=', 'YES')]}"/>
                                 <field name="have_infectious"/>
-                                <field name="infectious_yes" placeholder="Note...." nolabel="1" attrs="{'invisible':[('have_infectious', '!=', 'YES')]}"/>
+                                <field name="infectious_yes" placeholder="Note...." nolabel="1"
+                                       attrs="{'invisible':[('have_infectious', '!=', 'YES')]}"/>
                                 <field name="have_rheumatic"/>
                                 <field name="have_liver"/>
                                 <field name="have_serious"/>
                                 <field name="have_reaction"/>
-                                <field name="reaction_yes" placeholder="Note...." nolabel="1" attrs="{'invisible':[('have_reaction', '!=', 'YES')]}"/>
+                                <field name="reaction_yes" placeholder="Note...." nolabel="1"
+                                       attrs="{'invisible':[('have_reaction', '!=', 'YES')]}"/>
                                 <field name="have_surgery"/>
-                                <field name="surgery_yes" placeholder="Note...." nolabel="1" attrs="{'invisible':[('have_surgery', '!=', 'YES')]}"/>
+                                <field name="surgery_yes" placeholder="Note...." nolabel="1"
+                                       attrs="{'invisible':[('have_surgery', '!=', 'YES')]}"/>
                                 <field name="have_tabacco"/>
                                 <field name="have_gutkha"/>
                                 <field name="have_medicine"/>
                                 <field name="have_pregnant"/>
-                                <field name="pregnant_yes" placeholder="Note...." nolabel="1" attrs="{'invisible':[('have_pregnant', '!=', 'YES')]}"/>
+                                <field name="pregnant_yes" placeholder="Note...." nolabel="1"
+                                       attrs="{'invisible':[('have_pregnant', '!=', 'YES')]}"/>
                                 <field name="have_breastfeeding"/>
                                 <field name="updated_date"/>
                             </group>
@@ -1085,7 +1103,7 @@
         <field name="model">medical.patient</field>
         <field name="type">tree</field>
         <field name="arch" type="xml">
-            <tree string='Patient Information'>
+            <tree default_order='create_date desc' string='Patient Information'>
                 <field name="partner_id"/>
                 <field name="patient_id"/>
                 <field name="coordinator_id"/>
@@ -1101,7 +1119,7 @@
         <field name="name">medical.patient.kanban</field>
         <field name="model">medical.patient</field>
         <field name="arch" type="xml">
-            <kanban default_group_by="stage_id" class="o_kanban_small_column">
+            <kanban default_group_by="stage_id" default_order='create_date desc' class="o_kanban_small_column">
                 <field name="partner_id"/>
                 <field name="color"/>
                 <field name="patient_id"/>
@@ -1109,6 +1127,10 @@
                 <field name="dob"/>
                 <field name="deceased"/>
                 <field name="stage_id"/>
+                <progressbar field="activity_state"
+                             colors="{&quot;planned&quot;: &quot;success&quot;, &quot;today&quot;: &quot;warning&quot;, &quot;overdue&quot;: &quot;danger&quot;}"
+                             sum_field="expected_revenue"
+                             help="This bar allows to filter the opportunities based on scheduled activities."/>
                 <templates>
                     <t t-name="kanban-box">
                         <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">

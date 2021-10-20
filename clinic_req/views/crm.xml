@@ -114,7 +114,7 @@
             </xpath>
             <xpath expr="//field[@name='tag_ids']" position="after">
                 <field name="chief"/>
-                <field name="case"/>
+                <field name="case" invisible="1"/>
             </xpath>
 
             <xpath expr="//page[@name='lead']" position="after">
@@ -191,7 +191,6 @@
                         <button name="select_all" string="Select All" type="object" class="oe_highlight"/>
                         <button name="unselect_all" string="Unselect All" type="object" class="oe_highlight"/>
                         <button name="service_confirmation" string="Services Confirmation" type="object"
-                                class="oe_highlight"/><button name="service_confirmation" string="Services Confirmation" type="object"
                                 class="oe_highlight"/>
 
 
