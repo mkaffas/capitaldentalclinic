@@ -191,7 +191,9 @@
                         <button name="select_all" string="Select All" type="object" class="oe_highlight"/>
                         <button name="unselect_all" string="Unselect All" type="object" class="oe_highlight"/>
                         <button name="service_confirmation" string="Services Confirmation" type="object"
+                                class="oe_highlight"/><button name="service_confirmation" string="Services Confirmation" type="object"
                                 class="oe_highlight"/>
+
 
                     </group>
                     <group>
@@ -204,6 +206,7 @@
                 <group>
                     <field name="discount"/>
                     <button name="get_all_discount" string="Add Discount" type="object" class="oe_highlight"/>
+                    <button name="delete_selection" string="Delete Selection Record" type="object" class="oe_highlight"/>
                 </group>
             </xpath>
             <field name="nationality_id" position="after">
@@ -233,10 +236,10 @@
                    position="after">
                 <group class="oe_subtotal_footer oe_right">
                     <field name="service_amount"/>
-                    <field name="total_discount"/>
+                    <field name="total_discount" attrs="{'readonly':0}"/>
                     <field name="service_net"/>
                     <field name="total_payment"/>
-                    <field name="discount_for_total"/>
+                    <!--<field name="discount_for_total"/>-->
                     <field name="total_net" class="oe_subtotal_footer_separator"/>
                 </group>
             </xpath>

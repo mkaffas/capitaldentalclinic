@@ -311,7 +311,7 @@ class Patient(models.Model):
         }
 
     @api.depends('teeth_treatment_ids', 'teeth_treatment_ids.amount', 'teeth_treatment_ids.discount',
-                 'teeth_treatment_ids.net_amount','discount_for_total')
+                 'teeth_treatment_ids.net_amount')
     def get_amount_totals(self):
         service_amount = 0
         service_net = 0
@@ -333,7 +333,14 @@ class Patient(models.Model):
                     total_payment -= payment.amount
             record.total_payment = total_payment
             total_net = record.service_net - record.total_payment
-            record.total_net = total_net - (total_net * record.discount_for_total) / 100
+            record.total_net = total_net
+
+    @api.onchange('total_discount')
+    def change_total_discount(self):
+        discount_amount_line = self.total_discount / len(self.teeth_treatment_ids)
+        for line in self.teeth_treatment_ids:
+            line.discount_amount = discount_amount_line
+            line.get_discount()
 
 
     def open_partner_ledger(self):
@@ -360,6 +367,13 @@ class Patient(models.Model):
     def unselect_all(self):
         for line in self.teeth_treatment_ids:
             line.is_selected = False
+
+    def delete_selection(self):
+        for line in self.teeth_treatment_ids:
+            if line.is_selected == True and line.inv == False:
+                line.sudo().unlink()
+            elif line.is_selected == True and line.inv == False:
+                raise UserError(_('Can not delete this operation %s because you have an invoice on it  !!') % (line.description))
 
     def service_confirmation(self):
         for line in self.teeth_treatment_ids:
