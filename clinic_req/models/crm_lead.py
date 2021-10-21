@@ -189,6 +189,9 @@ class Activites(models.Model):
     _inherit = 'mail.activity'
 
     patient_id = fields.Many2one(comodel_name="medical.patient", string="Patient",required=False, )
+    phone = fields.Char(related='patient_id.phone', store=True, readonly=False)
+    mobile = fields.Char(related='patient_id.mobile', store=True,
+                         readonly=False)
 
 
 class Appointment(models.Model):
