@@ -285,7 +285,7 @@ class Appointment(models.Model):
             # 'res_id': self.invc_id.id,
             'type': 'ir.actions.act_window',
             'target': 'current',
-            'context': {'default_appointment_id': self.id,'default_paient_id':self.patient.partner_id.id},
+            'context': {'default_appointment_id': self.id,'default_paient_id':self.patient.id},
         }
 
     # def open_survey(self):
