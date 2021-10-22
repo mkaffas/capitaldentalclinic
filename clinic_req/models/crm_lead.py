@@ -188,10 +188,36 @@ class Survey(models.Model):
 class Activites(models.Model):
     _inherit = 'mail.activity'
 
-    patient_id = fields.Many2one(comodel_name="medical.patient", string="Patient",required=False, )
+    patient_id = fields.Many2one(comodel_name="medical.patient", string="Patient", required=False, )
     phone = fields.Char(related='patient_id.phone', store=True, readonly=False)
     mobile = fields.Char(related='patient_id.mobile', store=True,
                          readonly=False)
+
+    def send_sms(self):
+        obj = self.env['sms.eg'].sudo()
+        for line in self:
+            obj.create({
+                'partner_ids': [(4, line.patient_id.partner_id.id)],
+                'message': 'comment', })
+
+
+class Survey_app(models.Model):
+    _name = 'appointment.survey'
+    _rec_name = 'patient_id'
+    _description = 'New Description'
+
+    appointment_id = fields.Many2one(comodel_name="medical.appointment", string="Appointment", required=True, )
+    patient_id = fields.Many2one(comodel_name="medical.patient", string="Patient", required=True, )
+    priority_reception = fields.Selection(
+        [('0', 'Low'), ('1', 'Medium'), ('2', 'Medium'), ('3', 'High'), ('4', 'Normal High'), ('5', 'Very High')],
+        'Reception', default='0', index=True)
+    priority_medical_procedure = fields.Selection(
+        [('0', 'Low'), ('1', 'Medium'), ('2', 'Medium'), ('3', 'High'), ('4', 'Normal High'), ('5', 'Very High')],
+        'Medical Procedure', default='0', index=True)
+    priority_sterilization_hygiene = fields.Selection(
+        [('0', 'Low'), ('1', 'Medium'), ('2', 'Medium'), ('3', 'High'), ('4', 'Normal High'), ('5', 'Very High')],
+        'Sterilization and hygiene', default='0', index=True)
+    desc = fields.Text(string="Description", required=False, )
 
 
 class Appointment(models.Model):
@@ -204,7 +230,6 @@ class Appointment(models.Model):
                                           related='patient.coordinator_id')
     chief = fields.Many2one(comodel_name='chief.complaint',
                             string="Chief Complaint", required=False, )
-
 
     def cancel(self):
         for rec in self:
@@ -251,17 +276,33 @@ class Appointment(models.Model):
         """Method Open survey."""
         context = dict(self._context or {})
         wiz_form_id = self.env['ir.model.data'].get_object_reference(
-            'survey', 'survey_form')[1]
+            'clinic_req', 'appointment_survey_form')[1]
         return {
             'view_type': 'form',
             'view_id': wiz_form_id,
             'view_mode': 'form',
-            'res_model': 'survey.survey',
+            'res_model': 'appointment.survey',
             # 'res_id': self.invc_id.id,
             'type': 'ir.actions.act_window',
             'target': 'current',
-            'context': {'default_appointment_id':self.id},
+            'context': {'default_appointment_id': self.id,'default_paient_id':self.patient.partner_id.id},
         }
+
+    # def open_survey(self):
+    #     """Method Open survey."""
+    #     context = dict(self._context or {})
+    #     wiz_form_id = self.env['ir.model.data'].get_object_reference(
+    #         'survey', 'survey_form')[1]
+    #     return {
+    #         'view_type': 'form',
+    #         'view_id': wiz_form_id,
+    #         'view_mode': 'form',
+    #         'res_model': 'survey.survey',
+    #         # 'res_id': self.invc_id.id,
+    #         'type': 'ir.actions.act_window',
+    #         'target': 'current',
+    #         'context': {'default_appointment_id': self.id},
+    #     }
 
 
 class Patient(models.Model):
@@ -284,9 +325,15 @@ class Patient(models.Model):
     )
     wizard_dentist_id = fields.Many2one(comodel_name="medical.physician", string="Dentist", required=False, )
     discount_for_total = fields.Float(string='Additional Discount total (%)', digits='Discount',
-                            tracking=True,
-                            default=0.0)
+                                      tracking=True,
+                                      default=0.0)
 
+    def send_sms(self):
+        obj = self.env['sms.eg'].sudo()
+        for line in self:
+            obj.create({
+                'partner_ids': [(4, line.partner_id.id)],
+                'message': 'comment', })
 
     def action_appointment(self):
 
@@ -345,7 +392,6 @@ class Patient(models.Model):
             line.discount_amount = discount_amount_line
             line.get_discount()
 
-
     def open_partner_ledger(self):
         return {
             'type': 'ir.actions.client',
@@ -376,7 +422,8 @@ class Patient(models.Model):
             if line.is_selected == True and line.inv == False:
                 line.sudo().unlink()
             elif line.is_selected == True and line.inv == False:
-                raise UserError(_('Can not delete this operation %s because you have an invoice on it  !!') % (line.description))
+                raise UserError(
+                    _('Can not delete this operation %s because you have an invoice on it  !!') % (line.description))
 
     def service_confirmation(self):
         for line in self.teeth_treatment_ids:
@@ -448,7 +495,7 @@ class Teeth(models.Model):
             line.net_amount = line.amount - (
                     (line.amount * line.discount) / 100)
 
-    discount_amount = fields.Float(string="Discount Amount",  required=False, )
+    discount_amount = fields.Float(string="Discount Amount", required=False, )
 
     @api.onchange('discount', 'amount')
     def get_discount_amount(self):
@@ -458,9 +505,8 @@ class Teeth(models.Model):
     @api.onchange('discount_amount', 'amount')
     def get_discount(self):
         for line in self:
-            if line.amount != 0 :
-                line.discount = ( line.discount_amount / (line.amount)) * 100
-
+            if line.amount != 0:
+                line.discount = (line.discount_amount / (line.amount)) * 100
 
     @api.model
     def create(self, values):

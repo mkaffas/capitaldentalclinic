@@ -170,6 +170,20 @@
         </field>
     </record>
 
+    <record id="action_send_sms_activity" model="ir.actions.server">
+        <field name="name">Send SMS</field>
+        <field name="model_id" ref="mail.model_mail_activity"/>
+        <field name="state">code</field>
+        <field name="code">records.send_sms()</field>
+    </record>
+
+    <record id="action_send_sms" model="ir.actions.server">
+        <field name="name">Send SMS</field>
+        <field name="model_id" ref="pragtech_dental_management.model_medical_patient"/>
+        <field name="state">code</field>
+        <field name="code">records.send_sms()</field>
+    </record>
+
     <!-- Inherit Form View to Modify it -->
     <record id="edit_patient" model="ir.ui.view">
         <field name="model">medical.patient</field>
@@ -318,4 +332,57 @@
 
     <menuitem id="menu_patient_payment" name="Patient Payment" parent="pragtech_dental_management.medical_patients_menu"
               action="account.action_account_payments" sequence="5"/>
+
+    <record id="appointment_survey_form" model="ir.ui.view">
+        <field name="model">appointment.survey</field>
+        <field name="arch" type="xml">
+            <form string="Appointment Survey">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="appointment_id"/>
+                            <field name="patient_id"/>
+                        </group>
+
+                        <group>
+                            <field name="priority_reception" optional="show" widget="priority"/>
+                            <field name="priority_medical_procedure" optional="show" widget="priority"/>
+                            <field name="priority_sterilization_hygiene" optional="show" widget="priority"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="desc"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="appointment_survey_tree" model="ir.ui.view">
+        <field name="model">appointment.survey</field>
+        <field name="arch" type="xml">
+            <tree string="Appointment Survey">
+                <field name="appointment_id"/>
+                <field name="patient_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_appointment_survey" model="ir.actions.act_window">
+        <field name="name">Appointment Survey</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">appointment.survey</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+            </p>
+            <p>
+                <!-- More details about what a user can do with this object will be OK -->
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_survey" name="Appointment Survey" parent="pragtech_dental_management.medical_patients_menu"
+              action="action_appointment_survey" sequence="5"/>
 </odoo>
