@@ -189,6 +189,9 @@ class Activites(models.Model):
     _inherit = 'mail.activity'
 
     patient_id = fields.Many2one(comodel_name="medical.patient", string="Patient",required=False, )
+    phone = fields.Char(related='patient_id.phone', store=True, readonly=False)
+    mobile = fields.Char(related='patient_id.mobile', store=True,
+                         readonly=False)
 
 
 class Appointment(models.Model):
@@ -270,7 +273,7 @@ class Patient(models.Model):
     service_net = fields.Float(string="Service net amount",
                                compute="get_amount_totals", )
     total_discount = fields.Float(string="Total Discount",
-                                  compute="get_amount_totals", )
+                                  compute="get_amount_totals", tracking=True)
     total_payment = fields.Float(string="Total payment",
                                  compute="get_amount_totals", )
     total_net = fields.Float(string="Total Net", compute="get_amount_totals", )
@@ -279,6 +282,11 @@ class Patient(models.Model):
     tag_ids = fields.Many2many(
         'crm.tag'
     )
+    wizard_dentist_id = fields.Many2one(comodel_name="medical.physician", string="Dentist", required=False, )
+    discount_for_total = fields.Float(string='Additional Discount total (%)', digits='Discount',
+                            tracking=True,
+                            default=0.0)
+
 
     def action_appointment(self):
 
@@ -311,6 +319,7 @@ class Patient(models.Model):
         service_amount = 0
         service_net = 0
         total_payment = 0
+        total_net = 0
         for record in self:
             for line in record.teeth_treatment_ids:
                 service_amount += line.amount
@@ -326,7 +335,16 @@ class Patient(models.Model):
                 elif payment.payment_type == 'outbound':
                     total_payment -= payment.amount
             record.total_payment = total_payment
-            record.total_net = record.service_net - record.total_payment
+            total_net = record.service_net - record.total_payment
+            record.total_net = total_net
+
+    @api.onchange('total_discount')
+    def change_total_discount(self):
+        discount_amount_line = self.total_discount / len(self.teeth_treatment_ids)
+        for line in self.teeth_treatment_ids:
+            line.discount_amount = discount_amount_line
+            line.get_discount()
+
 
     def open_partner_ledger(self):
         return {
@@ -340,6 +358,11 @@ class Patient(models.Model):
             'context': "{'model':'account.partner.ledger'}"
         }
 
+    def dentist_multi_choose(self):
+        for line in self.teeth_treatment_ids:
+            if self.wizard_dentist_id:
+                line.dentist = self.wizard_dentist_id.id
+
     def select_all(self):
         for line in self.teeth_treatment_ids:
             line.is_selected = True
@@ -347,6 +370,13 @@ class Patient(models.Model):
     def unselect_all(self):
         for line in self.teeth_treatment_ids:
             line.is_selected = False
+
+    def delete_selection(self):
+        for line in self.teeth_treatment_ids:
+            if line.is_selected == True and line.inv == False:
+                line.sudo().unlink()
+            elif line.is_selected == True and line.inv == False:
+                raise UserError(_('Can not delete this operation %s because you have an invoice on it  !!') % (line.description))
 
     def service_confirmation(self):
         for line in self.teeth_treatment_ids:
@@ -418,29 +448,44 @@ class Teeth(models.Model):
             line.net_amount = line.amount - (
                     (line.amount * line.discount) / 100)
 
+    discount_amount = fields.Float(string="Discount Amount",  required=False, )
+
+    @api.onchange('discount', 'amount')
+    def get_discount_amount(self):
+        for line in self:
+            line.discount_amount = (line.amount * line.discount) / 100
+
+    @api.onchange('discount_amount', 'amount')
+    def get_discount(self):
+        for line in self:
+            if line.amount != 0 :
+                line.discount = ( line.discount_amount / (line.amount)) * 100
+
+
     @api.model
     def create(self, values):
         res = super(Teeth, self).create(values)
 
         for line in res:
-            partners = self.env.ref(
-                'pragtech_dental_management.group_branch_manager').users.filtered(
-                lambda r: r.partner_id).mapped('partner_id.id')
-            partners_admin = self.env.ref(
-                'pragtech_dental_management.group_dental_admin').users.filtered(
-                lambda r: r.partner_id).mapped('partner_id.id')
-            all_partners = partners + partners_admin
-            body = '<a target=_BLANK href="/web?#id=' + str(
-                line.patient_id.id) + '&view_type=form&model=medical.patient&action=" style="font-weight: bold">' + '</a>'
-            if all_partners:
-                line.sudo().message_post(
-                    partner_ids=all_partners,
-                    subject="Operation " + str(
-                        line.description.name) + " is created",
-                    body="New service " + body + "added to Patient " + str(
-                        line.patient_id.partner_id.name),
-                    message_type='comment',
-                    subtype_id=self.env.ref('mail.mt_note').id)
+            if not self.env.user.has_group('group_dental_admin'):
+                partners = self.env.ref(
+                    'pragtech_dental_management.group_branch_manager').users.filtered(
+                    lambda r: r.partner_id).mapped('partner_id.id')
+                partners_admin = self.env.ref(
+                    'pragtech_dental_management.group_dental_admin').users.filtered(
+                    lambda r: r.partner_id).mapped('partner_id.id')
+                all_partners = partners
+                body = '<a target=_BLANK href="/web?#id=' + str(
+                    line.patient_id.id) + '&view_type=form&model=medical.patient&action=" style="font-weight: bold">' + '</a>'
+                if all_partners:
+                    line.sudo().message_post(
+                        partner_ids=all_partners,
+                        subject="Operation " + str(
+                            line.description.name) + " is created",
+                        body="New service " + body + "added to Patient " + str(
+                            line.patient_id.partner_id.name),
+                        message_type='comment',
+                        subtype_id=self.env.ref('mail.mt_note').id)
         return res
 
     def create_invoice(self):

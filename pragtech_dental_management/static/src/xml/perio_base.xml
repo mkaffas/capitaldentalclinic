@@ -147,9 +147,9 @@
                                 <td>
                                     Status
                                 </td>
-                                <td>
-                                    Surface
-                                </td>
+                                <!--<td>-->
+                                    <!--Surface-->
+                                <!--</td>-->
                                 <td>
                                     Completion Date
                                 </td>

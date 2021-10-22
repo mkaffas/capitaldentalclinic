@@ -21,6 +21,8 @@
 
             <xpath expr="//field[@name='summary']" position="after">
                 <field name="patient_id"/>
+                <field name="phone"/>
+                <field name="mobile"/>
             </xpath>
 
         </field>
@@ -114,7 +116,7 @@
             </xpath>
             <xpath expr="//field[@name='tag_ids']" position="after">
                 <field name="chief"/>
-                <field name="case"/>
+                <field name="case" invisible="1"/>
             </xpath>
 
             <xpath expr="//page[@name='lead']" position="after">
@@ -173,31 +175,37 @@
         <field name="model">medical.patient</field>
         <field name="inherit_id" ref="pragtech_dental_management.medical_patient_view"/>
         <field name="arch" type="xml">
-            <!--<xpath expr="//page[8]" position="replace">-->
-            <!--<page string="Operations"-->
-            <!--groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager">-->
-            <!--<group colspan="4" col="8">-->
-            <!--<field name="teeth_treatment_ids" string="Operations"-->
-            <!--nolabel="1" attrs="{'readonly':0}"/>-->
-            <!--</group>-->
-            <!--</page>-->
-            <!--</xpath>-->
             <xpath expr="//header" position="inside">
                 <button name="action_appointment" string="Create Appointment" type="object"/>
             </xpath>
             <xpath expr="//page[8]/group" position="before">
                 <group>
                     <group>
-                        <button name="select_all" string="Select All" type="object" class="oe_highlight"/>
-                        <button name="unselect_all" string="Unselect All" type="object" class="oe_highlight"/>
+                        <field name="discount"/>
+                        <button name="get_all_discount" string="Add Discount" type="object" class="oe_highlight"/>
+                    </group>
+                    <group>
+                        <field name="wizard_dentist_id"/>
+                        <button name="dentist_multi_choose" string="Dentist Multi choose" type="object"
+                                class="oe_highlight"/>
+                    </group>
+                </group>
+                <group>
+                    <group>
+                        <button name="delete_selection" string="Delete Selection Record" type="object"
+                                class="oe_highlight"/>
+
+                    </group>
+                    <group>
                         <button name="service_confirmation" string="Services Confirmation" type="object"
                                 class="oe_highlight"/>
                     </group>
                 </group>
 
                 <group>
-                    <field name="discount"/>
-                    <button name="get_all_discount" string="Add Discount" type="object" class="oe_highlight"/>
+
+                    <button name="select_all" string="Select All" type="object" class="oe_highlight"/>
+                    <button name="unselect_all" string="Unselect All" type="object" class="oe_highlight"/>
                 </group>
             </xpath>
             <field name="nationality_id" position="after">
@@ -210,6 +218,7 @@
             <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree/field[@name='create_date']"
                    position="before">
                 <field name="is_selected"/>
+                <field name="create_uid"/>
             </xpath>
             <xpath expr="//div[@class='oe_title']" position="before">
                 <div class="oe_button_box" name="button_box">
@@ -227,9 +236,10 @@
                    position="after">
                 <group class="oe_subtotal_footer oe_right">
                     <field name="service_amount"/>
-                    <field name="total_discount"/>
+                    <field name="total_discount" attrs="{'readonly':0}"/>
                     <field name="service_net"/>
                     <field name="total_payment"/>
+                    <!--<field name="discount_for_total"/>-->
                     <field name="total_net" class="oe_subtotal_footer_separator"/>
                 </group>
             </xpath>
@@ -238,6 +248,7 @@
                 <field name="inv" invisible="1"/>
                 <field name="account_id" invisible="1"/>
                 <field name="invc_id"/>
+                <field name="discount_amount"/>
                 <field name="discount"/>
                 <field name="net_amount"/>
                 <!--<button name="create_invoice"-->
@@ -253,6 +264,21 @@
                         string="Open Invoice"
                         type="object"
                         context="{'openinvoice':1}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="edit_patient_teeth_tree" model="ir.ui.view">
+        <field name="model">medical.teeth.treatment</field>
+        <field name="inherit_id" ref="pragtech_dental_management.medical_patient_treatment_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount']" position="after">
+                <field name="net_amount"/>
+            </xpath>
+            <xpath expr="//field[@name='create_date']" position="after">
+                <field name="create_uid"/>
             </xpath>
 
         </field>
