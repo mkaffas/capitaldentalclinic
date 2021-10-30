@@ -484,6 +484,7 @@ class Patient(models.Model):
         for line in self.teeth_treatment_ids:
             if line.is_selected == True:
                 line.discount = self.discount
+                line.get_discount_amount()
                 line.is_selected = False
 
 

@@ -262,7 +262,7 @@
                    position="after">
                 <group class="oe_subtotal_footer oe_right">
                     <field name="service_amount"/>
-                    <field name="total_discount" attrs="{'readonly':0}"/>
+                    <field name="total_discount"/>
                     <field name="service_net"/>
                     <field name="total_payment"/>
                     <field name="discount_for_total"/>
