@@ -201,8 +201,6 @@ class Activites(models.Model):
     #             'message': 'comment', })
 
     def send_state(self):
-        for line in self:
-            line.write({'state': 'sms_send'})
             lines = self.env['mail.activity'].browse(self._context.get('active_ids', [])).patient_id
             return {
                 'type': 'ir.actions.act_window',
