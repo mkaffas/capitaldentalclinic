@@ -228,7 +228,7 @@
                 </group>
 
                 <group>
-                    <field name="is_selected" widget="radio"/>
+                    <field name="is_selected" widget="boolean_toggle"/>
 
                     <!--<button name="select_all" string="Select All" type="object" class="oe_highlight"/>-->
                     <!--<button name="unselect_all" string="Unselect All" type="object" class="oe_highlight"/>-->
