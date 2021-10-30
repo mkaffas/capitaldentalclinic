@@ -168,7 +168,7 @@
                         attrs="{'invisible': [('state', 'not in', ['checkin'])]}"/>
 
                 <button name="open_survey" string="Open Survey" type="object"
-                        attrs="{'invisible': [('state', '=', 'done')]}"/>
+                        attrs="{'invisible': [('state', '!=', 'done')]}"/>
             </xpath>
             <xpath expr="//field[@name='service_id']" position="after">
                 <field name="chief"/>
@@ -217,7 +217,7 @@
                 </group>
                 <group>
                     <group>
-                        <button name="delete_selection" string="Delete Selection Record" type="object"
+                        <button name="delete_selection" string="Delete Line" type="object"
                                 class="oe_highlight"/>
 
                     </group>
@@ -228,9 +228,10 @@
                 </group>
 
                 <group>
+                    <field name="is_selected" widget="radio"/>
 
-                    <button name="select_all" string="Select All" type="object" class="oe_highlight"/>
-                    <button name="unselect_all" string="Unselect All" type="object" class="oe_highlight"/>
+                    <!--<button name="select_all" string="Select All" type="object" class="oe_highlight"/>-->
+                    <!--<button name="unselect_all" string="Unselect All" type="object" class="oe_highlight"/>-->
                 </group>
             </xpath>
             <field name="nationality_id" position="after">
@@ -264,6 +265,7 @@
                     <field name="total_discount" attrs="{'readonly':0}"/>
                     <field name="service_net"/>
                     <field name="total_payment"/>
+                    <field name="discount_for_total"/>
                     <!--<field name="discount_for_total"/>-->
                     <field name="total_net" class="oe_subtotal_footer_separator"/>
                 </group>
@@ -348,6 +350,11 @@
         <field name="model">appointment.survey</field>
         <field name="arch" type="xml">
             <form string="Appointment Survey">
+                <header>
+                    <button name="confirm" string="Confirm" type="object" states="draft"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"
+                           statusbar_colors='{"confirmed":"blue","draft":"red"}'/>
+                </header>
                 <sheet>
                     <group>
                         <group>

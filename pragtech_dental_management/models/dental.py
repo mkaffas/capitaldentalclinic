@@ -1414,6 +1414,7 @@ class MedicalMedicationDosage(models.Model):
 class MedicalAppointment(models.Model):
     _name = "medical.appointment"
     _inherit = ['mail.thread', 'mail.activity.mixin']
+    _rec_name = "name"
     _description = "Medical Appointment"
     _order = "appointment_sdate desc"
 

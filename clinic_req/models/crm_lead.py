@@ -222,6 +222,11 @@ class Survey_app(models.Model):
 
     appointment_id = fields.Many2one(comodel_name="medical.appointment", string="Appointment", required=True, )
     patient_id = fields.Many2one(comodel_name="medical.patient", string="Patient", required=True, )
+    doctor = fields.Many2one(comodel_name="medical.physician", string="Dentist", required=True, )
+    state = fields.Selection(
+        [('draft', 'Draft'),
+         ('confirmed', 'Confirmed')], 'State',
+        readonly=True, default='draft', tracking=True, )
     priority_reception = fields.Selection(
         [('0', 'Low'), ('1', 'Medium'), ('2', 'Medium'), ('3', 'High'), ('4', 'Normal High'), ('5', 'Very High')],
         'Reception', default='0', index=True)
@@ -232,6 +237,9 @@ class Survey_app(models.Model):
         [('0', 'Low'), ('1', 'Medium'), ('2', 'Medium'), ('3', 'High'), ('4', 'Normal High'), ('5', 'Very High')],
         'Sterilization and hygiene', default='0', index=True)
     desc = fields.Text(string="Description", required=False, )
+
+    def confirm(self):
+        self.state = 'confirmed'
 
 
 class Appointment(models.Model):
@@ -299,7 +307,7 @@ class Appointment(models.Model):
             # 'res_id': self.invc_id.id,
             'type': 'ir.actions.act_window',
             'target': 'current',
-            'context': {'default_appointment_id': self.id,'default_paient_id':self.patient.id},
+            'context': {'default_appointment_id': self.id,'default_patient_id':self.patient.id,'default_doctor':self.doctor.id},
         }
 
     # def open_survey(self):
@@ -338,9 +346,11 @@ class Patient(models.Model):
         'crm.tag'
     )
     wizard_dentist_id = fields.Many2one(comodel_name="medical.physician", string="Dentist", required=False, )
-    discount_for_total = fields.Float(string='Additional Discount total (%)', digits='Discount',
+    discount_for_total = fields.Float(string='Additional Discount total', digits='Discount',
                                       tracking=True,
                                       default=0.0)
+    is_selected = fields.Boolean(string="Select All",  )
+
 
     def send_sms(self):
         obj = self.env['sms.eg'].sudo()
@@ -375,7 +385,7 @@ class Patient(models.Model):
         }
 
     @api.depends('teeth_treatment_ids', 'teeth_treatment_ids.amount', 'teeth_treatment_ids.discount',
-                 'teeth_treatment_ids.net_amount')
+                 'teeth_treatment_ids.net_amount','discount_for_total')
     def get_amount_totals(self):
         service_amount = 0
         service_net = 0
@@ -397,13 +407,13 @@ class Patient(models.Model):
                     total_payment -= payment.amount
             record.total_payment = total_payment
             total_net = record.service_net - record.total_payment
-            record.total_net = total_net
+            record.total_net = total_net - record.discount_for_total
 
-    @api.onchange('total_discount')
+    @api.onchange('discount_for_total')
     def change_total_discount(self):
-        discount_amount_line = self.total_discount / len(self.teeth_treatment_ids)
+        discount_amount_line = self.discount_for_total / len(self.teeth_treatment_ids)
         for line in self.teeth_treatment_ids:
-            line.discount_amount = discount_amount_line
+            line.discount_amount = discount_amount_line + line.discount_amount
             line.get_discount()
 
     def open_partner_ledger(self):
@@ -423,13 +433,18 @@ class Patient(models.Model):
             if self.wizard_dentist_id:
                 line.dentist = self.wizard_dentist_id.id
 
+    @api.onchange('is_selected')
     def select_all(self):
-        for line in self.teeth_treatment_ids:
-            line.is_selected = True
+        if self.is_selected == True:
+            for line in self.teeth_treatment_ids:
+                line.is_selected = True
+        else:
+            for line in self.teeth_treatment_ids:
+                line.is_selected = False
 
-    def unselect_all(self):
-        for line in self.teeth_treatment_ids:
-            line.is_selected = False
+    # def unselect_all(self):
+    #     for line in self.teeth_treatment_ids:
+    #         line.is_selected = False
 
     def delete_selection(self):
         for line in self.teeth_treatment_ids:
