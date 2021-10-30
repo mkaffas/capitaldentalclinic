@@ -65,6 +65,9 @@
         <field name="inherit_id" ref="mail.mail_activity_view_search"/>
         <field name="arch" type="xml">
 
+            <xpath expr="//filter[@name='date_deadline']" position="after">
+                <filter string="Date of Birth" name="dob" context="{'group_by': 'dob'}"/>
+            </xpath>
             <xpath expr="//field[@name='res_model_id']" position="replace">
                 <field name="patient_id"/>
                 <field name="phone"/>
