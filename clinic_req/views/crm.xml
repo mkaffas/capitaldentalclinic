@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <record id="assign_doctor_form" model="ir.ui.view">
+        <field name="model">physician.wizard</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="wizard_dentist_id"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button special="cancel" string="Cancel"
+                            icon="fa-times-circle text-danger"/>
+                    <button name="select_doctor" string="Assign Doctor"
+                            type="object" icon="fa-arrow-right text-success"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_physician_wizard" model="ir.actions.act_window">
+        <field name="name">Assign Doctor</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">physician.wizard</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+            </p>
+            <p>
+                <!-- More details about what a user can do with this object will be OK -->
+            </p>
+        </field>
+    </record>
+
     <record id="sms_action_server" model="ir.actions.server">
         <field name="name">Send SMS</field>
         <field name="type">ir.actions.server</field>
@@ -25,6 +59,21 @@
         </field>
     </record>
 
+    <!-- Inherit Form View to Modify it -->
+    <record id="edit_search_mail_activity" model="ir.ui.view">
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="mail.mail_activity_view_search"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='res_model_id']" position="replace">
+                <field name="patient_id"/>
+                <field name="phone"/>
+                <field name="mobile"/>
+            </xpath>
+
+        </field>
+    </record>
+
     <record id="edit_mail_activity_tree" model="ir.ui.view">
         <field name="model">mail.activity</field>
         <field name="inherit_id" ref="mail.mail_activity_view_tree"/>
@@ -32,6 +81,7 @@
 
             <xpath expr="//field[@name='summary']" position="after">
                 <field name="patient_id"/>
+                <field name="dob"/>
                 <field name="phone"/>
                 <field name="mobile"/>
             </xpath>
@@ -206,13 +256,14 @@
             <xpath expr="//page[8]/group" position="before">
                 <group>
                     <group>
+                        <field name="discount_option"/>
                         <field name="discount"/>
-                        <button name="get_all_discount" string="Add Discount" type="object" class="oe_highlight"/>
+
                     </group>
                     <group>
-                        <field name="wizard_dentist_id"/>
-                        <button name="dentist_multi_choose" string="Dentist Multi choose" type="object"
-                                class="oe_highlight"/>
+                        <button name="get_all_discount" string="Add Discount" type="object" class="oe_highlight"/>
+                        <!--<field name="wizard_dentist_id"/>-->
+
                     </group>
                 </group>
                 <group>
@@ -220,6 +271,10 @@
                         <button name="delete_selection" string="Delete Line" type="object"
                                 class="oe_highlight"/>
 
+                    </group>
+                    <group>
+                        <button name="dentist_multi_choose" string="Assign Dentist" type="object"
+                                class="oe_highlight"/>
                     </group>
                     <group>
                         <button name="service_confirmation" string="Services Confirmation" type="object"
@@ -286,7 +341,7 @@
                 <!--string="Create Invoice"-->
                 <!--type="object" context="{'asset':1}"/>-->
                 <button name="open_invoice"
-                        attrs="{'invisible':[('inv','=',False)]}"
+                        attrs="{'invisible':1}"
                         class="oe_highlight"
                         string="Open Invoice"
                         type="object"

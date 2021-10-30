@@ -192,6 +192,7 @@ class Activites(models.Model):
     phone = fields.Char(related='patient_id.phone', store=True, readonly=False)
     mobile = fields.Char(related='patient_id.mobile', store=True,
                          readonly=False)
+    dob = fields.Date(related='patient_id.dob',string='Date of Birth')
 
     # def send_sms(self):
     #     obj = self.env['sms.eg'].sudo()
@@ -327,9 +328,21 @@ class Appointment(models.Model):
     #     }
 
 
+class Physician(models.TransientModel):
+    _name = 'physician.wizard'
+
+    wizard_dentist_id = fields.Many2one(comodel_name="medical.physician", string="Dentist", required=True, )
+
+    def select_doctor(self):
+        patient_ids = self.env['medical.patient'].browse(self._context.get('active_ids', False))
+        for line in patient_ids:
+            for record in line.teeth_treatment_ids:
+                record.dentist = self.wizard_dentist_id.id
+
+
 class Patient(models.Model):
     _inherit = 'medical.patient'
-    discount = fields.Float(string='Discount (%)', digits='Discount',
+    discount = fields.Float(string='Discount', digits='Discount',
                             default=0.0)
     service_amount = fields.Float(string="Service amount before tax",
                                   compute="get_amount_totals", )
@@ -350,6 +363,7 @@ class Patient(models.Model):
                                       tracking=True,
                                       default=0.0)
     is_selected = fields.Boolean(string="Select All",  )
+    discount_option = fields.Selection(string="Discount type", selection=[('percentage', 'Percentage'), ('fixed', 'Fixed'), ],default='percentage', required=False, )
 
 
     def send_sms(self):
@@ -429,9 +443,16 @@ class Patient(models.Model):
         }
 
     def dentist_multi_choose(self):
-        for line in self.teeth_treatment_ids:
-            if self.wizard_dentist_id:
-                line.dentist = self.wizard_dentist_id.id
+        return {'type': 'ir.actions.act_window',
+                'name': _('Assign Doctor'),
+                'res_model': 'physician.wizard',
+                'target': 'new',
+                'view_id': self.env.ref('clinic_req.assign_doctor_form').id,
+                'view_mode': 'form',
+                }
+        # for line in self.teeth_treatment_ids:
+        #     if self.wizard_dentist_id:
+        #         line.dentist = self.wizard_dentist_id.id
 
     @api.onchange('is_selected')
     def select_all(self):
@@ -482,10 +503,16 @@ class Patient(models.Model):
 
     def get_all_discount(self):
         for line in self.teeth_treatment_ids:
-            if line.is_selected == True:
-                line.discount = self.discount
-                line.get_discount_amount()
-                line.is_selected = False
+            if self.discount_option == 'percentage':
+                if line.is_selected == True:
+                    line.discount = self.discount
+                    line.get_discount_amount()
+                    line.is_selected = False
+            elif self.discount_option == 'fixed':
+                if line.is_selected == True:
+                    line.discount_amount = self.discount
+                    line.get_discount()
+                    line.is_selected = False
 
 
 class Teeth(models.Model):
