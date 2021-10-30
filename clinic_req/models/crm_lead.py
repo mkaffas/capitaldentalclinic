@@ -204,7 +204,7 @@ class Activites(models.Model):
         mail_ids = self.env['mail.activity'].browse(self._context.get('active_ids', False))
         lines = []
         for line in mail_ids:
-            lines.append(line.patient_id.id)
+            lines.append(line.patient_id.partner_id.id)
         return {'type': 'ir.actions.act_window',
                 'name': _('Send SMS'),
                 'res_model': 'sms.eg',
