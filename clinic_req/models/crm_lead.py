@@ -192,7 +192,7 @@ class Activites(models.Model):
     phone = fields.Char(related='patient_id.phone', store=True, readonly=False)
     mobile = fields.Char(related='patient_id.mobile', store=True,
                          readonly=False)
-    dob = fields.Date(related='patient_id.dob',string='Date of Birth')
+    dob = fields.Date(related='patient_id.dob',string='Date of Birth',store=True)
 
     # def send_sms(self):
     #     obj = self.env['sms.eg'].sudo()
