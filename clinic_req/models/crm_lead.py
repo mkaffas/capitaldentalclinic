@@ -200,20 +200,19 @@ class Activites(models.Model):
     #             'partner_ids': [(4, line.patient_id.partner_id.id)],
     #             'message': 'comment', })
 
-    def send_state(self):
-            lines = self.env['mail.activity'].browse(self._context.get('active_ids', [])).patient_id
-            return {
-                'type': 'ir.actions.act_window',
-                'view_mode': 'form',
-                'name': _("Send SMS Text Message"),
+    def action_send_sms(self):
+        mail_ids = self.env['mail.activity'].browse(self._context.get('active_ids', False))
+        lines = []
+        for line in mail_ids:
+            lines.append(line.patient_id.id)
+        return {'type': 'ir.actions.act_window',
+                'name': _('Send SMS'),
                 'res_model': 'sms.eg',
                 'target': 'new',
-                'views': [(False, "form")],
-                'context': {
-                    'default_partner_ids': [(4, lines.ids)],
-                    'default_message': 'comment',
-                },
-            }
+                'view_id': self.env.ref('sms_eg.sms_eg_form').id,
+                'view_mode': 'form',
+                'context': {'default_partner_ids': [(6,0, lines)],'default_message': 'comment',}
+                }
 
 
 class Survey_app(models.Model):

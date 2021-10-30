@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <record id="sms_action_server" model="ir.actions.server">
+        <field name="name">Send SMS</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="mail.model_mail_activity"/>
+        <field name="binding_model_id" ref="mail.model_mail_activity"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.action_send_sms()
+        </field>
+    </record>
+
     <!-- Inherit Form View to Modify it -->
     <record id="edit_mail_activity" model="ir.ui.view">
         <field name="model">mail.activity</field>
