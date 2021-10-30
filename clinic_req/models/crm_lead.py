@@ -136,7 +136,7 @@ class CRM(models.Model):
             'referred': self.referred,
             'email': self.email_from,
             'phone': self.phone,
-            'chief': self.chief,
+            'chief': self.chief.id,
             'tag_ids': self.tag_ids.ids,
             'nationality_id': self.nationality.id,
             'note': self.description,
@@ -193,12 +193,29 @@ class Activites(models.Model):
     mobile = fields.Char(related='patient_id.mobile', store=True,
                          readonly=False)
 
-    def send_sms(self):
-        obj = self.env['sms.eg'].sudo()
+    # def send_sms(self):
+    #     obj = self.env['sms.eg'].sudo()
+    #     for line in self:
+    #         obj.create({
+    #             'partner_ids': [(4, line.patient_id.partner_id.id)],
+    #             'message': 'comment', })
+
+    def send_state(self):
         for line in self:
-            obj.create({
-                'partner_ids': [(4, line.patient_id.partner_id.id)],
-                'message': 'comment', })
+            line.write({'state': 'sms_send'})
+            lines = self.env['mail.activity'].browse(self._context.get('active_ids', [])).patient_id
+            return {
+                'type': 'ir.actions.act_window',
+                'view_mode': 'form',
+                'name': _("Send SMS Text Message"),
+                'res_model': 'sms.eg',
+                'target': 'new',
+                'views': [(False, "form")],
+                'context': {
+                    'default_partner_ids': [(4, lines.ids)],
+                    'default_message': 'comment',
+                },
+            }
 
 
 class Survey_app(models.Model):
