@@ -1126,10 +1126,7 @@
                 <field name="dob"/>
                 <field name="deceased"/>
                 <field name="stage_id"/>
-                <progressbar field="blood_type"
-                             colors="{&quot;A&quot;: &quot;AB&quot;, &quot;O&quot;: &quot;B&quot;}"
-                             sum_field="expected_revenue"
-                             help="This bar allows to filter the opportunities based on scheduled activities."/>
+                <progressbar field="activity_state" colors='{"planned": "success", "today": "warning", "overdue": "danger"}' help="This bar allows to filter the opportunities based on scheduled activities."/>
                 <templates>
                     <t t-name="kanban-box">
                         <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
