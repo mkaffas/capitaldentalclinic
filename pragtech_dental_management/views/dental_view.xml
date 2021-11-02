@@ -1126,9 +1126,9 @@
                 <field name="dob"/>
                 <field name="deceased"/>
                 <field name="stage_id"/>
-                <progressbar field="stage_id"
-                             colors="{&quot;Enrolled in a plan&quot;: &quot;Evaluation&quot;, &quot;Dismissed&quot;: &quot;Completed&quot;, &quot;Enrolled in a new plan&quot;: &quot;Enrolled in then stopped&quot;}"
-                             sum_field="stage_id"
+                <progressbar field="blood_type"
+                             colors="{&quot;A&quot;: &quot;AB&quot;, &quot;O&quot;: &quot;B&quot;}"
+                             sum_field="blood_type"
                              help="This bar allows to filter the opportunities based on scheduled activities."/>
                 <templates>
                     <t t-name="kanban-box">
