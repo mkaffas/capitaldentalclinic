@@ -46,6 +46,17 @@
         </field>
     </record>
 
+    <record id="sms_action_server_patient" model="ir.actions.server">
+        <field name="name">Send SMS Patient</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pragtech_dental_management.model_medical_patient"/>
+        <field name="binding_model_id" ref="pragtech_dental_management.model_medical_patient"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.action_send_sms()
+        </field>
+    </record>
+
     <!-- Inherit Form View to Modify it -->
     <record id="edit_mail_activity" model="ir.ui.view">
         <field name="model">mail.activity</field>
@@ -234,19 +245,19 @@
         </field>
     </record>
 
-    <record id="action_send_sms_activity" model="ir.actions.server">
-        <field name="name">Send SMS</field>
-        <field name="model_id" ref="mail.model_mail_activity"/>
-        <field name="state">code</field>
-        <field name="code">records.action_send_sms()</field>
-    </record>
+    <!--<record id="action_send_sms_activity" model="ir.actions.server">-->
+        <!--<field name="name">Send SMS</field>-->
+        <!--<field name="model_id" ref="mail.model_mail_activity"/>-->
+        <!--<field name="state">code</field>-->
+        <!--<field name="code">records.action_send_sms()</field>-->
+    <!--</record>-->
 
-    <record id="action_send_sms" model="ir.actions.server">
-        <field name="name">Send SMS</field>
-        <field name="model_id" ref="pragtech_dental_management.model_medical_patient"/>
-        <field name="state">code</field>
-        <field name="code">records.action_send_sms()</field>
-    </record>
+    <!--<record id="action_send_sms" model="ir.actions.server">-->
+        <!--<field name="name">Send SMS</field>-->
+        <!--<field name="model_id" ref="pragtech_dental_management.model_medical_patient"/>-->
+        <!--<field name="state">code</field>-->
+        <!--<field name="code">records.action_send_sms()</field>-->
+    <!--</record>-->
 
     <!-- Inherit Form View to Modify it -->
     <record id="edit_patient" model="ir.ui.view">
