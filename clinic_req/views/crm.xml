@@ -65,7 +65,7 @@
 
             <xpath expr="//field[@name='summary']" position="after">
                 <field name="patient_id"/>
-                <field name="tag_patient_ids"/>
+                <field name="tag_patient_ids" widget="many2many_tags"/>
             </xpath>
 
         </field>
@@ -97,7 +97,7 @@
 
             <xpath expr="//field[@name='summary']" position="after">
                 <field name="patient_id"/>
-                <field name="tag_patient_ids"/>
+                <field name="tag_patient_ids" widget="many2many_tags"/>
                 <field name="dob"/>
                 <field name="phone"/>
                 <field name="mobile"/>

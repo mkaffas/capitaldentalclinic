@@ -442,7 +442,7 @@ class Patient(models.Model):
                     total_payment -= payment.amount
             record.total_payment = total_payment
             total_net = record.service_net - record.total_payment
-            record.total_net = total_net - record.discount_for_total
+            record.total_net = total_net 
 
     @api.onchange('discount_for_total')
     def change_total_discount(self):
