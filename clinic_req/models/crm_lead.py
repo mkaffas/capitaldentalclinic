@@ -179,6 +179,12 @@ class Chief_Complaint(models.Model):
     name = fields.Char()
 
 
+class Tag(models.Model):
+    _name = 'patient.tag'
+
+    name = fields.Char()
+
+
 class Survey(models.Model):
     _inherit = 'survey.survey'
 
@@ -193,6 +199,7 @@ class Activites(models.Model):
     mobile = fields.Char(related='patient_id.mobile', store=True,
                          readonly=False)
     dob = fields.Date(related='patient_id.dob',string='Date of Birth',store=True)
+    tag_patient_ids = fields.Many2many(comodel_name="patient.tag",  string="Tags", )
 
     # def send_sms(self):
     #     obj = self.env['sms.eg'].sudo()

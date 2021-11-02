@@ -65,6 +65,7 @@
 
             <xpath expr="//field[@name='summary']" position="after">
                 <field name="patient_id"/>
+                <field name="tag_patient_ids"/>
             </xpath>
 
         </field>
@@ -81,6 +82,7 @@
             </xpath>
             <xpath expr="//field[@name='res_model_id']" position="replace">
                 <field name="patient_id"/>
+                <field name="tag_patient_ids"/>
                 <field name="phone"/>
                 <field name="mobile"/>
             </xpath>
@@ -95,6 +97,7 @@
 
             <xpath expr="//field[@name='summary']" position="after">
                 <field name="patient_id"/>
+                <field name="tag_patient_ids"/>
                 <field name="dob"/>
                 <field name="phone"/>
                 <field name="mobile"/>
