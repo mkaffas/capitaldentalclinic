@@ -1118,7 +1118,8 @@
         <field name="name">medical.patient.kanban</field>
         <field name="model">medical.patient</field>
         <field name="arch" type="xml">
-            <kanban default_group_by="stage_id" default_order='create_date desc' class="o_kanban_small_column">
+            <!--<kanban default_group_by="stage_id" default_order='create_date desc' class="o_kanban_small_column">-->
+            <kanban class="o_kanban_mobile" archivable="false" js_class="crm_kanban" sample="1">
                 <field name="partner_id"/>
                 <field name="color"/>
                 <field name="patient_id"/>
