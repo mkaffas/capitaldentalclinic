@@ -1126,9 +1126,9 @@
                 <field name="dob"/>
                 <field name="deceased"/>
                 <field name="stage_id"/>
-                <progressbar field="activity_state"
-                             colors="{&quot;planned&quot;: &quot;success&quot;, &quot;today&quot;: &quot;warning&quot;, &quot;overdue&quot;: &quot;danger&quot;}"
-                             sum_field="expected_revenue"
+                <progressbar field="stage_id"
+                             colors="{&quot;Enrolled in a plan&quot;: &quot;Evaluation&quot;, &quot;Dismissed&quot;: &quot;Completed&quot;, &quot;Enrolled in a new plan&quot;: &quot;Enrolled in then stopped&quot;}"
+                             sum_field="stage_id"
                              help="This bar allows to filter the opportunities based on scheduled activities."/>
                 <templates>
                     <t t-name="kanban-box">

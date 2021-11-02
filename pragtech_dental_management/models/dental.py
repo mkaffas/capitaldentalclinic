@@ -667,7 +667,7 @@ class MedicalPatient(models.Model):
 
     stage_id = fields.Many2one(
         'patient.stage',
-        group_expand='_group_expand_stage',traking=True
+        group_expand='_group_expand_stage',track_visibility="onchange",
     )
 
     medium_id = fields.Many2one('utm.medium')
@@ -687,8 +687,8 @@ class MedicalPatient(models.Model):
                                readonly=False)
     country_id = fields.Many2one(related='partner_id.country_id', store=True,
                                  readonly=False)
-    email = fields.Char(related='partner_id.email', store=True, readonly=False)
-    phone = fields.Char(related='partner_id.phone', store=True, readonly=False)
+    email = fields.Char(related='partner_id.email', store=True, readonly=False,tracking=True)
+    phone = fields.Char(related='partner_id.phone', store=True, readonly=False,tracking=True)
     mobile = fields.Char(related='partner_id.mobile', store=True,
                          readonly=False)
     function = fields.Char(related='partner_id.function', store=True,
@@ -710,7 +710,7 @@ class MedicalPatient(models.Model):
     sec_insurance = fields.Many2one('medical.insurance', "Insurance",
                                     domain="[('partner_id','=',partner_id)]",
                                     help="Insurance information. You may choose from the different insurances belonging to the patient")
-    dob = fields.Date('Date of Birth')
+    dob = fields.Date('Date of Birth',tracking=True)
     age = fields.Char(compute='_patient_age', string='Patient Age',
                       help="It shows the age of the patient in years(y), months(m) and days(d).\nIf the patient has died, the age shown is the age at time of death, the age corresponding to the date on the death certificate. It will show also \"deceased\" on the field")
     sex = fields.Selection([('m', 'Male'), ('f', 'Female'), ], 'Gender', )
@@ -758,7 +758,6 @@ class MedicalPatient(models.Model):
     referring_doctor_id = fields.Many2one('medical.physician',
                                           'Referring  Doctor', )
     note = fields.Text('Notes', help="Notes and To-Do")
-    mobile = fields.Char('Mobile', related='partner_id.mobile')
     other_mobile = fields.Char('Other Mobile')
     teeth_treatment_ids = fields.One2many('medical.teeth.treatment',
                                           'patient_id', 'Operations',
