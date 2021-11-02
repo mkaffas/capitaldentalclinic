@@ -366,12 +366,26 @@ class Patient(models.Model):
     discount_option = fields.Selection(string="Discount type", selection=[('percentage', 'Percentage'), ('fixed', 'Fixed'), ],default='percentage', required=False, )
 
 
-    def send_sms(self):
-        obj = self.env['sms.eg'].sudo()
-        for line in self:
-            obj.create({
-                'partner_ids': [(4, line.partner_id.id)],
-                'message': 'comment', })
+    # def send_sms(self):
+    #     obj = self.env['sms.eg'].sudo()
+    #     for line in self:
+    #         obj.create({
+    #             'partner_ids': [(4, line.partner_id.id)],
+    #             'message': 'comment', })
+
+    def action_send_sms(self):
+        mail_ids = self.env['medical.patient'].browse(self._context.get('active_ids', False))
+        lines = []
+        for line in mail_ids:
+            lines.append(line.partner_id.id)
+        return {'type': 'ir.actions.act_window',
+                'name': _('Send SMS'),
+                'res_model': 'sms.eg',
+                'target': 'new',
+                'view_id': self.env.ref('sms_eg.sms_eg_form').id,
+                'view_mode': 'form',
+                'context': {'default_partner_ids': [(6,0, lines)],'default_message': 'comment',}
+                }
 
     def action_appointment(self):
 

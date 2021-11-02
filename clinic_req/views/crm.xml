@@ -238,7 +238,7 @@
         <field name="name">Send SMS</field>
         <field name="model_id" ref="mail.model_mail_activity"/>
         <field name="state">code</field>
-        <field name="code">records.send_sms()</field>
+        <field name="code">records.action_send_sms()</field>
     </record>
 
     <record id="action_send_sms" model="ir.actions.server">
@@ -418,6 +418,7 @@
                         <group>
                             <field name="appointment_id"/>
                             <field name="patient_id"/>
+                            <field name="doctor"/>
                         </group>
 
                         <group>
@@ -440,6 +441,7 @@
             <tree string="Appointment Survey">
                 <field name="appointment_id"/>
                 <field name="patient_id"/>
+                <field name="doctor"/>
             </tree>
         </field>
     </record>
