@@ -1128,7 +1128,7 @@
                 <field name="stage_id"/>
                 <progressbar field="blood_type"
                              colors="{&quot;A&quot;: &quot;AB&quot;, &quot;O&quot;: &quot;B&quot;}"
-                             sum_field="blood_type"
+                             sum_field="expected_revenue"
                              help="This bar allows to filter the opportunities based on scheduled activities."/>
                 <templates>
                     <t t-name="kanban-box">
