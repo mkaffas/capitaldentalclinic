@@ -591,7 +591,7 @@ class Teeth(models.Model):
         res = super(Teeth, self).create(values)
 
         for line in res:
-            if not self.env.user.has_group('group_dental_admin'):
+            if not self.env.user.has_group('pragtech_dental_management.group_dental_admin'):
                 partners = self.env.ref(
                     'pragtech_dental_management.group_branch_manager').users.filtered(
                     lambda r: r.partner_id).mapped('partner_id.id')
