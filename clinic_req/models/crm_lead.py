@@ -448,8 +448,9 @@ class Patient(models.Model):
     def change_total_discount(self):
         discount_line = ( self.discount_for_total / self.total_net ) * 100
         for line in self.teeth_treatment_ids:
-            line.discount = discount_line + line.discount
-            line.get_discount_amount()
+            discount_amount_line = (line.net_amount * discount_line) / 100
+            line.discount_amount = discount_amount_line + line.discount_amount
+            line.get_discount()
 
     def open_partner_ledger(self):
         return {
