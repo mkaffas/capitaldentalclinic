@@ -344,7 +344,8 @@ class Physician(models.TransientModel):
         patient_ids = self.env['medical.patient'].browse(self._context.get('active_ids', False))
         for line in patient_ids:
             for record in line.teeth_treatment_ids:
-                record.dentist = self.wizard_dentist_id.id
+                if record.is_selected == True:
+                    record.dentist = self.wizard_dentist_id.id
 
 
 class Patient(models.Model):
