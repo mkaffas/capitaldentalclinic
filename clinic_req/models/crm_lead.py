@@ -349,7 +349,7 @@ class Physician(models.TransientModel):
 
 class Patient(models.Model):
     _inherit = 'medical.patient'
-    discount = fields.Float(string='Discount', digits='Discount',
+    discount = fields.Float(string='Discount',  digits=(3, 6),
                             default=0.0)
     service_amount = fields.Float(string="Service amount before tax",
                                   compute="get_amount_totals", )
@@ -366,7 +366,7 @@ class Patient(models.Model):
         'crm.tag'
     )
     wizard_dentist_id = fields.Many2one(comodel_name="medical.physician", string="Dentist", required=False, )
-    discount_for_total = fields.Float(string='Additional Discount total', digits='Discount',
+    discount_for_total = fields.Float(string='Additional Discount total',  digits=(3, 6),
                                       tracking=True,
                                       default=0.0)
     is_selected = fields.Boolean(string="Select All",  )
@@ -446,10 +446,10 @@ class Patient(models.Model):
 
     @api.onchange('discount_for_total')
     def change_total_discount(self):
-        discount_amount_line = self.discount_for_total / len(self.teeth_treatment_ids)
+        discount_line = ( self.discount_for_total / self.total_net ) * 100
         for line in self.teeth_treatment_ids:
-            line.discount_amount = discount_amount_line + line.discount_amount
-            line.get_discount()
+            line.discount = discount_line + line.discount
+            line.get_discount_amount()
 
     def open_partner_ledger(self):
         return {
@@ -543,7 +543,7 @@ class Teeth(models.Model):
     invc_id = fields.Many2one('account.move', string='Invoice')
     account_id = fields.Many2one(comodel_name="account.account",
                                  string="Account", required=False, )
-    discount = fields.Float(string='Discount (%)', digits='Discount',
+    discount = fields.Float(string='Discount (%)', digits=(3, 6),
                             tracking=True,
                             default=0.0)
     net_amount = fields.Float(string="Net Amount", compute="get_net_amount")
