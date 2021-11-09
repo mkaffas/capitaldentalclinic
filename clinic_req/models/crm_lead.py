@@ -44,7 +44,12 @@ class CRM(models.Model):
     occupation_id = fields.Many2one('medical.occupation', 'Occupation')
 
     def _prepare_contact_name_from_partner(self, partner):
-        contact_name = False if partner.is_company else str(partner.name) + " " + str(partner.middle_name) + " " + str(partner.lastname)
+
+        contact_name = False if partner.is_company else str(partner.name)
+        if partner.middle_name:
+            contact_name += " " + str(partner.middle_name)
+        if partner.lastname:
+            contact_name += " " + str(partner.lastname)
         return {'contact_name': contact_name or self.contact_name}
 
     @api.onchange('occupation_id')
