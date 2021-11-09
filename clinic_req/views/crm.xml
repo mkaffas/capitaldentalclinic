@@ -143,6 +143,16 @@
             <xpath expr="//field[@name='user_id']" position="before">
                 <field name="medium_id"/>
             </xpath>
+            <xpath expr="//group[@name='lead_info']/field[@name='phone_state']" position="after">
+                <field name="branch_id" invisible="1"/>
+                <field name="room_id" invisible="1"/>
+                <field name="occupation_id" string="Occupation"/>
+                <field name="mobile" widget="phone" options="{'enable_sms': True}" required="1"/>
+                <field name="nationality" string="Nationality"/>
+                <field name="birthday"/>
+                <field name="age"/>
+                <field name="gender"/>
+            </xpath>
             <xpath expr="//field[@name='phone_state']" position="after">
                 <!--<group class="mt48">-->
 
@@ -249,17 +259,17 @@
     </record>
 
     <!--<record id="action_send_sms_activity" model="ir.actions.server">-->
-        <!--<field name="name">Send SMS</field>-->
-        <!--<field name="model_id" ref="mail.model_mail_activity"/>-->
-        <!--<field name="state">code</field>-->
-        <!--<field name="code">records.action_send_sms()</field>-->
+    <!--<field name="name">Send SMS</field>-->
+    <!--<field name="model_id" ref="mail.model_mail_activity"/>-->
+    <!--<field name="state">code</field>-->
+    <!--<field name="code">records.action_send_sms()</field>-->
     <!--</record>-->
 
     <!--<record id="action_send_sms" model="ir.actions.server">-->
-        <!--<field name="name">Send SMS</field>-->
-        <!--<field name="model_id" ref="pragtech_dental_management.model_medical_patient"/>-->
-        <!--<field name="state">code</field>-->
-        <!--<field name="code">records.action_send_sms()</field>-->
+    <!--<field name="name">Send SMS</field>-->
+    <!--<field name="model_id" ref="pragtech_dental_management.model_medical_patient"/>-->
+    <!--<field name="state">code</field>-->
+    <!--<field name="code">records.action_send_sms()</field>-->
     <!--</record>-->
 
     <!-- Inherit Form View to Modify it -->
