@@ -159,11 +159,9 @@
                 <field name="branch_id" invisible="1"/>
                 <field name="room_id" invisible="1"/>
                 <field name="occupation_id" string="Occupation"/>
-                <field name="mobile" widget="phone" options="{'enable_sms': True}" required="1"/>
-                <field name="nationality" string="Nationality"/>
-                <field name="birthday"/>
-                <field name="age"/>
                 <field name="gender"/>
+                <field name="chief"/>
+                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
                 <!--</group>-->
             </xpath>
             <xpath expr="//div[@class='oe_button_box']" position="inside">

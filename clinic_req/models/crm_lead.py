@@ -42,6 +42,11 @@ class CRM(models.Model):
                                        string="Referred By", required=False, )
     age = fields.Integer('Age', compute='compute_age')
     occupation_id = fields.Many2one('medical.occupation', 'Occupation')
+
+    @api.onchange('occupation_id')
+    def change_occupation_id(self):
+        self.function = self.occupation_id.name
+
     birthday = fields.Date('Birth Date')
     gender = fields.Selection([('m', 'Male'), ('f', 'Female'), ], 'Gender', )
     chief = fields.Many2one(comodel_name='chief.complaint',
