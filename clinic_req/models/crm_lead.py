@@ -11,6 +11,9 @@ class CRM(models.Model):
     _inherit = "crm.lead",
 
     patient = fields.Char('Patient', required=True, )
+    first_name = fields.Char(string="First name", required=False, )
+    middle_name = fields.Char(string="Middle name", required=False, )
+    last_name = fields.Char(string="Last name", required=False, )
     appointment_id = fields.Many2one('medical.appointment', 'Patient')
     nationality = fields.Many2one(comodel_name="res.country",
                                   string="nationality", required=False, )
@@ -43,14 +46,24 @@ class CRM(models.Model):
     age = fields.Integer('Age', compute='compute_age')
     occupation_id = fields.Many2one('medical.occupation', 'Occupation')
 
-    def _prepare_contact_name_from_partner(self, partner):
+    @api.depends('partner_id','first_name','middle_name','last_name')
+    def _compute_contact_name(self):
+        for lead in self:
+            contact_name = str(lead.first_name)
+            if lead.middle_name:
+                contact_name += " " + str(lead.middle_name)
+            if lead.last_name:
+                contact_name += " " + str(lead.last_name)
+            return {'contact_name': contact_name or self.contact_name}
 
-        contact_name = False if partner.is_company else str(partner.name)
-        if partner.middle_name:
-            contact_name += " " + str(partner.middle_name)
-        if partner.lastname:
-            contact_name += " " + str(partner.lastname)
-        return {'contact_name': contact_name or self.contact_name}
+    # def _prepare_contact_name_from_partner(self, partner):
+    #
+    #     contact_name = False if partner.is_company else str(partner.name)
+    #     if partner.middle_name:
+    #         contact_name += " " + str(partner.middle_name)
+    #     if partner.lastname:
+    #         contact_name += " " + str(partner.lastname)
+    #     return {'contact_name': contact_name or self.contact_name}
 
     @api.onchange('occupation_id')
     def change_occupation_id(self):

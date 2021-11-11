@@ -151,6 +151,12 @@
                                 <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
                 <field name="chief"/>
             </xpath>
+            <xpath expr="//sheet/group/group[1]/field[@name='partner_id']" position="replace">
+                <field name="patient" string="Patient" options="{'open': True, 'create': True}"/>
+                <field name="first_name"/>
+                <field name="middle_name"/>
+                <field name="last_name"/>
+            </xpath>
             <xpath expr="//field[@name='phone_state']" position="after">
                 <!--<group class="mt48">-->
 
