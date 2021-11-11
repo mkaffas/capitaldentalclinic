@@ -152,6 +152,7 @@
                 <field name="chief"/>
             </xpath>
             <xpath expr="//sheet/group/group[1]/field[@name='partner_id']" position="replace">
+                <field name="partner_id" invisible="1"/>
                 <field name="patient" string="Patient" options="{'open': True, 'create': True}"/>
                 <field name="first_name"/>
                 <field name="middle_name"/>
