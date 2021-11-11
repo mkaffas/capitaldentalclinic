@@ -54,7 +54,7 @@ class CRM(models.Model):
                 contact_name += " " + str(lead.middle_name)
             if lead.last_name:
                 contact_name += " " + str(lead.last_name)
-            return {'contact_name': contact_name or self.contact_name}
+            lead.contact_name = contact_name
 
     # def _prepare_contact_name_from_partner(self, partner):
     #
