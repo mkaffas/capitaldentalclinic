@@ -139,6 +139,7 @@
             <xpath expr="//field[@name='medium_id']" position="replace"/>
             <xpath expr="//sheet/group/group[2]/field[@name='partner_id']" position="replace">
                 <field name="patient" string="Patient" options="{'open': True, 'create': True}"/>
+                <field name="patient_id_number" string="Patient ID" />
             </xpath>
             <xpath expr="//field[@name='user_id']" position="before">
                 <field name="medium_id"/>
@@ -154,6 +155,7 @@
             <xpath expr="//sheet/group/group[1]/field[@name='partner_id']" position="replace">
                 <field name="partner_id" invisible="1"/>
                 <field name="patient" string="Patient" options="{'open': True, 'create': True}"/>
+                <field name="patient_id_number" string="Patient ID"/>
                 <field name="first_name"/>
                 <field name="middle_name"/>
                 <field name="last_name"/>
@@ -201,6 +203,10 @@
                         attrs="{'invisible':[('is_create_patient','=',False)]}"/>
                 <button name="create_patient" string="Create Patient" type="object" class="oe_highlight"
                         attrs="{'invisible':[('is_create_patient','=',True)]}"/>
+            </xpath>
+            <xpath expr="//page[@name='lead']/group/group[@name='Misc']/field[@name='referred']" position="replace">
+                <field name="refer_patient_id"/>
+                <field name="referring_doctor_id"/>
             </xpath>
             <xpath expr="//field[@name='referred']" position="replace">
                 <field name="refer_patient_id"/>
@@ -360,7 +366,7 @@
                    position="after">
                 <field name="inv" invisible="1"/>
                 <field name="account_id" invisible="1"/>
-                <field name="invc_id"/>
+                <field name="invc_id" invisible="1"/>
                 <field name="discount_amount"/>
                 <field name="discount"/>
                 <field name="net_amount"/>

@@ -1014,7 +1014,7 @@
                                         <field name="teeth_id"/>
                                         <field name="state"/>
                                         <field name="dentist"/>
-                                        <field name="detail_description"/>
+                                        <field name="detail_description" invisible="1"/>
                                         <field name="completion_date"/>
                                         <field name="amount"/>
                                     </tree>
@@ -1996,7 +1996,7 @@
                 <field name="teeth_id"/>
                 <field name="state"/>
                 <field name="dentist"/>
-                <field name="detail_description"/>
+                <field name="detail_description" invisible="1"/>
                 <field name="completion_date"/>
                 <field name="amount"/>
             </tree>
@@ -2022,7 +2022,7 @@
                         <field name="state"/>
                         <field name="dentist"/>
                         <field name="amount"/>
-                        <field name="detail_description"/>
+                        <field name="detail_description" invisible="1"/>
                         <field name="appt_id"/>
                     </group>
                 </sheet>

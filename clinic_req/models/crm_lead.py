@@ -11,6 +11,7 @@ class CRM(models.Model):
     _inherit = "crm.lead",
 
     patient = fields.Char('Patient', required=True, )
+    patient_id_number = fields.Char('Patient ID',  )
     first_name = fields.Char(string="First name", required=False, )
     middle_name = fields.Char(string="Middle name", required=False, )
     last_name = fields.Char(string="Last name", required=False, )
@@ -169,6 +170,7 @@ class CRM(models.Model):
             'note': self.description,
         })
         self.patient_id = patient.id
+        self.patient_id_number = patient.patient_id
         self.is_create_patient = True
 
     def create_appointment(self):
@@ -388,6 +390,7 @@ class Patient(models.Model):
     total_payment = fields.Float(string="Total payment",
                                  compute="get_amount_totals", )
     total_net = fields.Float(string="Total Net", compute="get_amount_totals", )
+    total_net_not_completed = fields.Float(string="Total Net Not Completed", compute="get_amount_totals", )
     chief = fields.Many2one(comodel_name='chief.complaint',
                             string="Chief Complaint", required=False, )
     tag_ids = fields.Many2many(
@@ -452,14 +455,18 @@ class Patient(models.Model):
     def get_amount_totals(self):
         service_amount = 0
         service_net = 0
+        total_net_not_completed = 0
         total_payment = 0
         total_net = 0
         for record in self:
             for line in record.teeth_treatment_ids:
                 service_amount += line.amount
                 service_net += line.net_amount
+                if line.state not in ['completed','invoiced']:
+                    total_net_not_completed += line.amount
             record.total_discount = service_amount - service_net
             record.service_amount = service_amount
+            record.total_net_not_completed = total_net_not_completed
             record.service_net = service_net
             obj_payment = self.env['account.payment'].search(
                 [('partner_id', '=', record.partner_id.id)])
@@ -472,13 +479,22 @@ class Patient(models.Model):
             total_net = record.service_net - record.total_payment
             record.total_net = total_net
 
-    @api.onchange('discount_for_total')
-    def change_total_discount(self):
-        discount_line = ( self.discount_for_total / self.total_net ) * 100
+    def write(self,vals):
+        res = super(Patient, self).write(vals)
+        discount_line = (self.discount_for_total / self.total_net_not_completed) * 100
         for line in self.teeth_treatment_ids:
             discount_amount_line = (line.net_amount * discount_line) / 100
             line.discount_amount = discount_amount_line + line.discount_amount
             line.get_discount()
+        return res
+
+    # @api.onchange('discount_for_total')
+    # def change_total_discount(self):
+    #     discount_line = ( self.discount_for_total / self.total_net ) * 100
+    #     for line in self.teeth_treatment_ids:
+    #         discount_amount_line = (line.net_amount * discount_line) / 100
+    #         line.discount_amount = discount_amount_line + line.discount_amount
+    #         line.get_discount()
 
     def open_partner_ledger(self):
         return {
