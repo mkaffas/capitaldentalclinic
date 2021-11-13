@@ -401,6 +401,7 @@ class Patient(models.Model):
                                       tracking=True,
                                       default=0.0)
     is_selected = fields.Boolean(string="Select All",  )
+    number_of_records = fields.Integer(string="",compute="get_amount_totals",)
     discount_option = fields.Selection(string="Discount type", selection=[('percentage', 'Percentage'), ('fixed', 'Fixed'), ],default='percentage', required=False, )
 
 
@@ -457,16 +458,19 @@ class Patient(models.Model):
         service_net = 0
         total_net_not_completed = 0
         total_payment = 0
+        number_of_records = 0
         total_net = 0
         for record in self:
             for line in record.teeth_treatment_ids:
                 service_amount += line.amount
                 service_net += line.net_amount
+                number_of_records += 1
                 if line.state not in ['completed','invoiced']:
                     total_net_not_completed += line.amount
             record.total_discount = service_amount - service_net
             record.service_amount = service_amount
             record.total_net_not_completed = total_net_not_completed
+            record.number_of_records = number_of_records
             record.service_net = service_net
             obj_payment = self.env['account.payment'].search(
                 [('partner_id', '=', record.partner_id.id)])
@@ -480,13 +484,14 @@ class Patient(models.Model):
             record.total_net = total_net
 
     def write(self,vals):
-        res = super(Patient, self).write(vals)
-        discount_line = (self.discount_for_total / self.total_net_not_completed) * 100
-        for line in self.teeth_treatment_ids:
-            discount_amount_line = (line.net_amount * discount_line) / 100
-            line.discount_amount = discount_amount_line + line.discount_amount
-            line.get_discount()
-        return res
+        for record in self:
+            if 'total_net_not_completed' in vals or 'number_of_records' in vals or 'discount_for_total' in vals:
+                discount_line = (record.discount_for_total / record.total_net_not_completed) * 100
+                for line in record.teeth_treatment_ids:
+                    discount_amount_line = (line.net_amount * discount_line) / 100
+                    line.discount_amount = discount_amount_line + line.discount_amount
+                    line.get_discount()
+        return super(Patient, self).write(vals)
 
     # @api.onchange('discount_for_total')
     # def change_total_discount(self):
