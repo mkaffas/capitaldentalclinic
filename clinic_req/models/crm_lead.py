@@ -466,7 +466,7 @@ class Patient(models.Model):
                 service_net += line.net_amount
                 number_of_records += 1
                 if line.state not in ['completed','invoiced']:
-                    total_net_not_completed += line.amount
+                    total_net_not_completed += line.net_amount
             record.total_discount = service_amount - service_net
             record.service_amount = service_amount
             record.total_net_not_completed = total_net_not_completed
