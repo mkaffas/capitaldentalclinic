@@ -484,6 +484,7 @@ class Patient(models.Model):
             record.total_net = total_net
 
     def write(self,vals):
+        res = super(Patient, self).write(vals)
         for record in self:
             if 'total_net_not_completed' in vals or 'number_of_records' in vals or 'discount_for_total' in vals:
                 discount_line = (record.discount_for_total / record.total_net_not_completed) * 100
@@ -491,7 +492,7 @@ class Patient(models.Model):
                     discount_amount_line = (line.net_amount * discount_line) / 100
                     line.discount_amount = discount_amount_line + line.discount_amount
                     line.get_discount()
-        return super(Patient, self).write(vals)
+        return res
 
     # @api.onchange('discount_for_total')
     # def change_total_discount(self):
