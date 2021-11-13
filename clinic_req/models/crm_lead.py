@@ -485,7 +485,7 @@ class Patient(models.Model):
 
     def write(self,vals):
         for record in self:
-            if 'total_net_not_completed' in vals or 'number_of_records' in vals or 'discount_for_total' in vals:
+            if 'total_net_not_completed' in vals or 'number_of_records' in vals or 'discount_for_total' in vals or 'teeth_treatment_ids' in vals:
                 discount_line = (record.discount_for_total / record.total_net_not_completed) * 100
                 for line in record.teeth_treatment_ids:
                     discount_amount_line = (line.net_amount * discount_line) / 100
