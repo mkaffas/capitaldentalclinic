@@ -23,12 +23,15 @@ class CRM(models.Model):
     def create(self, vals_list):
         res = super(CRM, self).create(vals_list)
         if res.name == 'New Entry: Book Now':
-            res.patient = ''
-            res.phone = ''
-            res.email_from = ''
-            res.partner_name = ''
-            res.website = ''
-            res.user_id = False
+            res.update({
+                'patient': '',
+                'phone': '',
+                'email_from': '',
+                'partner_name': '',
+                'website': '',
+                'user_id': False,
+            })
+
         return res
 
     @api.depends('birthday')
