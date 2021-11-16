@@ -10,7 +10,7 @@ from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 class CRM(models.Model):
     _inherit = "crm.lead",
 
-    patient = fields.Char('Patient', required=True, )
+    patient = fields.Char('Patient' )
     patient_id_number = fields.Char('Patient ID',  )
     first_name = fields.Char(string="First name", required=False, )
     middle_name = fields.Char(string="Middle name", required=False, )
@@ -116,8 +116,8 @@ class CRM(models.Model):
         for line in self:
             if line.patient and line.mobile:
                 line.name = line.patient + ' / ' + str(line.mobile)
-            else:
-                line.name = ' / '
+            # else:
+            #     line.name = ' / '
 
     def get_case_id(self):
         for case in self:
