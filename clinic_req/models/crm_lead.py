@@ -19,6 +19,18 @@ class CRM(models.Model):
     nationality = fields.Many2one(comodel_name="res.country",
                                   string="nationality", required=False, )
 
+    @api.model
+    def create(self, vals_list):
+        res = super(CRM, self).create(vals_list)
+        if res.name == 'New Entry: Book Now':
+            res.patient = ''
+            res.phone = ''
+            res.email_from = ''
+            res.partner_name = ''
+            res.website = ''
+            res.user_id = False
+        return res
+
     @api.depends('birthday')
     def compute_age(self):
         for partner in self:
