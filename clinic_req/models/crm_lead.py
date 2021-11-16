@@ -114,8 +114,9 @@ class CRM(models.Model):
     @api.depends('mobile', 'patient')
     def get_name_opportunity(self):
         for line in self:
-            if line.patient and line.mobile:
-                line.name = line.patient + ' / ' + str(line.mobile)
+            if line.name != 'New Entry: Book Now':
+                if line.patient and line.mobile:
+                    line.name = line.patient + ' / ' + str(line.mobile)
             # else:
             #     line.name = ' / '
 
