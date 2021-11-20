@@ -228,6 +228,22 @@
     </record>
 
     <!-- Inherit Form View to Modify it -->
+    <record id="edit_product" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@name='options']" position="inside">
+                <div>
+                    <field name="show_on_app"/>
+                    <label for="show_on_app"/>
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Inherit Form View to Modify it -->
     <record id="not_create_patient_kanban" model="ir.ui.view">
         <field name="model">medical.patient</field>
         <field name="inherit_id" ref="pragtech_dental_management.medical_patient_kanban"/>
@@ -298,6 +314,8 @@
 
                 <button name="open_survey" string="Open Survey" type="object"
                         attrs="{'invisible': [('state', '!=', 'done')]}"/>
+                <button name="select_service" string="Add Service" type="object"
+                        attrs="{'invisible': [('state', '!=', 'checkin')]}"/>
             </xpath>
             <xpath expr="//field[@name='service_id']" position="after">
                 <field name="chief"/>
@@ -371,8 +389,13 @@
             </xpath>
             <field name="nationality_id" position="after">
                 <field name="chief"/>
+                <field name="campaign_id"/>
+                <field name="refer_patient_id"/>
                 <field name="tag_ids" widget="many2many_tags"/>
             </field>
+            <xpath expr="//notebook/page[1]/group/group[3]/field[@name='referred']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
             <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree" position="attributes">
                 <attribute name="editable">bottom</attribute>
             </xpath>

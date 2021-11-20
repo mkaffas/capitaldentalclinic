@@ -749,8 +749,9 @@ class MedicalPatient(models.Model):
                                help="General information about the patient")
     deceased = fields.Boolean('Deceased', help="Mark if the patient has died")
     dod = fields.Datetime('Date of Death')
-    apt_id = fields.Many2many('medical.appointment', 'pat_apt_rel', 'patient',
-                              'apid', 'Appointments')
+    apt_id = fields.Many2many(comodel_name="medical.appointment", relation="patient", string="Appointments", )
+    # apt_id = fields.Many2many('medical.appointment', 'pat_apt_rel', 'patient',
+    #                           'apid', 'Appointments')
     attachment_ids = fields.One2many('ir.attachment', 'patient_id',
                                      'attachments')
     photo = fields.Binary(
@@ -1659,7 +1660,7 @@ class MedicalAppointment(models.Model):
                 ('appointment_sdate', '<=', start),
                 ('appointment_edate', '>=', start), '&',
                 ('appointment_sdate', '<=', end),
-                ('appointment_edate', '>=', end),
+                ('appointment_edate', '>=', end),'&',('state','not in',['postpone','cancel','missed'])
             ])
             if overlaps:
                 raise ValidationError(_("Room Cannot have more than "

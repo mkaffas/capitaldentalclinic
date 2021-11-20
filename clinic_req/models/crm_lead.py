@@ -7,6 +7,12 @@ from odoo.exceptions import UserError
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 
 
+class Prouct(models.Model):
+    _inherit = 'product.template'
+
+    show_on_app = fields.Boolean(string="Show on Appointment",  )
+
+
 class CRM(models.Model):
     _inherit = "crm.lead",
 
@@ -176,8 +182,10 @@ class CRM(models.Model):
             'mobile': self.mobile,
             'occupation_id': self.occupation_id.id,
             'medium_id': self.medium_id.id,
+            'campaign_id': self.campaign_id.id,
             'source_id': self.source_id.id,
             'referred': self.referred,
+            'refer_patient_id': self.refer_patient_id.id,
             'email': self.email_from,
             'phone': self.phone,
             'chief': self.chief.id,
@@ -306,6 +314,32 @@ class Appointment(models.Model):
     chief = fields.Many2one(comodel_name='chief.complaint',
                             string="Chief Complaint", required=False, )
 
+    @api.onchange('state')
+    def onchange_state(self):
+        for line in self:
+            if line.state == "in_room":
+                body = '<a target=_BLANK href="/web?#id=' + str(
+                    line.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + '</a>'
+                line.sudo().message_post(
+                    partner_ids=[line.doctor.user_id.partner_id.id],
+                    subject="Patient " + str(
+                        line.patient_id.name) + " is in Room",
+                    body="Patient " + str(
+                        line.patient_id.name) + " is in Room" + 'With Appointment' + body,
+                    message_type='comment',
+                    subtype_id=self.env.ref('mail.mt_note').id)
+            elif line.state == "done":
+                body = '<a target=_BLANK href="/web?#id=' + str(
+                    line.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + '</a>'
+                line.sudo().message_post(
+                    partner_ids=[line.patient_coordinator.partner_id.id],
+                    subject='Appointment' + str(line.name) + "is Completed " ,
+                    body="Appointment " + body + "with Patient" +str(line.patient_id.name) + " is Completed",
+                    message_type='comment',
+                    subtype_id=self.env.ref('mail.mt_note').id)
+
+
+
     @api.model
     def create(self, vals):
         if self.env.user.has_group('pragtech_dental_management.group_dental_doc_menu'):
@@ -354,6 +388,7 @@ class Appointment(models.Model):
                     message_type='comment',
                     subtype_id=self.env.ref('mail.mt_note').id, )
 
+
     def open_survey(self):
         """Method Open survey."""
         context = dict(self._context or {})
@@ -369,6 +404,15 @@ class Appointment(models.Model):
             'target': 'current',
             'context': {'default_appointment_id': self.id,'default_patient_id':self.patient.id,'default_doctor':self.doctor.id},
         }
+
+    def product_multi_choose(self):
+        return {'type': 'ir.actions.act_window',
+                'name': _('Assign Services'),
+                'res_model': 'service.wizard',
+                'target': 'new',
+                'view_id': self.env.ref('clinic_req.assign_service_form').id,
+                'view_mode': 'form',
+                }
 
     # def open_survey(self):
     #     """Method Open survey."""
@@ -400,6 +444,24 @@ class Physician(models.TransientModel):
                     record.dentist = self.wizard_dentist_id.id
 
 
+class Service(models.TransientModel):
+    _name = 'service.wizard'
+
+    wizard_service_id = fields.Many2one(comodel_name="product.product", string="Services", required=True, )
+
+    def select_service(self):
+        appointment_ids = self.env['medical.appointment'].browse(self._context.get('active_ids', False))
+        treatment_obj = self.env['medical.teeth.treatment']
+        for line in appointment_ids:
+            for record in self.wizard_service_id:
+                vals = {
+                    'patient_id': line.patient.id,
+                    'description': record.name,
+                    'state':'completed',
+                    'amount':record.lst_price
+                }
+                treatment = treatment_obj.sudo().create(vals)
+
 class Patient(models.Model):
     _inherit = 'medical.patient'
     discount = fields.Float(string='Discount',  digits=(3, 6),
@@ -424,6 +486,10 @@ class Patient(models.Model):
     is_coordinator = fields.Boolean(string="", compute="check_is_coordinator" )
     number_of_records = fields.Integer(string="",compute="get_amount_totals",)
     discount_option = fields.Selection(string="Discount type", selection=[('percentage', 'Percentage'), ('fixed', 'Fixed'), ],default='percentage', required=False, )
+    campaign_id = fields.Many2one('utm.campaign', string='UTM Campaign', index=True)
+    refer_patient_id = fields.Many2one(comodel_name="medical.patient",
+                                       string="Referred By", required=False, )
+
 
     def check_is_coordinator(self):
         for line in self:

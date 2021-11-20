@@ -4,3 +4,4 @@ access_discount_limitation,discount.limitation,model_discount_limitation,base.gr
 access_appointment_survey,appointment.survey,model_appointment_survey,base.group_user,1,1,1,1
 access_physician_wizard,physician.wizard,model_physician_wizard,base.group_user,1,1,1,1
 access_patient_tag,patient.tag,model_patient_tag,base.group_user,1,1,1,1
+access_service_wizard,service.wizard,model_service_wizard,base.group_user,1,1,1,1
