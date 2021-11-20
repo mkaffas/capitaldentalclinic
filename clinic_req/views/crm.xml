@@ -242,7 +242,7 @@
     </record>
 
     <!-- Inherit Form View to Modify it -->
-    <record id="not_create_patient_kanban" model="ir.ui.view">
+    <record id="not_create_patient_tree" model="ir.ui.view">
         <field name="model">medical.appointment</field>
         <field name="inherit_id" ref="pragtech_dental_management.medical_appointment_tree"/>
         <field name="groups_id" eval="[(4, ref('pragtech_dental_management.group_dental_doc_menu'))]"/>
