@@ -470,11 +470,15 @@ class Discount(models.TransientModel):
     def apply_discount(self):
         patient_id = self.env['medical.patient'].browse(self._context.get('active_ids', False))
         discount_line = 0.0
+        total_amount = 0.0
         for line in patient_id:
-            if line.total_net != 0.0:
-                discount_line = (self.discount / line.total_net) * 100
+            for teeth in line.teeth_treatment_ids:
+                if teeth.is_selected == True and teeth.state == 'planned':
+                    total_amount += teeth.net_amount
+            if total_amount != 0.0:
+                discount_line = (self.discount / total_amount) * 100
             for record in line.teeth_treatment_ids:
-                if record.is_selected == True:
+                if record.is_selected == True and record.state == 'planned':
                     if self.discount != 0.0:
                         discount_amount_line = (record.net_amount * discount_line) / 100
                         record.discount_amount = discount_amount_line + record.discount_amount
