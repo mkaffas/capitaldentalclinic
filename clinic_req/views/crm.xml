@@ -7,7 +7,7 @@
             <form string="">
                 <sheet>
                     <group>
-                        <field name="wizard_dentist_id"/>
+                        <field name="wizard_dentist_id" domain="[('show_on_app','=',True)]"/>
                     </group>
                 </sheet>
                 <footer>
