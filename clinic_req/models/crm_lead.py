@@ -462,6 +462,23 @@ class Service(models.TransientModel):
                 }
                 treatment = treatment_obj.sudo().create(vals)
 
+class Discount(models.TransientModel):
+    _name = 'discount.wizard'
+
+    discount = fields.Float(string="Addtional Discount",  required=True, )
+
+    def apply_discount(self):
+        patient_id = self.env['medical.patient'].browse(self._context.get('active_ids', False))
+        discount_line = 0.0
+        for line in patient_id:
+            if line.total_net != 0.0:
+                discount_line = (self.discount / line.total_net) * 100
+            for record in line.teeth_treatment_ids:
+                if record.is_selected == True:
+                    discount_amount_line = (record.net_amount * discount_line) / 100
+                    record.discount_amount = discount_amount_line + record.discount_amount
+                    record.get_discount()
+
 class Patient(models.Model):
     _inherit = 'medical.patient'
     discount = fields.Float(string='Discount',  digits=(3, 6),
@@ -538,7 +555,7 @@ class Patient(models.Model):
         }
 
     @api.depends('teeth_treatment_ids', 'teeth_treatment_ids.amount', 'teeth_treatment_ids.discount',
-                 'teeth_treatment_ids.net_amount','discount_for_total')
+                 'teeth_treatment_ids.net_amount')
     def get_amount_totals(self):
         service_amount = 0
         service_net = 0
@@ -569,15 +586,15 @@ class Patient(models.Model):
             total_net = record.service_net - record.total_payment
             record.total_net = total_net
 
-    @api.onchange('discount_for_total')
-    def change_total_discount(self):
-        discount_line = 0.0
-        if self.total_net != 0.0:
-            discount_line = ( self.discount_for_total / self.total_net ) * 100
-        for line in self.teeth_treatment_ids:
-            discount_amount_line = (line.net_amount * discount_line) / 100
-            line.discount_amount = discount_amount_line + line.discount_amount
-            line.get_discount()
+    # @api.onchange('discount_for_total')
+    # def change_total_discount(self):
+    #     discount_line = 0.0
+    #     if self.total_net != 0.0:
+    #         discount_line = ( self.discount_for_total / self.total_net ) * 100
+    #     for line in self.teeth_treatment_ids:
+    #         discount_amount_line = (line.net_amount * discount_line) / 100
+    #         line.discount_amount = discount_amount_line + line.discount_amount
+    #         line.get_discount()
 
     def open_partner_ledger(self):
         return {
@@ -597,6 +614,15 @@ class Patient(models.Model):
                 'res_model': 'physician.wizard',
                 'target': 'new',
                 'view_id': self.env.ref('clinic_req.assign_doctor_form').id,
+                'view_mode': 'form',
+                }
+
+    def apply_additional_discount(self):
+        return {'type': 'ir.actions.act_window',
+                'name': _('Apply Discount'),
+                'res_model': 'discount.wizard',
+                'target': 'new',
+                'view_id': self.env.ref('clinic_req.assign_discount_form').id,
                 'view_mode': 'form',
                 }
         # for line in self.teeth_treatment_ids:

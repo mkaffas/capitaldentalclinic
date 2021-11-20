@@ -39,6 +39,25 @@
         </field>
     </record>
 
+    <record id="assign_discount_form" model="ir.ui.view">
+        <field name="model">discount.wizard</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="discount"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button special="cancel" string="Cancel"
+                            icon="fa-times-circle text-danger"/>
+                    <button name="apply_discount" string="Apply Discount"
+                            type="object" icon="fa-arrow-right text-success"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
     <record id="action_physician_wizard" model="ir.actions.act_window">
         <field name="name">Assign Doctor</field>
         <field name="type">ir.actions.act_window</field>
@@ -392,6 +411,8 @@
                     <group>
                         <button name="dentist_multi_choose" string="Assign Dentist" type="object"
                                 class="oe_highlight"/>
+                        <button name="apply_additional_discount" string="Apply Additional Discount" type="object"
+                                class="oe_highlight"/>
                     </group>
                     <group>
                         <button name="service_confirmation" string="Services Confirmation" type="object"
@@ -442,7 +463,7 @@
                     <field name="total_discount"/>
                     <field name="service_net"/>
                     <field name="total_payment"/>
-                    <field name="discount_for_total"/>
+                    <field name="discount_for_total" invisible="1"/>
                     <field name="total_net" class="oe_subtotal_footer_separator"/>
                 </group>
             </xpath>
