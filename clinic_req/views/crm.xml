@@ -234,7 +234,7 @@
         <field name="groups_id" eval="[(4, ref('pragtech_dental_management.group_dental_doc_menu'))]"/>
         <field name="arch" type="xml">
 
-            <xpath expr="//field[@name='kanban']" position="attributes">
+            <xpath expr="//kanban" position="attributes">
                 <attribute name="create">false</attribute>
             </xpath>
 
@@ -248,7 +248,7 @@
         <field name="groups_id" eval="[(4, ref('pragtech_dental_management.group_dental_doc_menu'))]"/>
         <field name="arch" type="xml">
 
-            <xpath expr="//field[@name='tree']" position="attributes">
+            <xpath expr="//tree" position="attributes">
                 <attribute name="create">false</attribute>
             </xpath>
 
@@ -262,7 +262,7 @@
         <field name="groups_id" eval="[(4, ref('pragtech_dental_management.group_dental_doc_menu'))]"/>
         <field name="arch" type="xml">
 
-            <xpath expr="//field[@name='tree']" position="attributes">
+            <xpath expr="//tree" position="attributes">
                 <attribute name="create">false</attribute>
             </xpath>
 
