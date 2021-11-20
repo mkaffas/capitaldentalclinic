@@ -306,6 +306,13 @@ class Appointment(models.Model):
     chief = fields.Many2one(comodel_name='chief.complaint',
                             string="Chief Complaint", required=False, )
 
+    @api.model
+    def create(self, vals):
+        if not self.env.user.has_group('pragtech_dental_management.group_dental_doc_menu'):
+            raise UserError(_("You can't create Appointment."))
+        res = super(Appointment, self).create(vals)
+        return res
+
     def cancel(self):
         for rec in self:
             partners = self.env.ref(
@@ -402,31 +409,28 @@ class Patient(models.Model):
     service_net = fields.Float(string="Service net amount",
                                compute="get_amount_totals", )
     total_discount = fields.Float(string="Total Discount",
-                                  compute="get_amount_totals", tracking=True)
+                                  compute="get_amount_totals")
     total_payment = fields.Float(string="Total payment",
                                  compute="get_amount_totals", )
     total_net = fields.Float(string="Total Net", compute="get_amount_totals", )
     total_net_not_completed = fields.Float(string="Total Net Not Completed", compute="get_amount_totals", )
     chief = fields.Many2one(comodel_name='chief.complaint',
                             string="Chief Complaint", required=False, )
-    tag_ids = fields.Many2many(
-        'crm.tag'
-    )
+    tag_ids = fields.Many2many('crm.tag')
     wizard_dentist_id = fields.Many2one(comodel_name="medical.physician", string="Dentist", required=False, )
     discount_for_total = fields.Float(string='Additional Discount total',  digits=(3, 6),
-                                      tracking=True,
                                       default=0.0)
     is_selected = fields.Boolean(string="Select All",  )
+    is_coordinator = fields.Boolean(string="", compute="check_is_coordinator" )
     number_of_records = fields.Integer(string="",compute="get_amount_totals",)
     discount_option = fields.Selection(string="Discount type", selection=[('percentage', 'Percentage'), ('fixed', 'Fixed'), ],default='percentage', required=False, )
 
-
-    # def send_sms(self):
-    #     obj = self.env['sms.eg'].sudo()
-    #     for line in self:
-    #         obj.create({
-    #             'partner_ids': [(4, line.partner_id.id)],
-    #             'message': 'comment', })
+    def check_is_coordinator(self):
+        for line in self:
+            if self.env.user.has_group('pragtech_dental_management.group_patient_coordinator'):
+                line.is_coordinator = True
+            else:
+                line.is_coordinator = False
 
     def action_send_sms(self):
         mail_ids = self.env['medical.patient'].browse(self._context.get('active_ids', False))
@@ -499,19 +503,11 @@ class Patient(models.Model):
             total_net = record.service_net - record.total_payment
             record.total_net = total_net
 
-    # def write(self,vals):
-    #     for record in self:
-    #         if 'total_net_not_completed' in vals or 'number_of_records' in vals or 'discount_for_total' in vals or 'teeth_treatment_ids' in vals:
-    #             discount_line = (record.discount_for_total / record.total_net_not_completed) * 100
-    #             for line in record.teeth_treatment_ids:
-    #                 discount_amount_line = (line.net_amount * discount_line) / 100
-    #                 line.discount_amount = discount_amount_line + line.discount_amount
-    #                 line.get_discount()
-    #     return super(Patient, self).write(vals)
-
     @api.onchange('discount_for_total')
     def change_total_discount(self):
-        discount_line = ( self.discount_for_total / self.total_net ) * 100
+        discount_line = 0.0
+        if self.total_net != 0.0:
+            discount_line = ( self.discount_for_total / self.total_net ) * 100
         for line in self.teeth_treatment_ids:
             discount_amount_line = (line.net_amount * discount_line) / 100
             line.discount_amount = discount_amount_line + line.discount_amount
@@ -589,6 +585,9 @@ class Patient(models.Model):
                 line.sudo().write({'invc_id': acc_id.id, 'inv': True})
 
     def get_all_discount(self):
+        if self.env.user.has_group('pragtech_dental_management.group_patient_coordinator'):
+            raise UserError(
+                _('You can not change discount  !!'))
         for line in self.teeth_treatment_ids:
             if self.discount_option == 'percentage':
                 if line.is_selected == True:
@@ -601,6 +600,18 @@ class Patient(models.Model):
                     line.get_discount()
                     line.is_selected = False
 
+    @api.constrains('stage_id')
+    def check_doctor(self):
+        if self.env.user.has_group('pragtech_dental_management.group_dental_doc_menu'):
+            raise UserError(_('You Cannot change stage !!'))
+
+    @api.model
+    def create(self, vals):
+        if not self.env.user.has_group('pragtech_dental_management.group_dental_doc_menu'):
+            raise UserError(_("You can't create Patient."))
+        res = super(Patient, self).create(vals)
+        return res
+
 
 class Teeth(models.Model):
     _inherit = 'medical.teeth.treatment'
@@ -610,10 +621,10 @@ class Teeth(models.Model):
     account_id = fields.Many2one(comodel_name="account.account",
                                  string="Account", required=False, )
     discount = fields.Float(string='Discount (%)', digits=(3, 6),
-                            tracking=True,
                             default=0.0)
     net_amount = fields.Float(string="Net Amount", compute="get_net_amount")
     is_selected = fields.Boolean(string="", )
+    is_coordinator = fields.Boolean(string="", related='patient_id.is_coordinator')
 
     @api.constrains('discount')
     def check(self):
@@ -677,6 +688,21 @@ class Teeth(models.Model):
                         message_type='comment',
                         subtype_id=self.env.ref('mail.mt_note').id)
         return res
+
+    @api.onchange('state')
+    def onchange_state(self):
+        for line in self:
+            if line.state == "in_progress":
+                body = '<a target=_BLANK href="/web?#id=' + str(
+                    line.patient_id.id) + '&view_type=form&model=medical.patient&action=" style="font-weight: bold">' + '</a>'
+                if line.patient_id.coordinator_id.partner_id:
+                    line.sudo().message_post(
+                        partner_ids=[line.patient_id.coordinator_id.partner_id.id],
+                        subject="Operation " + str(
+                            line.description.name) + " is in Progress",
+                        body="Operation " + str(line.description.name) +' for patient '+ body + "has been changed to state in Progress ",
+                        message_type='comment',
+                        subtype_id=self.env.ref('mail.mt_note').id)
 
     def create_invoice(self):
         """Create invoice for Rent Schedule."""

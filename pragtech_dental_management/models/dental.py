@@ -677,6 +677,12 @@ class MedicalPatient(models.Model):
                                  domain=[('is_patient', '=', True),
                                          ('is_person', '=', True)],
                                  help="Patient Name")
+    partner_name = fields.Char(string="Patient name", compute="get_patient_name" )
+
+    def get_patient_name(self):
+        for line in self:
+            line.partner_name = line.partner_id.name
+
     street = fields.Char(related='partner_id.street', store=True,
                          readonly=False)
     street2 = fields.Char(related='partner_id.street2', store=True,

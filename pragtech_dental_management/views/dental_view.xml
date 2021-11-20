@@ -41,6 +41,7 @@
         </field>
     </record>
 
+
     <record model="ir.ui.view" id="medical_appointment_view">
         <field name="name">Appointment</field>
         <field name="model">medical.appointment</field>
@@ -60,10 +61,10 @@
                     <button name="ready" string="Start Session" type="object" states="in_room" class="oe_highlight"/>
                     <button name="open_payment" string="Open Payment" type="object"
                             attrs="{'invisible': [('is_payment','=',False)]}"/>
-                    <button name="create_payment" string="Make Payment" type="object"
+                    <button name="create_payment" string="Make Payment" type="object" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"
                             attrs="{'invisible': ['|',('is_payment','=',True),('state', 'not in', ['checkin'])]}"/>
                     <button name="done" string="Completed" type="object" states="ready"/>
-                    <button name="send_state" string="Send SMS" type="object"
+                    <button name="send_state" string="Send SMS" type="object" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"
                             attrs="{'invisible': ['|',('patient_state', '=', 'walkin'),('state', 'in', ('sms_send', 'confirmed','missed','checkin','ready','done','cancel','postpone'))]}"/>
                     <button name="cancel" string="Cancel" type="object" states="draft,confirmed,sms_send"/>
                     <field name="state" widget="statusbar"
@@ -843,8 +844,9 @@
                     </group>
                     <group string="Main Info">
                         <group>
-                            <field name="partner_id"
+                            <field name="partner_id" groups="pragtech_dental_management.group_dental_admin"
                                    context="{'default_is_patient': 1, 'search_default_is_patient': 1,'search_default_is_person': 1,'default_is_person': 1}"/>
+                            <field name="partner_name"/>
                             <field name="dob"/>
                             <field name="report_date" invisible="1"/>
                             <field name="sex"/>
@@ -1000,11 +1002,11 @@
                                 </field>
                             </group>
                         </page>
-                        <page string="Chart">
+                        <page string="Chart" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager">
                             <button name="open_chart" type="object" string="Open Chart"></button>
                         </page>
                         <page string="Operations"
-                              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager">
+                              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager,pragtech_dental_management.group_patient_coordinator">
                             <group colspan="4" col="8">
                                 <field name="teeth_treatment_ids" string="Operations" readonly="0"
                                        nolabel="1">
@@ -1021,7 +1023,7 @@
                                 </field>
                             </group>
                         </page>
-                        <page string="Images">
+                        <page string="Images" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager">
                             <button name="get_img" type="object" string="View Images"></button>
                             <field name="attachment_ids">
                                 <tree>
@@ -1036,7 +1038,7 @@
                             </field>
                         </page>
                         <page string="Patient Complaints"
-                              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager">
+                              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager">
                             <group colspan="4" col="8">
                                 <field name="patient_complaint_ids"
                                        context="{'search_default_patient_id': id,'default_patient_id': id}"
@@ -2156,7 +2158,7 @@
 
     <menuitem name="Dental Management" id="medical_menu"/>
     <menuitem name="Configuration" id="medical_conf_menu" parent="medical_menu"
-              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"
+              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager"
               sequence="12"/>
 
     <menuitem name="Appointments" id="medical_appointment_menu"
@@ -2170,7 +2172,7 @@
 
     <menuitem name="Prescriptions" id="medical_prescription_menu"
               parent="medical_menu" sequence="3"
-              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"/>
+              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager"/>
 
     <menuitem name="Medical Procedures" id="medical_conf_procedure"
               parent="medical_conf_menu" sequence="4"/>
@@ -2196,11 +2198,11 @@
 
     <menuitem name="Alerts" id="medical_patient_birthday_menu"
               parent="medical_menu" sequence="4"
-              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"/>
+              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager"/>
 
     <menuitem name="Reports" id="dental_report_menu" parent="medical_menu"
               sequence="6"
-              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"/>
+              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager"/>
 
     <menuitem action="medical_action_form_appointment" id="medical_conf_appointment_add"
               parent="medical_appointment_menu" sequence="2"/>
@@ -2284,12 +2286,12 @@
 
     <menuitem action="action_patient_complaint" name="Patient Complaints"
               id="patient_complaint_submenu" parent="medical_patients_menu"
-              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"
+              groups="pragtech_dental_management.group_dental_admin"
               sequence="4"/>
 
     <menuitem action="medical_action_insurance" name="Insurance"
               id="patient_insurance_submenu" parent="medical_patients_menu"
-              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_dental_user_menu,pragtech_dental_management.group_branch_manager"
+              groups="pragtech_dental_management.group_dental_admin"
               sequence="5"/>
 
     <menuitem action="medical_action_insurance" id="medical_conf_edit_insurance"
