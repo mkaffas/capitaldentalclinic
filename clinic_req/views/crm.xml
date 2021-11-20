@@ -20,6 +20,25 @@
         </field>
     </record>
 
+    <record id="assign_service_form" model="ir.ui.view">
+        <field name="model">service.wizard</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="wizard_service_id"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button special="cancel" string="Cancel"
+                            icon="fa-times-circle text-danger"/>
+                    <button name="select_service" string="Assign Services"
+                            type="object" icon="fa-arrow-right text-success"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
     <record id="action_physician_wizard" model="ir.actions.act_window">
         <field name="name">Assign Doctor</field>
         <field name="type">ir.actions.act_window</field>
@@ -314,7 +333,7 @@
 
                 <button name="open_survey" string="Open Survey" type="object"
                         attrs="{'invisible': [('state', '!=', 'done')]}"/>
-                <button name="select_service" string="Add Service" type="object"
+                <button name="product_multi_choose" string="Add Service" type="object"
                         attrs="{'invisible': [('state', '!=', 'checkin')]}"/>
             </xpath>
             <xpath expr="//field[@name='service_id']" position="after">
