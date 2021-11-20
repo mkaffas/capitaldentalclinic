@@ -308,7 +308,7 @@ class Appointment(models.Model):
 
     @api.model
     def create(self, vals):
-        if not self.env.user.has_group('pragtech_dental_management.group_dental_doc_menu'):
+        if self.env.user.has_group('pragtech_dental_management.group_dental_doc_menu'):
             raise UserError(_("You can't create Appointment."))
         res = super(Appointment, self).create(vals)
         return res
@@ -607,7 +607,7 @@ class Patient(models.Model):
 
     @api.model
     def create(self, vals):
-        if not self.env.user.has_group('pragtech_dental_management.group_dental_doc_menu'):
+        if self.env.user.has_group('pragtech_dental_management.group_dental_doc_menu'):
             raise UserError(_("You can't create Patient."))
         res = super(Patient, self).create(vals)
         return res
