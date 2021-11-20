@@ -38,7 +38,9 @@ access_prescription_line_user,medical.prescription.line,model_medical_prescripti
 access_hospital_building_user,medical.hospital.building,model_medical_hospital_building,group_dental_user_menu,1,1,1,1
 access_hospital_unit_user,medical.hospital.unit,model_medical_hospital_unit,group_dental_user_menu,1,1,1,1
 access_hospital_oprating_room_user,medical.hospital.oprating.room,model_medical_hospital_oprating_room,group_dental_user_menu,1,1,1,1
+access_hospital_oprating_room_coordinator,medical.hospital.oprating.room,model_medical_hospital_oprating_room,group_patient_coordinator,1,1,1,1
 access_procedure_code_user,medical.procedure,model_medical_procedure,group_dental_user_menu,1,1,1,1
+access_procedure_code_coordinator,medical.procedure,model_medical_procedure,group_patient_coordinator,1,1,1,1
 access_teeth_code_user,teeth.code,model_teeth_code,group_dental_user_menu,1,1,1,1
 access_teeth_code_coordinator,teeth.code,model_teeth_code,group_patient_coordinator,1,1,1,1
 access_ir_attachment_user,ir.attachment,base.model_ir_attachment,group_dental_user_menu,1,1,1,1
