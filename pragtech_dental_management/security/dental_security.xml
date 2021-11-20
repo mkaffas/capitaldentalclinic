@@ -22,7 +22,6 @@
 
     <record id="group_branch_manager" model="res.groups">
         <field name="name">Branch Manager</field>
-        <field name="implied_ids" eval="[(4, ref('group_dental_doc_menu'))]"/>
         <field name="category_id" ref="dental_category"/>
     </record>
 
