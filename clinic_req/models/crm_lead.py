@@ -475,9 +475,13 @@ class Discount(models.TransientModel):
                 discount_line = (self.discount / line.total_net) * 100
             for record in line.teeth_treatment_ids:
                 if record.is_selected == True:
-                    discount_amount_line = (record.net_amount * discount_line) / 100
-                    record.discount_amount = discount_amount_line + record.discount_amount
-                    record.get_discount()
+                    if self.discount != 0.0:
+                        discount_amount_line = (record.net_amount * discount_line) / 100
+                        record.discount_amount = discount_amount_line + record.discount_amount
+                        record.get_discount()
+                    else:
+                        record.discount_amount = 0.0
+                        record.get_discount()
 
 class Patient(models.Model):
     _inherit = 'medical.patient'
