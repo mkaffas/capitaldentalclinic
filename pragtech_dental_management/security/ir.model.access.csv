@@ -121,6 +121,7 @@ access_teeth_code_doc,teeth.code,model_teeth_code,group_dental_doc_menu,1,1,1,1
 access_ir_attachment_doc,ir.attachment,base.model_ir_attachment,group_dental_doc_menu,1,1,1,1
 access_patient_complaint_doc,patient.complaint,model_patient_complaint,group_dental_doc_menu,1,1,1,1
 access_medical_teeth_treatment_doc,medical.teeth.treatment,model_medical_teeth_treatment,group_dental_doc_menu,1,1,1,1
+access_medical_teeth_treatment_admin,medical.teeth.treatment,model_medical_teeth_treatment,group_dental_admin,1,1,1,1
 access_patient_nationality_doc,patient.nationality,model_patient_nationality,group_dental_doc_menu,1,1,1,1
 access_purchase_report_scheduler_doc,purchase.report.scheduler,model_purchase_report_scheduler,group_dental_doc_menu,1,1,1,1
 access_patient_birthday_alert_doc,patient.birthday.alert,model_patient_birthday_alert,group_dental_doc_menu,1,1,1,1
