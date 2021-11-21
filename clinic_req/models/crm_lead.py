@@ -320,7 +320,7 @@ class Appointment(models.Model):
             if line.state == "in_room":
                 body = '<a target=_BLANK href="/web?#id=' + str(
                     line.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + '</a>'
-                line.sudo().message_post(
+                line.sudo().message_notify(
                     partner_ids=[line.doctor.user_id.partner_id.id],
                     subject="Patient " + str(
                         line.patient_id.name) + " is in Room",
@@ -331,7 +331,7 @@ class Appointment(models.Model):
             elif line.state == "done":
                 body = '<a target=_BLANK href="/web?#id=' + str(
                     line.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + '</a>'
-                line.sudo().message_post(
+                line.sudo().message_notify(
                     partner_ids=[line.patient_coordinator.partner_id.id],
                     subject='Appointment' + str(line.name) + "is Completed " ,
                     body="Appointment " + body + "with Patient" +str(line.patient_id.name) + " is Completed",
@@ -796,7 +796,7 @@ class Teeth(models.Model):
                 body = '<a target=_BLANK href="/web?#id=' + str(
                     line.patient_id.id) + '&view_type=form&model=medical.patient&action=" style="font-weight: bold">' + '</a>'
                 if line.patient_id.coordinator_id.partner_id:
-                    line.sudo().message_post(
+                    line.sudo().message_notify(
                         partner_ids=[line.patient_id.coordinator_id.partner_id.id],
                         subject="Operation " + str(
                             line.description.name) + " is in Progress",

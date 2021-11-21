@@ -1655,12 +1655,12 @@ class MedicalAppointment(models.Model):
             start = record.appointment_sdate
             end = record.appointment_edate
             overlaps = self.search([
-                ('id', '!=', record.id), ('room_id', '=', record.room_id.id),
+                ('id', '!=', record.id), ('room_id', '=', record.room_id.id),('state','not in',['postpone','cancel','missed']),
                 '|', '&',
                 ('appointment_sdate', '<=', start),
                 ('appointment_edate', '>=', start), '&',
                 ('appointment_sdate', '<=', end),
-                ('appointment_edate', '>=', end),'&',('state','not in',['postpone','cancel','missed'])
+                ('appointment_edate', '>=', end),
             ])
             if overlaps:
                 raise ValidationError(_("Room Cannot have more than "
@@ -1674,7 +1674,7 @@ class MedicalAppointment(models.Model):
             end = record.appointment_edate
             if record.doctor:
                 overlaps = self.search([
-                    ('id', '!=', record.id), ('doctor', '=', record.doctor.id),
+                    ('id', '!=', record.id), ('doctor', '=', record.doctor.id),('state','not in',['postpone','cancel','missed']),
                     '|', '&',
                     ('appointment_sdate', '<=', start),
                     ('appointment_edate', '>=', start), '&',
@@ -1692,7 +1692,7 @@ class MedicalAppointment(models.Model):
             start = record.appointment_sdate
             end = record.appointment_edate
             overlaps = self.search([
-                ('id', '!=', record.id), ('patient', '=', record.patient.id),
+                ('id', '!=', record.id), ('patient', '=', record.patient.id),('state','not in',['postpone','cancel','missed']),
                 '|', '&',
                 ('appointment_sdate', '<=', start),
                 ('appointment_edate', '>=', start), '&',
