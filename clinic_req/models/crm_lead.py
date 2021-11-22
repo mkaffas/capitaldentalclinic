@@ -342,7 +342,7 @@ class Appointment(models.Model):
 
     @api.model
     def create(self, vals):
-        if self.env.user.has_group('pragtech_dental_management.group_dental_doc_menu'):
+        if self.env.user.has_group('pragtech_dental_management.group_dental_doc_menu') and not self.env.user.has_group('pragtech_dental_management.group_dental_admin'):
             raise UserError(_("You can't create Appointment."))
         res = super(Appointment, self).create(vals)
         return res
@@ -447,7 +447,7 @@ class Physician(models.TransientModel):
 class Service(models.TransientModel):
     _name = 'service.wizard'
 
-    wizard_service_id = fields.Many2one(comodel_name="product.product", string="Services", required=True, )
+    wizard_service_id = fields.Many2many(comodel_name="product.product", string="Services", required=True, )
 
     def select_service(self):
         appointment_ids = self.env['medical.appointment'].browse(self._context.get('active_ids', False))

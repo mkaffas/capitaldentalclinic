@@ -26,7 +26,7 @@
             <form string="">
                 <sheet>
                     <group>
-                        <field name="wizard_service_id" domain="[('show_on_app','=',True)]"/>
+                        <field name="wizard_service_id" domain="[('show_on_app','=',True)]" widget="many2many_tags"/>
                     </group>
                 </sheet>
                 <footer>

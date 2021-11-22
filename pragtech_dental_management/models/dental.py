@@ -1616,6 +1616,14 @@ class MedicalAppointment(models.Model):
     branch_id = fields.Many2one(
         'dental.branch', group_expand='_group_expand_branch'
     )
+    is_doctor = fields.Boolean(compute="check_is_doctor")
+
+    def check_is_doctor(self):
+        for line in self:
+            if self.env.user.has_group('pragtech_dental_management.group_dental_doc_menu'):
+                line.is_doctor = True
+            else:
+                line.is_doctor = False
 
     _sql_constraints = [
         ('date_check', "CHECK (appointment_sdate <= appointment_edate)",

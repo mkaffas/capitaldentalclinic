@@ -74,6 +74,7 @@
                 <sheet>
                     <group>
                         <group colspan="4" col="4">
+                            <field name="is_doctor" invisible="1"/>
                             <field name="name"/>
                             <field name="patient_state" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
                             <field name="patient" required="1" context="{'appointment_id_new':id}"
@@ -83,9 +84,9 @@
                                    attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
                             <field name="room_id" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
                             <field name="appointment_sdate"
-                                   attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                                   attrs="{'readonly':['|',('state','not in',['draft','sms_send']),('is_doctor','=',True)]}"/>
                             <field name="appointment_edate"
-                                   attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                                   attrs="{'readonly':['|',('state','not in',['draft','sms_send']),('is_doctor','=',True)]}"/>
                             <field name="doctor" required="1"
                                    attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
                             <field name="user_id" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
@@ -1002,7 +1003,7 @@
                                 </field>
                             </group>
                         </page>
-                        <page string="Chart" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager">
+                        <page string="Chart" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager,pragtech_dental_management.group_dental_doc_menu">
                             <button name="open_chart" type="object" string="Open Chart"></button>
                         </page>
                         <page string="Operations"
