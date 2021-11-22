@@ -451,16 +451,17 @@ class Service(models.TransientModel):
 
     def select_service(self):
         appointment_ids = self.env['medical.appointment'].browse(self._context.get('active_ids', False))
+        patient = self.env['medical.patient'].search([('id','=',appointment_ids.patient.id)],limit=1)
         treatment_obj = self.env['medical.teeth.treatment']
-        for line in appointment_ids:
-            for record in self.wizard_service_id:
-                vals = {
-                    'patient_id': line.patient.id,
-                    'description': record.name,
-                    'state':'completed',
-                    'amount':record.lst_price
-                }
-                treatment = treatment_obj.sudo().create(vals)
+        # for line in appointment_ids:
+        for record in self.wizard_service_id:
+            vals = {
+                'patient_id': patient.id,
+                'description': record.name,
+                'state':'completed',
+                'amount':record.lst_price
+            }
+            treatment = treatment_obj.sudo().create(vals)
 
 class Discount(models.TransientModel):
     _name = 'discount.wizard'
