@@ -457,7 +457,7 @@ class Service(models.TransientModel):
         for record in self.wizard_service_id:
             vals = {
                 'patient_id': patient.id,
-                'description': record.name,
+                'description': record.id,
                 'state':'completed',
                 'amount':record.lst_price
             }
