@@ -46,13 +46,6 @@
         <field name="groups" eval="[(4, ref('group_patient_coordinator'))]"/>
     </record>
 
-    <record id="admin appointment_rule" model="ir.rule">
-        <field name="name">admin appointment Rule</field>
-        <field name="model_id" ref="model_medical_appointment"/>
-        <field name="domain_force">[(1, '=', 1)]</field>
-        <field name="groups" eval="[(4, ref('group_dental_admin'))]"/>
-    </record>
-
     <record id="model_medical_appointment_rule" model="ir.rule">
         <field name="name">Doctor Rule</field>
         <field name="model_id" ref="model_medical_appointment"/>
