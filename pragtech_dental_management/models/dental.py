@@ -749,7 +749,7 @@ class MedicalPatient(models.Model):
                                help="General information about the patient")
     deceased = fields.Boolean('Deceased', help="Mark if the patient has died")
     dod = fields.Datetime('Date of Death')
-    apt_id = fields.Many2many(comodel_name="medical.appointment", relation="patient", string="Appointments", )
+    apt_id = fields.One2many(comodel_name="medical.appointment", inverse_name="patient", string="Appointments", required=False, )
     # apt_id = fields.Many2many('medical.appointment', 'pat_apt_rel', 'patient',
     #                           'apid', 'Appointments')
     attachment_ids = fields.One2many('ir.attachment', 'patient_id',
