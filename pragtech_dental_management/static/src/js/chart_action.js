@@ -848,9 +848,9 @@ odoo.define('pragtech_dental_management.chart_action', function (require) {
                     each_operation['status'] = 'in_progress';
                 if (each_operation['tooth_id']) {
                     console.log("Prgogresss  111")
-                    self_var.put_data(self_var, each_operation['surface'].split(' '), each_operation['tooth_id'], false, each_operation['status'], each_operation['created_date'], each_operation['completion_date'], is_prev_record_from_write, each_operation['other_history']);
+                    self_var.put_data(self_var, each_operation['surface'].split(' '), each_operation['tooth_id'], false, each_operation['status'], each_operation['created_date'], each_operation['completion_date'], each_operation['op_line_id'], is_prev_record_from_write, each_operation['other_history']);
                 } else {
-                    self_var.put_data_full_mouth(self_var, each_operation.multiple_teeth, 1, selected_treatment, each_operation['status'], each_operation['created_date'], each_operation['completion_date'], is_prev_record_from_write, each_operation['other_history']);
+                    self_var.put_data_full_mouth(self_var, each_operation.multiple_teeth, 1, selected_treatment, each_operation['status'], each_operation['created_date'], each_operation['completion_date'], each_operation['op_line_id'], is_prev_record_from_write, each_operation['other_history']);
                 }
             });
             selected_treatment = '';
@@ -1027,6 +1027,7 @@ odoo.define('pragtech_dental_management.chart_action', function (require) {
                         var teeth_id = document.getElementById('tooth_' + op);
                         var created_date = document.getElementById('date_time_' + op);
                         var completion_date = document.getElementById('completion_date_' + op).innerHTML;
+                        var op_line_id = document.getElementById('op_line_id' + op).innerHTML;
                         var prev_record = document.getElementById('previous_' + op);
                         var status_id = document.getElementById('status_' + op);
                         var status_name = $(status_id).attr('status_name');
@@ -1050,6 +1051,7 @@ odoo.define('pragtech_dental_management.chart_action', function (require) {
                         values.push(categ_list);
                         var actual_tooth = String(teeth_id.id);
                         var vals_dict = {
+                            'op_line_id': op_line_id,
                             'status': String(status_id.innerHTML),
                             'status_name': status_name,
                             'teeth_id': tooth,
@@ -1196,7 +1198,7 @@ odoo.define('pragtech_dental_management.chart_action', function (require) {
                 document.getElementById(ss).classList.add(new_cnt);
             });
         },
-        put_data_full_mouth: function (self_var, full_mouth_teeth_temp, full_mouth, selected_treatment_temp, status_to_define, created_date, completion_date, is_prev_record, other_history) {
+        put_data_full_mouth: function (self_var, full_mouth_teeth_temp, full_mouth, selected_treatment_temp, status_to_define, created_date, completion_date, op_line_id, is_prev_record, other_history) {
             if (selected_treatment_temp.action == 'missing') {
                 self_var.perform_missing_action(full_mouth_teeth_temp);
             }
@@ -1252,6 +1254,7 @@ odoo.define('pragtech_dental_management.chart_action', function (require) {
                     table_str += '<td style="display: none" id = "surface_' + operation_id + '">Full Mouth</td>';
                     table_str += '<td style="display: none" id="dentist_' + operation_id + '">' + user_name + '</td>';
                     table_str += '<td id = "completion_date_' + operation_id + '">' + completion_date + '</td>';
+                    table_str += '<td style = "display:none" id = "op_line_id' + operation_id + '">' + op_line_id + '</td>';
                     table_str += '<td style="display: none" id="amount_' + operation_id + '">' + t_charge + '</td>';
                     table_str += '<td class = "progress_table_actions" id = "action_' + operation_id + '">' + selected_treatment_temp.action + '</td>';
                     // table_str += '<td class = "delete_td" id = "delete_' + operation_id + '">' + '<img src = "/pragtech_dental_management/static/src/img/delete.png" height = "20px" width = "20px"/>' + '</td>';
@@ -1331,7 +1334,7 @@ odoo.define('pragtech_dental_management.chart_action', function (require) {
                 }
             }
         },
-        put_data: function (self_var, surfaces, selected_tooth_temp, selected_surface_temp, status_defined, created_date, completion_date, is_prev_record, other_history) {
+        put_data: function (self_var, surfaces, selected_tooth_temp, selected_surface_temp, status_defined, created_date, completion_date,op_line_id, is_prev_record, other_history) {
 
             if (!selected_tooth_temp) {
                 selected_tooth_temp = '-';
@@ -1600,6 +1603,7 @@ odoo.define('pragtech_dental_management.chart_action', function (require) {
                 table_str += '<td style="display: none" id = "dentist_' + operation_id + '">' + user_name + '</td>';
                 table_str += '<td style="display: none" id = "amount_' + operation_id + '">' + t_charge + '</td>';
                 table_str += '<td id = "completion_date_' + operation_id + '">' + completion_date + '</td>';
+                table_str += '<td style = "display:none" id = "op_line_id' + operation_id + '">' + op_line_id + '</td>';
                 table_str += '<td class = "progress_table_actions" id = "action_' + operation_id + '">' + selected_treatment_temp.action + '</td>';
                 // table_str += '<td class = "delete_td" id = "delete_' + operation_id + '">' + '<img src = "/pragtech_dental_management/static/src/img/delete.png" height = "20px" width = "20px"/>' + '</td>';
                 table_str += '<td style = "display:none" id = "previous_' + operation_id + '">' + is_prev_record + '</td>';
