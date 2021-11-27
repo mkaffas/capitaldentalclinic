@@ -909,6 +909,7 @@ class MedicalPatient(models.Model):
                                     'created_date': each_operation.create_date,
                                     'status': each_operation.state,
                                     'completion_date': each_operation.completion_date,
+                                    'dentist': each_operation.dentist.display_name or '',
                                     'op_line_id': each_operation.id,
                                     'multiple_teeth': multiple_teeth_list,
                                     'tooth_id': current_tooth_id,
