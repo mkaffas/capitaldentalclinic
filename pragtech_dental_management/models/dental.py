@@ -930,91 +930,75 @@ class MedicalPatient(models.Model):
         patient = int(patient_id)
         patient_brw = self.env['medical.patient'].browse(patient)
         partner_brw = patient_brw.partner_id
-        # if appt_id:
-        #     prev_operations = medical_teeth_treatment_obj.search(
-        #         [('appt_id', '=', int(appt_id)), ('state', '!=', 'completed')])
-        # else:
-        #     prev_operations = medical_teeth_treatment_obj.search(
-        #         [('patient_id', '=', int(patient_id)),
-        #          ('state', '!=', 'completed')])
-        # prev_operations.unlink()
-
-        # prev_pat_missing_operations = medical_teeth_treatment_obj.search(
-        #     [('patient_id', '=', int(patient_id)),
-        #      ('state', '!=', 'completed')])
-        # for each_prev_pat_missing_operations in prev_pat_missing_operations:
-        #     if each_prev_pat_missing_operations.description.action_perform == 'missing':
-        #         each_prev_pat_missing_operations.unlink()
         current_physician = 0;
         for each in treatment_lines:
-            if each.get('prev_record') == 'false':
-                all_treatment = each.get('values')
-                if all_treatment:
-                    for each_trt in all_treatment:
-                        vals = {}
-                        vals['description'] = int(each_trt.get('categ_id'))
-                        if (str(each.get('teeth_id')) != 'all'):
+            all_treatment = each.get('values')
+            if all_treatment:
+                for each_trt in all_treatment:
+                    vals = {}
+                    vals['description'] = int(each_trt.get('categ_id'))
+                    if (str(each.get('teeth_id')) != 'all'):
+                        actual_teeth_id = teeth_code_obj.search(
+                            [('internal_id', '=',
+                              int(each.get('teeth_id')))])
+                        vals['teeth_id'] = actual_teeth_id[0].id
+                    vals['patient_id'] = patient
+                    desc = ''
+                    for each_val in each_trt['values']:
+                        if each_val:
+                            desc += each_val + ' '
+                    vals['detail_description'] = desc.rstrip()
+                    dentist = each.get('dentist')
+                    if dentist:
+                        dentist = int(each.get('dentist'))
+                        physician = medical_physician_obj.search(
+                            [('id', '=', dentist)])
+                        if physician:
+                            dentist = physician.id
+                            vals['dentist'] = dentist
+                            current_physician = 1
+                    status = ''
+                    if each.get('status_name') and each.get(
+                            'status_name') != 'false':
+                        status_name = each.get('status_name')
+                        status = (str(each.get('status_name')))
+                        if status_name == 'in_progress':
+                            status = 'in_progress'
+                        elif status_name == 'planned':
+                            status = 'planned'
+                    else:
+                        status = 'planned'
+                    vals['state'] = status
+                    p_brw = product_obj.browse(vals['description'])
+                    vals['amount'] = p_brw.lst_price
+                    completion_date = each.get('completion_date',
+                                               False)
+                    if completion_date:
+                        completion_date = parser.parse(
+                            completion_date)
+                        vals['completion_date'] = completion_date
+                    if appt_id:
+                        vals['appt_id'] = appt_id
+                    try:
+                        op_id = each.get('op_line_id')
+                        op_id = int(op_id)
+                        op_id = medical_teeth_treatment_obj.browse(op_id).exists()
+                        treatment_id = op_id.write(vals)
+                    except:
+                        treatment_id = medical_teeth_treatment_obj.create(
+                            vals)
+                    if each.get('multiple_teeth'):
+                        full_mouth = each.get('multiple_teeth')
+                        full_mouth = full_mouth.split('_')
+                        operate_on_tooth = []
+                        for each_teeth_from_full_mouth in full_mouth:
                             actual_teeth_id = teeth_code_obj.search(
                                 [('internal_id', '=',
-                                  int(each.get('teeth_id')))])
-                            vals['teeth_id'] = actual_teeth_id[0].id
-                        vals['patient_id'] = patient
-                        desc = ''
-                        for each_val in each_trt['values']:
-                            if each_val:
-                                desc += each_val + ' '
-                        vals['detail_description'] = desc.rstrip()
-                        dentist = each.get('dentist')
-                        if dentist:
-                            dentist = int(each.get('dentist'))
-                            physician = medical_physician_obj.search(
-                                [('id', '=', dentist)])
-                            if physician:
-                                dentist = physician.id
-                                vals['dentist'] = dentist
-                                current_physician = 1
-                        status = ''
-                        if each.get('status_name') and each.get(
-                                'status_name') != 'false':
-                            status_name = each.get('status_name')
-                            status = (str(each.get('status_name')))
-                            if status_name == 'in_progress':
-                                status = 'in_progress'
-                            elif status_name == 'planned':
-                                status = 'planned'
-                        else:
-                            status = 'planned'
-                        vals['state'] = status
-                        p_brw = product_obj.browse(vals['description'])
-                        vals['amount'] = p_brw.lst_price
-                        completion_date = each.get('completion_date',
-                                                   False)
-                        if completion_date:
-                            completion_date = parser.parse(
-                                completion_date)
-                            vals['completion_date'] = completion_date
-                        if appt_id:
-                            vals['appt_id'] = appt_id
-                        try:
-                            op_id = each.get('op_line_id')
-                            op_id = int(op_id)
-                            op_id = medical_teeth_treatment_obj.browse(op_id).exists()
-                            treatment_id = op_id.write(vals)
-                        except:
-                            treatment_id = medical_teeth_treatment_obj.create(
-                                vals)
-                        if each.get('multiple_teeth'):
-                            full_mouth = each.get('multiple_teeth')
-                            full_mouth = full_mouth.split('_')
-                            operate_on_tooth = []
-                            for each_teeth_from_full_mouth in full_mouth:
-                                actual_teeth_id = teeth_code_obj.search(
-                                    [('internal_id', '=',
-                                      int(each_teeth_from_full_mouth))])
-                                operate_on_tooth.append(
-                                    actual_teeth_id.id)
-                            treatment_id.write({'teeth_code_rel': [
-                                (6, 0, operate_on_tooth)]})
+                                  int(each_teeth_from_full_mouth))])
+                            operate_on_tooth.append(
+                                actual_teeth_id.id)
+                        treatment_id.write({'teeth_code_rel': [
+                            (6, 0, operate_on_tooth)]})
 
         #                                         cr.execute('insert into teeth_code_medical_teeth_treatment_rel(operation,teeth) values(%s,%s)' % (treatment_id,each_teeth_from_full_mouth))
         invoice_vals = {}
