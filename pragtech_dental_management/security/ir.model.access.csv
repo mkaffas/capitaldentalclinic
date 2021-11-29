@@ -120,6 +120,7 @@ access_procedure_code_doc,medical.procedure,model_medical_procedure,group_dental
 access_teeth_code_doc,teeth.code,model_teeth_code,group_dental_doc_menu,1,1,1,1
 access_ir_attachment_doc,ir.attachment,base.model_ir_attachment,group_dental_doc_menu,1,1,1,1
 access_patient_complaint_doc,patient.complaint,model_patient_complaint,group_dental_doc_menu,1,1,1,1
+access_patient_complaint_coo,patient.complaint,model_patient_complaint,group_patient_coordinator,1,1,1,1
 access_medical_teeth_treatment_doc,medical.teeth.treatment,model_medical_teeth_treatment,group_dental_doc_menu,1,1,1,1
 access_medical_teeth_treatment_admin,medical.teeth.treatment,model_medical_teeth_treatment,group_dental_admin,1,1,1,1
 access_patient_nationality_doc,patient.nationality,model_patient_nationality,group_dental_doc_menu,1,1,1,1
