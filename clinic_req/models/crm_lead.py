@@ -756,7 +756,7 @@ class Teeth(models.Model):
     @api.onchange('state')
     def change_state(self):
         if self.state == 'completed':
-            obj_patient = self.env['medical.patient'].search([('id','=',self.patient_id.id)])
+            obj_patient = self.env['medical.patient'].search([('id','=',self.patient_id)])
             obj = self.env['medical.appointment'].search([('patient','=',self.patient_id.id),('appointment_date','=',datetime.date.today())])
             if not obj:
                 obj_patient.sudo().write({'check_state':True})
