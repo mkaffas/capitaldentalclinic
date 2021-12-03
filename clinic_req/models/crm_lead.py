@@ -515,7 +515,13 @@ class Patient(models.Model):
     campaign_id = fields.Many2one('utm.campaign', string='UTM Campaign', index=True)
     refer_patient_id = fields.Many2one(comodel_name="medical.patient",
                                        string="Referred By", required=False, )
+    check_state = fields.Boolean(string="",readonly=1  )
 
+    @api.constrains('check_state')
+    def check_state_teeth(self):
+        for line in self:
+            if line.check_state == True:
+                raise UserError(_('You Cannot change state to completed !!'))
 
     def check_is_coordinator(self):
         for line in self:
@@ -750,9 +756,11 @@ class Teeth(models.Model):
     def write(self,vals):
         if 'state' in list(vals.keys()):
             if vals['state'] == 'completed':
-                obj = self.env['medical.appointment'].search([('appointment_date','=',datetime.date.today())])
+                obj = self.env['medical.appointment'].search([('patient','=',self.patient_id.id),('appointment_date','=',datetime.date.today())])
                 if not obj:
-                    raise UserError(_('You can not make state as completed !!'))
+                    self.patient_id.check_state = True
+                else:
+                    self.patient_id.check_state = False
         res = super(Teeth, self).write(vals)
         return res
 
