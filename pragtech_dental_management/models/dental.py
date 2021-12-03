@@ -1538,10 +1538,10 @@ class MedicalAppointment(models.Model):
     appointment_sdate = fields.Datetime('Appointment Start',
                                         default=fields.Datetime.now,
                                         tracking=True, )
-    appointment_date = fields.Date(string="Date", compute="get_date" )
+    appointment_date = fields.Date(string="Date", compute="get_date_app" )
 
     @api.depends('appointment_sdate')
-    def get_date(self):
+    def get_date_app(self):
         for line in self:
             line.appointment_date = line.appointment_sdate.date
 
