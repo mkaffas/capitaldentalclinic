@@ -758,9 +758,9 @@ class Teeth(models.Model):
         if self.state == 'completed':
             obj = self.env['medical.appointment'].search([('patient','=',self.patient_id.id),('appointment_date','=',datetime.date.today())])
             if not obj:
-                self.patient_id.check_state = True
+                self.patient_id.sudo().write({'check_state':True})
             else:
-                self.patient_id.check_state = False
+                self.patient_id.sudo().write({'check_state': True})
 
     @api.depends('discount', 'amount')
     def get_net_amount(self):
