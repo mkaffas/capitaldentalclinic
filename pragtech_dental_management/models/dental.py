@@ -1543,7 +1543,7 @@ class MedicalAppointment(models.Model):
     @api.depends('appointment_sdate')
     def get_date(self):
         for line in self:
-            line.appointment_date = line.appointment_sdate.date()
+            line.appointment_date = line.appointment_sdate.date
 
     def get_end_date(self):
         current_date_and_time = datetime.now()
