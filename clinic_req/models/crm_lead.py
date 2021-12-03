@@ -5,7 +5,7 @@ from datetime import datetime
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
-
+import datetime
 
 class Prouct(models.Model):
     _inherit = 'product.template'
@@ -750,7 +750,7 @@ class Teeth(models.Model):
     def write(self,vals):
         if 'state' in list(vals.keys()):
             if vals['state'] == 'completed':
-                obj = self.env['medical.appointment'].search([('appointment_date','=',datetime.date())])
+                obj = self.env['medical.appointment'].search([('appointment_date','=',datetime.date.today())])
                 if not obj:
                     raise UserError(_('You can not make state as completed !!'))
         res = super(Teeth, self).write(vals)
