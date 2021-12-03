@@ -515,7 +515,7 @@ class Patient(models.Model):
     campaign_id = fields.Many2one('utm.campaign', string='UTM Campaign', index=True)
     refer_patient_id = fields.Many2one(comodel_name="medical.patient",
                                        string="Referred By", required=False, )
-    check_state = fields.Boolean(string="",readonly=1  )
+    check_state = fields.Boolean(string="",  )
 
     @api.constrains('check_state')
     def check_state_teeth(self):
@@ -753,16 +753,14 @@ class Teeth(models.Model):
             if obj.discount_limitation < self.discount:
                 raise UserError(_('You are not allowed this discount !!'))
 
-    def write(self,vals):
-        if 'state' in list(vals.keys()):
-            if vals['state'] == 'completed':
-                obj = self.env['medical.appointment'].search([('patient','=',self.patient_id.id),('appointment_date','=',datetime.date.today())])
-                if not obj:
-                    self.patient_id.check_state = True
-                else:
-                    self.patient_id.check_state = False
-        res = super(Teeth, self).write(vals)
-        return res
+    @api.onchange('state')
+    def change_state(self):
+        if self.state == 'completed':
+            obj = self.env['medical.appointment'].search([('patient','=',self.patient_id.id),('appointment_date','=',datetime.date.today())])
+            if not obj:
+                self.patient_id.check_state = True
+            else:
+                self.patient_id.check_state = False
 
     @api.depends('discount', 'amount')
     def get_net_amount(self):
