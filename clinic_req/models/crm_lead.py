@@ -714,6 +714,8 @@ class Patient(models.Model):
         return res
 
 
+
+
 class Teeth(models.Model):
     _inherit = 'medical.teeth.treatment'
 
@@ -744,6 +746,15 @@ class Teeth(models.Model):
                 [('group_id', '=', 'Discount Admin')], limit=1)
             if obj.discount_limitation < self.discount:
                 raise UserError(_('You are not allowed this discount !!'))
+
+    def write(self,vals):
+        if 'state' in list(vals.keys()):
+            if vals['state'] == 'completed':
+                obj = self.env['medical.appointment'].search([('appointment_date','=',datetime.date())])
+                if not obj:
+                    raise UserError(_('You can not make state as completed !!'))
+        res = super(Teeth, self).write(vals)
+        return res
 
     @api.depends('discount', 'amount')
     def get_net_amount(self):

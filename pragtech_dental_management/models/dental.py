@@ -439,9 +439,7 @@ class MedicalPhysician(models.Model):
     )
     user_id = fields.Many2one(
         'res.users',
-        related='res_partner_medical_physician_id.user_id',
         string='Physician User',
-        store=True
     )
     institution = fields.Many2one('res.partner', 'Institution',
                                   domain=[('is_institution', '=', "1")],
@@ -667,7 +665,7 @@ class MedicalPatient(models.Model):
 
     stage_id = fields.Many2one(
         'patient.stage',
-        group_expand='_group_expand_stage',track_visibility="onchange",
+        group_expand='_group_expand_stage', track_visibility="onchange",
     )
 
     medium_id = fields.Many2one('utm.medium')
@@ -677,7 +675,7 @@ class MedicalPatient(models.Model):
                                  domain=[('is_patient', '=', True),
                                          ('is_person', '=', True)],
                                  help="Patient Name")
-    partner_name = fields.Char(string="Patient name", compute="get_patient_name" )
+    partner_name = fields.Char(string="Patient name", compute="get_patient_name")
 
     def get_patient_name(self):
         for line in self:
@@ -693,8 +691,8 @@ class MedicalPatient(models.Model):
                                readonly=False)
     country_id = fields.Many2one(related='partner_id.country_id', store=True,
                                  readonly=False)
-    email = fields.Char(related='partner_id.email', store=True, readonly=False,tracking=True)
-    phone = fields.Char(related='partner_id.phone', store=True, readonly=False,tracking=True)
+    email = fields.Char(related='partner_id.email', store=True, readonly=False, tracking=True)
+    phone = fields.Char(related='partner_id.phone', store=True, readonly=False, tracking=True)
     mobile = fields.Char(related='partner_id.mobile', store=True,
                          readonly=False)
     function = fields.Char(related='partner_id.function', store=True,
@@ -716,7 +714,7 @@ class MedicalPatient(models.Model):
     sec_insurance = fields.Many2one('medical.insurance', "Insurance",
                                     domain="[('partner_id','=',partner_id)]",
                                     help="Insurance information. You may choose from the different insurances belonging to the patient")
-    dob = fields.Date('Date of Birth',tracking=True)
+    dob = fields.Date('Date of Birth', tracking=True)
     age = fields.Char(compute='_patient_age', string='Patient Age',
                       help="It shows the age of the patient in years(y), months(m) and days(d).\nIf the patient has died, the age shown is the age at time of death, the age corresponding to the date on the death certificate. It will show also \"deceased\" on the field")
     sex = fields.Selection([('m', 'Male'), ('f', 'Female'), ], 'Gender', )
@@ -749,7 +747,8 @@ class MedicalPatient(models.Model):
                                help="General information about the patient")
     deceased = fields.Boolean('Deceased', help="Mark if the patient has died")
     dod = fields.Datetime('Date of Death')
-    apt_id = fields.One2many(comodel_name="medical.appointment", inverse_name="patient", string="Appointments", required=False, )
+    apt_id = fields.One2many(comodel_name="medical.appointment", inverse_name="patient", string="Appointments",
+                             required=False, )
     # apt_id = fields.Many2many('medical.appointment', 'pat_apt_rel', 'patient',
     #                           'apid', 'Appointments')
     attachment_ids = fields.One2many('ir.attachment', 'patient_id',
@@ -1539,6 +1538,12 @@ class MedicalAppointment(models.Model):
     appointment_sdate = fields.Datetime('Appointment Start',
                                         default=fields.Datetime.now,
                                         tracking=True, )
+    appointment_date = fields.Date(string="Date", compute="get_date" )
+
+    @api.depends('appointment_sdate')
+    def get_date(self):
+        for line in self:
+            line.appointment_date = line.appointment_sdate.date()
 
     def get_end_date(self):
         current_date_and_time = datetime.now()
@@ -1601,13 +1606,18 @@ class MedicalAppointment(models.Model):
     unit_id = fields.Many2one(comodel_name="medical.hospital.unit", string="",
                               required=False, )
     branch_id = fields.Many2one(
-        'dental.branch', group_expand='_group_expand_branch',related="room_id.branch_id"
+        'dental.branch', group_expand='_group_expand_branch', related="room_id.branch_id"
     )
     is_doctor = fields.Boolean(compute="check_is_doctor")
 
     def check_is_doctor(self):
         for line in self:
-            if self.env.user.has_group('pragtech_dental_management.group_dental_doc_menu'):
+            if self.env.user.has_group(
+                    'pragtech_dental_management.group_dental_doc_menu') and not self.env.user.has_group(
+                    'pragtech_dental_management.group_dental_user_menu')and not self.env.user.has_group(
+                    'pragtech_dental_management.group_patient_coordinator')and not self.env.user.has_group(
+                    'pragtech_dental_management.group_branch_manager')and not self.env.user.has_group(
+                    'pragtech_dental_management.group_dental_admin'):
                 line.is_doctor = True
             else:
                 line.is_doctor = False
@@ -1650,7 +1660,8 @@ class MedicalAppointment(models.Model):
             start = record.appointment_sdate
             end = record.appointment_edate
             overlaps = self.search([
-                ('id', '!=', record.id), ('room_id', '=', record.room_id.id),('state','not in',['postpone','cancel','missed']),
+                ('id', '!=', record.id), ('room_id', '=', record.room_id.id),
+                ('state', 'not in', ['postpone', 'cancel', 'missed']),
                 '|', '&',
                 ('appointment_sdate', '<=', start),
                 ('appointment_edate', '>=', start), '&',
@@ -1669,7 +1680,8 @@ class MedicalAppointment(models.Model):
             end = record.appointment_edate
             if record.doctor:
                 overlaps = self.search([
-                    ('id', '!=', record.id), ('doctor', '=', record.doctor.id),('state','not in',['postpone','cancel','missed']),
+                    ('id', '!=', record.id), ('doctor', '=', record.doctor.id),
+                    ('state', 'not in', ['postpone', 'cancel', 'missed']),
                     '|', '&',
                     ('appointment_sdate', '<=', start),
                     ('appointment_edate', '>=', start), '&',
@@ -1687,7 +1699,8 @@ class MedicalAppointment(models.Model):
             start = record.appointment_sdate
             end = record.appointment_edate
             overlaps = self.search([
-                ('id', '!=', record.id), ('patient', '=', record.patient.id),('state','not in',['postpone','cancel','missed']),
+                ('id', '!=', record.id), ('patient', '=', record.patient.id),
+                ('state', 'not in', ['postpone', 'cancel', 'missed']),
                 '|', '&',
                 ('appointment_sdate', '<=', start),
                 ('appointment_edate', '>=', start), '&',

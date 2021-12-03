@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- explicit list view definition -->
+        <!--      for Depoiset PopUp Window-->
+        <record id="depoiset_form_view" model="ir.ui.view">
+            <field name="name">Depoiset View</field>
+            <field name="model">check.depoiset</field>
+            <field name="arch" type="xml">
+                <form string="Deposit Check">
+                    <group>
+                        <group>
+                            <field name="debit_journal_id" required="1"/>
+                            <field name="date" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_depoiset" string="Validate" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!--      for Accept PopUp Window-->
+        <record id="accept_form_view" model="ir.ui.view">
+            <field name="name">Accept View</field>
+            <field name="model">check.accept</field>
+            <field name="arch" type="xml">
+                <form string="Accept Check">
+                    <group>
+                        <group>
+                            <field name="debit_journal_id" required="1"/>
+                            <field name="date" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_accept" string="Accept" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!--      for Reject PopUp Window-->
+        <record id="reject_form_view" model="ir.ui.view">
+            <field name="name">Accept View</field>
+            <field name="model">check.reject</field>
+            <field name="arch" type="xml">
+                <form string="Reject Check">
+                    <group>
+                        <group>
+                            <field name="debit_journal_id" required="1"/>
+                            <field name="notes" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_reject" string="Reject" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!--      for Deduct PopUp Window-->
+        <record id="deduct_form_view" model="ir.ui.view">
+            <field name="name">Deduct View</field>
+            <field name="model">check.deduct</field>
+            <field name="arch" type="xml">
+                <form string="Deduct Check">
+                    <group>
+                        <group>
+                            <field name="credit_journal_id" required="1"/>
+                            <field name="date" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_deduct" string="Deduct" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!--      for Deduct Transfer PopUp Window-->
+        <record id="deduct_transfer_form_view" model="ir.ui.view">
+            <field name="name">Deduct Transfer View</field>
+            <field name="model">transfer.deduct</field>
+            <field name="arch" type="xml">
+                <form string="Deduct Transfer">
+                    <group>
+                        <group>
+                            <field name="bank_journal_id" required="1"/>
+                            <field name="cash_journal_id" required="1"/>
+                            <field name="date" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_transfer_deduct" string="Deduct Transfer" type="object"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <!--    actions for popups windows-->
+        <!--      For Depoiset popup-->
+        <record id="action_depoiset_form_view" model="ir.actions.act_window">
+            <field name="name">Depoiset Check</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">check.depoiset</field>
+            <!--        <field name="view_type">form</field>-->
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!--      For accept popup-->
+        <record id="action_accept_form_view" model="ir.actions.act_window">
+            <field name="name">accept Check</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">check.accept</field>
+            <!--        <field name="view_type">form</field>-->
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!--      For reject popup-->
+        <record id="action_reject_form_view" model="ir.actions.act_window">
+            <field name="name">reject Check</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">check.reject</field>
+            <!--        <field name="view_type">form</field>-->
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!--      For Deduct popup-->
+        <record id="action_deduct_form_view" model="ir.actions.act_window">
+            <field name="name">Deduct Check</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">check.deduct</field>
+            <!--        <field name="view_type">form</field>-->
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!--      For Deduct Transfer popup-->
+        <record id="action_deduct_transfer_form_view" model="ir.actions.act_window">
+            <field name="name">Deduct Transfer</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">transfer.deduct</field>
+            <!--        <field name="view_type">form</field>-->
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

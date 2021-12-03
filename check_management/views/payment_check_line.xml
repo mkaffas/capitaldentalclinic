@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- explicit list view definition -->
+
+        <!--      payment check Line tree view-->
+        <record model="ir.ui.view" id="payment_check_line_tree">
+            <field name="name">Check lines</field>
+            <field name="model">payment.check.line</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="check_number"/>
+                    <field name="check_date"/>
+                    <field name="check_amount"/>
+                    <field name="partner_id"/>
+                    <field name="check_bank_id"/>
+                    <field name="state"/>
+                    <field name="check_type"/>
+                    <field name="mozahar"/>
+                    <field name="mosatar"/>
+                    <field name="partial_state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--      payment check Line form view-->
+        <record model="ir.ui.view" id="payment_check_line_form">
+            <field name="name">Check</field>
+            <field name="model">payment.check.line</field>
+            <field name="arch" type="xml">
+                <form string="Check" class="o_sale_order">
+                    <header>
+                        <button name="%(action_depoiset_form_view)d" string="Deposit" type="action"
+                                attrs="{'invisible': ['|', '|', ('payment_state', '!=', 'posted'),('state', '!=', 'holding'),('check_type', '!=', 'inbound')]}"
+                                class="btn-primary"/>
+                        <button name="test_return" string="Return Cust" type="object"
+                                attrs="{'invisible': ['|','|',('payment_state', '!=', 'posted'),('state', 'not in', ('holding','rejected')),('check_type', '!=', 'inbound')]}"
+                                class="btn-primary"/>
+
+                        <!--                    for purchasing sending check to vendor-->
+                        <button name="test_return" string="Return Vendor" type="object"
+                                attrs="{'invisible': ['|', '|', ('payment_state', '!=', 'posted'),('state', '!=', 'holding'),('check_type', 'not in', ('outbound'))]}"
+                                class="btn-primary"/>
+                        <button name="%(action_deduct_form_view)d" string="deducted" type="action"
+                                attrs="{'invisible': ['|', '|', ('payment_state', '!=', 'posted'),('state', '!=', 'holding'),('check_type', 'not in', ('outbound'))]}"
+                                class="btn-primary"/>
+                        <button name="execute_kill" string="Execute" type="object"
+                                attrs="{'invisible': ['|', '|', ('payment_state', '!=', 'posted'),('state', '!=', 'returned'),('check_type', 'not in', ('outbound'))]}"
+                                class="btn-primary"/>
+                        <button name="reset_to_holding" string="reset To Holding" type="object"
+                                attrs="{'invisible': ['|', '|', ('payment_state', '!=', 'posted'),('state', '!=', 'returned'),('check_type', 'not in', ('outbound'))]}"
+                                class="btn-primary"/>
+                        <!--                    for internal transfers checks -->
+                        <button name="action_transfer_return" string="Return Transfer" type="object"
+                                attrs="{'invisible': ['|', '|', ('payment_state', '!=', 'posted'),('state', '!=', 'holding'),('check_type', '!=', 'transfer')]}"
+                                class="btn-primary"/>
+                        <button name="%(action_deduct_transfer_form_view)d" string="Deducted Transfer" type="action"
+                                attrs="{'invisible': ['|', '|', ('payment_state', '!=', 'posted'),('state', '!=', 'holding'),('check_type', '!=', 'transfer')]}"
+                                class="btn-primary"/>
+
+                        <button name="%(action_accept_form_view)d" string="Accepted" type="action" states="depoisted"
+                                class="btn-primary"/>
+                        <button name="%(action_reject_form_view)d" string="Rejected" type="action" states="depoisted"
+                                class="btn-primary"/>
+                        <button name="%(action_depoiset_form_view)d" string="Re-Deposit" type="action"
+                                attrs="{'invisible': ['|', '|', ('payment_state', '!=', 'posted'),('state', '!=', 'rejected'),('check_type', '!=', 'inbound')]}"
+                                class="btn-primary"/>
+                        <!--                    <button name="action_cancel" string="Cancel" type="object" states="holding" class="btn-primary"/>-->
+                        <!--                    <button name="action_reset" string="Reset To Draft" type="object" states="returned" class="btn-primary"/>-->
+                        <button name="%(action_collection_form_view)d" string="Partial" type="action"/>
+                        <field name="state" widget="statusbar"/>
+                        <field name="payment_state" invisible="1"/>
+                        <field name="move_ids" invisible="1"/>
+                        <field name="check_type" invisible="1"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="button_journal_items" string="Journal Entries"
+                                    type="object" groups="account.group_account_user"
+                                    attrs="{'invisible':[('move_ids','=',[])]}" icon="fa-bars"/>
+                            <button class="oe_stat_button" name="button_check_history" string="Check History"
+                                    type="object" groups="account.group_account_user"
+                                    icon="fa-bars"/>
+                        </div>
+                        <group>
+                            <group string="Check Info">
+                                <field name="check_number" required="1"/>
+                                <field name="check_date" required="1"/>
+                                <field name="check_bank_id" required="1"/>
+                                <field name="bank_branch"/>
+                                <field name="check_amount" required="1"/>
+                                <field name="with_drawer_name"/>
+                                <field name="account_owner"/>
+                                <field name="mozahar"/>
+                                <field name="mosatar"/>
+                                <field name="desc"/>
+                            </group>
+                            <group string="Customer Info" attrs="{'invisible': [('check_type', '!=', 'inbound')]}">
+                                <field name="partner_id"/>
+                                <field name="payment_id" readonly="1"/>
+                                <field name="invoice_ids" readonly="1"/>
+                            </group>
+                            <group string="Vendor Info" attrs="{'invisible': [('check_type', '!=', 'outbound')]}">
+                                <field name="partner_id"/>
+                                <field name="payment_id" readonly="1"/>
+                                <field name="invoice_ids" widget="many2many_tags" readonly="1"/>
+                            </group>
+                            <group string="Transfer Info" attrs="{'invisible': [('check_type', '!=', 'transfer')]}">
+
+                            </group>
+                            <group string="Partial Info" attrs="{'invisible':[('partial_collection_ids','=',[])]}">
+                                <field name="remaining_amount"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="rejected_notes" states="rejected"/>
+                        </group>
+                        <notebook>
+                            <page string="Partial Collections"
+                                  attrs="{'invisible':[('partial_collection_ids','=',[])]}">
+                                <field name="partial_collection_ids" readonly="True">
+                                    <tree editable="bottom">
+                                        <field name="partial_amount" sum="Total"/>
+                                        <field name="date"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
