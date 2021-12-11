@@ -14,19 +14,5 @@
 			</field>
 		</record>
 
-		<record id="orderpoint_form" model="ir.ui.view">
-			<field name="model">warehouse.orderpoint.wizard</field>
-			<field name="arch" type="xml">
-				<form string="">
-					<footer>
-						<button special="cancel" string="Cancel"
-								icon="fa-times-circle text-danger"/>
-						<button name="send_products" string="Send Notification"
-								type="object" icon="fa-arrow-right text-success"/>
-					</footer>
-				</form>
-			</field>
-		</record>
-
 	</data>
 </odoo>

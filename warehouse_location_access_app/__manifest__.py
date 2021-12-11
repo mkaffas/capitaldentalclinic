@@ -11,7 +11,6 @@
 	'depends' : ['base','stock'],
 	"license" : "OPL-1",
 	'data' : [
-		'security/ir.model.access.csv',
 		'security/stock_location_warehouse_limitation_security.xml',
 		'views/stock_location_warehouse_limitation.xml',
 		

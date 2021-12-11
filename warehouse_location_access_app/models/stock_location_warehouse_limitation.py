@@ -17,8 +17,8 @@ class ResUsers(models.Model):
         return super(ResUsers, self).write(vals)
 
 
-class Orderpoint(models.TransientModel):
-    _name = 'warehouse.orderpoint.wizard'
+class Orderpoint(models.Model):
+    _inherit = 'stock.warehouse.orderpoint'
 
     def send_products(self):
         stock_ids = self.env['stock.warehouse.orderpoint'].browse(self._context.get('active_ids', False))
