@@ -19,7 +19,7 @@ class ResUsers(models.Model):
 
 class Orderpoint(models.Model):
     _name = 'stock.warehouse.orderpoint'
-    _inherit = ['mail.thread', 'mail.activity.mixin']   
+    _inherit = 'mail.thread'
 
     def send_products(self):
         stock_ids = self.env['stock.warehouse.orderpoint'].browse(self._context.get('active_ids', False))
