@@ -32,9 +32,17 @@ class Orderpoint(models.Model):
         obj = self.env['product.product'].search([],limit=1)
         body = 'All this products need to Replenishment' + list_products
         if all_partners:
-            obj.sudo().message_post(
-                partner_ids=all_partners,
-                subject="Products to Replenishment ",
-                body=body,
-                message_type='comment',
-                subtype_id=self.env.ref('mail.mt_note').id)
+            self.env['mail.message'].sudo().create({'message_type': "notification",
+                                             "subtype": self.env.ref("mail.mt_comment").id,
+                                             'body': body,
+                                             'subject':"Products to Replenishment",
+                                             'needaction_partner_ids': [(4, partners)],
+                                             'model': self._name,
+                                             'res_id': self.id,
+                                             })
+            # obj.sudo().message_post(
+            #     partner_ids=all_partners,
+            #     subject="Products to Replenishment ",
+            #     body=body,
+            #     message_type='comment',
+            #     subtype_id=self.env.ref('mail.mt_note').id)
