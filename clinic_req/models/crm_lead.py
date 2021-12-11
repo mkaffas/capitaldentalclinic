@@ -463,6 +463,7 @@ class Service(models.TransientModel):
             }
             treatment = treatment_obj.sudo().create(vals)
 
+
 class Discount(models.TransientModel):
     _name = 'discount.wizard'
 
@@ -516,6 +517,20 @@ class Patient(models.Model):
     refer_patient_id = fields.Many2one(comodel_name="medical.patient",
                                        string="Referred By", required=False, )
     check_state = fields.Boolean(string="",  )
+    allergy = fields.Char(string="Allergy", required=False, )
+    cardiac_disease = fields.Char(string="Cardiac Disease", required=False, )
+    diabetes_melitus = fields.Char(string="Diabetes Melitus", required=False, )
+    hypertension = fields.Char(string="Hypertension", required=False, )
+    kidney_disease = fields.Char(string="Kidney Disease", required=False, )
+    liver_disease = fields.Char(string="Liver Disease", required=False, )
+    pregnancy = fields.Char(string="Pregnancy", required=False, )
+    surgery = fields.Char(string="Surgery", required=False, )
+    other = fields.Char(string="Other", required=False, )
+
+    medication = fields.Text(string="Medication", required=False, )
+    post_dental_history = fields.Text(string="Post Dental History", required=False, )
+    habits = fields.Text(string="Habits & Oral Hygiene Measures", required=False, )
+    patient_chef_compliant = fields.Text(string="Patient Chef Compliant", required=False, )
 
     @api.constrains('check_state')
     def check_state_teeth(self):

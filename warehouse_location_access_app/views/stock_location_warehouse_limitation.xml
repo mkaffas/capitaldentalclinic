@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record model="ir.ui.view" id="available_location_base_user_form">
+			<field name="name">available.to.location.base.form</field>
+			<field name="model">res.users</field>
+			<field name="inherit_id" ref="base.view_users_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='tz']" position="after">
+					<field name="available_location_ids" string="Available Location" widget="many2many_tags"/>
+
+				</xpath>
+
+			</field>
+		</record>
+
+		<record id="orderpoint_form" model="ir.ui.view">
+			<field name="model">warehouse.orderpoint.wizard</field>
+			<field name="arch" type="xml">
+				<form string="">
+					<footer>
+						<button special="cancel" string="Cancel"
+								icon="fa-times-circle text-danger"/>
+						<button name="send_products" string="Send Notification"
+								type="object" icon="fa-arrow-right text-success"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+
+	</data>
+</odoo>

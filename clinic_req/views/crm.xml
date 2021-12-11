@@ -388,6 +388,29 @@
             <xpath expr="//header" position="inside">
                 <button name="action_appointment" string="Create Appointment" type="object"/>
             </xpath>
+            <xpath expr="//page[2]" position="replace">
+                <page string="Medical Questionnaire">
+                    <group>
+                        <field name="patient_chef_compliant"/>
+                    </group>
+                    <group>
+                        <field name="allergy"/>
+                        <field name="cardiac_disease"/>
+                        <field name="diabetes_melitus"/>
+                        <field name="hypertension"/>
+                        <field name="kidney_disease"/>
+                        <field name="liver_disease"/>
+                        <field name="pregnancy"/>
+                        <field name="surgery"/>
+                        <field name="other"/>
+                    </group>
+                    <group>
+                        <field name="medication"/>
+                        <field name="post_dental_history"/>
+                        <field name="habits"/>
+                    </group>
+                </page>
+            </xpath>
             <xpath expr="//page[8]/group" position="before">
                 <group>
                     <group>
