@@ -35,7 +35,7 @@ class Orderpoint(models.Model):
                 'email_from': self.env.user.partner_id.email,  # add the sender email
                 'author_id': self.env.user.partner_id.id,  # add the creator id
                 'model': 'mail.channel',  # model should be mail.channel
-                'type': 'comment',
+                'message_type': 'comment',
                 'subject': "Products to Replenishment",
                 'subtype_id': self.env.ref('mail.mt_comment').id,
                 'body': body,  # here add the message body
