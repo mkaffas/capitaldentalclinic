@@ -36,7 +36,7 @@ class Orderpoint(models.Model):
                                              "subtype_id": self.env.ref("mail.mt_comment").id,
                                              'body': body,
                                              'subject':"Products to Replenishment",
-                                             'needaction_partner_ids': [(4, partners)],
+                                             'partner_ids': [(4, partners)],
                                              'model': self._name,
                                              'res_id': self.id,
                                              })
