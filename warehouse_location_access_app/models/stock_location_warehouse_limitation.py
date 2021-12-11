@@ -37,7 +37,7 @@ class Orderpoint(models.Model):
                     'res_partner_id': partner.id,
                     'notification_type': 'inbox'}))
             partner.message_post(body=body, message_type='notification',
-                              subtype_id=self.env.ref('mail.mt_comment').id, author_id='self.env.user.partner_id.id',
+                              subtype_id=self.env.ref('mail.mt_comment').id, author_id=self.env.user.partner_id.id,
                               notification_ids=notification_ids)
 
             # self.env['mail.message'].create({
