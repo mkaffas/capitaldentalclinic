@@ -29,7 +29,7 @@ class Orderpoint(models.Model):
             'stock.group_stock_manager').users.filtered(
             lambda r: r.partner_id).mapped('partner_id.id')
         all_partners = partners
-        obj = self.env['product.product']
+        obj = self.env['product.product'].search([],limit=1)
         body = 'All this products need to Replenishment' + list_products
         if all_partners:
             obj.sudo().message_post(
