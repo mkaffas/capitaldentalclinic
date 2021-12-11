@@ -39,8 +39,7 @@ class Orderpoint(models.Model):
                 'subject': "Products to Replenishment",
                 'subtype_id': self.env.ref('mail.mt_comment').id,
                 'body': body,  # here add the message body
-                'channel_ids': [(4, self.env.ref(
-                'mail.channel_all_employees').id)],  # This is the channel where you want to send the message and all the users of this channel will receive message
+                'partner_ids': [(4, obj.ids)],  # This is the channel where you want to send the message and all the users of this channel will receive message
                 'res_id': self.env.ref('mail.channel_all_employees').id,  # here add the channel you created.
             })
             # self.env['mail.message'].sudo().create({'message_type': "notification",
