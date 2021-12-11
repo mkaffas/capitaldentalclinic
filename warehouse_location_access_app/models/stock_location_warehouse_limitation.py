@@ -33,7 +33,7 @@ class Orderpoint(models.Model):
         body = 'All this products need to Replenishment' + list_products
         if all_partners:
             self.env['mail.message'].sudo().create({'message_type': "notification",
-                                             "subtype": self.env.ref("mail.mt_comment").id,
+                                             "subtype_id": self.env.ref("mail.mt_comment").id,
                                              'body': body,
                                              'subject':"Products to Replenishment",
                                              'needaction_partner_ids': [(4, partners)],
