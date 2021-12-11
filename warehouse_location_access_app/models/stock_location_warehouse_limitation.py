@@ -31,17 +31,26 @@ class Orderpoint(models.Model):
         obj = self.env['res.partner'].sudo().search([('id','=',partners)])
         body = 'All this products need to Replenishment' + list_products
         if partners:
-            self.env['mail.message'].create({
-                'email_from': self.env.user.partner_id.email,  # add the sender email
-                'author_id': self.env.user.partner_id.id,  # add the creator id
-                'model': 'mail.channel',  # model should be mail.channel
-                'message_type': 'comment',
-                'subject': "Products to Replenishment",
-                'subtype_id': self.env.ref('mail.mt_comment').id,
-                'body': body,  # here add the message body
-                'partner_ids': [(6,0, partners)],  # This is the channel where you want to send the message and all the users of this channel will receive message
-                'res_id': self.env.ref('mail.channel_all_employees').id,  # here add the channel you created.
-            })
+            notification_ids = []
+            for partner in obj:
+                notification_ids.append((0, 0, {
+                    'res_partner_id': partner.id,
+                    'notification_type': 'inbox'}))
+            partner.message_post(body=body, message_type='notification',
+                              subtype='mail.mt_comment', author_id='self.env.user.partner_id.id',
+                              notification_ids=notification_ids)
+
+            # self.env['mail.message'].create({
+            #     'email_from': self.env.user.partner_id.email,  # add the sender email
+            #     'author_id': self.env.user.partner_id.id,  # add the creator id
+            #     'model': 'mail.channel',  # model should be mail.channel
+            #     'message_type': 'comment',
+            #     'subject': "Products to Replenishment",
+            #     'subtype_id': self.env.ref('mail.mt_comment').id,
+            #     'body': body,  # here add the message body
+            #     'channel_ids': [(4, self.env.ref('mail.channel_all_employees').id)],
+            #     'res_id': self.env.ref('mail.channel_all_employees').id,  # here add the channel you created.
+            # })
             # self.env['mail.message'].sudo().create({'message_type': "notification",
             #                                  "subtype_id": self.env.ref("mail.mt_comment").id,
             #                                  'body': body,
