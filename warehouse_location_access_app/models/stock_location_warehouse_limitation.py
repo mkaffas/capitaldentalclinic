@@ -28,15 +28,14 @@ class Orderpoint(models.Model):
         partners = self.env.ref(
             'stock.group_stock_manager').users.filtered(
             lambda r: r.partner_id).mapped('partner_id.id')
-        all_partners = partners
-        obj = self.env['product.product'].search([],limit=1)
+        obj = self.env['res.partner'].sudo().search([('id','=',partners)])
         body = 'All this products need to Replenishment' + list_products
-        if all_partners:
+        if partners:
             self.env['mail.message'].sudo().create({'message_type': "notification",
                                              "subtype_id": self.env.ref("mail.mt_comment").id,
                                              'body': body,
                                              'subject':"Products to Replenishment",
-                                             'partner_ids': [(4, partners)],
+                                             'partner_ids': [(4, obj.ids)],
                                              'model': self._name,
                                              'res_id': self.id,
                                              })
