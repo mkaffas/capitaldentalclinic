@@ -18,7 +18,8 @@ class ResUsers(models.Model):
 
 
 class Orderpoint(models.Model):
-    _inherit = 'stock.warehouse.orderpoint'
+    _name = 'stock.warehouse.orderpoint'
+    _inherit = 'mail.thread'
 
     def send_products(self):
         stock_ids = self.env['stock.warehouse.orderpoint'].browse(self._context.get('active_ids', False))
@@ -30,7 +31,7 @@ class Orderpoint(models.Model):
             'stock.group_stock_manager').users]
 
         if partners:
-            self.env['mail.thread'].sudo().search([],limit=1).sudo().message_post(
+            self.sudo().message_post(
                 partner_ids=partners,
                 subject="Products to Replenishment",
                 body= body,

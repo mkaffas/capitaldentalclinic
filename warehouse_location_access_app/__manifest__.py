@@ -8,7 +8,7 @@
 	'summary' :'Stock access rules warehouse access rules stock location access for users warehouse access control warehouse limited access for users stock limited access for users stock location access control Stock Location limitation access Warehouse Limitation access',
 	'description' : """
 		Stock Locations Warehouse Limitations App """,
-	'depends' : ['base','stock'],
+	'depends' : ['base','stock','mail'],
 	"license" : "OPL-1",
 	'data' : [
 		'security/stock_location_warehouse_limitation_security.xml',
