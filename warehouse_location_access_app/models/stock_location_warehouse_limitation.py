@@ -25,29 +25,35 @@ class Orderpoint(models.Model):
         list_products = ""
         for line in stock_ids:
             list_products += line.product_id.name + " \n "
-        partners = self.env.ref(
-            'stock.group_stock_manager').users.filtered(
-            lambda r: r.partner_id).mapped('partner_id.id')
-        obj = self.env['res.partner'].sudo().search([('id','=',partners)])
-        body = 'All this products need to Replenishment' + list_products
+        body = 'All this products need to Replenishment ' + list_products
+        partners = [x.partner_id.id for x in self.env.ref(
+            'stock.group_stock_manager').users]
+
         if partners:
-            notification_ids = []
-            for partner in obj:
-                notification_ids.append((0, 0, {
-                    'res_partner_id': partner.id,
-                    'notification_type': 'inbox'}))
-            partner.message_post(body=body, message_type='notification',
-                              subtype_id=self.env.ref('mail.mt_comment').id, author_id=self.env.user.partner_id.id,
-                              notification_ids=notification_ids)
+            self.env['mail.thread'].sudo().search([],limit=1).sudo().message_post(
+                partner_ids=partners,
+                subject="Products to Replenishment",
+                body= body,
+                message_type='comment',
+                subtype_id=self.env.ref('mail.mt_note').id, )
+        # if partners:
+            # notification_ids = []
+            # for partner in obj:
+            #     notification_ids.append((0, 0, {
+            #         'res_partner_id': partner.id,
+            #         'notification_type': 'inbox'}))
+            # partner.message_post(body=body, message_type='notification',
+            #                   subtype_id=self.env.ref('mail.mt_comment').id, author_id=self.env.user.partner_id.id,
+            #                   notification_ids=notification_ids)
 
             # self.env['mail.message'].create({
-            #     'email_from': self.env.user.partner_id.email,  # add the sender email
-            #     'author_id': self.env.user.partner_id.id,  # add the creator id
-            #     'model': 'mail.channel',  # model should be mail.channel
+            #     'email_from': self.env.user.partner_id.email,
+            #     'author_id': self.env.user.partner_id.id,
+            #     'model': 'mail.channel',
             #     'message_type': 'comment',
             #     'subject': "Products to Replenishment",
             #     'subtype_id': self.env.ref('mail.mt_comment').id,
-            #     'body': body,  # here add the message body
+            #     'body': body,
             #     'channel_ids': [(4, self.env.ref('mail.channel_all_employees').id)],
             #     'res_id': self.env.ref('mail.channel_all_employees').id,  # here add the channel you created.
             # })
