@@ -79,7 +79,7 @@
                             <field name="patient_state" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
                             <field name="patient" required="1" context="{'appointment_id_new':id}"
                                    attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
-                            <field name="unit_id" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="unit_id" attrs="{'invisible':1,'readonly':[('state','not in',['draft','sms_send'])]}"/>
                             <field name="branch_id" required="1"
                                    attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
                             <field name="room_id" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
@@ -88,7 +88,7 @@
                             <field name="appointment_edate"
                                    attrs="{'readonly':['|',('state','not in',['draft','sms_send']),('is_doctor','=',True)]}"/>
                             <field name="doctor" required="1"
-                                   attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                                   attrs="{'invisible':1,'readonly':[('state','not in',['draft','sms_send'])]}"/>
                             <field name="user_id" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
                             <field name="service_id"
                                    domain="[('is_treatment', '=', True), ('type','=','service')]"
@@ -848,6 +848,9 @@
                             <field name="partner_id" groups="pragtech_dental_management.group_dental_admin"
                                    context="{'default_is_patient': 1, 'search_default_is_patient': 1,'search_default_is_person': 1,'default_is_person': 1}"/>
                             <field name="partner_name"/>
+                            <field name="first_name"/>
+                            <field name="lastname"/>
+                            <field name="middle_name"/>
                             <field name="dob"/>
                             <field name="report_date" invisible="1"/>
                             <field name="sex"/>
@@ -898,7 +901,7 @@
                                 </group>
                                 <group>
                                     <field name="occupation_id"/>
-                                    <field name="primary_doctor_id"/>
+                                    <field name="primary_doctor_id" invisible="1"/>
                                     <field name="referring_doctor_id"/>
                                     <field name="nationality_id"/>
                                 </group>
@@ -1018,7 +1021,7 @@
                                         <field name="state"/>
                                         <field name="dentist"/>
                                         <field name="detail_description" invisible="1"/>
-                                        <field name="completion_date"/>
+                                        <field name="completion_date" attrs="{'readonly':[('state','=','completed')]}"/>
                                         <field name="amount"/>
                                     </tree>
                                 </field>

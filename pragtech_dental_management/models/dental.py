@@ -671,7 +671,7 @@ class MedicalPatient(models.Model):
     medium_id = fields.Many2one('utm.medium')
     source_id = fields.Many2one('utm.source')
     referred = fields.Char()
-    partner_id = fields.Many2one('res.partner', 'Patient', required="1",
+    partner_id = fields.Many2one('res.partner', 'Patient',
                                  domain=[('is_patient', '=', True),
                                          ('is_person', '=', True)],
                                  help="Patient Name")
@@ -702,9 +702,11 @@ class MedicalPatient(models.Model):
                              default=lambda self: _('New'))
     ssn = fields.Char('SSN', size=128,
                       help="Patient Unique Identification Number")
-    lastname = fields.Char(related='partner_id.lastname', string='Lastname')
-    middle_name = fields.Char(related='partner_id.middle_name',
-                              string='Middle Name')
+    first_name = fields.Char(string='First name',required=1)
+    lastname = fields.Char(string='Lastname')
+    middle_name = fields.Char(string='Middle Name')
+
+
     family_code = fields.Many2one('medical.family_code', 'Family',
                                   help="Family Code")
     identifier = fields.Char(string='SSN', related='partner_id.ref',
@@ -1110,6 +1112,25 @@ class MedicalPatient(models.Model):
         if vals_list.get('patient_id', 'New') == 'New':
             sequence = self.env['ir.sequence'].next_by_code('medical.patient')
             vals_list.update(patient_id=sequence or '/')
+        if vals_list['first_name']:
+            partner_obj = self.env['res.partner'].sudo()
+            partner = partner_obj.create({
+                'name': vals_list['first_name'] or '',
+                'lastname': vals_list['lastname'] or '',
+                'middle_name': vals_list['middle_name'] or '',
+                'is_patient': True,
+                'type': 'contact',
+                'mobile': vals_list['mobile'] or '',
+                'email': vals_list['email'] or '',
+                'phone': vals_list['phone'] or '',
+                'street': vals_list['street'] or '',
+                'street2': vals_list['street2'] or '',
+                'zip': vals_list['zip'] or '',
+                'city': vals_list['city'] or '',
+                'state_id': vals_list['state_id'] or False,
+                'country_id': vals_list['country_id'] or False,
+            })
+            vals_list['partner_id'] = partner.id
         return super().create(vals_list)
 
     def open_chart(self):
@@ -1822,6 +1843,16 @@ class MedicalAppointment(models.Model):
             if partners:
                 self.sudo().message_post(
                     partner_ids=partners,
+                    subject="Appointment " + str(
+                        rec.name) + " has been checked in",
+                    body="Patient " + str(
+                        rec.patient.partner_id.name) + " with Appointment " + str(
+                        rec.name) + " has been checked in " + body,
+                    message_type='comment',
+                    subtype_id=self.env.ref('mail.mt_note').id, )
+            if rec.patient_coordinator:
+                self.sudo().message_post(
+                    partner_ids=[rec.patient_coordinator.partner_id.id],
                     subject="Appointment " + str(
                         rec.name) + " has been checked in",
                     body="Patient " + str(

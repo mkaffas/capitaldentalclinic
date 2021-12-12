@@ -37,38 +37,4 @@ class Orderpoint(models.Model):
                 body= body,
                 message_type='comment',
                 subtype_id=self.env.ref('mail.mt_note').id, )
-        # if partners:
-            # notification_ids = []
-            # for partner in obj:
-            #     notification_ids.append((0, 0, {
-            #         'res_partner_id': partner.id,
-            #         'notification_type': 'inbox'}))
-            # partner.message_post(body=body, message_type='notification',
-            #                   subtype_id=self.env.ref('mail.mt_comment').id, author_id=self.env.user.partner_id.id,
-            #                   notification_ids=notification_ids)
 
-            # self.env['mail.message'].create({
-            #     'email_from': self.env.user.partner_id.email,
-            #     'author_id': self.env.user.partner_id.id,
-            #     'model': 'mail.channel',
-            #     'message_type': 'comment',
-            #     'subject': "Products to Replenishment",
-            #     'subtype_id': self.env.ref('mail.mt_comment').id,
-            #     'body': body,
-            #     'channel_ids': [(4, self.env.ref('mail.channel_all_employees').id)],
-            #     'res_id': self.env.ref('mail.channel_all_employees').id,  # here add the channel you created.
-            # })
-            # self.env['mail.message'].sudo().create({'message_type': "notification",
-            #                                  "subtype_id": self.env.ref("mail.mt_comment").id,
-            #                                  'body': body,
-            #                                  'subject':"Products to Replenishment",
-            #                                  'partner_ids': [(6,0, obj.ids)],
-            #                                  # 'model': self._name,
-            #                                  # 'res_id': self.id,
-            #                                  })
-            # obj.sudo().message_post(
-            #     partner_ids=all_partners,
-            #     subject="Products to Replenishment ",
-            #     body=body,
-            #     message_type='comment',
-            #     subtype_id=self.env.ref('mail.mt_note').id)
