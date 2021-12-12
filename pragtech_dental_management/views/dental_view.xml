@@ -88,8 +88,8 @@
                             <field name="appointment_edate"
                                    attrs="{'readonly':['|',('state','not in',['draft','sms_send']),('is_doctor','=',True)]}"/>
                             <field name="doctor" required="1"
-                                   attrs="{'invisible':1,'readonly':[('state','not in',['draft','sms_send'])]}"/>
-                            <field name="user_id" attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                                   attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
+                            <field name="user_id" attrs="{'invisible':1,'readonly':[('state','not in',['draft','sms_send'])]}"/>
                             <field name="service_id"
                                    domain="[('is_treatment', '=', True), ('type','=','service')]"
                                    attrs="{'readonly':[('state','not in',['draft','sms_send'])]}"/>
