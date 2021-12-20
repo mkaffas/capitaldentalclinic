@@ -24,12 +24,14 @@ class Orderpoint(models.Model):
     # _inherit = 'mail.thread'
 
     def action_transfer(self):
+        stock_ids = self.env['stock.warehouse.orderpoint'].browse(self._context.get('active_ids', False))
         return {'type': 'ir.actions.act_window',
                 'name': _('Transfer'),
                 'res_model': 'warehouse.orderpoint.wizard',
                 'target': 'new',
                 'view_id': self.env.ref('warehouse_location_access_app.warehouse_orderpoint_wizard_form').id,
                 'view_mode': 'form',
+                'context': {'default_stock_ids': [(6, 0, stock_ids)], 'default_message': 'comment', }
                 }
 
     def send_products(self):
@@ -54,12 +56,12 @@ class Warehouse(models.TransientModel):
     _name = 'warehouse.orderpoint.wizard'
 
     src_location_id = fields.Many2one(comodel_name="stock.location", string="Location", required=True, )
+    stock_ids = fields.Many2many(comodel_name="stock.warehouse.orderpoint",string="", )
 
     def create_transfer(self):
-        stock_ids = self.env['stock.warehouse.orderpoint'].browse(self._context.get('active_ids', False))
         list_products = []
         location_id = False
-        for line in stock_ids:
+        for line in self.stock_ids:
             vals = {}
             vals['product_id'] = line.product_id.id
             location_id = line.location_id
@@ -75,5 +77,5 @@ class Warehouse(models.TransientModel):
                 'location_dest_id': location_id.id,
                 'move_ids_without_package': list_products
             })
-            for record in stock_ids:
+            for record in self.stock_ids:
                 record.transfer_id = obj.id

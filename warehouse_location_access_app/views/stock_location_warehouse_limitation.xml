@@ -32,6 +32,7 @@
                     <sheet>
                         <group>
                             <field name="src_location_id" domain="[('usage','=','internal')]"/>
+                            <field name="stock_ids" widget="many2many_tags"/>
                         </group>
                     </sheet>
                     <footer>
