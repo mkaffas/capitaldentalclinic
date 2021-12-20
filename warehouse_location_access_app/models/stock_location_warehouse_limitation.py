@@ -21,6 +21,7 @@ class Orderpoint(models.Model):
     _inherit = 'stock.warehouse.orderpoint'
 
     transfer_id = fields.Many2one(comodel_name="stock.picking", string="", required=False, )
+    qty = fields.Float(string="QTY",  required=False, )
     # _inherit = 'mail.thread'
 
     def action_transfer(self):
@@ -70,7 +71,7 @@ class Warehouse(models.TransientModel):
             vals['product_id'] = line.product_id.id
             vals['product_uom'] = line.product_id.uom_id.id
             location_id = line.location_id
-            vals['product_uom_qty'] = 1
+            vals['product_uom_qty'] = line.qty
             list_products.append((0, 0, vals))
         if list_products:
             obj = self.env['stock.picking']
