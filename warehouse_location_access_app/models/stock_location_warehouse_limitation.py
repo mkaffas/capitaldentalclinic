@@ -70,7 +70,7 @@ class Warehouse(models.TransientModel):
             vals['product_id'] = line.product_id.id
             vals['product_uom'] = line.product_id.uom_id.id
             location_id = line.location_id
-            vals['product_uom_qty'] = line.qty_to_order
+            vals['product_uom_qty'] = 1
             list_products.append((0, 0, vals))
         if list_products:
             obj = self.env['stock.picking']
