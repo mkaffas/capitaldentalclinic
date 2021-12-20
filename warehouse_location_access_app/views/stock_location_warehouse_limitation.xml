@@ -19,7 +19,6 @@
             <field name="type">ir.actions.server</field>
             <field name="model_id" ref="stock.model_stock_warehouse_orderpoint"/>
             <field name="binding_model_id" ref="warehouse_location_access_app.model_warehouse_orderpoint_wizard"/>
-            <field name="view_mode">form</field>
         </record>
 
         <record id="warehouse_orderpoint_wizard_form" model="ir.ui.view">
