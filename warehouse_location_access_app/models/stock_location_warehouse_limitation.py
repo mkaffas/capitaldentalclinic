@@ -20,6 +20,7 @@ class ResUsers(models.Model):
 class Orderpoint(models.Model):
     _inherit = 'stock.warehouse.orderpoint'
 
+    transfer_id = fields.Many2one(comodel_name="stock.picking", string="", required=False, )
     # _inherit = 'mail.thread'
 
     def action_transfer(self):
@@ -64,12 +65,15 @@ class Warehouse(models.TransientModel):
             location_id = line.location_id
             vals['product_uom_qty'] = line.qty_to_order
             list_products.append((0, 0, vals))
-        obj = self.env['stock.picking']
-        obj_picking = self.env['stock.picking.type'].sudo().search(
-            [('default_location_src_id', '=', self.src_location_id.id), ('code', '=', 'internal')], limit=1)
-        obj.sudo().create({
-            'picking_type_id': obj_picking.id,
-            'location_id': self.src_location_id.id,
-            'location_dest_id': location_id.id,
-            'move_ids_without_package': list_products
-        })
+        if list_products:
+            obj = self.env['stock.picking']
+            obj_picking = self.env['stock.picking.type'].sudo().search(
+                [('default_location_src_id', '=', self.src_location_id.id), ('code', '=', 'internal')], limit=1)
+            obj.sudo().create({
+                'picking_type_id': obj_picking.id,
+                'location_id': self.src_location_id.id,
+                'location_dest_id': location_id.id,
+                'move_ids_without_package': list_products
+            })
+            for record in stock_ids:
+                record.transfer_id = obj.id
