@@ -68,6 +68,7 @@ class Warehouse(models.TransientModel):
             vals = {}
             vals['name'] = 'Order Point Transfer'
             vals['product_id'] = line.product_id.id
+            vals['product_uom'] = line.product_id.uom_id.id
             location_id = line.location_id
             vals['product_uom_qty'] = line.qty_to_order
             list_products.append((0, 0, vals))
