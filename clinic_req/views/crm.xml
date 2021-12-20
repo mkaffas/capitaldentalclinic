@@ -73,6 +73,8 @@
         </field>
     </record>
 
+
+
     <record id="sms_action_server" model="ir.actions.server">
         <field name="name">Send SMS</field>
         <field name="type">ir.actions.server</field>
