@@ -66,6 +66,7 @@ class Warehouse(models.TransientModel):
         location_id = False
         for line in self.stock_ids:
             vals = {}
+            vals['name'] = 'Order Point Transfer'
             vals['product_id'] = line.product_id.id
             location_id = line.location_id
             vals['product_uom_qty'] = line.qty_to_order
@@ -80,5 +81,5 @@ class Warehouse(models.TransientModel):
                 'location_dest_id': location_id.id,
                 'move_ids_without_package': list_products
             })
-            # for record in self.stock_ids:
-            #     record.transfer_id = obj.id
+            for record in self.stock_ids:
+                record.transfer_id = obj.id
