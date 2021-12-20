@@ -22,6 +22,15 @@ class Orderpoint(models.Model):
 
     # _inherit = 'mail.thread'
 
+    def action_transfer(self):
+        return {'type': 'ir.actions.act_window',
+                'name': _('Transfer'),
+                'res_model': 'warehouse.orderpoint.wizard',
+                'target': 'new',
+                'view_id': self.env.ref('warehouse_location_access_app.warehouse_orderpoint_wizard_form').id,
+                'view_mode': 'form',
+                }
+
     def send_products(self):
         stock_ids = self.env['stock.warehouse.orderpoint'].browse(self._context.get('active_ids', False))
         list_products = ""
