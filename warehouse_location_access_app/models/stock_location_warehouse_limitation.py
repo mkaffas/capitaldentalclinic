@@ -25,13 +25,16 @@ class Orderpoint(models.Model):
 
     def action_transfer(self):
         stock_ids = self.env['stock.warehouse.orderpoint'].browse(self._context.get('active_ids', False))
+        lines = []
+        for line in stock_ids:
+            lines.append(line.id)
         return {'type': 'ir.actions.act_window',
                 'name': _('Transfer'),
                 'res_model': 'warehouse.orderpoint.wizard',
                 'target': 'new',
                 'view_id': self.env.ref('warehouse_location_access_app.warehouse_orderpoint_wizard_form').id,
                 'view_mode': 'form',
-                'context': {'default_stock_ids': [(6, 0, stock_ids)], 'default_message': 'comment', }
+                'context': {'default_stock_ids': [(6, 0, lines)] }
                 }
 
     def send_products(self):
@@ -77,5 +80,5 @@ class Warehouse(models.TransientModel):
                 'location_dest_id': location_id.id,
                 'move_ids_without_package': list_products
             })
-            for record in self.stock_ids:
-                record.transfer_id = obj.id
+            # for record in self.stock_ids:
+            #     record.transfer_id = obj.id
