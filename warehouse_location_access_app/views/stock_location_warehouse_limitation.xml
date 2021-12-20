@@ -31,7 +31,7 @@
                 <form string="">
                     <sheet>
                         <group>
-                            <field name="src_location_id"/>
+                            <field name="src_location_id" domain="[('usage','=','internal')]"/>
                         </group>
                     </sheet>
                     <footer>
