@@ -88,9 +88,9 @@ class Warehouse(models.TransientModel):
             return {'type': 'ir.actions.act_window',
                     'name': _('Transfer'),
                     'res_model': 'stock.picking',
-                    'target': 'current',
+                    # 'target': 'current',
                     'view_id': False,
-                    'view_mode': 'tree,form',
-                    # 'res_id': obj.id,
-                    'domain' : [('id','=',obj.id)]
+                    'view_mode': 'form',
+                    'res_id': obj.id,
+                    # 'domain' : [('id','=',obj.id)]
                     }
