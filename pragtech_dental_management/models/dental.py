@@ -1837,9 +1837,9 @@ class MedicalAppointment(models.Model):
         for rec in self:
             # partners = [x.partner_id.id for x in self.env.ref(
             #     'pragtech_dental_management.group_branch_manager').users]
-            # body = '<a target=_BLANK href="/web?#id=' + str(
-            #     rec.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + str(
-            #     rec.name) + '</a>'
+            body = '<a target=_BLANK href="/web?#id=' + str(
+                rec.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + str(
+                rec.name) + '</a>'
             # if partners:
             #     self.sudo().message_post(
             #         partner_ids=partners,
