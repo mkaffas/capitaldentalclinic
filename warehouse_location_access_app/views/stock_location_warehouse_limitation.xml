@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="edit_search" model="ir.ui.view">
+            <field name="model">stock.warehouse.orderpoint</field>
+            <field name="inherit_id" ref="stock.stock_reorder_report_search"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//filter[@name='filter_to_reorder']" position="replace"/>
+                <xpath expr="//filter[@name='filter_not_snoozed']" position="replace"/>
+
+            </field>
+        </record>
         <record model="ir.ui.view" id="available_location_base_user_form">
             <field name="name">available.to.location.base.form</field>
             <field name="model">res.users</field>
