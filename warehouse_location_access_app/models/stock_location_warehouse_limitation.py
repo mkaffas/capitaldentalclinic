@@ -85,3 +85,12 @@ class Warehouse(models.TransientModel):
             })
             for record in self.stock_ids:
                 record.transfer_id = obj.id
+            return {'type': 'ir.actions.act_window',
+                    'name': _('Transfer'),
+                    'res_model': 'stock.picking',
+                    'target': 'current',
+                    'view_id': self.env.ref('stock.vpicktree').id,
+                    'view_mode': 'form',
+                    'res_id': obj.id,
+                    'domain' : [('id','=',obj.id)]
+                    }
