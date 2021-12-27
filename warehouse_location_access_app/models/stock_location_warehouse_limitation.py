@@ -88,7 +88,7 @@ class Warehouse(models.TransientModel):
             return {
                 'name': _('Transfer'),
                 'view_type': 'form',
-                'view_mode': 'tree,form',
+                'view_mode': 'form',
                 'res_model': 'stock.picking',
                 'view_id': False,
                 'type': 'ir.actions.act_window',
