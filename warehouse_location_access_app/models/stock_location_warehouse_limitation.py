@@ -92,5 +92,5 @@ class Warehouse(models.TransientModel):
                 'res_model': 'stock.picking',
                 'view_id': False,
                 'type': 'ir.actions.act_window',
-                'domain': [('id', '=', obj.id)],
+                'res_id':obj
             }
