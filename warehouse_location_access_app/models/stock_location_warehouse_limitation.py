@@ -89,7 +89,7 @@ class Warehouse(models.TransientModel):
                     'name': _('Transfer'),
                     'res_model': 'stock.picking',
                     'target': 'current',
-                    'view_id': self.env.ref('stock.vpicktree').id,
+                    'view_id': self.env.ref('stock.view_picking_form').id,
                     'view_mode': 'form',
                     'res_id': obj.id,
                     'domain' : [('id','=',obj.id)]
