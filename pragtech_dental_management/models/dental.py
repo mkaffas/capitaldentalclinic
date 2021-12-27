@@ -1835,21 +1835,21 @@ class MedicalAppointment(models.Model):
 
     def checkin(self):
         for rec in self:
-            partners = [x.partner_id.id for x in self.env.ref(
-                'pragtech_dental_management.group_branch_manager').users]
-            body = '<a target=_BLANK href="/web?#id=' + str(
-                rec.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + str(
-                rec.name) + '</a>'
-            if partners:
-                self.sudo().message_post(
-                    partner_ids=partners,
-                    subject="Appointment " + str(
-                        rec.name) + " has been checked in",
-                    body="Patient " + str(
-                        rec.patient.partner_id.name) + " with Appointment " + str(
-                        rec.name) + " has been checked in " + body,
-                    message_type='comment',
-                    subtype_id=self.env.ref('mail.mt_note').id, )
+            # partners = [x.partner_id.id for x in self.env.ref(
+            #     'pragtech_dental_management.group_branch_manager').users]
+            # body = '<a target=_BLANK href="/web?#id=' + str(
+            #     rec.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + str(
+            #     rec.name) + '</a>'
+            # if partners:
+            #     self.sudo().message_post(
+            #         partner_ids=partners,
+            #         subject="Appointment " + str(
+            #             rec.name) + " has been checked in",
+            #         body="Patient " + str(
+            #             rec.patient.partner_id.name) + " with Appointment " + str(
+            #             rec.name) + " has been checked in " + body,
+            #         message_type='comment',
+            #         subtype_id=self.env.ref('mail.mt_note').id, )
             if rec.patient_coordinator:
                 self.sudo().message_post(
                     partner_ids=[rec.patient_coordinator.partner_id.id],
