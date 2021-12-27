@@ -77,14 +77,14 @@ class Warehouse(models.TransientModel):
             obj = self.env['stock.picking']
             obj_picking = self.env['stock.picking.type'].sudo().search(
                 [('default_location_src_id', '=', self.src_location_id.id), ('code', '=', 'internal')], limit=1)
-            obj.sudo().create({
+            stock = obj.sudo().create({
                 'picking_type_id': obj_picking.id,
                 'location_id': self.src_location_id.id,
                 'location_dest_id': location_id.id,
                 'move_ids_without_package': list_products
             })
             for record in self.stock_ids:
-                record.transfer_id = obj.id
+                record.transfer_id = stock.id
             return {
                 'name': _('Transfer'),
                 'view_type': 'form',
@@ -92,5 +92,5 @@ class Warehouse(models.TransientModel):
                 'res_model': 'stock.picking',
                 'view_id': False,
                 'type': 'ir.actions.act_window',
-                'res_id':obj
+                'res_id':stock.id
             }
