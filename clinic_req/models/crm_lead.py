@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-
+import datetime
 from datetime import datetime
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
-import datetime
+
 
 class Prouct(models.Model):
     _inherit = 'product.template'
@@ -178,6 +178,9 @@ class CRM(models.Model):
             'partner_id': partner.id,
             'dob': self.birthday,
             'sex': self.gender,
+            'first_name': self.first_name,
+            'middle_name': self.middle_name,
+            'lastname': self.last_name,
             'marital_status': self.marital_status,
             'mobile': self.mobile,
             'occupation_id': self.occupation_id.id,
