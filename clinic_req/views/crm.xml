@@ -379,6 +379,9 @@
                 <button name="product_multi_choose" string="Add Service" type="object"
                         attrs="{'invisible': [('state', '!=', 'checkin')]}"/>
             </xpath>
+            <xpath expr="//field[@name='comments']" position="before">
+                <field name="wizard_service_id" colspan="4" readonly="1"/>
+            </xpath>
             <xpath expr="//field[@name='service_id']" position="after">
                 <field name="chief"/>
             </xpath>
