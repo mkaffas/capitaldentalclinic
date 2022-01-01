@@ -326,7 +326,7 @@ class Appointment(models.Model):
 
     crm_id = fields.Many2one(comodel_name="crm.lead", string="",
                              required=False, )
-    wizard_service_id = fields.Many2many(comodel_name="product.product", string="Services", required=True, )
+    wizard_service_id = fields.Many2many(comodel_name="product.product", string="Services")
     patient_coordinator = fields.Many2one(comodel_name="res.users",
                                           string="Patient Coordinator",
                                           related='patient.coordinator_id')
@@ -523,7 +523,7 @@ class Patient(models.Model):
                                  compute="get_amount_totals", )
     total_net = fields.Float(string="Total Net", compute="get_amount_totals", )
     total_net_not_completed = fields.Float(string="Total Net Not Completed", compute="get_amount_totals", )
-    chief = fields.Many2one(comodel_name='chief.complaint',
+    chief = fields.Many2many(comodel_name='chief.complaint',
                             string="Chief Complaint", required=False, )
     tag_ids = fields.Many2many('crm.tag')
     wizard_dentist_id = fields.Many2one(comodel_name="medical.physician", string="Dentist", required=False, )
@@ -550,7 +550,7 @@ class Patient(models.Model):
     medication = fields.Text(string="Medication", required=False, )
     post_dental_history = fields.Text(string="Post Dental History", required=False, )
     habits = fields.Text(string="Habits & Oral Hygiene Measures", required=False, )
-    patient_chef_compliant = fields.Many2one(comodel_name='chief.complaint',string="Patient Chef Compliant", required=False, )
+    patient_chef_compliant = fields.Many2many(comodel_name='chief.complaint',string="Patient Chef Compliant", required=False, )
 
     @api.constrains('check_state')
     def check_state_teeth(self):
