@@ -13,6 +13,12 @@ class Prouct(models.Model):
     show_on_app = fields.Boolean(string="Show on Appointment",  )
 
 
+class Stage(models.Model):
+    _inherit = 'crm.stage'
+
+    is_lost = fields.Boolean(string="Is Lost stage",  )
+
+
 class CRM(models.Model):
     _inherit = "crm.lead",
 
@@ -24,6 +30,14 @@ class CRM(models.Model):
     appointment_id = fields.Many2one('medical.appointment', 'Patient')
     nationality = fields.Many2one(comodel_name="res.country",
                                   string="nationality", required=False, )
+
+    def mark_as_lost(self):
+        for line in self:
+            obj = self.env['crm.stage'].search([('is_lost','=',True)],limit=1)
+            if obj:
+                line.stage_id = obj.id
+            else:
+                line.stage_id = False
 
     @api.model
     def create(self, vals_list):
@@ -166,8 +180,8 @@ class CRM(models.Model):
             'mobile': self.mobile,
             'email': self.email_from,
             'phone': self.phone,
-            'street': self.street,
-            'street2': self.street2,
+            'street': self.street or "",
+            'street2': self.street2 or "",
             'zip': self.zip,
             'city': self.city,
             'state_id': self.state_id.id,
@@ -196,6 +210,7 @@ class CRM(models.Model):
             'nationality_id': self.nationality.id,
             'note': self.description,
         })
+        self.patient = self.first_name + ' ' + self.middle_name + ' ' + self.last_name
         self.patient_id = patient.id
         self.patient_id_number = patient.patient_id
         self.is_create_patient = True
@@ -311,6 +326,7 @@ class Appointment(models.Model):
 
     crm_id = fields.Many2one(comodel_name="crm.lead", string="",
                              required=False, )
+    wizard_service_id = fields.Many2many(comodel_name="product.product", string="Services", required=True, )
     patient_coordinator = fields.Many2one(comodel_name="res.users",
                                           string="Patient Coordinator",
                                           related='patient.coordinator_id')
@@ -455,6 +471,7 @@ class Service(models.TransientModel):
     def select_service(self):
         appointment_ids = self.env['medical.appointment'].browse(self._context.get('active_ids', False))
         patient = self.env['medical.patient'].search([('id','=',appointment_ids.patient.id)],limit=1)
+        appointment_ids.sudo().write({'wizard_service_id':[(4,self.wizard_service_id.ids)]})
         treatment_obj = self.env['medical.teeth.treatment']
         # for line in appointment_ids:
         for record in self.wizard_service_id:
@@ -506,7 +523,7 @@ class Patient(models.Model):
                                  compute="get_amount_totals", )
     total_net = fields.Float(string="Total Net", compute="get_amount_totals", )
     total_net_not_completed = fields.Float(string="Total Net Not Completed", compute="get_amount_totals", )
-    chief = fields.Many2one(comodel_name='chief.complaint',
+    chief = fields.Many2many(comodel_name='chief.complaint',
                             string="Chief Complaint", required=False, )
     tag_ids = fields.Many2many('crm.tag')
     wizard_dentist_id = fields.Many2one(comodel_name="medical.physician", string="Dentist", required=False, )
@@ -520,20 +537,20 @@ class Patient(models.Model):
     refer_patient_id = fields.Many2one(comodel_name="medical.patient",
                                        string="Referred By", required=False, )
     check_state = fields.Boolean(string="",  )
-    allergy = fields.Char(string="Allergy", required=False, )
-    cardiac_disease = fields.Char(string="Cardiac Disease", required=False, )
-    diabetes_melitus = fields.Char(string="Diabetes Melitus", required=False, )
-    hypertension = fields.Char(string="Hypertension", required=False, )
-    kidney_disease = fields.Char(string="Kidney Disease", required=False, )
-    liver_disease = fields.Char(string="Liver Disease", required=False, )
-    pregnancy = fields.Char(string="Pregnancy", required=False, )
+    allergy = fields.Boolean(string="Allergy", required=False, )
+    cardiac_disease = fields.Boolean(string="Cardiac Disease", required=False, )
+    diabetes_melitus = fields.Boolean(string="Diabetes Melitus", required=False, )
+    hypertension = fields.Boolean(string="Hypertension", required=False, )
+    kidney_disease = fields.Boolean(string="Kidney Disease", required=False, )
+    liver_disease = fields.Boolean(string="Liver Disease", required=False, )
+    pregnancy = fields.Boolean(string="Pregnancy", required=False, )
     surgery = fields.Char(string="Surgery", required=False, )
     other = fields.Char(string="Other", required=False, )
 
     medication = fields.Text(string="Medication", required=False, )
     post_dental_history = fields.Text(string="Post Dental History", required=False, )
     habits = fields.Text(string="Habits & Oral Hygiene Measures", required=False, )
-    patient_chef_compliant = fields.Text(string="Patient Chef Compliant", required=False, )
+    patient_chef_compliant = fields.Many2many(comodel_name='chief.complaint',string="Patient Chef Compliant", required=False, )
 
     @api.constrains('check_state')
     def check_state_teeth(self):

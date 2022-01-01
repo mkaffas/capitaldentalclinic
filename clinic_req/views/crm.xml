@@ -7,7 +7,7 @@
             <form string="">
                 <sheet>
                     <group>
-                        <field name="wizard_dentist_id" />
+                        <field name="wizard_dentist_id"/>
                     </group>
                 </sheet>
                 <footer>
@@ -72,7 +72,6 @@
             </p>
         </field>
     </record>
-
 
 
     <record id="sms_action_server" model="ir.actions.server">
@@ -148,6 +147,19 @@
 
     <!-- This Menu Item must have a parent and an action -->
     <menuitem id="activity_menu" name="Activities" action="mail.mail_activity_action" sequence="5"/>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="edit_crm_stage" model="ir.ui.view">
+        <field name="model">crm.stage</field>
+        <field name="inherit_id" ref="crm.crm_stage_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='is_won']" position="after">
+                <field name="is_lost"/>
+            </xpath>
+
+        </field>
+    </record>
     <!-- Inherit Form View to Modify it -->
     <record id="edit_crm" model="ir.ui.view">
         <field name="model">crm.lead</field>
@@ -156,6 +168,12 @@
 
             <xpath expr="//page[@name='internal_notes']" position="replace"/>
             <xpath expr="//label[@for='contact_name']" position="replace"/>
+            <xpath expr="//button[@name='%(crm.crm_lead_lost_action)d']" position="replace">
+                <button name="mark_as_lost" string="Mark Lost" type="object"
+                        attrs="{'invisible': ['|', ('type', '=', 'lead'),('active', '=', False),('probability', '&lt;', 100)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='contact_name']" position="replace"/>
+            <xpath expr="//field[@name='title']" position="replace"/>
             <xpath expr="//page[@name='lead']/group/group[@class='mt48']" position="replace"/>
             <xpath expr="//page[@name='lead']/group/group" position="replace"/>
             <xpath expr="//sheet/group/group[3]" position="after">
@@ -179,7 +197,7 @@
             <xpath expr="//field[@name='medium_id']" position="replace"/>
             <xpath expr="//sheet/group/group[2]/field[@name='partner_id']" position="replace">
                 <field name="patient" string="Patient" options="{'open': True, 'create': True}"/>
-                <field name="patient_id_number" string="Patient ID" />
+                <field name="patient_id_number" string="Patient ID"/>
                 <field name="first_name"/>
                 <field name="middle_name"/>
                 <field name="last_name"/>
@@ -192,7 +210,8 @@
                 <field name="room_id" invisible="1"/>
                 <field name="occupation_id" string="Occupation"/>
                 <field name="gender"/>
-                                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}"/>
+                <field name="tag_ids" widget="many2many_tags"
+                       options="{'color_field': 'color', 'no_create_edit': True}"/>
                 <field name="chief"/>
             </xpath>
             <xpath expr="//sheet/group/group[1]/field[@name='partner_id']" position="replace">
@@ -353,7 +372,7 @@
             </xpath>
             <xpath expr="//button[@name='create_payment']" position="after">
                 <button name="notify_patient_coordinator" string="Notify Patient Coordinator" type="object"
-                        attrs="{'invisible': [('state', 'not in', ['checkin'])]}"/>
+                        attrs="{'invisible': 1}"/>
 
                 <button name="open_survey" string="Open Survey" type="object"
                         attrs="{'invisible': [('state', '!=', 'done')]}"/>
@@ -399,13 +418,20 @@
                         <field name="patient_chef_compliant"/>
                     </group>
                     <group>
-                        <field name="allergy"/>
-                        <field name="cardiac_disease"/>
-                        <field name="diabetes_melitus"/>
-                        <field name="hypertension"/>
-                        <field name="kidney_disease"/>
-                        <field name="liver_disease"/>
-                        <field name="pregnancy"/>
+                        <group>
+                            <field name="allergy"/>
+                            <field name="cardiac_disease"/>
+                            <field name="diabetes_melitus"/>
+                            <field name="hypertension"/>
+                        </group>
+                        <group>
+                            <field name="kidney_disease"/>
+                            <field name="liver_disease"/>
+                            <field name="pregnancy"/>
+                        </group>
+                    </group>
+
+                    <group>
                         <field name="surgery"/>
                         <field name="other"/>
                     </group>
@@ -623,5 +649,6 @@
     </record>
 
     <menuitem id="menu_survey" name="Appointment Survey" parent="pragtech_dental_management.medical_patients_menu"
-              action="action_appointment_survey" sequence="5" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager"/>
+              action="action_appointment_survey" sequence="5"
+              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager"/>
 </odoo>

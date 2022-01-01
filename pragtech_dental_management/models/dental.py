@@ -125,9 +125,20 @@ class Partner(models.Model):
             if partner.middle_name:
                 name += ' ' + partner.middle_name
             if partner.lastname:
-                name = partner.lastname + ', ' + name
+                name += ' ' + partner.lastname
             result.append((partner.id, name))
         return result
+
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        args = args or []
+        recs = self.browse()
+        if name:
+            recs = self.search(
+                ['|', ('name', operator, name), ('ref', operator, name)])
+        if not recs:
+            recs = self.search([('name', operator, name)])
+        return recs.name_get()
 
     def get_user_name(self):
         return self.name
@@ -1123,8 +1134,8 @@ class MedicalPatient(models.Model):
                 'mobile': vals_list['mobile'] or '',
                 'email': vals_list['email'] or '',
                 'phone': vals_list['phone'] or '',
-                'street': vals_list['street'] or '',
-                'street2': vals_list['street2'] or '',
+                # 'street': vals_list['street'] or '',
+                # 'street2': vals_list['street2'] or '',
                 'zip': vals_list['zip'] or '',
                 'city': vals_list['city'] or '',
                 'state_id': vals_list['state_id'] or False,
