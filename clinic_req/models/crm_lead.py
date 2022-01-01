@@ -523,8 +523,8 @@ class Patient(models.Model):
                                  compute="get_amount_totals", )
     total_net = fields.Float(string="Total Net", compute="get_amount_totals", )
     total_net_not_completed = fields.Float(string="Total Net Not Completed", compute="get_amount_totals", )
-    # chief = fields.Many2one(comodel_name='chief.complaint',
-    #                         string="Chief Complaint", required=False, )
+    chief = fields.Many2one(comodel_name='chief.complaint',
+                            string="Chief Complaint", required=False, )
     tag_ids = fields.Many2many('crm.tag')
     wizard_dentist_id = fields.Many2one(comodel_name="medical.physician", string="Dentist", required=False, )
     discount_for_total = fields.Float(string='Additional Discount total',  digits=(3, 6),
@@ -550,7 +550,7 @@ class Patient(models.Model):
     medication = fields.Text(string="Medication", required=False, )
     post_dental_history = fields.Text(string="Post Dental History", required=False, )
     habits = fields.Text(string="Habits & Oral Hygiene Measures", required=False, )
-    # patient_chef_compliant = fields.Many2one(comodel_name='chief.complaint',string="Patient Chef Compliant", required=False, )
+    patient_chef_compliant = fields.Many2one(comodel_name='chief.complaint',string="Patient Chef Compliant", required=False, )
 
     @api.constrains('check_state')
     def check_state_teeth(self):
