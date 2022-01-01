@@ -550,7 +550,7 @@ class Patient(models.Model):
     medication = fields.Text(string="Medication", required=False, )
     post_dental_history = fields.Text(string="Post Dental History", required=False, )
     habits = fields.Text(string="Habits & Oral Hygiene Measures", required=False, )
-    patient_compliant = fields.Many2many(comodel_name='chief.complaint',string="Patient Chef Compliant", required=False, )
+    patient_compliant = fields.Many2one(comodel_name='chief.complaint',string="Patient Chef Compliant", required=False, )
 
     @api.constrains('check_state')
     def check_state_teeth(self):
