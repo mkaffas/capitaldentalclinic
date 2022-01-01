@@ -418,7 +418,7 @@
             <xpath expr="//page[2]" position="replace">
                 <page string="Medical Questionnaire">
                     <group>
-                        <field name="patient_compliant"/>
+                        <field name="patient_chief_compliant"/>
                     </group>
                     <group>
                         <group>
@@ -485,7 +485,7 @@
                 </group>
             </xpath>
             <field name="nationality_id" position="after">
-                <field name="chief_com"/>
+                <field name="chief"/>
                 <field name="campaign_id"/>
                 <field name="refer_patient_id"/>
                 <field name="tag_ids" widget="many2many_tags"/>
