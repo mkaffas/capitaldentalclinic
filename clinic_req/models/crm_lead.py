@@ -147,8 +147,18 @@ class CRM(models.Model):
     def get_name_opportunity(self):
         for line in self:
             if line.name != 'New Entry: Book Now':
-                if line.first_name and line.mobile:
+
+                if line.first_name  and line.mobile:
+                    line.name = line.first_name + ' / ' + str(line.mobile)
+                elif line.first_name and not line.middle_name and line.last_name and line.mobile:
+                    line.name = line.first_name + ' ' + line.last_name + ' / ' + str(
+                        line.mobile)
+                elif line.first_name and line.middle_name and not line.last_name and line.mobile:
+                    line.name = line.first_name + ' ' + line.middle_name + ' / ' + str(
+                        line.mobile)
+                elif line.first_name and line.middle_name and line.last_name and line.mobile:
                     line.name = line.first_name + ' ' + line.middle_name + ' ' + line.last_name + ' / ' + str(line.mobile)
+
             # else:
             #     line.name = ' / '
 
@@ -186,7 +196,7 @@ class CRM(models.Model):
     def create_patient(self):
         partner_obj = self.env['res.partner'].sudo()
         partner = partner_obj.create({
-            'name': self.patient,
+            # 'name': self.patient,
             'is_patient': True,
             'type': 'contact',
             'name': self.first_name,
