@@ -22,7 +22,7 @@ class CrmLeadLost(models.TransientModel):
         for line in leads:
             if obj:
                 line.stage_id = obj.id
-        return leads.action_set_lost(lost_reason=self.lost_reason_id.id)
+        # return leads.action_set_lost(lost_reason=self.lost_reason_id.id)
 
 
 class Stage(models.Model):
