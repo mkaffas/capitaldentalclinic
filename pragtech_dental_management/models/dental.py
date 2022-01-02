@@ -1136,10 +1136,10 @@ class MedicalPatient(models.Model):
                 'phone': vals_list['phone'] or '',
                 # 'street': vals_list['street'] or '',
                 # 'street2': vals_list['street2'] or '',
-                'zip': vals_list['zip'] or '',
-                'city': vals_list['city'] or '',
-                'state_id': vals_list['state_id'] or False,
-                'country_id': vals_list['country_id'] or False,
+                # 'zip': vals_list['zip'] or '',
+                # 'city': vals_list['city'] or '',
+                # 'state_id': vals_list['state_id'] or False,
+                # 'country_id': vals_list['country_id'] or False,
             })
             vals_list['partner_id'] = partner.id
         return super().create(vals_list)

@@ -168,10 +168,10 @@
 
             <xpath expr="//page[@name='internal_notes']" position="replace"/>
             <xpath expr="//label[@for='contact_name']" position="replace"/>
-            <xpath expr="//button[@name='%(crm.crm_lead_lost_action)d']" position="replace">
-                <button name="mark_as_lost" string="Mark Lost" type="object"
-                        attrs="{'invisible': ['|', ('type', '=', 'lead'),('active', '=', False),('probability', '&lt;', 100)]}"/>
-            </xpath>
+            <!--<xpath expr="//button[@name='%(crm.crm_lead_lost_action)d']" position="replace">-->
+                <!--<button name="mark_as_lost" string="Mark Lost" type="object"-->
+                        <!--attrs="{'invisible': ['|', ('type', '=', 'lead'),('active', '=', False),('probability', '&lt;', 100)]}"/>-->
+            <!--</xpath>-->
             <xpath expr="//field[@name='contact_name']" position="replace"/>
             <xpath expr="//field[@name='title']" position="replace"/>
             <xpath expr="//page[@name='lead']/group/group[@class='mt48']" position="replace"/>
@@ -196,7 +196,7 @@
             </xpath>
             <xpath expr="//field[@name='medium_id']" position="replace"/>
             <xpath expr="//sheet/group/group[2]/field[@name='partner_id']" position="replace">
-                <field name="patient" string="Patient" options="{'open': True, 'create': True}"/>
+                <!--<field name="patient" string="Patient" options="{'open': True, 'create': True}"/>-->
                 <field name="patient_id_number" string="Patient ID"/>
                 <field name="first_name"/>
                 <field name="middle_name"/>

@@ -13,6 +13,18 @@ class Prouct(models.Model):
     show_on_app = fields.Boolean(string="Show on Appointment",  )
 
 
+class CrmLeadLost(models.TransientModel):
+    _inherit = 'crm.lead.lost'
+
+    def action_lost_reason_apply(self):
+        leads = self.env['crm.lead'].browse(self.env.context.get('active_ids'))
+        obj = self.env['crm.stage'].search([('is_lost', '=', True)], limit=1)
+        for line in leads:
+            if obj:
+                line.stage_id = obj.id
+        return leads.action_set_lost(lost_reason=self.lost_reason_id.id)
+
+
 class Stage(models.Model):
     _inherit = 'crm.stage'
 
@@ -31,13 +43,13 @@ class CRM(models.Model):
     nationality = fields.Many2one(comodel_name="res.country",
                                   string="nationality", required=False, )
 
-    def mark_as_lost(self):
-        for line in self:
-            obj = self.env['crm.stage'].search([('is_lost','=',True)],limit=1)
-            if obj:
-                line.stage_id = obj.id
-            else:
-                line.stage_id = False
+    # def mark_as_lost(self):
+    #     for line in self:
+    #         obj = self.env['crm.stage'].search([('is_lost','=',True)],limit=1)
+    #         if obj:
+    #             line.stage_id = obj.id
+    #         else:
+    #             line.stage_id = False
 
     @api.model
     def create(self, vals_list):
@@ -131,12 +143,12 @@ class CRM(models.Model):
         group_expand='_group_expand_room'
     )
 
-    @api.depends('mobile', 'patient')
+    @api.depends('mobile', 'first_name')
     def get_name_opportunity(self):
         for line in self:
             if line.name != 'New Entry: Book Now':
-                if line.patient and line.mobile:
-                    line.name = line.patient + ' / ' + str(line.mobile)
+                if line.first_name and line.mobile:
+                    line.name = line.first_name + ' ' + line.middle_name + ' ' + line.last_name + ' / ' + str(line.mobile)
             # else:
             #     line.name = ' / '
 
@@ -177,6 +189,9 @@ class CRM(models.Model):
             'name': self.patient,
             'is_patient': True,
             'type': 'contact',
+            'first_name': self.first_name,
+            'middle_name': self.middle_name,
+            'lastname': self.last_name,
             'mobile': self.mobile,
             'email': self.email_from,
             'phone': self.phone,
