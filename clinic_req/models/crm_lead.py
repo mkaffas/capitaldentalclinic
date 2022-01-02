@@ -143,7 +143,7 @@ class CRM(models.Model):
         group_expand='_group_expand_room'
     )
 
-    @api.depends('mobile', 'first_name')
+    @api.depends('mobile', 'first_name','last_name','middle_name')
     def get_name_opportunity(self):
         for line in self:
             if line.name != 'New Entry: Book Now':
