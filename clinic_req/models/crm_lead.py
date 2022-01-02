@@ -235,7 +235,7 @@ class CRM(models.Model):
             'nationality_id': self.nationality.id,
             'note': self.description,
         })
-        self.patient = self.first_name + ' ' + self.middle_name + ' ' + self.last_name
+        # self.patient = self.first_name + ' ' + self.middle_name + ' ' + self.last_name
         self.patient_id = patient.id
         self.patient_id_number = patient.patient_id
         self.is_create_patient = True
