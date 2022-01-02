@@ -148,7 +148,7 @@ class CRM(models.Model):
         for line in self:
             if line.name != 'New Entry: Book Now':
 
-                if line.first_name  and line.mobile:
+                if line.first_name and not line.middle_name and not line.last_name and line.mobile:
                     line.name = line.first_name + ' / ' + str(line.mobile)
                 elif line.first_name and not line.middle_name and line.last_name and line.mobile:
                     line.name = line.first_name + ' ' + line.last_name + ' / ' + str(
