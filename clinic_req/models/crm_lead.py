@@ -22,6 +22,7 @@ class CrmLeadLost(models.TransientModel):
         for line in leads:
             if obj:
                 line.stage_id = obj.id
+                line.check_lost = True
         # return leads.action_set_lost(lost_reason=self.lost_reason_id.id)
 
 
@@ -35,6 +36,7 @@ class CRM(models.Model):
     _inherit = "crm.lead",
 
     patient = fields.Char('Patient' )
+    check_lost = fields.Boolean(string="",  )
     patient_id_number = fields.Char('Patient ID',  )
     first_name = fields.Char(string="First name", required=False, )
     middle_name = fields.Char(string="Middle name", required=False, )
