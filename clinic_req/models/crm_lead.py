@@ -189,7 +189,7 @@ class CRM(models.Model):
             'name': self.patient,
             'is_patient': True,
             'type': 'contact',
-            'first_name': self.first_name,
+            'name': self.first_name,
             'middle_name': self.middle_name,
             'lastname': self.last_name,
             'mobile': self.mobile,
