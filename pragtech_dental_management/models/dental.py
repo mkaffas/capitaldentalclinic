@@ -1596,7 +1596,6 @@ class MedicalAppointment(models.Model):
     room_id = fields.Many2one(
         'medical.hospital.oprating.room', 'Room',
         required=False, tracking=True,
-        domain="[('branch_id', '=', branch_id)]",
         group_expand='_group_expand_room'
     )
     urgency = fields.Boolean('Urgent', default=False)
