@@ -232,7 +232,7 @@ class CRM(models.Model):
             'refer_patient_id': self.refer_patient_id.id,
             'email': self.email_from,
             'phone': self.phone,
-            'chief': [(6,0, self.chief.id)],
+            'chief': [(6,0, [self.chief.id])] or False,
             'tag_ids': self.tag_ids.ids,
             'nationality_id': self.nationality.id,
             'note': self.description,
