@@ -217,7 +217,7 @@ class CRM(models.Model):
         patient_obj = self.env['medical.patient'].sudo()
         patient = patient_obj.create({
             'partner_id': partner.id,
-            'dob': self.birthday or "",
+            'dob': self.birthday,
             'sex': self.gender,
             'first_name': self.first_name or "",
             'middle_name': self.middle_name or "",
