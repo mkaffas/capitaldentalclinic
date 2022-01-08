@@ -10,7 +10,7 @@ from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 class Prouct(models.Model):
     _inherit = 'product.template'
 
-    show_on_app = fields.Boolean(string="Show on Appointment",  )
+    show_on_app = fields.Boolean(string="Show on Appointment", )
 
 
 class CrmLeadLost(models.TransientModel):
@@ -29,15 +29,15 @@ class CrmLeadLost(models.TransientModel):
 class Stage(models.Model):
     _inherit = 'crm.stage'
 
-    is_lost = fields.Boolean(string="Is Lost stage",  )
+    is_lost = fields.Boolean(string="Is Lost stage", )
 
 
 class CRM(models.Model):
     _inherit = "crm.lead",
 
-    patient = fields.Char('Patient' )
-    check_lost = fields.Boolean(string="",  )
-    patient_id_number = fields.Char('Patient ID',  )
+    patient = fields.Char('Patient')
+    check_lost = fields.Boolean(string="", )
+    patient_id_number = fields.Char('Patient ID', )
     first_name = fields.Char(string="First name", required=False, )
     middle_name = fields.Char(string="Middle name", required=False, )
     last_name = fields.Char(string="Last name", required=False, )
@@ -98,7 +98,7 @@ class CRM(models.Model):
     age = fields.Integer('Age', compute='compute_age')
     occupation_id = fields.Many2one('medical.occupation', 'Occupation')
 
-    @api.depends('partner_id','first_name','middle_name','last_name')
+    @api.depends('partner_id', 'first_name', 'middle_name', 'last_name')
     def _compute_contact_name(self):
         for lead in self:
             contact_name = str(lead.first_name)
@@ -147,7 +147,7 @@ class CRM(models.Model):
         group_expand='_group_expand_room'
     )
 
-    @api.depends('mobile', 'first_name','last_name','middle_name')
+    @api.depends('mobile', 'first_name', 'last_name', 'middle_name')
     def get_name_opportunity(self):
         for line in self:
             if line.name != 'New Entry: Book Now':
@@ -161,7 +161,8 @@ class CRM(models.Model):
                     line.name = line.first_name + ' ' + line.middle_name + ' / ' + str(
                         line.mobile)
                 elif line.first_name and line.middle_name and line.last_name and line.mobile:
-                    line.name = line.first_name + ' ' + line.middle_name + ' ' + line.last_name + ' / ' + str(line.mobile)
+                    line.name = line.first_name + ' ' + line.middle_name + ' ' + line.last_name + ' / ' + str(
+                        line.mobile)
 
             # else:
             #     line.name = ' / '
@@ -234,13 +235,20 @@ class CRM(models.Model):
             'refer_patient_id': self.refer_patient_id.id or False,
             'email': self.email_from or "",
             'phone': self.phone or "",
-            'chief': [(6,0, [self.chief.id])] if self.chief else False,
+            'chief': [(6, 0, [self.chief.id])] if self.chief else False,
             'tag_ids': self.tag_ids.ids or False,
             'nationality_id': self.nationality.id or False,
-            'note': self.description or "",
+            # 'note': self.description or "",
         })
         # self.patient = self.first_name + ' ' + self.middle_name + ' ' + self.last_name
         self.patient_id = patient.id
+        obj = self.env['ir.attachment'].search([('res_model', '=', 'crm.lead'), ('res_id', '=', self.id)])
+        if obj:
+            for line in obj:
+                self.env['ir.attachment'].sudo().create(
+                    {'res_model': 'medical.patient', 'res_id': patient.id, 'name': line.name,
+                     'datas': line.datas,
+                     'type': 'binary', })
         self.patient_id_number = patient.patient_id
         self.is_create_patient = True
 
@@ -298,8 +306,8 @@ class Activites(models.Model):
     phone = fields.Char(related='patient_id.phone', store=True, readonly=False)
     mobile = fields.Char(related='patient_id.mobile', store=True,
                          readonly=False)
-    dob = fields.Date(related='patient_id.dob',string='Date of Birth',store=True)
-    tag_patient_ids = fields.Many2many(comodel_name="patient.tag",  string="Tags", )
+    dob = fields.Date(related='patient_id.dob', string='Date of Birth', store=True)
+    tag_patient_ids = fields.Many2many(comodel_name="patient.tag", string="Tags", )
 
     # def send_sms(self):
     #     obj = self.env['sms.eg'].sudo()
@@ -319,7 +327,7 @@ class Activites(models.Model):
                 'target': 'new',
                 'view_id': self.env.ref('sms_eg.sms_eg_form').id,
                 'view_mode': 'form',
-                'context': {'default_partner_ids': [(6,0, lines)],'default_message': 'comment',}
+                'context': {'default_partner_ids': [(6, 0, lines)], 'default_message': 'comment', }
                 }
 
 
@@ -381,16 +389,15 @@ class Appointment(models.Model):
                     line.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + '</a>'
                 line.sudo().message_notify(
                     partner_ids=[line.patient_coordinator.partner_id.id],
-                    subject='Appointment' + str(line.name) + "is Completed " ,
-                    body="Appointment " + body + "with Patient" +str(line.patient_id.name) + " is Completed",
+                    subject='Appointment' + str(line.name) + "is Completed ",
+                    body="Appointment " + body + "with Patient" + str(line.patient_id.name) + " is Completed",
                     message_type='comment',
                     subtype_id=self.env.ref('mail.mt_note').id)
 
-
-
     @api.model
     def create(self, vals):
-        if self.env.user.has_group('pragtech_dental_management.group_dental_doc_menu') and not self.env.user.has_group('pragtech_dental_management.group_dental_admin'):
+        if self.env.user.has_group('pragtech_dental_management.group_dental_doc_menu') and not self.env.user.has_group(
+                'pragtech_dental_management.group_dental_admin'):
             raise UserError(_("You can't create Appointment."))
         res = super(Appointment, self).create(vals)
         return res
@@ -436,7 +443,6 @@ class Appointment(models.Model):
                     message_type='comment',
                     subtype_id=self.env.ref('mail.mt_note').id, )
 
-
     def open_survey(self):
         """Method Open survey."""
         context = dict(self._context or {})
@@ -450,7 +456,8 @@ class Appointment(models.Model):
             # 'res_id': self.invc_id.id,
             'type': 'ir.actions.act_window',
             'target': 'current',
-            'context': {'default_appointment_id': self.id,'default_patient_id':self.patient.id,'default_doctor':self.doctor.id},
+            'context': {'default_appointment_id': self.id, 'default_patient_id': self.patient.id,
+                        'default_doctor': self.doctor.id},
         }
 
     def product_multi_choose(self):
@@ -499,16 +506,16 @@ class Service(models.TransientModel):
 
     def select_service(self):
         appointment_ids = self.env['medical.appointment'].browse(self._context.get('active_ids', False))
-        patient = self.env['medical.patient'].search([('id','=',appointment_ids.patient.id)],limit=1)
-        appointment_ids.sudo().write({'wizard_service_id':[(4,self.wizard_service_id.ids)]})
+        patient = self.env['medical.patient'].search([('id', '=', appointment_ids.patient.id)], limit=1)
+        appointment_ids.sudo().write({'wizard_service_id': [(4, self.wizard_service_id.ids)]})
         treatment_obj = self.env['medical.teeth.treatment']
         # for line in appointment_ids:
         for record in self.wizard_service_id:
             vals = {
                 'patient_id': patient.id,
                 'description': record.id,
-                'state':'completed',
-                'amount':record.lst_price
+                'state': 'completed',
+                'amount': record.lst_price
             }
             treatment = treatment_obj.sudo().create(vals)
 
@@ -516,7 +523,7 @@ class Service(models.TransientModel):
 class Discount(models.TransientModel):
     _name = 'discount.wizard'
 
-    discount = fields.Float(string="Addtional Discount",  required=True, )
+    discount = fields.Float(string="Addtional Discount", required=True, )
 
     def apply_discount(self):
         patient_id = self.env['medical.patient'].browse(self._context.get('active_ids', False))
@@ -538,9 +545,10 @@ class Discount(models.TransientModel):
                         record.discount_amount = 0.0
                         record.get_discount()
 
+
 class Patient(models.Model):
     _inherit = 'medical.patient'
-    discount = fields.Float(string='Discount',  digits=(3, 6),
+    discount = fields.Float(string='Discount', digits=(3, 6),
                             default=0.0)
     service_amount = fields.Float(string="Service amount before tax",
                                   compute="get_amount_totals", )
@@ -553,19 +561,21 @@ class Patient(models.Model):
     total_net = fields.Float(string="Total Net", compute="get_amount_totals", )
     total_net_not_completed = fields.Float(string="Total Net Not Completed", compute="get_amount_totals", )
     chief = fields.Many2many(comodel_name='chief.complaint',
-                            string="Chief Complaint", required=False, )
+                             string="Chief Complaint", required=False, )
     tag_ids = fields.Many2many('crm.tag')
     wizard_dentist_id = fields.Many2one(comodel_name="medical.physician", string="Dentist", required=False, )
-    discount_for_total = fields.Float(string='Additional Discount total',  digits=(3, 6),
+    discount_for_total = fields.Float(string='Additional Discount total', digits=(3, 6),
                                       default=0.0)
-    is_selected = fields.Boolean(string="Select All",  )
-    is_coordinator = fields.Boolean(string="", compute="check_is_coordinator" )
-    number_of_records = fields.Integer(string="",compute="get_amount_totals",)
-    discount_option = fields.Selection(string="Discount type", selection=[('percentage', 'Percentage'), ('fixed', 'Fixed'), ],default='percentage', required=False, )
+    is_selected = fields.Boolean(string="Select All", )
+    is_coordinator = fields.Boolean(string="", compute="check_is_coordinator")
+    number_of_records = fields.Integer(string="", compute="get_amount_totals", )
+    discount_option = fields.Selection(string="Discount type",
+                                       selection=[('percentage', 'Percentage'), ('fixed', 'Fixed'), ],
+                                       default='percentage', required=False, )
     campaign_id = fields.Many2one('utm.campaign', string='UTM Campaign', index=True)
     refer_patient_id = fields.Many2one(comodel_name="medical.patient",
                                        string="Referred By", required=False, )
-    check_state = fields.Boolean(string="",  )
+    check_state = fields.Boolean(string="", )
     allergy = fields.Boolean(string="Allergy", required=False, )
     cardiac_disease = fields.Boolean(string="Cardiac Disease", required=False, )
     diabetes_melitus = fields.Boolean(string="Diabetes Melitus", required=False, )
@@ -580,6 +590,7 @@ class Patient(models.Model):
     post_dental_history = fields.Text(string="Post Dental History", required=False, )
     habits = fields.Text(string="Habits & Oral Hygiene Measures", required=False, )
     patient_chief_compliant = fields.Many2one(comodel_name="chief.complaint", string="Patient Chef Compliant", )
+
     # patient_compliant = fields.Many2one(comodel_name='chief.complaint',string="Patient Chef Compliant", required=False, )
 
     @api.constrains('check_state')
@@ -606,7 +617,7 @@ class Patient(models.Model):
                 'target': 'new',
                 'view_id': self.env.ref('sms_eg.sms_eg_form').id,
                 'view_mode': 'form',
-                'context': {'default_partner_ids': [(6,0, lines)],'default_message': 'comment',}
+                'context': {'default_partner_ids': [(6, 0, lines)], 'default_message': 'comment', }
                 }
 
     def action_appointment(self):
@@ -648,7 +659,7 @@ class Patient(models.Model):
                 service_amount += line.amount
                 service_net += line.net_amount
                 number_of_records += 1
-                if line.state not in ['completed','invoiced']:
+                if line.state not in ['completed', 'invoiced']:
                     total_net_not_completed += line.net_amount
             record.total_discount = service_amount - service_net
             record.service_amount = service_amount
@@ -785,8 +796,6 @@ class Patient(models.Model):
         return res
 
 
-
-
 class Teeth(models.Model):
     _inherit = 'medical.teeth.treatment'
 
@@ -821,9 +830,10 @@ class Teeth(models.Model):
     @api.onchange('state')
     def change_state(self):
         if self.state == 'completed':
-            obj = self.env['medical.appointment'].search([('patient','=',self.patient_id.id),('appointment_date','=',datetime.date.today())])
+            obj = self.env['medical.appointment'].search(
+                [('patient', '=', self.patient_id.id), ('appointment_date', '=', datetime.date.today())])
             if not obj:
-                self.patient_id.sudo().update({'check_state':True})
+                self.patient_id.sudo().update({'check_state': True})
             else:
                 self.patient_id.sudo().update({'check_state': False})
 
@@ -883,7 +893,8 @@ class Teeth(models.Model):
                         partner_ids=[line.patient_id.coordinator_id.partner_id.id],
                         subject="Operation " + str(
                             line.description.name) + " is in Progress",
-                        body="Operation " + str(line.description.name) +' for patient '+ body + "has been changed to state in Progress ",
+                        body="Operation " + str(
+                            line.description.name) + ' for patient ' + body + "has been changed to state in Progress ",
                         message_type='comment',
                         subtype_id=self.env.ref('mail.mt_note').id)
 
