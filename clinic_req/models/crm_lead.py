@@ -44,6 +44,8 @@ class CRM(models.Model):
     appointment_id = fields.Many2one('medical.appointment', 'Patient')
     nationality = fields.Many2one(comodel_name="res.country",
                                   string="nationality", required=False, )
+    video_link = fields.Char(string="Video Link", required=False, )
+    passcode = fields.Char(string="Passcode", required=False, )
 
     # def mark_as_lost(self):
     #     for line in self:

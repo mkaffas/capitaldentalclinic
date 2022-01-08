@@ -203,6 +203,8 @@
                 <field name="first_name"/>
                 <field name="middle_name"/>
                 <field name="last_name"/>
+                <field name="video_link" widget="url"/>
+                <field name="passcode"/>
             </xpath>
             <xpath expr="//field[@name='user_id']" position="before">
                 <field name="medium_id"/>
