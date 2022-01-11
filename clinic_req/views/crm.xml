@@ -167,6 +167,12 @@
         <field name="arch" type="xml">
 
             <xpath expr="//page[@name='internal_notes']" position="replace"/>
+            <xpath expr="//group[@name='lead_priority']/field[@name='priority']" position="replace">
+                <field name="priority" optional="show" widget="priority"/>
+            </xpath>
+            <xpath expr="//field[@name='priority']" position="replace">
+                <field name="priority" optional="show" widget="priority"/>
+            </xpath>
             <xpath expr="//label[@for='contact_name']" position="replace"/>
             <xpath expr="//button[@name='%(crm.crm_lead_lost_action)d']" position="replace">
                 <field name="check_lost" invisible="1"/>

@@ -46,6 +46,9 @@ class CRM(models.Model):
                                   string="nationality", required=False, )
     video_link = fields.Char(string="Video Link", required=False, )
     passcode = fields.Char(string="Passcode", required=False, )
+    priority = fields.Selection(
+        [('1', 'Low'), ('2', 'Medium'), ('3', 'High'), ('4', 'Normal High'), ('5', 'Very High')],
+        'Priority', index=True)
 
     # def mark_as_lost(self):
     #     for line in self:
