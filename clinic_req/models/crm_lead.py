@@ -252,6 +252,7 @@ class CRM(models.Model):
                     {'res_model': 'medical.patient', 'res_id': patient.id, 'name': line.name,
                      'datas': line.datas,
                      'type': 'binary', })
+        partner.ref = str(patient.id)
         self.patient_id_number = patient.patient_id
         self.is_create_patient = True
 
