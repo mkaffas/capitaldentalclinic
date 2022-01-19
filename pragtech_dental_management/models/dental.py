@@ -1712,44 +1712,44 @@ class MedicalAppointment(models.Model):
                     raise ValidationError(_("Room Cannot have more than "
                                             "one appointment in the same time"))
 
-    @api.constrains('appointment_sdate', 'appointment_edate', 'doctor')
-    def _check_doctor_overlaps(self):
-        """ Validate dates to prevent overlaps """
-        for record in self:
-            start = record.appointment_sdate
-            end = record.appointment_edate
-            if record.doctor:
-                overlaps = self.search([
-                    ('id', '!=', record.id), ('doctor', '=', record.doctor.id),
-                    ('state', 'not in', ['postpone', 'cancel', 'missed']),
-                    '|', '&',
-                    ('appointment_sdate', '<=', start),
-                    ('appointment_edate', '>=', start), '&',
-                    ('appointment_sdate', '<=', end),
-                    ('appointment_edate', '>=', end),
-                ])
-                if overlaps:
-                    raise ValidationError(_("Doctor Cannot have more than "
-                                            "one appointment in the same time"))
-
-    @api.constrains('appointment_sdate', 'appointment_edate', 'patient')
-    def _check_patient_overlaps(self):
-        """ Validate dates to prevent overlaps """
-        for record in self:
-            start = record.appointment_sdate
-            end = record.appointment_edate
-            overlaps = self.search([
-                ('id', '!=', record.id), ('patient', '=', record.patient.id),
-                ('state', 'not in', ['postpone', 'cancel', 'missed']),
-                '|', '&',
-                ('appointment_sdate', '<=', start),
-                ('appointment_edate', '>=', start), '&',
-                ('appointment_sdate', '<=', end),
-                ('appointment_edate', '>=', end),
-            ])
-            if overlaps:
-                raise ValidationError(_("Patient Cannot have more than "
-                                        "one appointment in the same time"))
+    # @api.constrains('appointment_sdate', 'appointment_edate', 'doctor')
+    # def _check_doctor_overlaps(self):
+    #     """ Validate dates to prevent overlaps """
+    #     for record in self:
+    #         start = record.appointment_sdate
+    #         end = record.appointment_edate
+    #         if record.doctor:
+    #             overlaps = self.search([
+    #                 ('id', '!=', record.id), ('doctor', '=', record.doctor.id),
+    #                 ('state', 'not in', ['postpone', 'cancel', 'missed']),
+    #                 '|', '&',
+    #                 ('appointment_sdate', '<=', start),
+    #                 ('appointment_edate', '>=', start), '&',
+    #                 ('appointment_sdate', '<=', end),
+    #                 ('appointment_edate', '>=', end),
+    #             ])
+    #             if overlaps:
+    #                 raise ValidationError(_("Doctor Cannot have more than "
+    #                                         "one appointment in the same time"))
+    #
+    # @api.constrains('appointment_sdate', 'appointment_edate', 'patient')
+    # def _check_patient_overlaps(self):
+    #     """ Validate dates to prevent overlaps """
+    #     for record in self:
+    #         start = record.appointment_sdate
+    #         end = record.appointment_edate
+    #         overlaps = self.search([
+    #             ('id', '!=', record.id), ('patient', '=', record.patient.id),
+    #             ('state', 'not in', ['postpone', 'cancel', 'missed']),
+    #             '|', '&',
+    #             ('appointment_sdate', '<=', start),
+    #             ('appointment_edate', '>=', start), '&',
+    #             ('appointment_sdate', '<=', end),
+    #             ('appointment_edate', '>=', end),
+    #         ])
+    #         if overlaps:
+    #             raise ValidationError(_("Patient Cannot have more than "
+    #                                     "one appointment in the same time"))
 
     @api.depends('state')
     def _compute_color(self):

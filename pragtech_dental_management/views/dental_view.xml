@@ -2213,8 +2213,8 @@
     <menuitem action="medical_action_form_appointment" id="medical_conf_appointment_add"
               parent="medical_appointment_menu" sequence="2"/>
 
-    <menuitem action="medical_action_form_today_appointment" id="medical_conf_appointment_add_today"
-              parent="medical_appointment_menu" sequence="1"/>
+    <!--<menuitem action="medical_action_form_today_appointment" id="medical_conf_appointment_add_today"-->
+              <!--parent="medical_appointment_menu" sequence="1"/>-->
 
     <menuitem action="medical_action_form_physician" id="medical_conf_physician_list"
               parent="medical_conf_physicians" sequence="1"/>
