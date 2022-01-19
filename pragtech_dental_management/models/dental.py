@@ -582,7 +582,7 @@ class MedicalPatient(models.Model):
         recs = self.browse()
         if name:
             recs = self.search(
-                ['|', '|', '|', '|', '|', ('partner_id', operator, name),
+                ['|', '|', '|', '|', '|','|', ('partner_id', operator, name),('id', operator, name),
                  ('patient_id', operator, name),
                  ('mobile', operator, name), ('other_mobile', operator, name),
                  ('lastname', operator, name), ('middle_name', operator, name)])
@@ -690,7 +690,14 @@ class MedicalPatient(models.Model):
 
     def get_patient_name(self):
         for line in self:
-            line.partner_name = line.partner_id.name
+            if line.partner_id.name and line.partner_id.middle_name and line.partner_id.lastname:
+                line.partner_name = line.partner_id.name + ' ' + line.partner_id.middle_name + ' '+ line.partner_id.lastname
+            elif line.partner_id.name and not line.partner_id.middle_name and line.partner_id.lastname:
+                line.partner_name = line.partner_id.name + ' ' + line.partner_id.lastname
+            elif line.partner_id.name and line.partner_id.middle_name and not line.partner_id.lastname:
+                line.partner_name = line.partner_id.name + ' ' + line.partner_id.middle_name
+            else:
+                line.partner_name = line.partner_id.name
 
     street = fields.Char(related='partner_id.street', store=True,
                          readonly=False)
