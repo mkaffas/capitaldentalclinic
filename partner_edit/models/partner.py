@@ -20,6 +20,18 @@ class Partner(models.Model):
             else:
                 line.ref_patient = ''
 
+    @api.depends('name', 'ref_patient')
+    def name_get(self):
+        result = []
+        for partner in self:
+
+            if partner.ref_patient:
+                name = '[' + partner.ref_patient + ']' + partner.name
+            else:
+                name = partner.name
+            result.append((partner.id, name))
+        return result
+
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
         args = args or []
