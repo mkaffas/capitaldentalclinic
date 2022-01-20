@@ -24,11 +24,9 @@ class Partner(models.Model):
     def name_get(self):
         result = []
         for partner in self:
-
+            name = partner.name
             if partner.ref_patient:
-                name = '[' + partner.ref_patient + ']' + partner.name
-            else:
-                name = partner.name
+                name = '[' + partner.ref_patient + ']' + name
             result.append((partner.id, name))
         return result
 
