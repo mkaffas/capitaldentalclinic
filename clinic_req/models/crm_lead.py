@@ -48,7 +48,7 @@ class CRM(models.Model):
     passcode = fields.Char(string="Passcode", required=False, )
     priority = fields.Selection(
         [('1', 'Low'), ('2', 'Medium'), ('3', 'High'), ('4', 'Normal High'), ('5', 'Very High')],
-        'Priority', index=True)
+        'Priority', index=True,default="1")
 
     # def mark_as_lost(self):
     #     for line in self:

@@ -613,7 +613,7 @@ class MedicalPatient(models.Model):
             else:
                 family_code_id = ''
         self.family_code = family_code_id
-        self.partner_id = str(self.id)
+        # self.partner_id = str(self.id)
 
     # Get the patient age in the following format : "YEARS MONTHS DAYS"
     # It will calculate the age of the patient while the patient is alive. When the patient dies, it will show the age at time of death.
