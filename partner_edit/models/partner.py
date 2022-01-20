@@ -10,7 +10,7 @@ from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 class Partner(models.Model):
     _inherit = 'res.partner'
 
-    ref_patient = fields.Char(string="Reference Patient", compute="get_ref" )
+    ref_patient = fields.Char(string="Reference Patient", compute="get_ref",store=True )
 
     def get_ref(self):
         for line in self:
