@@ -813,6 +813,11 @@ class Teeth(models.Model):
     is_selected = fields.Boolean(string="", )
     is_coordinator = fields.Boolean(string="", related='patient_id.is_coordinator')
 
+    @api.onchange('description')
+    def change_des(self):
+        for line in self:
+            line.amount = line.description.lst_price
+
     @api.constrains('discount')
     def check(self):
         if self.env.user.has_group('clinic_req.discount_user_group'):
