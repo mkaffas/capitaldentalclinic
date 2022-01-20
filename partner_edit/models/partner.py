@@ -26,9 +26,7 @@ class Partner(models.Model):
         recs = self.browse()
         if name:
             recs = self.search(
-                ['|', '|', '|','|',('ref_patient', operator, name),
-                 ('mobile', operator, name),('name', operator, name),
-                 ('lastname', operator, name), ('middle_name', operator, name)])
+                ['|', ('name', operator, name), ('ref_patient', operator, name)])
         if not recs:
             recs = self.search([('name', operator, name)])
         return recs.name_get()
