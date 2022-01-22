@@ -3,7 +3,7 @@
 
     <record id="view_patient_pivot" model="ir.ui.view">
         <field name="name">Patient Pivot</field>
-        <field name="model">medical.appointment</field>
+        <field name="model">medical.patient</field>
         <field name="arch" type="xml">
             <pivot string="Pivot View">
                 <field name="partner_id" type="row"/>
