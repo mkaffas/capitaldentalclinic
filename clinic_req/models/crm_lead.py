@@ -383,9 +383,9 @@ class Appointment(models.Model):
                 line.sudo().message_notify(
                     partner_ids=[line.doctor.user_id.partner_id.id],
                     subject="Patient " + str(
-                        line.patient_id.name) + " is in Room",
+                        line.patient.partner_name) + " is in Room",
                     body="Patient " + str(
-                        line.patient_id.name) + " is in Room" + 'With Appointment' + body,
+                        line.patient.partner_name) + " is in Room" + 'With Appointment' + body,
                     message_type='comment',
                     subtype_id=self.env.ref('mail.mt_note').id)
             elif line.state == "done":
@@ -394,7 +394,7 @@ class Appointment(models.Model):
                 line.sudo().message_notify(
                     partner_ids=[line.patient_coordinator.partner_id.id],
                     subject='Appointment' + str(line.name) + "is Completed ",
-                    body="Appointment " + body + "with Patient" + str(line.patient_id.name) + " is Completed",
+                    body="Appointment " + body + "with Patient" + str(line.patient.partner_name) + " is Completed",
                     message_type='comment',
                     subtype_id=self.env.ref('mail.mt_note').id)
 
