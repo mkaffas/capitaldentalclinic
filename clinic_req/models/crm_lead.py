@@ -550,6 +550,10 @@ class Discount(models.TransientModel):
                         record.get_discount()
 
 
+class AccountPayment(models.Model):
+    _name = "account.payment"
+    _inherit = ["account.payment", "date.range.search.mixin"]
+
 class Patient(models.Model):
     _inherit = 'medical.patient'
     discount = fields.Float(string='Discount', digits=(3, 6),
