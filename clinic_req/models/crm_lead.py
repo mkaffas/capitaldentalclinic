@@ -550,9 +550,9 @@ class Discount(models.TransientModel):
                         record.get_discount()
 
 
-class AccountPayment(models.Model):
-    _name = "account.payment"
-    _inherit = ["account.payment", "date.range"]
+# class AccountPayment(models.Model):
+#     _name = "account.payment"
+#     _inherit = ["account.payment", "date.range"]
 
 class Patient(models.Model):
     _inherit = 'medical.patient'
