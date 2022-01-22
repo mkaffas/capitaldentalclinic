@@ -1784,7 +1784,17 @@ class MedicalAppointment(models.Model):
         return branch
 
     def done(self):
-        return self.write({'state': 'done'})
+        self.write({'state': 'done'})
+        for line in self:
+            if line.state == "done":
+                body = '<a target=_BLANK href="/web?#id=' + str(
+                    line.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + '</a>'
+                line.sudo().message_notify(
+                    partner_ids=[line.patient_coordinator.partner_id.id],
+                    subject='Appointment' + str(line.name) + "is Completed ",
+                    body="Appointment " + body + "with Patient" + str(line.patient_id.name) + " is Completed",
+                    message_type='comment',
+                    subtype_id=self.env.ref('mail.mt_note').id)
 
     def action_postpone(self):
         return self.write({'state': 'postpone'})
@@ -1831,6 +1841,18 @@ class MedicalAppointment(models.Model):
     def action_in_room(self):
         """ Action In Room """
         self.write({'state': 'in_room'})
+        for line in self:
+            if line.state == "in_room":
+                body = '<a target=_BLANK href="/web?#id=' + str(
+                    line.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + '</a>'
+                line.sudo().message_notify(
+                    partner_ids=[line.doctor.user_id.partner_id.id],
+                    subject="Patient " + str(
+                        line.patient_id.name) + " is in Room",
+                    body="Patient " + str(
+                        line.patient_id.name) + " is in Room" + 'With Appointment' + body,
+                    message_type='comment',
+                    subtype_id=self.env.ref('mail.mt_note').id)
 
     def ready(self):
         ready_time = time.strftime('%Y-%m-%d %H:%M:%S')
