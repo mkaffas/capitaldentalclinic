@@ -11,7 +11,8 @@
         'crm',
         'pragtech_dental_management',
         'survey',
-        'mail'
+        'mail',
+        'date_range'
     ],
     'data': [
         'security/ir.model.access.csv',
