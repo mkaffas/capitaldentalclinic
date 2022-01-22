@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_payment_check_line_user,payment.check.line.user,model_payment_check_line,account.group_account_user,1,1,1,1
+access_payment_check_line_manager,payment.check.line.manager,model_payment_check_line,account.group_account_manager,1,1,1,1
+access_check_history_user,check.history.user,model_check_history,account.group_account_user,1,1,1,1
+access_check_history_manager,check.history.manager,model_check_history,account.group_account_manager,1,1,1,1
+
+access_partial_collection_user,partial.collection.user,model_partial_collection,account.group_account_user,1,1,1,1
+access_partial_collection_manager,partial.collection.manager,model_partial_collection,account.group_account_manager,1,1,1,1

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- explicit list view definition -->
+
+        <record id="account_journal_check" model="ir.ui.view">
+            <field name="name">account.journal.check</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="is_check"/>
+                    <field name="is_debit"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

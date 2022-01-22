@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--      for Collection PopUp Window-->
+        <record id="collection_form_view" model="ir.ui.view">
+            <field name="name">Collection View</field>
+            <field name="model">partial.collection.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Partial Collection">
+                    <group>
+                        <group>
+                            <field name="wizard_partial_amount" required="1"/>
+                            <field name="debit_journal_id" required="1"/>
+                            <field name="credit_journal_id" required="1"/>
+                            <field name="date" required="1"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_collection" string="Validate" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_collection_form_view" model="ir.actions.act_window">
+            <field name="name">Partial Collection</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">partial.collection.wizard</field>
+            <!--        <field name="view_type">form</field>-->
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

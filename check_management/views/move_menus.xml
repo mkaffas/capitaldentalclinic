@@ -1,0 +1,55 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<odoo>
+    <data>
+        <!-- explicit list view definition -->
+        <record id="view_account_transfer_payment_tree" model="ir.ui.view">
+            <field name="name">account.transfer.payment.tree</field>
+            <field name="model">account.payment</field>
+            <field name="arch" type="xml">
+                <tree decoration-info="state == 'draft'" decoration-muted="state in ['reconciled', 'cancelled']"
+                      edit="false">
+<!--                        #saber-->
+<!--                    <field name="payment_date"/>-->
+                    <field name="name"/>
+                    <field name="journal_id"/>
+                    <field name="payment_method_id"/>
+                    <field name="amount" sum="Amount"/>
+                    <field name="state"/>
+                    <field name="payment_type"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="partner_type" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--actions-->
+        <record id="action_account_transfer_payments" model="ir.actions.act_window">
+            <field name="name">Transfer Payments</field>
+            <field name="res_model">account.payment</field>
+            <!--            <field name="view_type">form</field>-->
+            <field name="view_mode">tree,kanban,form,graph</field>
+            <field name="context">{'default_payment_type': 'transfer', 'search_default_transfers_filter': 1}</field>
+            <field name="domain">[]</field>
+<!--            <field name="view_id" ref="view_account_transfer_payment_tree"/>-->
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to register a Transfer payment
+                </p>
+                <p>
+                    Payments are used to register liquidity movements (send, collect or transfer money).
+                    You can then process those payments by your own means or by using installed facilities.
+                </p>
+            </field>
+        </record>
+
+        <!--      <menuitem id="menu_bank_cash" name="Bank And Cash" parent="account.menu_finance" sequence="4"/>-->
+
+        <menuitem action="account.action_account_payments" id="account.menu_action_account_payments_receivable"
+                  parent="menu_bank_cash" name="Customer Payment" sequence="1"/>
+        <menuitem action="account.action_account_payments_payable" id="account.menu_action_account_payments_payable"
+                  parent="menu_bank_cash" name="Vendor Payment" sequence="2"/>
+        <menuitem action="action_account_transfer_payments" id="menu_action_account_transfer_payments"
+                  parent="menu_bank_cash" name="Transfer Payment" sequence="3"/>
+    </data>
+</odoo>

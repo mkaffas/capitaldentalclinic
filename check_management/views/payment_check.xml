@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--      payment check tree view-->
+        <record model="ir.ui.view" id="payment_check_tree">
+            <field name="name">Check Payment</field>
+            <field name="model">payment.check</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="amount"/>
+                    <field name="payment_date"/>
+                    <field name="journal_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--      payment check form view-->
+        <record model="ir.ui.view" id="payment_check_form">
+            <field name="name">Check Payment</field>
+            <field name="model">payment.check</field>
+            <field name="arch" type="xml">
+                <form string="Payment Checks" class="o_sale_order">
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" name="button_check_lines" string="Checks" type="object"
+                                    groups="account.group_account_user" attrs="{'invisible':[('check_lines','=',[])]}"
+                                    icon="fa-bars"/>
+                            <field name="check_lines" invisible="1"/>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="partner_id"/>
+                                <field name="amount"/>
+                                <field name="payment_date"/>
+                            </group>
+                            <group>
+                                <field name="payment_type"/>
+                                <field name="journal_id"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Check Lines">
+                                <field name="check_lines" mode="tree">
+                                    <tree string="Check Lines" editable="bottom">
+                                        <field name="check_number"/>
+                                        <field name="check_date"/>
+                                        <field name="check_amount"/>
+                                        <field name="check_bank_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_check_search" model="ir.ui.view">
+            <field name="name">Check Search</field>
+            <field name="model">payment.check.line</field>
+            <field name="arch" type="xml">
+                <search string="Checks">
+                    <field name="check_number"
+                           filter_domain="['|', ('check_number','ilike',self), ('partner_id','ilike',self)]"
+                           string="Description"/>
+                    <separator/>
+                    <filter string="Payable" name="payable_filter" domain="[('check_type','=','outbound')]"/>
+                    <filter string="Receivable" name="receivable_filter" domain="[('check_type','=','inbound')]"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- actions opening views on models -->
+
+        <record model="ir.actions.act_window" id="payment_check_line_receivable_tree_action">
+            <field name="name">Receivable Check Payment</field>
+            <field name="res_model">payment.check.line</field>
+            <field name="type">ir.actions.act_window</field>
+            <!--      <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_receivable_filter': 1}</field>
+            <!--      <field name="domain">[('check_type','=','inbound')]</field>-->
+        </record>
+
+        <record model="ir.actions.act_window" id="payment_check_line_payable_tree_action">
+            <field name="name">Payable Check Payment</field>
+            <field name="res_model">payment.check.line</field>
+            <field name="type">ir.actions.act_window</field>
+            <!--      <field name="view_type">form</field>-->
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_payable_filter': 1}</field>
+            <!--      <field name="domain">[('check_type','=','outbound')]</field>-->
+        </record>
+
+
+        <!-- Top menu item -->
+        <menuitem name="Bank and Cash"
+                  id="account.menu_finance"
+                  groups="account.group_account_user,account.group_account_manager,account.group_account_invoice"
+                  web_icon="account,static/description/icon.png"
+                  sequence="40"/>
+        <menuitem id="menu_bank_cash" name="Bank And Cash" parent="account.menu_finance"/>
+        <menuitem name="Receivable Checks" action="payment_check_line_receivable_tree_action"
+                  id="menu_action_check_payment_receivable"
+                  parent="check_management.menu_bank_cash"/>
+        <menuitem name="Payable Checks" action="payment_check_line_payable_tree_action"
+                  id="menu_action_check_payment_payable"
+                  parent="check_management.menu_bank_cash"/>
+    </data>
+</odoo>

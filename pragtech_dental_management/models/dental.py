@@ -125,9 +125,20 @@ class Partner(models.Model):
             if partner.middle_name:
                 name += ' ' + partner.middle_name
             if partner.lastname:
-                name = partner.lastname + ', ' + name
+                name += ' ' + partner.lastname
             result.append((partner.id, name))
         return result
+
+    @api.model
+    def name_search(self, name, args=None, operator='ilike', limit=100):
+        args = args or []
+        recs = self.browse()
+        if name:
+            recs = self.search(
+                ['|', ('name', operator, name), ('ref_patient', operator, name)])
+        if not recs:
+            recs = self.search([('name', operator, name)])
+        return recs.name_get()
 
     def get_user_name(self):
         return self.name
@@ -439,9 +450,7 @@ class MedicalPhysician(models.Model):
     )
     user_id = fields.Many2one(
         'res.users',
-        related='res_partner_medical_physician_id.user_id',
         string='Physician User',
-        store=True
     )
     institution = fields.Many2one('res.partner', 'Institution',
                                   domain=[('is_institution', '=', "1")],
@@ -573,7 +582,7 @@ class MedicalPatient(models.Model):
         recs = self.browse()
         if name:
             recs = self.search(
-                ['|', '|', '|', '|', '|', ('partner_id', operator, name),
+                ['|', '|', '|', '|', '|','|', ('partner_id', operator, name),('id', operator, name),
                  ('patient_id', operator, name),
                  ('mobile', operator, name), ('other_mobile', operator, name),
                  ('lastname', operator, name), ('middle_name', operator, name)])
@@ -604,6 +613,7 @@ class MedicalPatient(models.Model):
             else:
                 family_code_id = ''
         self.family_code = family_code_id
+        # self.partner_id = str(self.id)
 
     # Get the patient age in the following format : "YEARS MONTHS DAYS"
     # It will calculate the age of the patient while the patient is alive. When the patient dies, it will show the age at time of death.
@@ -667,16 +677,29 @@ class MedicalPatient(models.Model):
 
     stage_id = fields.Many2one(
         'patient.stage',
-        group_expand='_group_expand_stage',traking=True
+        group_expand='_group_expand_stage', track_visibility="onchange",
     )
 
     medium_id = fields.Many2one('utm.medium')
     source_id = fields.Many2one('utm.source')
     referred = fields.Char()
-    partner_id = fields.Many2one('res.partner', 'Patient', required="1",
+    partner_id = fields.Many2one('res.partner', 'Patient',
                                  domain=[('is_patient', '=', True),
                                          ('is_person', '=', True)],
                                  help="Patient Name")
+    partner_name = fields.Char(string="Patient name", compute="get_patient_name")
+
+    def get_patient_name(self):
+        for line in self:
+            if line.partner_id.name and line.partner_id.middle_name and line.partner_id.lastname:
+                line.partner_name = line.partner_id.name + ' ' + line.partner_id.middle_name + ' '+ line.partner_id.lastname
+            elif line.partner_id.name and not line.partner_id.middle_name and line.partner_id.lastname:
+                line.partner_name = line.partner_id.name + ' ' + line.partner_id.lastname
+            elif line.partner_id.name and line.partner_id.middle_name and not line.partner_id.lastname:
+                line.partner_name = line.partner_id.name + ' ' + line.partner_id.middle_name
+            else:
+                line.partner_name = line.partner_id.name
+
     street = fields.Char(related='partner_id.street', store=True,
                          readonly=False)
     street2 = fields.Char(related='partner_id.street2', store=True,
@@ -687,8 +710,8 @@ class MedicalPatient(models.Model):
                                readonly=False)
     country_id = fields.Many2one(related='partner_id.country_id', store=True,
                                  readonly=False)
-    email = fields.Char(related='partner_id.email', store=True, readonly=False)
-    phone = fields.Char(related='partner_id.phone', store=True, readonly=False)
+    email = fields.Char(related='partner_id.email', store=True, readonly=False, tracking=True)
+    phone = fields.Char(related='partner_id.phone', store=True, readonly=False, tracking=True)
     mobile = fields.Char(related='partner_id.mobile', store=True,
                          readonly=False)
     function = fields.Char(related='partner_id.function', store=True,
@@ -698,9 +721,11 @@ class MedicalPatient(models.Model):
                              default=lambda self: _('New'))
     ssn = fields.Char('SSN', size=128,
                       help="Patient Unique Identification Number")
-    lastname = fields.Char(related='partner_id.lastname', string='Lastname')
-    middle_name = fields.Char(related='partner_id.middle_name',
-                              string='Middle Name')
+    first_name = fields.Char(string='First name',required=1)
+    lastname = fields.Char(string='Lastname')
+    middle_name = fields.Char(string='Middle Name')
+
+
     family_code = fields.Many2one('medical.family_code', 'Family',
                                   help="Family Code")
     identifier = fields.Char(string='SSN', related='partner_id.ref',
@@ -710,7 +735,7 @@ class MedicalPatient(models.Model):
     sec_insurance = fields.Many2one('medical.insurance', "Insurance",
                                     domain="[('partner_id','=',partner_id)]",
                                     help="Insurance information. You may choose from the different insurances belonging to the patient")
-    dob = fields.Date('Date of Birth')
+    dob = fields.Date('Date of Birth', tracking=True)
     age = fields.Char(compute='_patient_age', string='Patient Age',
                       help="It shows the age of the patient in years(y), months(m) and days(d).\nIf the patient has died, the age shown is the age at time of death, the age corresponding to the date on the death certificate. It will show also \"deceased\" on the field")
     sex = fields.Selection([('m', 'Male'), ('f', 'Female'), ], 'Gender', )
@@ -743,8 +768,10 @@ class MedicalPatient(models.Model):
                                help="General information about the patient")
     deceased = fields.Boolean('Deceased', help="Mark if the patient has died")
     dod = fields.Datetime('Date of Death')
-    apt_id = fields.Many2many('medical.appointment', 'pat_apt_rel', 'patient',
-                              'apid', 'Appointments')
+    apt_id = fields.One2many(comodel_name="medical.appointment", inverse_name="patient", string="Appointments",
+                             required=False, )
+    # apt_id = fields.Many2many('medical.appointment', 'pat_apt_rel', 'patient',
+    #                           'apid', 'Appointments')
     attachment_ids = fields.One2many('ir.attachment', 'patient_id',
                                      'attachments')
     photo = fields.Binary(
@@ -758,7 +785,6 @@ class MedicalPatient(models.Model):
     referring_doctor_id = fields.Many2one('medical.physician',
                                           'Referring  Doctor', )
     note = fields.Text('Notes', help="Notes and To-Do")
-    mobile = fields.Char('Mobile', related='partner_id.mobile')
     other_mobile = fields.Char('Other Mobile')
     teeth_treatment_ids = fields.One2many('medical.teeth.treatment',
                                           'patient_id', 'Operations',
@@ -903,6 +929,8 @@ class MedicalPatient(models.Model):
                                     'created_date': each_operation.create_date,
                                     'status': each_operation.state,
                                     'completion_date': each_operation.completion_date,
+                                    'dentist': each_operation.dentist.display_name or '',
+                                    'op_line_id': each_operation.id,
                                     'multiple_teeth': multiple_teeth_list,
                                     'tooth_id': current_tooth_id,
                                     'surface': each_operation.detail_description,
@@ -922,154 +950,139 @@ class MedicalPatient(models.Model):
         patient = int(patient_id)
         patient_brw = self.env['medical.patient'].browse(patient)
         partner_brw = patient_brw.partner_id
-        if appt_id:
-            prev_appt_operations = medical_teeth_treatment_obj.search(
-                [('appt_id', '=', int(appt_id)), ('state', '!=', 'completed')])
-            prev_appt_operations.unlink()
-        else:
-            prev_pat_operations = medical_teeth_treatment_obj.search(
-                [('patient_id', '=', int(patient_id)),
-                 ('state', '!=', 'completed')])
-            prev_pat_operations.unlink()
+        current_physician = 0;
+        for each in treatment_lines:
+            all_treatment = each.get('values')
+            if all_treatment:
+                for each_trt in all_treatment:
+                    vals = {}
+                    vals['description'] = int(each_trt.get('categ_id'))
+                    if (str(each.get('teeth_id')) != 'all'):
+                        actual_teeth_id = teeth_code_obj.search(
+                            [('internal_id', '=',
+                              int(each.get('teeth_id')))])
+                        vals['teeth_id'] = actual_teeth_id[0].id
+                    vals['patient_id'] = patient
+                    desc = ''
+                    for each_val in each_trt['values']:
+                        if each_val:
+                            desc += each_val + ' '
+                    vals['detail_description'] = desc.rstrip()
+                    dentist = each.get('dentist')
+                    if dentist:
+                        dentist = int(each.get('dentist'))
+                        physician = medical_physician_obj.search(
+                            [('id', '=', dentist)])
+                        if physician:
+                            dentist = physician.id
+                            vals['dentist'] = dentist
+                            current_physician = 1
+                    status = ''
+                    if each.get('status_name') and each.get(
+                            'status_name') != 'false':
+                        status_name = each.get('status_name')
+                        status = (str(each.get('status_name')))
+                        if status_name == 'in_progress':
+                            status = 'in_progress'
+                        elif status_name == 'planned':
+                            status = 'planned'
+                    else:
+                        status = 'planned'
+                    vals['state'] = status
+                    p_brw = product_obj.browse(vals['description'])
+                    vals['amount'] = p_brw.lst_price
+                    completion_date = each.get('completion_date',
+                                               False)
+                    if completion_date:
+                        completion_date = parser.parse(
+                            completion_date)
+                        vals['completion_date'] = completion_date
+                    if appt_id:
+                        vals['appt_id'] = appt_id
+                    try:
+                        op_id = each.get('op_line_id')
+                        op_id = int(op_id)
+                        op_id = medical_teeth_treatment_obj.browse(op_id).exists()
+                        treatment_id = op_id.write(vals)
+                    except:
+                        treatment_id = medical_teeth_treatment_obj.create(
+                            vals)
+                    if each.get('multiple_teeth'):
+                        full_mouth = each.get('multiple_teeth')
+                        full_mouth = full_mouth.split('_')
+                        operate_on_tooth = []
+                        for each_teeth_from_full_mouth in full_mouth:
+                            actual_teeth_id = teeth_code_obj.search(
+                                [('internal_id', '=',
+                                  int(each_teeth_from_full_mouth))])
+                            operate_on_tooth.append(
+                                actual_teeth_id.id)
+                        treatment_id.write({'teeth_code_rel': [
+                            (6, 0, operate_on_tooth)]})
 
-        prev_pat_missing_operations = medical_teeth_treatment_obj.search(
-            [('patient_id', '=', int(patient_id)),
-             ('state', '!=', 'completed')])
-        for each_prev_pat_missing_operations in prev_pat_missing_operations:
-            if each_prev_pat_missing_operations.description.action_perform == 'missing':
-                each_prev_pat_missing_operations.unlink()
-        if treatment_lines:
-            current_physician = 0;
-            for each in treatment_lines:
-                if each.get('prev_record') == 'false':
-                    all_treatment = each.get('values')
-                    if all_treatment:
-                        for each_trt in all_treatment:
-
-                            vals = {}
-                            category_id = int(each_trt.get('categ_id'))
-                            vals['description'] = category_id
-                            if 1:
-                                if (str(each.get('teeth_id')) != 'all'):
-                                    actual_teeth_id = teeth_code_obj.search(
-                                        [('internal_id', '=',
-                                          int(each.get('teeth_id')))])
-                                    vals['teeth_id'] = actual_teeth_id[0].id
-                                vals['patient_id'] = patient
-                                desc = ''
-                                for each_val in each_trt['values']:
-                                    if each_val:
-                                        desc += each_val + ' '
-                                vals['detail_description'] = desc.rstrip()
-                                dentist = each.get('dentist')
-                                if dentist:
-                                    dentist = int(each.get('dentist'))
-                                    physician = medical_physician_obj.search(
-                                        [('id', '=', dentist)])
-                                    if physician:
-                                        dentist = physician.id
-                                        vals['dentist'] = dentist
-                                        current_physician = 1
-                                status = ''
-                                if each.get('status_name') and each.get(
-                                        'status_name') != 'false':
-                                    status_name = each.get('status_name')
-                                    status = (str(each.get('status_name')))
-                                    if status_name == 'in_progress':
-                                        status = 'in_progress'
-                                    elif status_name == 'planned':
-                                        status = 'planned'
-                                else:
-                                    status = 'planned'
-                                vals['state'] = status
-                                p_brw = product_obj.browse(vals['description'])
-                                vals['amount'] = p_brw.lst_price
-                                completion_date = each.get('completion_date',
-                                                           False)
-                                if completion_date:
-                                    completion_date = parser.parse(
-                                        completion_date)
-                                    vals['completion_date'] = completion_date
-                                if appt_id:
-                                    vals['appt_id'] = appt_id
-                                treatment_id = medical_teeth_treatment_obj.create(
-                                    vals)
-                                if each.get('multiple_teeth'):
-                                    full_mouth = each.get('multiple_teeth')
-                                    full_mouth = full_mouth.split('_')
-                                    operate_on_tooth = []
-                                    for each_teeth_from_full_mouth in full_mouth:
-                                        actual_teeth_id = teeth_code_obj.search(
-                                            [('internal_id', '=',
-                                              int(each_teeth_from_full_mouth))])
-                                        operate_on_tooth.append(
-                                            actual_teeth_id.id)
-                                    treatment_id.write({'teeth_code_rel': [
-                                        (6, 0, operate_on_tooth)]})
-
-            #                                         cr.execute('insert into teeth_code_medical_teeth_treatment_rel(operation,teeth) values(%s,%s)' % (treatment_id,each_teeth_from_full_mouth))
-            invoice_vals = {}
-            invoice_line_vals = []
-            # Creating invoice lines
-            # get account id for products
-            jr_search = self.env['account.journal'].search(
-                [('type', '=', 'sale')])
-            jr_brw = jr_search
-            for each in treatment_lines:
-                if each.get('prev_record') == 'false':
-                    if str(each.get('status_name')).lower() == 'completed':
-                        for each_val in each['values']:
-                            each_line = [0, False]
-                            product_dict = {}
-                            product_dict['product_id'] = int(
-                                each_val['categ_id'])
-                            p_brw = product_obj.browse(
-                                int(each_val['categ_id']))
-                            if p_brw.action_perform != 'missing':
-                                desc = ''
-                                features = ''
-                                for each_v in each_val['values']:
-                                    if each_v:
-                                        desc = str(each_v)
-                                        features += desc + ' '
-                                if (each['teeth_id'] != 'all'):
-                                    actual_teeth_id = teeth_code_obj.search(
-                                        [('internal_id', '=',
-                                          int(each.get('teeth_id')))])
-                                    invoice_name = actual_teeth_id.name_get()
-                                    product_dict['name'] = str(
-                                        invoice_name[0][1]) + ' ' + features
-                                else:
-                                    product_dict['name'] = 'Full Mouth'
-                                product_dict['quantity'] = 1
-                                product_dict['price_unit'] = p_brw.lst_price
-                                acc_obj = self.env['account.account'].search(
-                                    [('name', '=', 'Local Sales'),
-                                     ('user_type_id', '=', 'Income')], limit=1)
-                                for account_id in jr_brw:
-                                    product_dict[
-                                        'account_id'] = account_id.payment_debit_account_id.id if account_id.payment_debit_account_id else acc_obj.id
-                                each_line.append(product_dict)
-                                invoice_line_vals.append(each_line)
-                            # Creating invoice dictionary
-                            # invoice_vals['account_id'] = partner_brw.property_account_receivable_id.id
-                            if patient_brw.current_insurance:
-                                invoice_vals[
-                                    'partner_id'] = patient_brw.current_insurance.company_id.id
+        #                                         cr.execute('insert into teeth_code_medical_teeth_treatment_rel(operation,teeth) values(%s,%s)' % (treatment_id,each_teeth_from_full_mouth))
+        invoice_vals = {}
+        invoice_line_vals = []
+        # Creating invoice lines
+        # get account id for products
+        jr_search = self.env['account.journal'].search(
+            [('type', '=', 'sale')])
+        jr_brw = jr_search
+        for each in treatment_lines:
+            if each.get('prev_record') == 'false':
+                if str(each.get('status_name')).lower() == 'completed':
+                    for each_val in each['values']:
+                        each_line = [0, False]
+                        product_dict = {}
+                        product_dict['product_id'] = int(
+                            each_val['categ_id'])
+                        p_brw = product_obj.browse(
+                            int(each_val['categ_id']))
+                        if p_brw.action_perform != 'missing':
+                            desc = ''
+                            features = ''
+                            for each_v in each_val['values']:
+                                if each_v:
+                                    desc = str(each_v)
+                                    features += desc + ' '
+                            if (each['teeth_id'] != 'all'):
+                                actual_teeth_id = teeth_code_obj.search(
+                                    [('internal_id', '=',
+                                      int(each.get('teeth_id')))])
+                                invoice_name = actual_teeth_id.name_get()
+                                product_dict['name'] = str(
+                                    invoice_name[0][1]) + ' ' + features
                             else:
-                                invoice_vals['partner_id'] = partner_brw.id
-                            invoice_vals['patient_id'] = partner_brw.id
-                            # invoice_vals['partner_id'] = partner_brw.id
-                            if current_physician:
-                                invoice_vals['dentist'] = physician[0].id
-                            invoice_vals['move_type'] = 'out_invoice'
+                                product_dict['name'] = 'Full Mouth'
+                            product_dict['quantity'] = 1
+                            product_dict['price_unit'] = p_brw.lst_price
+                            acc_obj = self.env['account.account'].search(
+                                [('name', '=', 'Local Sales'),
+                                 ('user_type_id', '=', 'Income')], limit=1)
+                            for account_id in jr_brw:
+                                product_dict[
+                                    'account_id'] = account_id.payment_debit_account_id.id if account_id.payment_debit_account_id else acc_obj.id
+                            each_line.append(product_dict)
+                            invoice_line_vals.append(each_line)
+                        # Creating invoice dictionary
+                        # invoice_vals['account_id'] = partner_brw.property_account_receivable_id.id
+                        if patient_brw.current_insurance:
                             invoice_vals[
-                                'insurance_company'] = patient_brw.current_insurance.company_id.id
-                            invoice_vals['invoice_line_ids'] = invoice_line_vals
+                                'partner_id'] = patient_brw.current_insurance.company_id.id
+                        else:
+                            invoice_vals['partner_id'] = partner_brw.id
+                        invoice_vals['patient_id'] = partner_brw.id
+                        # invoice_vals['partner_id'] = partner_brw.id
+                        if current_physician:
+                            invoice_vals['dentist'] = physician[0].id
+                        invoice_vals['move_type'] = 'out_invoice'
+                        invoice_vals[
+                            'insurance_company'] = patient_brw.current_insurance.company_id.id
+                        invoice_vals['invoice_line_ids'] = invoice_line_vals
 
-            # creating account invoice
-            if invoice_vals:
-                self.env['account.move'].create(invoice_vals)
+        # creating account invoice
+        if invoice_vals:
+            self.env['account.move'].create(invoice_vals)
         else:
             return False
 
@@ -1118,6 +1131,25 @@ class MedicalPatient(models.Model):
         if vals_list.get('patient_id', 'New') == 'New':
             sequence = self.env['ir.sequence'].next_by_code('medical.patient')
             vals_list.update(patient_id=sequence or '/')
+        if vals_list['first_name']:
+            partner_obj = self.env['res.partner'].sudo()
+            partner = partner_obj.create({
+                'name': vals_list['first_name'] or '',
+                'lastname': vals_list['lastname'] or '',
+                'middle_name': vals_list['middle_name'] or '',
+                'is_patient': True,
+                'type': 'contact',
+                'mobile': vals_list['mobile'] or '',
+                'email': vals_list['email'] or '',
+                'phone': vals_list['phone'] or '',
+                # 'street': vals_list['street'] or '',
+                # 'street2': vals_list['street2'] or '',
+                # 'zip': vals_list['zip'] or '',
+                # 'city': vals_list['city'] or '',
+                # 'state_id': vals_list['state_id'] or False,
+                # 'country_id': vals_list['country_id'] or False,
+            })
+            vals_list['partner_id'] = partner.id
         return super().create(vals_list)
 
     def open_chart(self):
@@ -1414,6 +1446,7 @@ class MedicalMedicationDosage(models.Model):
 class MedicalAppointment(models.Model):
     _name = "medical.appointment"
     _inherit = ['mail.thread', 'mail.activity.mixin']
+    _rec_name = "name"
     _description = "Medical Appointment"
     _order = "appointment_sdate desc"
 
@@ -1542,9 +1575,15 @@ class MedicalAppointment(models.Model):
                        default=lambda self: _('New'))
     patient = fields.Many2one('medical.patient', 'Patient', help="Patient Name",
                               required=True, tracking=True, )
-    appointment_sdate = fields.Datetime('Appointment Start', 
+    appointment_sdate = fields.Datetime('Appointment Start',
                                         default=fields.Datetime.now,
                                         tracking=True, )
+    appointment_date = fields.Date(string="Date", compute="get_date_app" )
+
+    @api.depends('appointment_sdate')
+    def get_date_app(self):
+        for line in self:
+            line.appointment_date = line.appointment_sdate.date()
 
     def get_end_date(self):
         current_date_and_time = datetime.now()
@@ -1554,10 +1593,17 @@ class MedicalAppointment(models.Model):
 
     appointment_edate = fields.Datetime('Appointment End', required=False,
                                         tracking=True, default=get_end_date)
+
+    @api.onchange('appointment_sdate')
+    def _onchange_appointment_sdate(self):
+        """ appointment_sdate """
+        self.appointment_edate = self.appointment_sdate + relativedelta(
+            minutes=30, seconds=-1
+        )
+
     room_id = fields.Many2one(
         'medical.hospital.oprating.room', 'Room',
         required=False, tracking=True,
-        domain="[('branch_id', '=', branch_id)]",
         group_expand='_group_expand_room'
     )
     urgency = fields.Boolean('Urgent', default=False)
@@ -1599,8 +1645,21 @@ class MedicalAppointment(models.Model):
     unit_id = fields.Many2one(comodel_name="medical.hospital.unit", string="",
                               required=False, )
     branch_id = fields.Many2one(
-        'dental.branch', group_expand='_group_expand_branch'
+        'dental.branch', group_expand='_group_expand_branch', related="room_id.branch_id"
     )
+    is_doctor = fields.Boolean(compute="check_is_doctor")
+
+    def check_is_doctor(self):
+        for line in self:
+            if self.env.user.has_group(
+                    'pragtech_dental_management.group_dental_doc_menu') and not self.env.user.has_group(
+                    'pragtech_dental_management.group_dental_user_menu')and not self.env.user.has_group(
+                    'pragtech_dental_management.group_patient_coordinator')and not self.env.user.has_group(
+                    'pragtech_dental_management.group_branch_manager')and not self.env.user.has_group(
+                    'pragtech_dental_management.group_dental_admin'):
+                line.is_doctor = True
+            else:
+                line.is_doctor = False
 
     _sql_constraints = [
         ('date_check', "CHECK (appointment_sdate <= appointment_edate)",
@@ -1639,27 +1698,10 @@ class MedicalAppointment(models.Model):
         for record in self:
             start = record.appointment_sdate
             end = record.appointment_edate
-            overlaps = self.search([
-                ('id', '!=', record.id), ('room_id', '=', record.room_id.id),
-                '|', '&',
-                ('appointment_sdate', '<=', start),
-                ('appointment_edate', '>=', start), '&',
-                ('appointment_sdate', '<=', end),
-                ('appointment_edate', '>=', end),
-            ])
-            if overlaps:
-                raise ValidationError(_("Room Cannot have more than "
-                                        "one appointment in the same time"))
-
-    @api.constrains('appointment_sdate', 'appointment_edate', 'doctor')
-    def _check_doctor_overlaps(self):
-        """ Validate dates to prevent overlaps """
-        for record in self:
-            start = record.appointment_sdate
-            end = record.appointment_edate
-            if record.doctor:
+            if record.room_id:
                 overlaps = self.search([
-                    ('id', '!=', record.id), ('doctor', '=', record.doctor.id),
+                    ('id', '!=', record.id), ('room_id', '=', record.room_id.id),
+                    ('state', 'not in', ['postpone', 'cancel', 'missed']),
                     '|', '&',
                     ('appointment_sdate', '<=', start),
                     ('appointment_edate', '>=', start), '&',
@@ -1667,26 +1709,47 @@ class MedicalAppointment(models.Model):
                     ('appointment_edate', '>=', end),
                 ])
                 if overlaps:
-                    raise ValidationError(_("Doctor Cannot have more than "
+                    raise ValidationError(_("Room Cannot have more than "
                                             "one appointment in the same time"))
 
-    @api.constrains('appointment_sdate', 'appointment_edate', 'patient')
-    def _check_patient_overlaps(self):
-        """ Validate dates to prevent overlaps """
-        for record in self:
-            start = record.appointment_sdate
-            end = record.appointment_edate
-            overlaps = self.search([
-                ('id', '!=', record.id), ('patient', '=', record.patient.id),
-                '|', '&',
-                ('appointment_sdate', '<=', start),
-                ('appointment_edate', '>=', start), '&',
-                ('appointment_sdate', '<=', end),
-                ('appointment_edate', '>=', end),
-            ])
-            if overlaps:
-                raise ValidationError(_("Patient Cannot have more than "
-                                        "one appointment in the same time"))
+    # @api.constrains('appointment_sdate', 'appointment_edate', 'doctor')
+    # def _check_doctor_overlaps(self):
+    #     """ Validate dates to prevent overlaps """
+    #     for record in self:
+    #         start = record.appointment_sdate
+    #         end = record.appointment_edate
+    #         if record.doctor:
+    #             overlaps = self.search([
+    #                 ('id', '!=', record.id), ('doctor', '=', record.doctor.id),
+    #                 ('state', 'not in', ['postpone', 'cancel', 'missed']),
+    #                 '|', '&',
+    #                 ('appointment_sdate', '<=', start),
+    #                 ('appointment_edate', '>=', start), '&',
+    #                 ('appointment_sdate', '<=', end),
+    #                 ('appointment_edate', '>=', end),
+    #             ])
+    #             if overlaps:
+    #                 raise ValidationError(_("Doctor Cannot have more than "
+    #                                         "one appointment in the same time"))
+    #
+    # @api.constrains('appointment_sdate', 'appointment_edate', 'patient')
+    # def _check_patient_overlaps(self):
+    #     """ Validate dates to prevent overlaps """
+    #     for record in self:
+    #         start = record.appointment_sdate
+    #         end = record.appointment_edate
+    #         overlaps = self.search([
+    #             ('id', '!=', record.id), ('patient', '=', record.patient.id),
+    #             ('state', 'not in', ['postpone', 'cancel', 'missed']),
+    #             '|', '&',
+    #             ('appointment_sdate', '<=', start),
+    #             ('appointment_edate', '>=', start), '&',
+    #             ('appointment_sdate', '<=', end),
+    #             ('appointment_edate', '>=', end),
+    #         ])
+    #         if overlaps:
+    #             raise ValidationError(_("Patient Cannot have more than "
+    #                                     "one appointment in the same time"))
 
     @api.depends('state')
     def _compute_color(self):
@@ -1791,14 +1854,24 @@ class MedicalAppointment(models.Model):
 
     def checkin(self):
         for rec in self:
-            partners = [x.partner_id.id for x in self.env.ref(
-                'pragtech_dental_management.group_branch_manager').users]
+            # partners = [x.partner_id.id for x in self.env.ref(
+            #     'pragtech_dental_management.group_branch_manager').users]
             body = '<a target=_BLANK href="/web?#id=' + str(
                 rec.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + str(
                 rec.name) + '</a>'
-            if partners:
+            # if partners:
+            #     self.sudo().message_post(
+            #         partner_ids=partners,
+            #         subject="Appointment " + str(
+            #             rec.name) + " has been checked in",
+            #         body="Patient " + str(
+            #             rec.patient.partner_id.name) + " with Appointment " + str(
+            #             rec.name) + " has been checked in " + body,
+            #         message_type='comment',
+            #         subtype_id=self.env.ref('mail.mt_note').id, )
+            if rec.patient_coordinator:
                 self.sudo().message_post(
-                    partner_ids=partners,
+                    partner_ids=[rec.patient_coordinator.partner_id.id],
                     subject="Appointment " + str(
                         rec.name) + " has been checked in",
                     body="Patient " + str(
@@ -2230,11 +2303,12 @@ class MedicalTeethTreatment(models.Model):
     _name = "medical.teeth.treatment"
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-
-    patient_id = fields.Many2one('medical.patient', 'Patient Details', tracking=True)
+    patient_id = fields.Many2one('medical.patient', 'Patient Details',
+                                 tracking=True)
     teeth_id = fields.Many2one('teeth.code', 'Tooth', tracking=True)
     description = fields.Many2one('product.product', 'Description',
-                                  domain=[('is_treatment', '=', True)], tracking=True)
+                                  domain=[('is_treatment', '=', True)],
+                                  tracking=True)
 
     completion_date = fields.Datetime(tracking=True)
     detail_description = fields.Text('Surface', tracking=True)
@@ -2247,7 +2321,8 @@ class MedicalTeethTreatment(models.Model):
     dentist = fields.Many2one('medical.physician', 'Dentist', tracking=True)
     amount = fields.Float('Amount', tracking=True)
 
-    appt_id = fields.Many2one('medical.appointment', 'Appointment ID', tracking=True)
+    appt_id = fields.Many2one('medical.appointment', 'Appointment ID',
+                              tracking=True)
 
     teeth_code_rel = fields.Many2many('teeth.code',
                                       'teeth_code_medical_teeth_treatment_rel',

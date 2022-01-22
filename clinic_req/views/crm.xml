@@ -1,6 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <record id="assign_doctor_form" model="ir.ui.view">
+        <field name="model">physician.wizard</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="wizard_dentist_id"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button special="cancel" string="Cancel"
+                            icon="fa-times-circle text-danger"/>
+                    <button name="select_doctor" string="Assign Doctor"
+                            type="object" icon="fa-arrow-right text-success"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="assign_service_form" model="ir.ui.view">
+        <field name="model">service.wizard</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="wizard_service_id" domain="[('show_on_app','=',True)]" widget="many2many_tags"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button special="cancel" string="Cancel"
+                            icon="fa-times-circle text-danger"/>
+                    <button name="select_service" string="Assign Services"
+                            type="object" icon="fa-arrow-right text-success"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="assign_discount_form" model="ir.ui.view">
+        <field name="model">discount.wizard</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="discount"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button special="cancel" string="Cancel"
+                            icon="fa-times-circle text-danger"/>
+                    <button name="apply_discount" string="Apply Discount"
+                            type="object" icon="fa-arrow-right text-success"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_physician_wizard" model="ir.actions.act_window">
+        <field name="name">Assign Doctor</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">physician.wizard</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+            </p>
+            <p>
+                <!-- More details about what a user can do with this object will be OK -->
+            </p>
+        </field>
+    </record>
+
+
+    <record id="sms_action_server" model="ir.actions.server">
+        <field name="name">Send SMS</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="mail.model_mail_activity"/>
+        <field name="binding_model_id" ref="mail.model_mail_activity"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.action_send_sms()
+        </field>
+    </record>
+
+    <record id="sms_action_server_patient" model="ir.actions.server">
+        <field name="name">Send SMS Patient</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="pragtech_dental_management.model_medical_patient"/>
+        <field name="binding_model_id" ref="pragtech_dental_management.model_medical_patient"/>
+        <field name="state">code</field>
+        <field name="code">
+            action = model.action_send_sms()
+        </field>
+    </record>
+
     <!-- Inherit Form View to Modify it -->
     <record id="edit_mail_activity" model="ir.ui.view">
         <field name="model">mail.activity</field>
@@ -9,6 +104,26 @@
 
             <xpath expr="//field[@name='summary']" position="after">
                 <field name="patient_id"/>
+                <field name="tag_patient_ids" widget="many2many_tags"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="edit_search_mail_activity" model="ir.ui.view">
+        <field name="model">mail.activity</field>
+        <field name="inherit_id" ref="mail.mail_activity_view_search"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//filter[@name='date_deadline']" position="after">
+                <filter string="Date of Birth" name="dob" context="{'group_by': 'dob'}"/>
+            </xpath>
+            <xpath expr="//field[@name='res_model_id']" position="replace">
+                <field name="patient_id"/>
+                <field name="tag_patient_ids"/>
+                <field name="phone"/>
+                <field name="mobile"/>
             </xpath>
 
         </field>
@@ -21,6 +136,8 @@
 
             <xpath expr="//field[@name='summary']" position="after">
                 <field name="patient_id"/>
+                <field name="tag_patient_ids" widget="many2many_tags"/>
+                <field name="dob"/>
                 <field name="phone"/>
                 <field name="mobile"/>
             </xpath>
@@ -30,6 +147,19 @@
 
     <!-- This Menu Item must have a parent and an action -->
     <menuitem id="activity_menu" name="Activities" action="mail.mail_activity_action" sequence="5"/>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="edit_crm_stage" model="ir.ui.view">
+        <field name="model">crm.stage</field>
+        <field name="inherit_id" ref="crm.crm_stage_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='is_won']" position="after">
+                <field name="is_lost"/>
+            </xpath>
+
+        </field>
+    </record>
     <!-- Inherit Form View to Modify it -->
     <record id="edit_crm" model="ir.ui.view">
         <field name="model">crm.lead</field>
@@ -37,7 +167,20 @@
         <field name="arch" type="xml">
 
             <xpath expr="//page[@name='internal_notes']" position="replace"/>
+            <xpath expr="//group[@name='lead_priority']/field[@name='priority']" position="replace">
+                <field name="priority" optional="show" widget="priority"/>
+            </xpath>
+            <xpath expr="//field[@name='priority']" position="replace">
+                <field name="priority" optional="show" widget="priority"/>
+            </xpath>
             <xpath expr="//label[@for='contact_name']" position="replace"/>
+            <xpath expr="//button[@name='%(crm.crm_lead_lost_action)d']" position="replace">
+                <field name="check_lost" invisible="1"/>
+                <button name="%(crm.crm_lead_lost_action)d" string="Mark Lost"
+                    type="action" class="oe_highlight" context="{'default_lead_id': active_id}" attrs="{'invisible': [('check_lost','=',True)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='contact_name']" position="replace"/>
+            <xpath expr="//field[@name='title']" position="replace"/>
             <xpath expr="//page[@name='lead']/group/group[@class='mt48']" position="replace"/>
             <xpath expr="//page[@name='lead']/group/group" position="replace"/>
             <xpath expr="//sheet/group/group[3]" position="after">
@@ -60,10 +203,34 @@
             </xpath>
             <xpath expr="//field[@name='medium_id']" position="replace"/>
             <xpath expr="//sheet/group/group[2]/field[@name='partner_id']" position="replace">
-                <field name="patient" string="Patient" options="{'open': True, 'create': True}"/>
+                <!--<field name="patient" string="Patient" options="{'open': True, 'create': True}"/>-->
+                <field name="patient_id_number" string="Patient ID" readonly="1"/>
+
+                <field name="first_name"/>
+                <field name="middle_name"/>
+                <field name="last_name"/>
+                <field name="video_link" widget="url"/>
+                <field name="passcode"/>
             </xpath>
             <xpath expr="//field[@name='user_id']" position="before">
                 <field name="medium_id"/>
+            </xpath>
+            <xpath expr="//group[@name='lead_info']/field[@name='phone_state']" position="after">
+                <field name="branch_id" invisible="1"/>
+                <field name="room_id" invisible="1"/>
+                <field name="occupation_id" string="Occupation"/>
+                <field name="gender"/>
+                <field name="tag_ids" widget="many2many_tags"
+                       options="{'color_field': 'color', 'no_create_edit': True}"/>
+                <field name="chief"/>
+            </xpath>
+            <xpath expr="//sheet/group/group[1]/field[@name='partner_id']" position="replace">
+                <field name="partner_id" invisible="1"/>
+                <field name="patient" string="Patient" options="{'open': True, 'create': True}"/>
+                <field name="patient_id_number" string="Patient ID"/>
+                <field name="first_name"/>
+                <field name="middle_name"/>
+                <field name="last_name"/>
             </xpath>
             <xpath expr="//field[@name='phone_state']" position="after">
                 <!--<group class="mt48">-->
@@ -76,7 +243,6 @@
                 <field name="birthday"/>
                 <field name="age"/>
                 <field name="gender"/>
-                <!--</group>-->
             </xpath>
             <xpath expr="//div[@class='oe_button_box']" position="inside">
                 <button name="open_appointment" type="object" class="oe_stat_button" icon="fa-hand-o-right"
@@ -110,11 +276,15 @@
                 <button name="create_patient" string="Create Patient" type="object" class="oe_highlight"
                         attrs="{'invisible':[('is_create_patient','=',True)]}"/>
             </xpath>
+            <xpath expr="//page[@name='lead']/group/group[@name='Misc']/field[@name='referred']" position="replace">
+                <field name="refer_patient_id"/>
+                <field name="referring_doctor_id"/>
+            </xpath>
             <xpath expr="//field[@name='referred']" position="replace">
                 <field name="refer_patient_id"/>
                 <field name="referring_doctor_id"/>
             </xpath>
-            <xpath expr="//field[@name='tag_ids']" position="after">
+            <xpath expr="//field[@name='date_deadline']" position="after">
                 <field name="chief"/>
                 <field name="case" invisible="1"/>
             </xpath>
@@ -125,6 +295,64 @@
                 </page>
             </xpath>
 
+
+        </field>
+    </record>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="edit_product" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@name='options']" position="inside">
+                <div>
+                    <field name="show_on_app"/>
+                    <label for="show_on_app"/>
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="not_create_patient_kanban" model="ir.ui.view">
+        <field name="model">medical.patient</field>
+        <field name="inherit_id" ref="pragtech_dental_management.medical_patient_kanban"/>
+        <field name="groups_id" eval="[(4, ref('pragtech_dental_management.group_dental_doc_menu'))]"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="create">false</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="not_create_appointment_tree" model="ir.ui.view">
+        <field name="model">medical.appointment</field>
+        <field name="inherit_id" ref="pragtech_dental_management.medical_appointment_tree"/>
+        <field name="groups_id" eval="[(4, ref('pragtech_dental_management.group_dental_doc_menu'))]"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">false</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="not_create_patient_tree" model="ir.ui.view">
+        <field name="model">medical.patient</field>
+        <field name="inherit_id" ref="pragtech_dental_management.medical_patient_tree"/>
+        <field name="groups_id" eval="[(4, ref('pragtech_dental_management.group_dental_doc_menu'))]"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">false</attribute>
+            </xpath>
 
         </field>
     </record>
@@ -154,10 +382,15 @@
             </xpath>
             <xpath expr="//button[@name='create_payment']" position="after">
                 <button name="notify_patient_coordinator" string="Notify Patient Coordinator" type="object"
-                        attrs="{'invisible': [('state', 'not in', ['checkin'])]}"/>
+                        attrs="{'invisible': 1}"/>
 
                 <button name="open_survey" string="Open Survey" type="object"
-                        attrs="{'invisible': [('state', '=', 'done')]}"/>
+                        attrs="{'invisible': [('state', '!=', 'done')]}"/>
+                <button name="product_multi_choose" string="Add Service" type="object"
+                        attrs="{'invisible': [('state', '!=', 'checkin')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='comments']" position="before">
+                <field name="wizard_service_id" colspan="4" readonly="1"/>
             </xpath>
             <xpath expr="//field[@name='service_id']" position="after">
                 <field name="chief"/>
@@ -170,6 +403,20 @@
         </field>
     </record>
 
+    <!--<record id="action_send_sms_activity" model="ir.actions.server">-->
+    <!--<field name="name">Send SMS</field>-->
+    <!--<field name="model_id" ref="mail.model_mail_activity"/>-->
+    <!--<field name="state">code</field>-->
+    <!--<field name="code">records.action_send_sms()</field>-->
+    <!--</record>-->
+
+    <!--<record id="action_send_sms" model="ir.actions.server">-->
+    <!--<field name="name">Send SMS</field>-->
+    <!--<field name="model_id" ref="pragtech_dental_management.model_medical_patient"/>-->
+    <!--<field name="state">code</field>-->
+    <!--<field name="code">records.action_send_sms()</field>-->
+    <!--</record>-->
+
     <!-- Inherit Form View to Modify it -->
     <record id="edit_patient" model="ir.ui.view">
         <field name="model">medical.patient</field>
@@ -178,23 +425,61 @@
             <xpath expr="//header" position="inside">
                 <button name="action_appointment" string="Create Appointment" type="object"/>
             </xpath>
+            <xpath expr="//page[2]" position="replace">
+                <page string="Medical Questionnaire">
+                    <group>
+                        <field name="patient_chief_compliant"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="allergy"/>
+                            <field name="cardiac_disease"/>
+                            <field name="diabetes_melitus"/>
+                            <field name="hypertension"/>
+                        </group>
+                        <group>
+                            <field name="kidney_disease"/>
+                            <field name="liver_disease"/>
+                            <field name="pregnancy"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <field name="surgery"/>
+                        <field name="other"/>
+                    </group>
+                    <group>
+                        <field name="medication"/>
+                        <field name="post_dental_history"/>
+                        <field name="habits"/>
+                    </group>
+                </page>
+            </xpath>
             <xpath expr="//page[8]/group" position="before">
                 <group>
                     <group>
-                        <field name="discount"/>
-                        <button name="get_all_discount" string="Add Discount" type="object" class="oe_highlight"/>
+                        <field name="is_coordinator" invisible="1"/>
+                        <field name="discount_option" attrs="{'readonly':[('is_coordinator','=',True)]}"/>
+                        <field name="discount" attrs="{'readonly':[('is_coordinator','=',True)]}"/>
+
                     </group>
                     <group>
-                        <field name="wizard_dentist_id"/>
-                        <button name="dentist_multi_choose" string="Dentist Multi choose" type="object"
-                                class="oe_highlight"/>
+                        <button name="get_all_discount" string="Add Discount" type="object" class="oe_highlight"/>
+                        <!--<field name="wizard_dentist_id"/>-->
+
                     </group>
                 </group>
                 <group>
                     <group>
-                        <button name="delete_selection" string="Delete Selection Record" type="object"
+                        <button name="delete_selection" string="Delete Line" type="object"
                                 class="oe_highlight"/>
 
+                    </group>
+                    <group>
+                        <button name="dentist_multi_choose" string="Assign Dentist" type="object"
+                                class="oe_highlight"/>
+                        <button name="apply_additional_discount" string="Apply Additional Discount" type="object"
+                                class="oe_highlight"/>
                     </group>
                     <group>
                         <button name="service_confirmation" string="Services Confirmation" type="object"
@@ -203,15 +488,21 @@
                 </group>
 
                 <group>
+                    <field name="is_selected" widget="boolean_toggle"/>
 
-                    <button name="select_all" string="Select All" type="object" class="oe_highlight"/>
-                    <button name="unselect_all" string="Unselect All" type="object" class="oe_highlight"/>
+                    <!--<button name="select_all" string="Select All" type="object" class="oe_highlight"/>-->
+                    <!--<button name="unselect_all" string="Unselect All" type="object" class="oe_highlight"/>-->
                 </group>
             </xpath>
             <field name="nationality_id" position="after">
-                <field name="chief"/>
+                <field name="chief" widget="many2many_tags"/>
+                <field name="campaign_id"/>
+                <field name="refer_patient_id"/>
                 <field name="tag_ids" widget="many2many_tags"/>
             </field>
+            <xpath expr="//notebook/page[1]/group/group[3]/field[@name='referred']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
             <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree" position="attributes">
                 <attribute name="editable">bottom</attribute>
             </xpath>
@@ -236,10 +527,10 @@
                    position="after">
                 <group class="oe_subtotal_footer oe_right">
                     <field name="service_amount"/>
-                    <field name="total_discount" attrs="{'readonly':0}"/>
+                    <field name="total_discount"/>
                     <field name="service_net"/>
                     <field name="total_payment"/>
-                    <!--<field name="discount_for_total"/>-->
+                    <field name="discount_for_total" invisible="1"/>
                     <field name="total_net" class="oe_subtotal_footer_separator"/>
                 </group>
             </xpath>
@@ -247,19 +538,13 @@
                    position="after">
                 <field name="inv" invisible="1"/>
                 <field name="account_id" invisible="1"/>
-                <field name="invc_id"/>
+                <field name="invc_id" invisible="1"/>
+                <field name="is_coordinator" invisible="1"/>
                 <field name="discount_amount"/>
-                <field name="discount"/>
+                <field name="discount" attrs="{'readonly':[('is_coordinator','=',True)]}"/>
                 <field name="net_amount"/>
-                <!--<button name="create_invoice"-->
-                <!--attrs="{'invisible':['|',-->
-                <!--('inv','=',True),-->
-                <!--('state','=','invoiced')]}"-->
-                <!--class="oe_highlight"-->
-                <!--string="Create Invoice"-->
-                <!--type="object" context="{'asset':1}"/>-->
                 <button name="open_invoice"
-                        attrs="{'invisible':[('inv','=',False)]}"
+                        attrs="{'invisible':1}"
                         class="oe_highlight"
                         string="Open Invoice"
                         type="object"
@@ -318,4 +603,65 @@
 
     <menuitem id="menu_patient_payment" name="Patient Payment" parent="pragtech_dental_management.medical_patients_menu"
               action="account.action_account_payments" sequence="5"/>
+
+    <record id="appointment_survey_form" model="ir.ui.view">
+        <field name="model">appointment.survey</field>
+        <field name="arch" type="xml">
+            <form string="Appointment Survey">
+                <header>
+                    <button name="confirm" string="Confirm" type="object" states="draft"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed"
+                           statusbar_colors='{"confirmed":"blue","draft":"red"}'/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="appointment_id"/>
+                            <field name="patient_id"/>
+                            <field name="doctor"/>
+                        </group>
+
+                        <group>
+                            <field name="priority_reception" optional="show" widget="priority"/>
+                            <field name="priority_medical_procedure" optional="show" widget="priority"/>
+                            <field name="priority_sterilization_hygiene" optional="show" widget="priority"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="desc"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="appointment_survey_tree" model="ir.ui.view">
+        <field name="model">appointment.survey</field>
+        <field name="arch" type="xml">
+            <tree string="Appointment Survey">
+                <field name="appointment_id"/>
+                <field name="patient_id"/>
+                <field name="doctor"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_appointment_survey" model="ir.actions.act_window">
+        <field name="name">Appointment Survey</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">appointment.survey</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+            </p>
+            <p>
+                <!-- More details about what a user can do with this object will be OK -->
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_survey" name="Appointment Survey" parent="pragtech_dental_management.medical_patients_menu"
+              action="action_appointment_survey" sequence="5"
+              groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager"/>
 </odoo>
