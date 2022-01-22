@@ -511,7 +511,7 @@ class Service(models.TransientModel):
     def select_service(self):
         appointment_ids = self.env['medical.appointment'].browse(self._context.get('active_ids', False))
         patient = self.env['medical.patient'].search([('id', '=', appointment_ids.patient.id)], limit=1)
-        appointment_ids.sudo().write({'wizard_service_id': [(4, self.wizard_service_id.ids)]})
+        appointment_ids.sudo().write({'wizard_service_id': [(4, [self.wizard_service_id.ids])]})
         treatment_obj = self.env['medical.teeth.treatment']
         # for line in appointment_ids:
         for record in self.wizard_service_id:

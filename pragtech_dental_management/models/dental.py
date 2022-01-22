@@ -1789,12 +1789,13 @@ class MedicalAppointment(models.Model):
             if line.state == "done":
                 body = '<a target=_BLANK href="/web?#id=' + str(
                     line.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + '</a>'
-                line.sudo().message_notify(
-                    partner_ids=[line.patient_coordinator.partner_id.id],
-                    subject='Appointment' + str(line.name) + "is Completed ",
-                    body="Appointment " + body + "with Patient" + str(line.patient.partner_name) + " is Completed",
-                    message_type='comment',
-                    subtype_id=self.env.ref('mail.mt_note').id)
+                if line.patient_coordinator:
+                    line.sudo().message_notify(
+                        partner_ids=[line.patient_coordinator.partner_id.id],
+                        subject='Appointment' + str(line.name) + "is Completed ",
+                        body="Appointment " + body + "with Patient" + str(line.patient.partner_name) + " is Completed",
+                        message_type='comment',
+                        subtype_id=self.env.ref('mail.mt_note').id)
 
     def action_postpone(self):
         return self.write({'state': 'postpone'})
