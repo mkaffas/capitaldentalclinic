@@ -552,7 +552,7 @@ class Discount(models.TransientModel):
 
 class AccountPayment(models.Model):
     _name = "account.payment"
-    _inherit = ["account.payment", "date.range.search.mixin"]
+    _inherit = ["account.payment", "date.range"]
 
 class Patient(models.Model):
     _inherit = 'medical.patient'
