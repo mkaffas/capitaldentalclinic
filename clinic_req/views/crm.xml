@@ -1,6 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <record id="view_patient_payment_pivot" model="ir.ui.view">
+        <field name="name">Patient Payment Pivot</field>
+        <field name="model">account.payment</field>
+        <field name="arch" type="xml">
+            <pivot string="Pivot View">
+                <field name="partner_id" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
+
+    <record id="action_view_patient_payment_pivot" model="ir.actions.act_window">
+        <field name="name">View Patient Payment Pivot</field>
+        <field name="res_model">account.payment</field>
+        <field name="view_mode">pivot</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Enter the target</p>
+        </field>
+    </record>
+
+
+    <menuitem name="Patient Payment Report" id="menu_report_patient_payment" parent="pragtech_dental_management.medical_menu"
+              action="action_view_patient_payment_pivot"
+              sequence="5"/>
+
+    <record id="view_appointment_pivot" model="ir.ui.view">
+        <field name="name">Appointment Pivot</field>
+        <field name="model">medical.appointment</field>
+        <field name="arch" type="xml">
+            <pivot string="Pivot View">
+                <field name="name" type="row"/>
+                <field name="patient" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
+
+    <record id="action_view_appointment_pivot" model="ir.actions.act_window">
+        <field name="name">View Appointment Pivot</field>
+        <field name="res_model">medical.appointment</field>
+        <field name="view_mode">pivot</field>
+        <field name="domain">[]</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Enter the target</p>
+        </field>
+    </record>
+
+
+    <menuitem name="Appointment Report" id="menu_report_appointment" parent="pragtech_dental_management.medical_menu"
+              action="action_view_appointment_pivot"
+              sequence="5"/>
+
+
     <record id="assign_doctor_form" model="ir.ui.view">
         <field name="model">physician.wizard</field>
         <field name="arch" type="xml">
@@ -177,7 +231,8 @@
             <xpath expr="//button[@name='%(crm.crm_lead_lost_action)d']" position="replace">
                 <field name="check_lost" invisible="1"/>
                 <button name="%(crm.crm_lead_lost_action)d" string="Mark Lost"
-                    type="action" class="oe_highlight" context="{'default_lead_id': active_id}" attrs="{'invisible': [('check_lost','=',True)]}"/>
+                        type="action" class="oe_highlight" context="{'default_lead_id': active_id}"
+                        attrs="{'invisible': [('check_lost','=',True)]}"/>
             </xpath>
             <xpath expr="//field[@name='contact_name']" position="replace"/>
             <xpath expr="//field[@name='title']" position="replace"/>
