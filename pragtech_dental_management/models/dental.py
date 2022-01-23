@@ -673,7 +673,7 @@ class MedicalPatient(models.Model):
     _name = "medical.patient"
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Patient related information"
-    _rec_name = "partner_id"
+    _rec_name = "partner_name"
 
     stage_id = fields.Many2one(
         'patient.stage',
@@ -1446,7 +1446,7 @@ class MedicalMedicationDosage(models.Model):
 class MedicalAppointment(models.Model):
     _name = "medical.appointment"
     _inherit = ['mail.thread', 'mail.activity.mixin']
-    _rec_name = "name"
+    _rec_name = "patient"
     _description = "Medical Appointment"
     _order = "appointment_sdate desc"
 
@@ -1692,25 +1692,25 @@ class MedicalAppointment(models.Model):
             'type': 'ir.actions.act_window',
         }
 
-    @api.constrains('appointment_sdate', 'appointment_edate', 'room_id')
-    def _check_room_overlaps(self):
-        """ Validate dates to prevent overlaps """
-        for record in self:
-            start = record.appointment_sdate
-            end = record.appointment_edate
-            if record.room_id:
-                overlaps = self.search([
-                    ('id', '!=', record.id), ('room_id', '=', record.room_id.id),
-                    ('state', 'not in', ['postpone', 'cancel', 'missed']),
-                    '|', '&',
-                    ('appointment_sdate', '<=', start),
-                    ('appointment_edate', '>=', start), '&',
-                    ('appointment_sdate', '<=', end),
-                    ('appointment_edate', '>=', end),
-                ])
-                if overlaps:
-                    raise ValidationError(_("Room Cannot have more than "
-                                            "one appointment in the same time"))
+    # @api.constrains('appointment_sdate', 'appointment_edate', 'room_id')
+    # def _check_room_overlaps(self):
+    #     """ Validate dates to prevent overlaps """
+    #     for record in self:
+    #         start = record.appointment_sdate
+    #         end = record.appointment_edate
+    #         if record.room_id:
+    #             overlaps = self.search([
+    #                 ('id', '!=', record.id), ('room_id', '=', record.room_id.id),
+    #                 ('state', 'not in', ['postpone', 'cancel', 'missed']),
+    #                 '|', '&',
+    #                 ('appointment_sdate', '<=', start),
+    #                 ('appointment_edate', '>=', start), '&',
+    #                 ('appointment_sdate', '<=', end),
+    #                 ('appointment_edate', '>=', end),
+    #             ])
+    #             if overlaps:
+    #                 raise ValidationError(_("Room Cannot have more than "
+    #                                         "one appointment in the same time"))
 
     # @api.constrains('appointment_sdate', 'appointment_edate', 'doctor')
     # def _check_doctor_overlaps(self):

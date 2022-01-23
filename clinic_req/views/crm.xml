@@ -479,6 +479,7 @@
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
                 <button name="action_appointment" string="Create Appointment" type="object"/>
+                <button name="create_payment" string="Create Payment" type="object"/>
             </xpath>
             <xpath expr="//page[2]" position="replace">
                 <page string="Medical Questionnaire">

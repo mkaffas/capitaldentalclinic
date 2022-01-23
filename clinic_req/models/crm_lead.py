@@ -364,6 +364,7 @@ class Survey_app(models.Model):
 
 class Appointment(models.Model):
     _inherit = 'medical.appointment'
+    _rec_name = "patient"
 
     crm_id = fields.Many2one(comodel_name="crm.lead", string="",
                              required=False, )
@@ -556,6 +557,8 @@ class Discount(models.TransientModel):
 
 class Patient(models.Model):
     _inherit = 'medical.patient'
+    _rec_name = "partner_name"
+
     discount = fields.Float(string='Discount', digits=(3, 6),
                             default=0.0)
     service_amount = fields.Float(string="Service amount before tax",
@@ -600,6 +603,20 @@ class Patient(models.Model):
     patient_chief_compliant = fields.Many2one(comodel_name="chief.complaint", string="Patient Chef Compliant", )
 
     # patient_compliant = fields.Many2one(comodel_name='chief.complaint',string="Patient Chef Compliant", required=False, )
+
+    def create_payment(self):
+        wiz_form_id = self.env['ir.model.data'].get_object_reference(
+            'account', 'view_account_payment_form')[1]
+        return {
+            'view_type': 'form',
+            'view_id': wiz_form_id,
+            'view_mode': 'form',
+            'res_model': 'account.payment',
+            'nodestroy': True,
+            'target': 'current',
+            'context': {'default_partner_id': self.partner_id.id },
+            'type': 'ir.actions.act_window',
+        }
 
     @api.constrains('check_state')
     def check_state_teeth(self):
