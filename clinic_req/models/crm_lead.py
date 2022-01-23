@@ -364,6 +364,7 @@ class Survey_app(models.Model):
 
 class Appointment(models.Model):
     _inherit = 'medical.appointment'
+    _rec_name = "patient"
 
     crm_id = fields.Many2one(comodel_name="crm.lead", string="",
                              required=False, )
@@ -557,7 +558,7 @@ class Discount(models.TransientModel):
 class Patient(models.Model):
     _inherit = 'medical.patient'
     _rec_name = "partner_name"
-    
+
     discount = fields.Float(string='Discount', digits=(3, 6),
                             default=0.0)
     service_amount = fields.Float(string="Service amount before tax",

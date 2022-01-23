@@ -673,7 +673,7 @@ class MedicalPatient(models.Model):
     _name = "medical.patient"
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Patient related information"
-    _rec_name = "partner_id"
+    _rec_name = "partner_name"
 
     stage_id = fields.Many2one(
         'patient.stage',
@@ -1446,7 +1446,7 @@ class MedicalMedicationDosage(models.Model):
 class MedicalAppointment(models.Model):
     _name = "medical.appointment"
     _inherit = ['mail.thread', 'mail.activity.mixin']
-    _rec_name = "name"
+    _rec_name = "patient"
     _description = "Medical Appointment"
     _order = "appointment_sdate desc"
 
