@@ -817,7 +817,7 @@ odoo.define('pragtech_dental_management.chart_action', function (require) {
                 if (each_operation['status'] == 'in_progress')
                     each_operation['status'] = 'in_progress';
                 if (each_operation['tooth_id']) {
-                    console.log("Prgogresss  111")
+                    console.log("Prgogresss  111",self_var);
                     self_var.put_data(self_var, each_operation['surface'].split(' '), each_operation['tooth_id'], false, each_operation['status'], each_operation['created_date'], each_operation['completion_date'], each_operation['dentist'], each_operation['op_line_id'], is_prev_record_from_write, each_operation['other_history']);
                 } else {
                     self_var.put_data_full_mouth(self_var, each_operation.multiple_teeth, 1, selected_treatment, each_operation['status'], each_operation['created_date'], each_operation['completion_date'], each_operation['dentist'], each_operation['op_line_id'], is_prev_record_from_write, each_operation['other_history']);
