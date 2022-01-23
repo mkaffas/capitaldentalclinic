@@ -1030,6 +1030,7 @@ odoo.define('pragtech_dental_management.chart_action', function (require) {
                             vals_dict.completion_date = completion_date
                         }
                         treatment_lines_2.push(vals_dict);
+                        console.log("=======================",treatment_lines_2);
                     }
                 }
             }
