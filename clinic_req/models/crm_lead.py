@@ -601,6 +601,20 @@ class Patient(models.Model):
 
     # patient_compliant = fields.Many2one(comodel_name='chief.complaint',string="Patient Chef Compliant", required=False, )
 
+    def create_payment(self):
+        wiz_form_id = self.env['ir.model.data'].get_object_reference(
+            'account', 'view_account_payment_form')[1]
+        return {
+            'view_type': 'form',
+            'view_id': wiz_form_id,
+            'view_mode': 'form',
+            'res_model': 'account.payment',
+            'nodestroy': True,
+            'target': 'current',
+            'context': {'default_partner_id': self.partner_id.id },
+            'type': 'ir.actions.act_window',
+        }
+
     @api.constrains('check_state')
     def check_state_teeth(self):
         for line in self:
