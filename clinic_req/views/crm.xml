@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <pivot string="Pivot View">
                 <field name="partner_id" type="row"/>
+                <field name="date" type="col"/>
             </pivot>
         </field>
     </record>
@@ -479,7 +480,8 @@
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
                 <button name="action_appointment" string="Create Appointment" type="object"/>
-                <button name="create_payment" string="Create Payment" type="object"/>
+                <button name="create_payment" string="Make Payment" type="object"/>
+                <button name="patient_complaint" string="Patient Compliant" type="object"/>
             </xpath>
             <xpath expr="//page[2]" position="replace">
                 <page string="Medical Questionnaire">
@@ -578,6 +580,9 @@
                             context="{'default_partner_id': partner_id}">
                     </button>
                 </div>
+            </xpath>
+            <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/field[@name='dentist']" position="attributes">
+                <attribute name="groups">pragtech_dental_management.group_dental_admin</attribute>
             </xpath>
             <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']"
                    position="after">

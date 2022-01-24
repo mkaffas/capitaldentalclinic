@@ -618,6 +618,20 @@ class Patient(models.Model):
             'type': 'ir.actions.act_window',
         }
 
+    def patient_complaint(self):
+        wiz_form_id = self.env['ir.model.data'].get_object_reference(
+            'pragtech_dental_management', 'patient_complaint_form_view')[1]
+        return {
+            'view_type': 'form',
+            'view_id': wiz_form_id,
+            'view_mode': 'form',
+            'res_model': 'patient.complaint',
+            'nodestroy': True,
+            'target': 'current',
+            'context': {'default_patient_id': self.id },
+            'type': 'ir.actions.act_window',
+        }
+
     @api.constrains('check_state')
     def check_state_teeth(self):
         for line in self:
@@ -695,9 +709,15 @@ class Patient(models.Model):
                 [('partner_id', '=', record.partner_id.id)])
             for payment in obj_payment:
                 if payment.payment_type == 'inbound':
-                    total_payment += payment.amount
+                    total_payment += self.env['res.currency']._compute(payment.currency_id,
+                                                      payment.company_id.currency_id,
+                                                      payment.amount)
+                    # total_payment += payment.amount
                 elif payment.payment_type == 'outbound':
-                    total_payment -= payment.amount
+                    total_payment -= self.env['res.currency']._compute(payment.currency_id,
+                                                                       payment.company_id.currency_id,
+                                                                       payment.amount)
+                    # total_payment -= payment.amount
             record.total_payment = total_payment
             total_net = record.service_net - record.total_payment
             record.total_net = total_net
