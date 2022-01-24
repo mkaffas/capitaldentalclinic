@@ -1172,7 +1172,7 @@ class MedicalPatient(models.Model):
                 'tag': 'dental_chart',
                 'params': {
                     'patient_id': rec.id or False,
-                    'appt_id': appt_id,
+                    'appt_id': False,
                     'model': 'medical.patient',
                     'type': teeth.type,
                     'dentist': rec.referring_doctor_id.id
