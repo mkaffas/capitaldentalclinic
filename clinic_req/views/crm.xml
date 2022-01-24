@@ -581,7 +581,7 @@
                     </button>
                 </div>
             </xpath>
-            <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/field[@name='dentist']" position="attributes">
+            <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree/field[@name='dentist']" position="attributes">
                 <attribute name="groups">pragtech_dental_management.group_dental_admin</attribute>
             </xpath>
             <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']"
