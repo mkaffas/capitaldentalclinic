@@ -2244,27 +2244,27 @@ class TeethCode(models.Model):
                     {'palmer_name': vals['palmer_name']})
         return super(TeethCode, self).write(vals)
 
-    @api.model
-    def name_get(self):
-        res = []
-        teeth_obj = self.env['chart.selection'].search([])
-        obj = teeth_obj[-1]
-        for each in self:
-            name = each.name
-            if obj.type == 'palmer':
-                name = str(each.palmer_internal_id)
-                if each.internal_id <= 8:
-                    name += '-1x'
-                elif each.internal_id <= 16:
-                    name += '-2x'
-                elif each.internal_id <= 24:
-                    name += '-3x'
-                else:
-                    name += '-4x'
-            elif obj.type == 'iso':
-                name = each.iso
-            res.append((each.id, name))
-        return res
+    # @api.model
+    # def name_get(self):
+    #     res = []
+    #     teeth_obj = self.env['chart.selection'].search([])
+    #     obj = teeth_obj[-1]
+    #     for each in self:
+    #         name = each.name
+    #         if obj.type == 'palmer':
+    #             name = str(each.palmer_internal_id)
+    #             if each.internal_id <= 8:
+    #                 name += '-1x'
+    #             elif each.internal_id <= 16:
+    #                 name += '-2x'
+    #             elif each.internal_id <= 24:
+    #                 name += '-3x'
+    #             else:
+    #                 name += '-4x'
+    #         elif obj.type == 'iso':
+    #             name = each.iso
+    #         res.append((each.id, name))
+    #     return res
 
     def get_teeth_code(self):
         l1 = [];
