@@ -673,7 +673,7 @@ class MedicalPatient(models.Model):
     _name = "medical.patient"
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Patient related information"
-    _rec_name = "partner_name"
+    _rec_name = "patient_name"
 
     stage_id = fields.Many2one(
         'patient.stage',
@@ -687,9 +687,10 @@ class MedicalPatient(models.Model):
                                  domain=[('is_patient', '=', True),
                                          ('is_person', '=', True)],
                                  help="Patient Name")
-    partner_name = fields.Char(string="Patient name", compute="get_patient_name" )
+    partner_name = fields.Char(string="Patient name", compute="get_partner_name" )
+    patient_name = fields.Char(string="Patient name", compute="get_patient_name" )
 
-    def get_patient_name(self):
+    def get_partner_name(self):
         for line in self:
             if line.partner_id.name and line.partner_id.middle_name and line.partner_id.lastname:
                 line.partner_name = line.partner_id.name + ' ' + line.partner_id.middle_name + ' '+ line.partner_id.lastname
@@ -699,6 +700,16 @@ class MedicalPatient(models.Model):
                 line.partner_name = line.partner_id.name + ' ' + line.partner_id.middle_name
             else:
                 line.partner_name = line.partner_id.name
+    def get_patient_name(self):
+        for line in self:
+            if line.first_name and line.middle_name and line.lastname:
+                line.patient_name = line.first_name + ' ' + line.middle_name + ' '+ line.lastname
+            elif line.first_name and not line.middle_name and line.lastname:
+                line.patient_name = line.first_name + ' ' + line.lastname
+            elif line.first_name and line.middle_name and not line.lastname:
+                line.patient_name = line.first_name + ' ' + line.middle_name
+            else:
+                line.patient_name = line.first_name
 
     street = fields.Char(related='partner_id.street', store=True,
                          readonly=False)

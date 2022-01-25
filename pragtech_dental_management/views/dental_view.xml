@@ -849,6 +849,7 @@
                             <field name="partner_id" groups="pragtech_dental_management.group_dental_admin"
                                    context="{'default_is_patient': 1, 'search_default_is_patient': 1,'search_default_is_person': 1,'default_is_person': 1}"/>
                             <field name="partner_name"/>
+                            <field name="patient_name" invisible="1"/>
                             <field name="first_name"/>
                             <field name="middle_name"/>
                             <field name="lastname"/>
