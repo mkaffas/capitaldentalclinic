@@ -368,12 +368,14 @@ class Appointment(models.Model):
 
     crm_id = fields.Many2one(comodel_name="crm.lead", string="",
                              required=False, )
+    assistant_ids = fields.Many2many(comodel_name="res.users", string="Assistants",related='doctor.assistant_ids' )
     wizard_service_id = fields.Many2many(comodel_name="product.product", string="Services", required=True, )
     patient_coordinator = fields.Many2one(comodel_name="res.users",
                                           string="Patient Coordinator",
                                           related='patient.coordinator_id')
     chief = fields.Many2one(comodel_name='chief.complaint',
                             string="Chief Complaint", required=False, )
+    partner_id = fields.Many2one('res.partner', 'Patient',related="patient.partner_id",store=True)
 
     @api.onchange('state')
     def onchange_state(self):
@@ -618,6 +620,20 @@ class Patient(models.Model):
             'type': 'ir.actions.act_window',
         }
 
+    def patient_complaint(self):
+        wiz_form_id = self.env['ir.model.data'].get_object_reference(
+            'pragtech_dental_management', 'patient_complaint_form_view')[1]
+        return {
+            'view_type': 'form',
+            'view_id': wiz_form_id,
+            'view_mode': 'form',
+            'res_model': 'patient.complaint',
+            'nodestroy': True,
+            'target': 'current',
+            'context': {'default_patient_id': self.id },
+            'type': 'ir.actions.act_window',
+        }
+
     @api.constrains('check_state')
     def check_state_teeth(self):
         for line in self:
@@ -695,9 +711,15 @@ class Patient(models.Model):
                 [('partner_id', '=', record.partner_id.id)])
             for payment in obj_payment:
                 if payment.payment_type == 'inbound':
-                    total_payment += payment.amount
+                    total_payment += self.env['res.currency']._compute(payment.currency_id,
+                                                      payment.company_id.currency_id,
+                                                      payment.amount)
+                    # total_payment += payment.amount
                 elif payment.payment_type == 'outbound':
-                    total_payment -= payment.amount
+                    total_payment -= self.env['res.currency']._compute(payment.currency_id,
+                                                                       payment.company_id.currency_id,
+                                                                       payment.amount)
+                    # total_payment -= payment.amount
             record.total_payment = total_payment
             total_net = record.service_net - record.total_payment
             record.total_net = total_net
@@ -820,6 +842,38 @@ class Patient(models.Model):
         res = super(Patient, self).create(vals)
         return res
 
+
+class Dentist(models.Model):
+    _inherit = 'medical.physician'
+
+    assistant_ids = fields.Many2many(comodel_name="res.users", string="Assistants", )
+
+
+class complaint(models.Model):
+    _name = 'patient.complaint'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+
+    @api.model
+    def create(self, values):
+        res = super(complaint, self).create(values)
+
+        for line in res:
+            partners = self.env.ref(
+                'pragtech_dental_management.group_branch_manager').users.filtered(
+                lambda r: r.partner_id).mapped('partner_id.id')
+            all_partners = partners
+            body = '<a target=_BLANK href="/web?#id=' + str(
+                line.id) + '&view_type=form&model=patient.complaint&action=" style="font-weight: bold">' + '</a>'
+            if all_partners:
+                line.sudo().message_post(
+                    partner_ids=all_partners,
+                    subject="Patient Complaint " + str(
+                        line.complaint_subject) + " is created",
+                    body="New Patient Complaint " + body + "added with Patient " + str(
+                        line.patient_id.partner_id.name),
+                    message_type='comment',
+                    subtype_id=self.env.ref('mail.mt_note').id)
+        return res
 
 class Teeth(models.Model):
     _inherit = 'medical.teeth.treatment'

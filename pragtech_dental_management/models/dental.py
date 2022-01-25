@@ -1844,10 +1844,16 @@ class MedicalAppointment(models.Model):
         self.write({'state': 'in_room'})
         for line in self:
             if line.state == "in_room":
+                list_doctors=[]
+                if line.doctor:
+                    list_doctors.append(line.doctor.user_id.partner_id.id)
+                    if line.doctor.assistant_ids:
+                        for assistant in line.doctor.assistant_ids:
+                            list_doctors.append(assistant.partner_id.id)
                 body = '<a target=_BLANK href="/web?#id=' + str(
                     line.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + '</a>'
                 line.sudo().message_notify(
-                    partner_ids=[line.doctor.user_id.partner_id.id],
+                    partner_ids=list_doctors,
                     subject="Patient " + str(
                         line.patient.partner_name) + " is in Room",
                     body="Patient " + str(
