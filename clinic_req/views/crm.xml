@@ -425,18 +425,18 @@
         </field>
     </record>
 
-    <!-- Inherit Form View to Modify it -->
-    <record id="physician_form_view" model="ir.ui.view">
-        <field name="model">medical.physician</field>
-        <field name="inherit_id" ref="pragtech_dental_management.medical_physician_view"/>
-        <field name="arch" type="xml">
+    <!--&lt;!&ndash; Inherit Form View to Modify it &ndash;&gt;-->
+    <!--<record id="physician_form_view" model="ir.ui.view">-->
+        <!--<field name="model">medical.physician</field>-->
+        <!--<field name="inherit_id" ref="pragtech_dental_management.medical_physician_view"/>-->
+        <!--<field name="arch" type="xml">-->
 
-            <xpath expr="//field[@name='code']" position="after">
-                <field name="assistant_ids" widget="many2many_tags"/>
-            </xpath>
+            <!--<xpath expr="//field[@name='code']" position="after">-->
+                <!--<field name="assistant_ids" widget="many2many_tags"/>-->
+            <!--</xpath>-->
 
-        </field>
-    </record>
+        <!--</field>-->
+    <!--</record>-->
 
     <record id="complaint_form_view" model="ir.ui.view">
         <field name="model">patient.complaint</field>
@@ -465,9 +465,9 @@
             <xpath expr="//field[@name='ready_time']" position="replace"/>
             <xpath expr="//field[@name='waiting_time']" position="replace"/>
             <xpath expr="//field[@name='saleperson_id']" position="replace"/>
-            <xpath expr="//field[@name='doctor']" position="after">
-                <field name="assistant_ids" widget="many2many_tags"/>
-            </xpath>
+            <!--<xpath expr="//field[@name='doctor']" position="after">-->
+                <!--<field name="assistant_ids" widget="many2many_tags"/>-->
+            <!--</xpath>-->
             <xpath expr="//field[@name='comments']" position="after">
                 <field name="partner_id" invisible="1"/>
                 <field name="no_invoice"/>
