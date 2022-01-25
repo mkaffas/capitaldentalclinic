@@ -559,7 +559,7 @@ class Discount(models.TransientModel):
 
 class Patient(models.Model):
     _inherit = 'medical.patient'
-    _rec_name = "partner_name"
+    # _rec_name = "partner_name"
 
     discount = fields.Float(string='Discount', digits=(3, 6),
                             default=0.0)
