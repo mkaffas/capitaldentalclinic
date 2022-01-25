@@ -673,7 +673,7 @@ class MedicalPatient(models.Model):
     _name = "medical.patient"
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Patient related information"
-    # _rec_name = "partner_id"
+    _rec_name = "referred"
 
     stage_id = fields.Many2one(
         'patient.stage',
