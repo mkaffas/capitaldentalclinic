@@ -570,7 +570,7 @@ class MedicalPatient(models.Model):
     def name_get(self):
         result = []
         for partner in self:
-            name = partner.partner_id.name
+            name = partner.partner_name
             if partner.patient_id:
                 name = '[' + partner.patient_id + ']' + name
             result.append((partner.id, name))
