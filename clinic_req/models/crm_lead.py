@@ -368,7 +368,7 @@ class Appointment(models.Model):
 
     crm_id = fields.Many2one(comodel_name="crm.lead", string="",
                              required=False, )
-    # assistant_ids = fields.Many2many(comodel_name="res.users", string="Assistants",related='doctor.assistant_ids' )
+    assistant_ids = fields.Many2many(comodel_name="res.users", string="Assistants",related='doctor.assistant_ids' )
     wizard_service_id = fields.Many2many(comodel_name="product.product", string="Services", required=True, )
     patient_coordinator = fields.Many2one(comodel_name="res.users",
                                           string="Patient Coordinator",
@@ -846,12 +846,12 @@ class Patient(models.Model):
 class Dentist(models.Model):
     _inherit = 'medical.physician'
 
-    # assistant_ids = fields.Many2many(comodel_name="res.users", string="Assistants", )
+    assistant_ids = fields.Many2many(comodel_name="res.users", string="Assistants", )
 
 
 class complaint(models.Model):
-    _name = 'patient.complaint'
-    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = 'patient.complaint'
+    # _inherit = ['mail.thread', 'mail.activity.mixin']
 
     @api.model
     def create(self, values):
