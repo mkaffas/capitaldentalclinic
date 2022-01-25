@@ -687,7 +687,7 @@ class MedicalPatient(models.Model):
                                  domain=[('is_patient', '=', True),
                                          ('is_person', '=', True)],
                                  help="Patient Name")
-    partner_name = fields.Char(string="Patient name", compute="get_patient_name" ,store=True)
+    partner_name = fields.Char(string="Patient name", compute="get_patient_name" )
 
     def get_patient_name(self):
         for line in self:
