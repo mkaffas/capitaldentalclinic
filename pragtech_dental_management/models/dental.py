@@ -2380,6 +2380,7 @@ class pland_visit_alert(models.Model):
 
 class patient_complaint(models.Model):
     _name = "patient.complaint"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Patient Complaint"
 
     patient_id = fields.Many2one('medical.patient', 'Patient ID', required=True)

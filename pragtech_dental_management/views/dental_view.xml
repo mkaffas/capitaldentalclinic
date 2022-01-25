@@ -2127,13 +2127,20 @@
         <field name="model">patient.complaint</field>
         <field name="arch" type="xml">
             <form string="Alert" version="7.0">
-                <group>
-                    <field name="patient_id"/>
-                    <field name="complaint_subject"/>
-                    <field name="complaint_date"/>
-                    <field name="complaint"/>
-                    <field name="action_ta"/>
-                </group>
+                <sheet>
+                    <group>
+                        <field name="patient_id"/>
+                        <field name="complaint_subject"/>
+                        <field name="complaint_date"/>
+                        <field name="complaint"/>
+                        <field name="action_ta"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
             </form>
         </field>
     </record>
