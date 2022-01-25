@@ -570,7 +570,7 @@ class MedicalPatient(models.Model):
     def name_get(self):
         result = []
         for partner in self:
-            name = partner.partner_id.name
+            name = partner.partner_name
             if partner.patient_id:
                 name = '[' + partner.patient_id + ']' + name
             result.append((partner.id, name))
@@ -673,7 +673,7 @@ class MedicalPatient(models.Model):
     _name = "medical.patient"
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Patient related information"
-    _rec_name = "partner_name"
+    _rec_name = "patient_name"
 
     stage_id = fields.Many2one(
         'patient.stage',
@@ -687,9 +687,10 @@ class MedicalPatient(models.Model):
                                  domain=[('is_patient', '=', True),
                                          ('is_person', '=', True)],
                                  help="Patient Name")
-    partner_name = fields.Char(string="Patient name", compute="get_patient_name")
+    partner_name = fields.Char(string="Patient name", compute="get_partner_name" )
+    patient_name = fields.Char(string="Patient name", compute="get_patient_name" )
 
-    def get_patient_name(self):
+    def get_partner_name(self):
         for line in self:
             if line.partner_id.name and line.partner_id.middle_name and line.partner_id.lastname:
                 line.partner_name = line.partner_id.name + ' ' + line.partner_id.middle_name + ' '+ line.partner_id.lastname
@@ -699,6 +700,16 @@ class MedicalPatient(models.Model):
                 line.partner_name = line.partner_id.name + ' ' + line.partner_id.middle_name
             else:
                 line.partner_name = line.partner_id.name
+    def get_patient_name(self):
+        for line in self:
+            if line.first_name and line.middle_name and line.lastname:
+                line.patient_name = line.first_name + ' ' + line.middle_name + ' '+ line.lastname
+            elif line.first_name and not line.middle_name and line.lastname:
+                line.patient_name = line.first_name + ' ' + line.lastname
+            elif line.first_name and line.middle_name and not line.lastname:
+                line.patient_name = line.first_name + ' ' + line.middle_name
+            else:
+                line.patient_name = line.first_name
 
     street = fields.Char(related='partner_id.street', store=True,
                          readonly=False)
@@ -1844,10 +1855,16 @@ class MedicalAppointment(models.Model):
         self.write({'state': 'in_room'})
         for line in self:
             if line.state == "in_room":
+                list_doctors=[]
+                if line.doctor:
+                    list_doctors.append(line.doctor.user_id.partner_id.id)
+                    if line.doctor.assistant_ids:
+                        for assistant in line.doctor.assistant_ids:
+                            list_doctors.append(assistant.partner_id.id)
                 body = '<a target=_BLANK href="/web?#id=' + str(
                     line.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + '</a>'
                 line.sudo().message_notify(
-                    partner_ids=[line.doctor.user_id.partner_id.id],
+                    partner_ids=list_doctors,
                     subject="Patient " + str(
                         line.patient.partner_name) + " is in Room",
                     body="Patient " + str(
@@ -2238,27 +2255,27 @@ class TeethCode(models.Model):
                     {'palmer_name': vals['palmer_name']})
         return super(TeethCode, self).write(vals)
 
-    @api.model
-    def name_get(self):
-        res = []
-        teeth_obj = self.env['chart.selection'].search([])
-        obj = teeth_obj[-1]
-        for each in self:
-            name = each.name
-            if obj.type == 'palmer':
-                name = str(each.palmer_internal_id)
-                if each.internal_id <= 8:
-                    name += '-1x'
-                elif each.internal_id <= 16:
-                    name += '-2x'
-                elif each.internal_id <= 24:
-                    name += '-3x'
-                else:
-                    name += '-4x'
-            elif obj.type == 'iso':
-                name = each.iso
-            res.append((each.id, name))
-        return res
+    # @api.model
+    # def name_get(self):
+    #     res = []
+    #     teeth_obj = self.env['chart.selection'].search([])
+    #     obj = teeth_obj[-1]
+    #     for each in self:
+    #         name = each.name
+    #         if obj.type == 'palmer':
+    #             name = str(each.palmer_internal_id)
+    #             if each.internal_id <= 8:
+    #                 name += '-1x'
+    #             elif each.internal_id <= 16:
+    #                 name += '-2x'
+    #             elif each.internal_id <= 24:
+    #                 name += '-3x'
+    #             else:
+    #                 name += '-4x'
+    #         elif obj.type == 'iso':
+    #             name = each.iso
+    #         res.append((each.id, name))
+    #     return res
 
     def get_teeth_code(self):
         l1 = [];
@@ -2374,6 +2391,7 @@ class pland_visit_alert(models.Model):
 
 class patient_complaint(models.Model):
     _name = "patient.complaint"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Patient Complaint"
 
     patient_id = fields.Many2one('medical.patient', 'Patient ID', required=True)

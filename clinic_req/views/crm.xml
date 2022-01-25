@@ -184,6 +184,30 @@
         </field>
     </record>
 
+    <record id="edit_search_patient" model="ir.ui.view">
+        <field name="model">medical.patient</field>
+        <field name="inherit_id" ref="pragtech_dental_management.view_medical_patient_filter"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='patient_id']" position="after">
+                <field name="mobile"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="edit_search_appointment" model="ir.ui.view">
+        <field name="model">medical.appointment</field>
+        <field name="inherit_id" ref="pragtech_dental_management.view_medical_appointment_filter"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='patient']" position="replace">
+                <field name="partner_id"/>
+            </xpath>
+
+        </field>
+    </record>
+
     <record id="edit_mail_activity_tree" model="ir.ui.view">
         <field name="model">mail.activity</field>
         <field name="inherit_id" ref="mail.mail_activity_view_tree"/>
@@ -414,6 +438,35 @@
     </record>
 
     <!-- Inherit Form View to Modify it -->
+    <record id="physician_form_view" model="ir.ui.view">
+        <field name="model">medical.physician</field>
+        <field name="inherit_id" ref="pragtech_dental_management.medical_physician_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='code']" position="after">
+                <field name="assistant_ids" widget="many2many_tags"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!--<record id="complaint_form_view" model="ir.ui.view">-->
+        <!--<field name="model">patient.complaint</field>-->
+        <!--<field name="inherit_id" ref="pragtech_dental_management.patient_complaint_form_view"/>-->
+        <!--<field name="arch" type="xml">-->
+
+            <!--<xpath expr="//sheet" position="after">-->
+                <!--<div class="oe_chatter">-->
+                    <!--<field name="message_follower_ids"/>-->
+                    <!--<field name="activity_ids"/>-->
+                    <!--<field name="message_ids"/>-->
+                <!--</div>-->
+            <!--</xpath>-->
+
+        <!--</field>-->
+    <!--</record>-->
+
+    <!-- Inherit Form View to Modify it -->
     <record id="edit_dental_appointment" model="ir.ui.view">
         <field name="model">medical.appointment</field>
         <field name="inherit_id" ref="pragtech_dental_management.medical_appointment_view"/>
@@ -424,7 +477,11 @@
             <xpath expr="//field[@name='ready_time']" position="replace"/>
             <xpath expr="//field[@name='waiting_time']" position="replace"/>
             <xpath expr="//field[@name='saleperson_id']" position="replace"/>
+            <xpath expr="//field[@name='doctor']" position="after">
+                <field name="assistant_ids" widget="many2many_tags"/>
+            </xpath>
             <xpath expr="//field[@name='comments']" position="after">
+                <field name="partner_id" invisible="1"/>
                 <field name="no_invoice"/>
                 <field name="checkin_time"/>
                 <field name="ready_time"/>
