@@ -477,9 +477,9 @@
             <xpath expr="//field[@name='ready_time']" position="replace"/>
             <xpath expr="//field[@name='waiting_time']" position="replace"/>
             <xpath expr="//field[@name='saleperson_id']" position="replace"/>
-            <!--<xpath expr="//field[@name='doctor']" position="after">-->
-                <!--<field name="assistant_ids" widget="many2many_tags"/>-->
-            <!--</xpath>-->
+            <xpath expr="//field[@name='doctor']" position="after">
+                <field name="assistant_ids" widget="many2many_tags"/>
+            </xpath>
             <xpath expr="//field[@name='comments']" position="after">
                 <field name="partner_id" invisible="1"/>
                 <field name="no_invoice"/>
