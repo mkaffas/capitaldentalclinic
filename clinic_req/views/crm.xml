@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <pivot string="Pivot View">
                 <field name="partner_id" type="row"/>
+                <field name="date" type="col"/>
             </pivot>
         </field>
     </record>
@@ -178,6 +179,30 @@
                 <field name="tag_patient_ids"/>
                 <field name="phone"/>
                 <field name="mobile"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="edit_search_patient" model="ir.ui.view">
+        <field name="model">medical.patient</field>
+        <field name="inherit_id" ref="pragtech_dental_management.view_medical_patient_filter"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='patient_id']" position="after">
+                <field name="mobile"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="edit_search_appointment" model="ir.ui.view">
+        <field name="model">medical.appointment</field>
+        <field name="inherit_id" ref="pragtech_dental_management.view_medical_appointment_filter"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='patient']" position="replace">
+                <field name="partner_id"/>
             </xpath>
 
         </field>
@@ -413,6 +438,35 @@
     </record>
 
     <!-- Inherit Form View to Modify it -->
+    <record id="physician_form_view" model="ir.ui.view">
+        <field name="model">medical.physician</field>
+        <field name="inherit_id" ref="pragtech_dental_management.medical_physician_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='code']" position="after">
+                <field name="assistant_ids" widget="many2many_tags"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!--<record id="complaint_form_view" model="ir.ui.view">-->
+        <!--<field name="model">patient.complaint</field>-->
+        <!--<field name="inherit_id" ref="pragtech_dental_management.patient_complaint_form_view"/>-->
+        <!--<field name="arch" type="xml">-->
+
+            <!--<xpath expr="//sheet" position="after">-->
+                <!--<div class="oe_chatter">-->
+                    <!--<field name="message_follower_ids"/>-->
+                    <!--<field name="activity_ids"/>-->
+                    <!--<field name="message_ids"/>-->
+                <!--</div>-->
+            <!--</xpath>-->
+
+        <!--</field>-->
+    <!--</record>-->
+
+    <!-- Inherit Form View to Modify it -->
     <record id="edit_dental_appointment" model="ir.ui.view">
         <field name="model">medical.appointment</field>
         <field name="inherit_id" ref="pragtech_dental_management.medical_appointment_view"/>
@@ -423,7 +477,11 @@
             <xpath expr="//field[@name='ready_time']" position="replace"/>
             <xpath expr="//field[@name='waiting_time']" position="replace"/>
             <xpath expr="//field[@name='saleperson_id']" position="replace"/>
+            <xpath expr="//field[@name='doctor']" position="after">
+                <field name="assistant_ids" widget="many2many_tags"/>
+            </xpath>
             <xpath expr="//field[@name='comments']" position="after">
+                <field name="partner_id" invisible="1"/>
                 <field name="no_invoice"/>
                 <field name="checkin_time"/>
                 <field name="ready_time"/>
@@ -479,7 +537,8 @@
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
                 <button name="action_appointment" string="Create Appointment" type="object"/>
-                <button name="create_payment" string="Create Payment" type="object"/>
+                <button name="create_payment" string="Make Payment" type="object"/>
+                <button name="patient_complaint" string="Patient Compliant" type="object"/>
             </xpath>
             <xpath expr="//page[2]" position="replace">
                 <page string="Medical Questionnaire">
@@ -578,6 +637,9 @@
                             context="{'default_partner_id': partner_id}">
                     </button>
                 </div>
+            </xpath>
+            <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree/field[@name='dentist']" position="attributes">
+                <attribute name="groups">pragtech_dental_management.group_dental_admin</attribute>
             </xpath>
             <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']"
                    position="after">
