@@ -865,6 +865,7 @@ class MedicalPatient(models.Model):
     google_review = fields.Boolean()
     video_review = fields.Boolean()
     user_portal = fields.Boolean()
+    photo_session = fields.Boolean()
 
     _sql_constraints = [
         ('name_uniq', 'unique (partner_id)', 'The Patient already exists'),
@@ -1186,7 +1187,8 @@ class MedicalPatient(models.Model):
                     'appt_id': False,
                     'model': 'medical.patient',
                     'type': teeth.type,
-                    'dentist': rec.referring_doctor_id.id
+                    # 'dentist': rec.referring_doctor_id.id
+                    'dentist': False
                 },
             }
             return res_open_chart
@@ -2236,6 +2238,7 @@ class MedicalProcedure(models.Model):
 class TeethCode(models.Model):
     _description = "teeth code"
     _name = "teeth.code"
+    _rec_name = "iso"
 
     name = fields.Char('Name', size=128, required=True)
     code = fields.Char('Code', size=128, required=True)

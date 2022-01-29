@@ -864,6 +864,7 @@
                             <field name="video_review" widget="boolean_toggle"/>
                             <field name="user_portal" widget="boolean_toggle"/>
                             <field name="arebic" string="Arabic" widget="boolean_toggle"/>
+                            <field name="photo_session" widget="boolean_toggle"/>
                         </group>
                     </group>
                     <group>
