@@ -314,6 +314,7 @@
                             <field name="institution"
                                    context="{'default_is_institution': 1, 'search_default_is_institution': 1}"/>
                             <field name="code"/>
+                            <field name="active"  widget="boolean_toggle"/>
                         </group>
                     </page>
                     <page string="Extra Info">
@@ -2317,5 +2318,7 @@
 
     <menuitem id="menu_insurance_policy_action" name="Insurance Payment Policy"
               action="medical_action_insurance" parent="medical_conf_insurances"/>
+
+
 
 </odoo>

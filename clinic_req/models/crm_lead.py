@@ -708,7 +708,7 @@ class Patient(models.Model):
             record.number_of_records = number_of_records
             record.service_net = service_net
             obj_payment = self.env['account.payment'].search(
-                [('partner_id', '=', record.partner_id.id)])
+                [('partner_id', '=', record.partner_id.id),('state', '=', "posted"),])
             for payment in obj_payment:
                 if payment.payment_type == 'inbound':
                     total_payment += self.env['res.currency']._compute(payment.currency_id,
@@ -915,7 +915,7 @@ class Teeth(models.Model):
     def change_state(self):
         if self.state == 'completed':
             obj = self.env['medical.appointment'].search(
-                [('patient', '=', self.patient_id.id), ('appointment_date', '=', datetime.date.today())])
+                [('patient', '=', self.patient_id.id), ('appointment_date', '=', fields.Date.today())])
             if not obj:
                 self.patient_id.sudo().update({'check_state': True})
             else:
@@ -992,7 +992,7 @@ class Teeth(models.Model):
                 ('type', '=', 'sale')], limit=1)
             inv_line_main = {
                 'name': line.description.name,
-                'price_unit': line.amount or 0.00,
+                'price_unit': line.nat_amount or 0.00,
                 'quantity': 1,
                 'discount': line.discount,
                 'account_id': line.description.property_account_income_id.id or line.description.categ_id.property_account_income_categ_id.id or False,

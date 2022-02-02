@@ -459,6 +459,10 @@ class MedicalPhysician(models.Model):
     speciality = fields.Many2one('medical.speciality', 'Specialty',
                                  required=True, help="Specialty Code")
     info = fields.Text('Extra info')
+    is_new_field = fields.Boolean(string="",  )
+    active = fields.Boolean(
+        default=True
+    )
 
 
 class MedicalFamilyCode(models.Model):
@@ -2412,3 +2416,5 @@ class ir_attachment(models.Model):
     # _name = "ir.attachment"
 
     patient_id = fields.Many2one('medical.patient', 'Patient')
+
+
