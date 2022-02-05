@@ -574,11 +574,8 @@ class MedicalPatient(models.Model):
     def name_get(self):
         result = []
         for partner in self:
-            if partner.partner_name:
-                name = partner.partner_name
-            else:
-                name = partner.name
-            if partner.patient_id:
+            name = partner.partner_name
+            if partner.patient_id and name:
                 name = '[' + partner.patient_id + ']' + name
             result.append((partner.id, name))
         return result
