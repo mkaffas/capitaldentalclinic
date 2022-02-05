@@ -314,6 +314,7 @@
                             <field name="institution"
                                    context="{'default_is_institution': 1, 'search_default_is_institution': 1}"/>
                             <field name="code"/>
+                            <field name="active"  widget="boolean_toggle"/>
                         </group>
                     </page>
                     <page string="Extra Info">
@@ -864,6 +865,7 @@
                             <field name="video_review" widget="boolean_toggle"/>
                             <field name="user_portal" widget="boolean_toggle"/>
                             <field name="arebic" string="Arabic" widget="boolean_toggle"/>
+                            <field name="photo_session" widget="boolean_toggle"/>
                         </group>
                     </group>
                     <group>
@@ -2316,5 +2318,7 @@
 
     <menuitem id="menu_insurance_policy_action" name="Insurance Payment Policy"
               action="medical_action_insurance" parent="medical_conf_insurances"/>
+
+
 
 </odoo>
