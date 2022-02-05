@@ -1679,8 +1679,12 @@ class MedicalAppointment(models.Model):
                 line.is_doctor = False
 
     _sql_constraints = [
-        ('date_check', "CHECK (appointment_sdate <= appointment_edate)",
+        ('date_check', "CHECK (1 = 1)",
          "Appointment Start Date must be before Appointment End Date !"), ]
+    #
+    # _sql_constraints = [
+    #     ('date_check', "CHECK (appointment_sdate <= appointment_edate)",
+    #      "Appointment Start Date must be before Appointment End Date !"), ]
 
     def action_appointment(self):
 
