@@ -1026,7 +1026,7 @@
                                         <field name="state"/>
                                         <field name="dentist"/>
                                         <field name="detail_description" invisible="1"/>
-                                        <field name="completion_date" attrs="{'readonly':[('state','=','completed')]}"/>
+                                        <field name="completion_date" />
                                         <field name="amount"/>
                                     </tree>
                                 </field>

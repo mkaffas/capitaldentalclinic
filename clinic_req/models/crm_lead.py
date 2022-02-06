@@ -921,16 +921,19 @@ class Teeth(models.Model):
             else:
                 self.patient_id.sudo().update({'check_state': False})
 
-    @api.depends('discount', 'amount')
+    discount_amount = fields.Float(string="Discount Amount", required=False, )
+    @api.depends('discount', 'amount',"discount_amount")
     def get_net_amount(self):
+        print("get_net_amount")
+        self.get_discount()
         for line in self:
             line.net_amount = line.amount - (
                     (line.amount * line.discount) / 100)
 
-    discount_amount = fields.Float(string="Discount Amount", required=False, )
 
     @api.onchange('discount', 'amount')
     def get_discount_amount(self):
+        print('get_discount_amount')
         for line in self:
             line.discount_amount = (line.amount * line.discount) / 100
 
@@ -982,9 +985,11 @@ class Teeth(models.Model):
                         message_type='comment',
                         subtype_id=self.env.ref('mail.mt_note').id)
 
+    # @api.constrains("state")
     def create_invoice(self):
         """Create invoice for Rent Schedule."""
         for line in self:
+            # if line.state=="completed":
             # if not line.account_id:
             #     raise UserError(_('Please Add the incoming Account !!'))
             self.ensure_one()
@@ -992,9 +997,9 @@ class Teeth(models.Model):
                 ('type', '=', 'sale')], limit=1)
             inv_line_main = {
                 'name': line.description.name,
-                'price_unit': line.nat_amount or 0.00,
+                'price_unit': line.net_amount or 0.00,
                 'quantity': 1,
-                'discount': line.discount,
+                # 'discount': line.discount,
                 'account_id': line.description.property_account_income_id.id or line.description.categ_id.property_account_income_categ_id.id or False,
             }
             inv_values = {

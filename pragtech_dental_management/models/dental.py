@@ -88,6 +88,21 @@ class Partner(models.Model):
     _inherit = "res.partner"
     _description = "Res Partner"
 
+
+    def test_merge(self):
+        partners=self.sudo().search([("name","!=",False),("middle_name","!=",False)])
+        for rec in partners:
+            # name =rec.name+" "+rec.middle_name
+            # if rec.lastname:
+            #     name+= " "+ rec.lastname
+            partner2=self.search([('display_name',"=",rec.display_name),('id',"!=",rec.id)],limit=1)
+            if rec and partner2:
+                print('ccccccc',rec,partner2)
+                _merge_method=self.sudo(2)._merge_method(partner2,rec)
+                print('_merge_method',_merge_method)
+                partner2.name=rec.name
+
+
     date = fields.Date('Partner since',
                        help="Date of activation of the partner or patient")
     alias = fields.Char('alias', size=64)

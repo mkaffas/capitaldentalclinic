@@ -25,7 +25,7 @@ dental app
         'security/dental_security.xml',
         'security/ir.model.access.csv',
         'views/my_layout.xml',
-        'data/dental_data.xml',
+        # 'data/dental_data.xml',
         'data/dose_units.xml',
         'data/medicament_form.xml',
         'data/snomed_frequencies.xml',
