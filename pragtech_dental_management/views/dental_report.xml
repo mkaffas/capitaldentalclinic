@@ -1,174 +1,320 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-	<data>
-		<report
-		id="report_dental"
-		string="Appointments Receipts"
-		model="medical.appointment"
-		report_type="qweb-pdf"
-		file="pragtech_dental_management.report_appointment"
-		name="pragtech_dental_management.report_appointment"
-		/>
-		
-		<report
-		id="report_prescription123"
-		string="Prescription"
-		model="medical.appointment"
-		report_type="qweb-pdf"
-		file="pragtech_dental_management.report_prescription"
-		name="pragtech_dental_management.report_prescription"
-		/>
-		
-		<!-- <report id="report_patient_label" 
-			model="medical.patient" 
-			name="medical.patient.label" 
-			string="Patient Card" xml="pragtech_dental_management/report/patient_label.xml" 
-			xsl="pragtech_dental_management/report/patient_label.xsl"
-			/> -->
-		
-        
+    <data>
         <report
-		id="report_prescription_main123"
-		string="Prescription"
-		model="medical.prescription.order"
-		report_type="qweb-pdf"
-		file="pragtech_dental_management.report_prescription_main"
-		name="pragtech_dental_management.report_prescription_main"
-		/>
-		
-		<report
-		id="report_financing_agreement"
-		string="Patient Financing Agreement"
-		model="financing.agreement"
-		report_type="qweb-pdf"
-		file="pragtech_dental_management.report_patient_financing_agreement"
-		name="pragtech_dental_management.report_patient_financing_agreement"
-		/>
-		
-		
-		<record id="nas_al_saqr_reimbursement_paperformat" model="report.paperformat">
-	        <field name="name">Nas al Saqr Reimbursement</field>
-	        <field name="default" eval="True"/>
-	        <field name="format">A4</field>
-	        <field name="page_height">0</field>
-	        <field name="page_width">0</field>
-	        <field name="orientation">Portrait</field>
-	        <field name="margin_top">30.00</field>
-	        <field name="margin_bottom">20</field>
-	        <field name="margin_left">0.00</field>
-	        <field name="margin_right">0.00</field>
-	        <field name="header_line" eval="False"/>
-	        <field name="header_spacing">20</field>
-	        <field name="dpi">80</field>
-    	</record>
-		
-		<report
-		id="report_employee_claim_form123"
-		string="Nas al Saqr Reimbursement"
-		model="medical.patient"
-		report_type="qweb-pdf"
-		file="pragtech_dental_management.report_claim_form"
-		name="pragtech_dental_management.report_claim_form"
-		paperformat="pragtech_dental_management.nas_al_saqr_reimbursement_paperformat"
-		/>
-		
-		<record id="Daman_Reimbursement_paperformat" model="report.paperformat">
-	        <field name="name">Daman Reimbursement</field>
-	        <field name="default" eval="True"/>
-	        <field name="format">A4</field>
-	        <field name="page_height">0</field>
-	        <field name="page_width">0</field>
-	        <field name="orientation">Portrait</field>
-	        <field name="margin_top">30.00</field>
-	        <field name="margin_bottom">18.00</field>
-	        <field name="margin_left">0.00</field>
-	        <field name="margin_right">0.00</field>
-	        <field name="header_line" eval="False"/>
-	        <field name="header_spacing">20</field>
-	        <field name="dpi">80</field>
-    	</record>
-		
-		<report
-		id="Daman_Reimbursement_form123"
-		string="Daman Reimbursement"
-		model="medical.patient"
-		report_type="qweb-pdf"
-		file="pragtech_dental_management.report_daman_reimbursement"
-		name="pragtech_dental_management.report_daman_reimbursement"
-		paperformat="pragtech_dental_management.Daman_Reimbursement_paperformat"
-		/>
-		
-		<record id="oman_reinburstment_paperformat" model="report.paperformat">
-	        <field name="name">Oman Reinburstment</field>
-	        <field name="default" eval="True"/>
-	        <field name="format">A4</field>
-	        <field name="page_height">0</field>
-	        <field name="page_width">0</field>
-	        <field name="orientation">Portrait</field>
-	        <field name="margin_top">5.00</field>
-	        <field name="margin_bottom">15.00</field>
-	        <field name="margin_left">0.00</field>
-	        <field name="margin_right">0.00</field>
-	        <field name="header_line" eval="False"/>
-	        <field name="header_spacing">20</field>
-	        <field name="dpi">80</field>
-    	</record>
-		
-		<report
-		id="oman_reinburstment_form123"
-		string="Oman Reimbursement"
-		model="medical.patient"
-		report_type="qweb-pdf"
-		file="pragtech_dental_management.report_oman_reinburstment"
-		name="pragtech_dental_management.report_oman_reinburstment"
-		paperformat="pragtech_dental_management.oman_reinburstment_paperformat"
-		/>
-		
-		
-		<record id="nextcare_reimbursement_paperformat" model="report.paperformat">
-	        <field name="name">Oman Reinbursement</field>
-	        <field name="default" eval="True"/>
-	        <field name="format">A4</field>
-	        <field name="page_height">0</field>
-	        <field name="page_width">0</field>
-	        <field name="orientation">Portrait</field>
-	        <field name="margin_top">5.00</field>
-	        <field name="margin_bottom">5.00</field>
-	        <field name="margin_left">0.00</field>
-	        <field name="margin_right">0.00</field>
-	        <field name="header_line" eval="False"/>
-	        <field name="header_spacing">20</field>
-	        <field name="dpi">80</field>
-    	</record>
-		
-		<report
-		id="nextcare_reimbursement_form123"
-		string="Nextcare reimbursement"
-		model="medical.patient"
-		report_type="qweb-pdf"
-		file="pragtech_dental_management.report_nextcare_reimbursement"
-		name="pragtech_dental_management.report_nextcare_reimbursement"
-		paperformat="pragtech_dental_management.nextcare_reimbursement_paperformat"
-		/>
-		
-		<report
-		id="income_byreport_report12333"
-		string="Income By Dentist"
-		model="income.by.doctor.report.wizard"
-		report_type="qweb-pdf"
-		file="pragtech_dental_management.report_income_by_doctor"
-		name="pragtech_dental_management.report_income_by_doctor"
-		/>
-		
-		
-		<report
-		id="patient_byreport_report12333"
-		string="Patient By Doctor"
-		model="patient.by.doctor.report.wizard"
-		report_type="qweb-pdf"
-		file="pragtech_dental_management.report_patient_by_doctor"
-		name="pragtech_dental_management.report_patient_by_doctor"
-		/>
+                id="report_dental"
+                string="Appointments Receipts"
+                model="medical.appointment"
+                report_type="qweb-pdf"
+                file="pragtech_dental_management.report_appointment"
+                name="pragtech_dental_management.report_appointment"
+        />
 
-	</data>
+        <report
+                id="report_prescription123"
+                string="Prescription"
+                model="medical.appointment"
+                report_type="qweb-pdf"
+                file="pragtech_dental_management.report_prescription"
+                name="pragtech_dental_management.report_prescription"
+        />
+
+        <!-- <report id="report_patient_label"
+            model="medical.patient"
+            name="medical.patient.label"
+            string="Patient Card" xml="pragtech_dental_management/report/patient_label.xml"
+            xsl="pragtech_dental_management/report/patient_label.xsl"
+            /> -->
+
+
+        <report
+                id="report_prescription_main123"
+                string="Prescription"
+                model="medical.prescription.order"
+                report_type="qweb-pdf"
+                file="pragtech_dental_management.report_prescription_main"
+                name="pragtech_dental_management.report_prescription_main"
+        />
+
+        <report
+                id="report_financing_agreement"
+                string="Patient Financing Agreement"
+                model="financing.agreement"
+                report_type="qweb-pdf"
+                file="pragtech_dental_management.report_patient_financing_agreement"
+                name="pragtech_dental_management.report_patient_financing_agreement"
+        />
+
+
+        <record id="nas_al_saqr_reimbursement_paperformat" model="report.paperformat">
+            <field name="name">Nas al Saqr Reimbursement</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">30.00</field>
+            <field name="margin_bottom">20</field>
+            <field name="margin_left">0.00</field>
+            <field name="margin_right">0.00</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">80</field>
+        </record>
+
+        <!--		<report-->
+        <!--		id="report_employee_claim_form123"-->
+        <!--		string="Nas al Saqr Reimbursement"-->
+        <!--		model="medical.patient"-->
+        <!--		report_type="qweb-pdf"-->
+        <!--		file="pragtech_dental_management.report_claim_form"-->
+        <!--		name="pragtech_dental_management.report_claim_form"-->
+        <!--		paperformat="pragtech_dental_management.nas_al_saqr_reimbursement_paperformat"-->
+        <!--		/>-->
+
+        <record id="Daman_Reimbursement_paperformat" model="report.paperformat">
+            <field name="name">Daman Reimbursement</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">30.00</field>
+            <field name="margin_bottom">18.00</field>
+            <field name="margin_left">0.00</field>
+            <field name="margin_right">0.00</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">80</field>
+        </record>
+
+        <!--		<report-->
+        <!--		id="Daman_Reimbursement_form123"-->
+        <!--		string="Daman Reimbursement"-->
+        <!--		model="medical.patient"-->
+        <!--		report_type="qweb-pdf"-->
+        <!--		file="pragtech_dental_management.report_daman_reimbursement"-->
+        <!--		name="pragtech_dental_management.report_daman_reimbursement"-->
+        <!--		paperformat="pragtech_dental_management.Daman_Reimbursement_paperformat"-->
+        <!--		/>-->
+
+        <record id="oman_reinburstment_paperformat" model="report.paperformat">
+            <field name="name">Oman Reinburstment</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">5.00</field>
+            <field name="margin_bottom">15.00</field>
+            <field name="margin_left">0.00</field>
+            <field name="margin_right">0.00</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">80</field>
+        </record>
+        <!--		-->
+        <!--		<report-->
+        <!--		id="oman_reinburstment_form123"-->
+        <!--		string="Oman Reimbursement"-->
+        <!--		model="medical.patient"-->
+        <!--		report_type="qweb-pdf"-->
+        <!--		file="pragtech_dental_management.report_oman_reinburstment"-->
+        <!--		name="pragtech_dental_management.report_oman_reinburstment"-->
+        <!--		paperformat="pragtech_dental_management.oman_reinburstment_paperformat"-->
+        <!--		/>-->
+
+
+        <record id="nextcare_reimbursement_paperformat" model="report.paperformat">
+            <field name="name">Oman Reinbursement</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">5.00</field>
+            <field name="margin_bottom">5.00</field>
+            <field name="margin_left">0.00</field>
+            <field name="margin_right">0.00</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">80</field>
+        </record>
+
+        <!--		<report-->
+        <!--		id="nextcare_reimbursement_form123"-->
+        <!--		string="Nextcare reimbursement"-->
+        <!--		model="medical.patient"-->
+        <!--		report_type="qweb-pdf"-->
+        <!--		file="pragtech_dental_management.report_nextcare_reimbursement"-->
+        <!--		name="pragtech_dental_management.report_nextcare_reimbursement"-->
+        <!--		paperformat="pragtech_dental_management.nextcare_reimbursement_paperformat"-->
+        <!--		/>-->
+
+        <report
+                id="income_byreport_report12333"
+                string="Income By Dentist"
+                model="income.by.doctor.report.wizard"
+                report_type="qweb-pdf"
+                file="pragtech_dental_management.report_income_by_doctor"
+                name="pragtech_dental_management.report_income_by_doctor"
+        />
+
+
+        <report
+                id="patient_byreport_report12333"
+                string="Patient By Doctor"
+                model="patient.by.doctor.report.wizard"
+                report_type="qweb-pdf"
+                file="pragtech_dental_management.report_patient_by_doctor"
+                name="pragtech_dental_management.report_patient_by_doctor"
+        />
+
+        <report
+                id="id_cdc_print"
+                string="CDC"
+                model="medical.patient"
+                report_type="qweb-pdf"
+                file="pragtech_dental_management.report_cdc"
+                name="pragtech_dental_management.report_cdc"
+        />
+        <!--		paperformat="pragtech_dental_management.oman_reinburstment_paperformat"-->
+        <template id="report_cdc">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.basic_layout">
+                        <div t-attf-class="header o_company_#{o.id}_layout" t-att-style="report_header_style">
+                            <div class="row">
+                                <div class="col-6">
+                                    <img
+                                            src="/pragtech_dental_management/static/src/img/header.png"
+                                            style="max-height: 120px;" alt="Logo"/>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="page" style="font-size: 12px;">
+                            <table width="100%">
+                                <tr>
+                                    <td width="15%">
+                                        <strong>NAME :</strong>
+                                    </td>
+                                    <td width="50%">
+                                        <span t-field="o.partner_id.name"/>
+                                    </td>
+                                    <td width="15%">
+                                        <strong>ID :</strong>
+                                    </td>
+                                    <td width="20%">
+                                        <span t-field="o.patient_id"/>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br/>
+                            <table width="100%"
+                                   class='table table-striped table-sm table-hover'>
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Create ON</th>
+                                        <th>Tooth</th>
+                                        <th>Status</th>
+                                        <th>Completion Date</th>
+                                        <th>Amount</th>
+                                        <th>Discount Amount</th>
+                                        <th>Discount %</th>
+                                        <th>Net Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.teeth_treatment_ids" t-as="line">
+                                        <tr>
+                                            <td>
+                                                <span t-field="line.description"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.create_date"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.teeth_id"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.state"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.completion_date"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.amount"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.discount_amount"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.discount"/>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.net_amount"/>
+                                            </td>
+
+                                        </tr>
+
+                                    </t>
+                                    <tr style="border:0px solid black;background-color: white">
+                                        <td colspan="6"></td>
+                                        <td colspan="2">Service amount before tax</td>
+                                        <td>
+                                            <span t-field="o.service_amount"/>
+                                        </td>
+                                    </tr>
+                                    <tr style="border-top:0px solid black;background-color: white">
+                                        <td colspan="6" style="border:0px solid black;background-color: white"></td>
+                                        <td colspan="2">Total Discount</td>
+                                        <td>
+                                            <span t-field="o.total_discount"/>
+                                        </td>
+                                    </tr>
+                                    <tr style="border:0px solid black;background-color: white">
+                                        <td colspan="6" style="border:0px solid black;background-color: white"></td>
+                                        <td colspan="2">Service net amount</td>
+                                        <td>
+                                            <span t-field="o.service_net"/>
+                                        </td>
+                                    </tr>
+                                    <tr style="border:0px solid black;background-color: white">
+                                        <td colspan="6" style="border:0px solid black;background-color: white"></td>
+                                        <td colspan="2">Total payment</td>
+                                        <td>
+                                            <span t-field="o.total_payment"/>
+                                        </td>
+                                    </tr>
+                                    <tr style="border:0px solid black;background-color: white">
+                                        <td colspan="6" style="border:0px solid black;background-color: white"/>
+                                        <td colspan="2">Total Net</td>
+                                        <td>
+                                            <span t-field="o.total_net"/>
+                                        </td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+
+
+                            <div class="footer" style="border-top: 1px solid #000000;">
+                                <br/>
+                                <div class="text-center">
+                                    Page:
+                                    <span class="page"/>
+                                    /
+                                    <span class="topage"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
 </odoo>

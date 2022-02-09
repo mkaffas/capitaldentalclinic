@@ -6,3 +6,4 @@ access_physician_wizard,physician.wizard,model_physician_wizard,base.group_user,
 access_patient_tag,patient.tag,model_patient_tag,base.group_user,1,1,1,1
 access_service_wizard,service.wizard,model_service_wizard,base.group_user,1,1,1,1
 access_discount_wizard,discount.wizard,model_discount_wizard,base.group_user,1,1,1,1
+access_service_completion_date,access_service_completion_date,model_service_completion_date,base.group_user,1,1,1,1

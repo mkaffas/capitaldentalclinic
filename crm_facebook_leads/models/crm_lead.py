@@ -115,8 +115,8 @@ class CrmLead(models.Model):
             elif odoo_field.ttype == 'integer':
                 vals.update({odoo_field.name: int(value)})
             # TODO: separate date & datetime into two different conditionals
-            elif odoo_field.ttype in ('date', 'datetime'):
-                vals.update({odoo_field.name: value.split('+')[0].replace('T', ' ')})
+            # elif odoo_field.ttype in ('date', 'datetime'):
+            #     vals.update({odoo_field.name: value.split('+')[0].replace('T', ' ')})
             elif odoo_field.ttype == 'selection':
                 vals.update({odoo_field.name: value})
             elif odoo_field.ttype == 'boolean':

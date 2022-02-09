@@ -788,6 +788,9 @@ class Patient(models.Model):
                 raise UserError(
                     _('Can not delete this operation %s because you have an invoice on it  !!') % (line.description))
 
+
+
+
     def service_confirmation(self):
         for line in self.teeth_treatment_ids:
             if line.is_selected == True and line.inv == False:
@@ -813,6 +816,8 @@ class Patient(models.Model):
                 acc_id.sudo().write({'invoice_line_ids': [(0, 0, inv_line_main)]})
                 acc_id.action_post()
                 line.sudo().write({'invc_id': acc_id.id, 'inv': True})
+
+
 
     def get_all_discount(self):
         if self.env.user.has_group('pragtech_dental_management.group_patient_coordinator'):
@@ -841,6 +846,36 @@ class Patient(models.Model):
             raise UserError(_("You can't create Patient."))
         res = super(Patient, self).create(vals)
         return res
+
+    def service_completion(self):
+        for rec in self:
+            lines=rec.teeth_treatment_ids.filtered(lambda m: m.is_selected == True)
+            lines.update({
+                "is_selected":False
+            })
+            return {
+                'name': _('Update Label'),
+                'type': 'ir.actions.act_window',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'service.completion.date',
+                'context': {'default_lines_ids': lines.ids},
+                'target': 'new',
+            }
+
+
+
+class ServiceCompletionDate(models.Model):
+    _name = 'service.completion.date'
+
+    completion_date = fields.Datetime(string="", required=False, )
+    lines_ids = fields.Many2many(comodel_name="medical.teeth.treatment", string="", required=False, )
+
+    def send_completion_date(self):
+        for rec in self:
+            rec.lines_ids.update({
+                "completion_date":rec.completion_date
+            })
 
 
 class Dentist(models.Model):
@@ -921,16 +956,19 @@ class Teeth(models.Model):
             else:
                 self.patient_id.sudo().update({'check_state': False})
 
-    @api.depends('discount', 'amount')
+    discount_amount = fields.Float(string="Discount Amount", required=False, )
+    @api.depends('discount', 'amount',"discount_amount")
     def get_net_amount(self):
+        print("get_net_amount")
+        self.get_discount()
         for line in self:
             line.net_amount = line.amount - (
                     (line.amount * line.discount) / 100)
 
-    discount_amount = fields.Float(string="Discount Amount", required=False, )
 
     @api.onchange('discount', 'amount')
     def get_discount_amount(self):
+        print('get_discount_amount')
         for line in self:
             line.discount_amount = (line.amount * line.discount) / 100
 
@@ -982,9 +1020,11 @@ class Teeth(models.Model):
                         message_type='comment',
                         subtype_id=self.env.ref('mail.mt_note').id)
 
+    # @api.constrains("state")
     def create_invoice(self):
         """Create invoice for Rent Schedule."""
         for line in self:
+            # if line.state=="completed":
             # if not line.account_id:
             #     raise UserError(_('Please Add the incoming Account !!'))
             self.ensure_one()
@@ -992,9 +1032,9 @@ class Teeth(models.Model):
                 ('type', '=', 'sale')], limit=1)
             inv_line_main = {
                 'name': line.description.name,
-                'price_unit': line.nat_amount or 0.00,
+                'price_unit': line.net_amount or 0.00,
                 'quantity': 1,
-                'discount': line.discount,
+                # 'discount': line.discount,
                 'account_id': line.description.property_account_income_id.id or line.description.categ_id.property_account_income_categ_id.id or False,
             }
             inv_values = {
