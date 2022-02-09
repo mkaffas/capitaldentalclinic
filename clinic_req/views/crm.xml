@@ -598,6 +598,8 @@
                     <group>
                         <button name="service_confirmation" string="Services Confirmation" type="object"
                                 class="oe_highlight"/>
+                        <button name="service_completion" string="Services complete" type="object"
+                                class="oe_highlight"/>
                     </group>
                 </group>
 

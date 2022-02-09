@@ -788,6 +788,9 @@ class Patient(models.Model):
                 raise UserError(
                     _('Can not delete this operation %s because you have an invoice on it  !!') % (line.description))
 
+
+
+
     def service_confirmation(self):
         for line in self.teeth_treatment_ids:
             if line.is_selected == True and line.inv == False:
@@ -813,6 +816,8 @@ class Patient(models.Model):
                 acc_id.sudo().write({'invoice_line_ids': [(0, 0, inv_line_main)]})
                 acc_id.action_post()
                 line.sudo().write({'invc_id': acc_id.id, 'inv': True})
+
+
 
     def get_all_discount(self):
         if self.env.user.has_group('pragtech_dental_management.group_patient_coordinator'):
@@ -841,6 +846,36 @@ class Patient(models.Model):
             raise UserError(_("You can't create Patient."))
         res = super(Patient, self).create(vals)
         return res
+
+    def service_completion(self):
+        for rec in self:
+            lines=rec.teeth_treatment_ids.filtered(lambda m: m.is_selected == True)
+            lines.update({
+                "is_selected":False
+            })
+            return {
+                'name': _('Update Label'),
+                'type': 'ir.actions.act_window',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'service.completion.date',
+                'context': {'default_lines_ids': lines.ids},
+                'target': 'new',
+            }
+
+
+
+class ServiceCompletionDate(models.Model):
+    _name = 'service.completion.date'
+
+    completion_date = fields.Datetime(string="", required=False, )
+    lines_ids = fields.Many2many(comodel_name="medical.teeth.treatment", string="", required=False, )
+
+    def send_completion_date(self):
+        for rec in self:
+            rec.lines_ids.update({
+                "completion_date":rec.completion_date
+            })
 
 
 class Dentist(models.Model):

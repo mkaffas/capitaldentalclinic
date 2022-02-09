@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="id_service_completion_date_view_form" model="ir.ui.view">
+            <field name="name">service.completion.date</field>
+            <field name="model">service.completion.date</field>
+            <field name="arch" type="xml">
+                <form string="Update Label">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="completion_date"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Update" name="send_completion_date" type="object"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
