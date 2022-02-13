@@ -97,10 +97,10 @@ class Partner(models.Model):
             #     name+= " "+ rec.lastname
             partner2=self.search([('display_name',"=",rec.display_name),('id',"!=",rec.id)],limit=1)
             if rec and partner2:
-                print('ccccccc',rec,partner2)
+                # print('ccccccc',rec,partner2)
                 _merge_method=self.sudo(2)._merge_method(partner2,rec)
-                print('_merge_method',_merge_method)
-                partner2.name=rec.name
+                # print('_merge_method',_merge_method)
+                # partner2.name=rec.name
 
 
     date = fields.Date('Partner since',
