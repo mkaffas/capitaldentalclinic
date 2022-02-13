@@ -11,6 +11,7 @@ class Prouct(models.Model):
     _inherit = 'product.template'
 
     show_on_app = fields.Boolean(string="Show on Appointment", )
+    dentist = fields.Many2one('medical.physician', 'Dentist')
 
 
 class CrmLeadLost(models.TransientModel):
@@ -522,7 +523,9 @@ class Service(models.TransientModel):
                 'patient_id': patient.id,
                 'description': record.id,
                 'state': 'completed',
-                'amount': record.lst_price
+                'amount': record.lst_price,
+                'completion_date': fields.Datetime.now,
+                'dentist': record.dentist.id,
             }
             treatment = treatment_obj.sudo().create(vals)
 
