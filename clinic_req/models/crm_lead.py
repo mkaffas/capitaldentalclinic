@@ -524,7 +524,7 @@ class Service(models.TransientModel):
                 'description': record.id,
                 'state': 'completed',
                 'amount': record.lst_price,
-                'completion_date': fields.Datetime.now,
+                'completion_date': fields.Datetime.now(),
                 'dentist': record.dentist.id,
             }
             treatment = treatment_obj.sudo().create(vals)
