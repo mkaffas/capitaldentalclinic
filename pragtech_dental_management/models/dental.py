@@ -98,7 +98,7 @@ class Partner(models.Model):
             partner2=self.search([('display_name',"=",rec.display_name),('id',"!=",rec.id)],limit=1)
             if rec and partner2:
                 # print('ccccccc',rec,partner2)
-                _merge_method=self.sudo(2)._merge_method(partner2,rec)
+                _merge_method=self.sudo(2)._merge_method(rec,partner2)
                 # print('_merge_method',_merge_method)
                 # partner2.name=rec.name
 
