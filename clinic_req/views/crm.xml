@@ -390,6 +390,10 @@
                     <field name="show_on_app"/>
                     <label for="show_on_app"/>
                 </div>
+                <div>
+                    <label for="dentist"/>
+                    <field name="dentist"/>
+                </div>
             </xpath>
 
         </field>
