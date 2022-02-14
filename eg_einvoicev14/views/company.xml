@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="eg_einvoicev14_view_company_form" model="ir.ui.view">
+            <field name="name">res.company.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                        <page name="electronic_invoice" string="Electronic Invoice Issuer Information">
+                            <group name="container_row_2">
+                                <field name="person_type"/>
+                                <field name="governateE"/>
+                                <field name="regionCity"/>
+                                <field name="buildingNumber"/>
+                                <field name="floor"/>
+                                <field name="room"/>
+                                <field name="branchID"/>
+                                <field name="landmark"/>
+                                <field name="additionalInformation"/>
+                                <field name="reg_no"/>
+                                <field name="activity_code"/>
+                            </group>
+                        </page>
+                    <page name="electronic_invoice" string="Electronic Invoice Settings" groups="eg_einvoicev14.group_egeinvoice">
+                        <group>
+                            <field name="clientId"/>
+                            <field name="clientSecret"/>
+                            <field name="configType"/>
+                            <field name="invoiceVersion"/>
+                            <field name="sign_url"/>
+                        </group>
+
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
