@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_uom_types,uom_types,model_uom_types,,1,1,1,1
+access_tax_types,tax_types,model_tax_types,,1,1,1,1
+access_tax_sub_types,tax_sub_types,model_tax_sub_types,,1,1,1,1
+access_elect_reasons,elect_reasons,model_elect_reasons,,1,1,1,1
+access_elect_reasons_wiz,elect.reasons.wiz,model_elect_reasons_wiz,,1,1,1,1

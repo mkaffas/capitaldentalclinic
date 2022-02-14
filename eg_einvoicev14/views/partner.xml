@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_partner_electronic_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page name="electronic_invoice" string="Electronic Invoice Receiver Information">
+                        <group name="container_row_2">
+                            <field name="person_type"/>
+                            <field name="governateE"/>
+                            <field name="regionCity"/>
+                            <field name="buildingNumber"/>
+                            <field name="floor"/>
+                            <field name="room"/>
+                            <field name="landmark"/>
+                            <field name="additionalInformation"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

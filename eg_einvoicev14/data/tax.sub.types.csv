@@ -1,0 +1,49 @@
+id,code,desc_en,desc_ar,tax_type_code
+sub1,V001,Export,تصدير للخارج,T1
+sub2,V002,Export to free areas and other areas,تصدير مناطق حرة وأخرى,T1
+sub3,V003,Exempted good or service,سلعة أو خدمة معفاة,T1
+sub4,V004,A non-taxable good or service,سلعة أو خدمة غير خاضعة للضريبة,T1
+sub5,V005,"Exemptions for diplomats, consulates and embassies",إعفاءات دبلوماسين والقنصليات والسفارات,T1
+sub6,V006,Defence and National security Exemptions,إعفاءات الدفاع والأمن القومى,T1
+sub7,V007,Agreements exemptions,إعفاءات اتفاقيات,T1
+sub8,V008,Special Exemptios and other reasons,إعفاءات خاصة و أخرى,T1
+sub9,V009,General Item sales,سلع عامة,T1
+sub10,V010,Other Rates,نسب ضريبة أخرى,T1
+sub11,Tbl01,Table tax (percentage),ضريبه الجدول (نسبيه),T2
+sub12,Tbl02,Table tax (Fixed Amount),ضريبه الجدول (النوعية),T2
+sub13,W001,Contracting and supplies,المقاولات والتوريدات,T4
+sub14,W002,Services,الخدمات,T4
+sub15,W003,Liberal professions,مهن حره,T4
+sub16,W004,Agency commission and brokerage,الوكاله بالعموله والسمسره,T4
+sub17,W005,"Discounts, grants and commissions",الخصومات والمنح والعمولات,T4
+sub18,W006,Support for export subsidies granted by the exporter development box,مسانده دعم الصادرات التي يمنحها ص.تنميه الصادرات للمصدر,T4
+sub19,W007,Exemption,إعفاء,T4
+sub20,W008,advance payments,دفعات مقدمة,T4
+sub21,ST01,Stamping tax (percentage),ضريبه الدمغه (نسبيه),T5
+sub22,ST02,Stamping Tax (amount),ضريبه الدمغه (قطعيه بمقدار ثابت),T6
+sub23,Ent01,Entertainment tax (rate),ضريبة الملاهى (نسبة),T7
+sub24,Ent02,Entertainment tax (amount),ضريبة الملاهى (قطعية),T7
+sub25,RD01,Resource development fee (rate),رسم تنميه الموارد (نسبة),T8
+sub26,RD02,Resource development fee (amount),رسم تنميه الموارد (قطعية),T8
+sub27,SC01,Service charges (rate),رسم خدمة (نسبة),T9
+sub28,SC02,Service charges (amount),رسم خدمة (قطعية),T9
+sub29,Mn01,Municipality Fees (rate),رسم المحليات (نسبة),T10
+sub30,Mn02,Municipality Fees (amount),رسم المحليات (قطعية),T10
+sub31,MI01,Medical insurance fee (rate),رسم التامين الصحى (نسبة),T11
+sub32,MI02,Medical insurance fee (amount),رسم التامين الصحى (قطعية),T11
+sub33,OF01,Other fees (rate),رسوم أخرى (نسبة),T12
+sub34,OF02,Other fees (amount),رسوم أخرى (قطعية),T12
+sub35,ST03,Stamping tax (percentage),ضريبه الدمغه (نسبيه),T13
+sub36,ST04,Stamping Tax (amount),ضريبه الدمغه (قطعيه بمقدار ثابت),T14
+sub37,Ent03,Entertainment tax (rate),ضريبة الملاهى (نسبة),T15
+sub38,Ent04,Entertainment tax (amount),ضريبة الملاهى (قطعية),T15
+sub39,RD03,Resource development fee (rate),رسم تنميه الموارد (نسبة),T16
+sub40,RD04,Resource development fee (amount),رسم تنميه الموارد (قطعية),T16
+sub41,SC03,Service charges (rate),رسم خدمة (نسبة),T17
+sub42,SC04,Service charges (amount),رسم خدمة (قطعية),T17
+sub43,Mn03,Municipality Fees (rate),رسم المحليات (نسبة),T18
+sub44,Mn04,Municipality Fees (amount),رسم المحليات (قطعية),T18
+sub45,MI03,Medical insurance fee (rate),رسم التامين الصحى (نسبة),T19
+sub46,MI04,Medical insurance fee (amount),رسم التامين الصحى (قطعية),T19
+sub47,OF03,Other fees (rate),رسوم أخرى (نسبة),T20
+sub48,OF04,Other fees (amount),رسوم أخرى (قطعية),T20
