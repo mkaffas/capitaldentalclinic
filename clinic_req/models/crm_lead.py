@@ -11,6 +11,7 @@ class Prouct(models.Model):
     _inherit = 'product.template'
 
     show_on_app = fields.Boolean(string="Show on Appointment", )
+    dentist = fields.Many2one('medical.physician', 'Dentist')
 
 
 class CrmLeadLost(models.TransientModel):
@@ -522,7 +523,9 @@ class Service(models.TransientModel):
                 'patient_id': patient.id,
                 'description': record.id,
                 'state': 'completed',
-                'amount': record.lst_price
+                'amount': record.lst_price,
+                'completion_date': fields.Datetime.now(),
+                'dentist': record.dentist.id,
             }
             treatment = treatment_obj.sudo().create(vals)
 
@@ -559,7 +562,7 @@ class Discount(models.TransientModel):
 
 class Patient(models.Model):
     _inherit = 'medical.patient'
-    _rec_name = "partner_name"
+    # _rec_name = "partner_name"
 
     discount = fields.Float(string='Discount', digits=(3, 6),
                             default=0.0)
@@ -708,7 +711,7 @@ class Patient(models.Model):
             record.number_of_records = number_of_records
             record.service_net = service_net
             obj_payment = self.env['account.payment'].search(
-                [('partner_id', '=', record.partner_id.id)])
+                [('partner_id', '=', record.partner_id.id),('state', '=', "posted"),])
             for payment in obj_payment:
                 if payment.payment_type == 'inbound':
                     total_payment += self.env['res.currency']._compute(payment.currency_id,
@@ -788,6 +791,9 @@ class Patient(models.Model):
                 raise UserError(
                     _('Can not delete this operation %s because you have an invoice on it  !!') % (line.description))
 
+
+
+
     def service_confirmation(self):
         for line in self.teeth_treatment_ids:
             if line.is_selected == True and line.inv == False:
@@ -813,6 +819,8 @@ class Patient(models.Model):
                 acc_id.sudo().write({'invoice_line_ids': [(0, 0, inv_line_main)]})
                 acc_id.action_post()
                 line.sudo().write({'invc_id': acc_id.id, 'inv': True})
+
+
 
     def get_all_discount(self):
         if self.env.user.has_group('pragtech_dental_management.group_patient_coordinator'):
@@ -842,6 +850,68 @@ class Patient(models.Model):
         res = super(Patient, self).create(vals)
         return res
 
+    def service_completion(self):
+        for rec in self:
+            lines=rec.teeth_treatment_ids.filtered(lambda m: m.is_selected == True)
+            lines.update({
+                "is_selected":False
+            })
+            return {
+                'name': _('Update Label'),
+                'type': 'ir.actions.act_window',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'service.completion.date',
+                'context': {'default_lines_ids': lines.ids},
+                'target': 'new',
+            }
+
+
+
+class ServiceCompletionDate(models.Model):
+    _name = 'service.completion.date'
+
+    completion_date = fields.Datetime(string="", required=False, )
+    lines_ids = fields.Many2many(comodel_name="medical.teeth.treatment", string="", required=False, )
+
+    def send_completion_date(self):
+        for rec in self:
+            rec.lines_ids.update({
+                "completion_date":rec.completion_date
+            })
+
+
+class Dentist(models.Model):
+    _inherit = 'medical.physician'
+
+    assistant_ids = fields.Many2many(comodel_name="res.users", string="Assistants", )
+
+
+class complaint(models.Model):
+    _inherit = 'patient.complaint'
+    # _inherit = ['mail.thread', 'mail.activity.mixin']
+
+    @api.model
+    def create(self, values):
+        res = super(complaint, self).create(values)
+
+        for line in res:
+            partners = self.env.ref(
+                'pragtech_dental_management.group_branch_manager').users.filtered(
+                lambda r: r.partner_id).mapped('partner_id.id')
+            all_partners = partners
+            body = '<a target=_BLANK href="/web?#id=' + str(
+                line.id) + '&view_type=form&model=patient.complaint&action=" style="font-weight: bold">' + '</a>'
+            if all_partners:
+                line.sudo().message_post(
+                    partner_ids=all_partners,
+                    subject="Patient Complaint " + str(
+                        line.complaint_subject) + " is created",
+                    body="New Patient Complaint " + body + "added with Patient " + str(
+                        line.patient_id.partner_id.name),
+                    message_type='comment',
+                    subtype_id=self.env.ref('mail.mt_note').id)
+        return res
 
 class Dentist(models.Model):
     _inherit = 'medical.physician'
@@ -915,22 +985,25 @@ class Teeth(models.Model):
     def change_state(self):
         if self.state == 'completed':
             obj = self.env['medical.appointment'].search(
-                [('patient', '=', self.patient_id.id), ('appointment_date', '=', datetime.date.today())])
+                [('patient', '=', self.patient_id.id), ('appointment_date', '=', fields.Date.today())])
             if not obj:
                 self.patient_id.sudo().update({'check_state': True})
             else:
                 self.patient_id.sudo().update({'check_state': False})
 
-    @api.depends('discount', 'amount')
+    discount_amount = fields.Float(string="Discount Amount", required=False, )
+    @api.depends('discount', 'amount',"discount_amount")
     def get_net_amount(self):
+        print("get_net_amount")
+        self.get_discount()
         for line in self:
             line.net_amount = line.amount - (
                     (line.amount * line.discount) / 100)
 
-    discount_amount = fields.Float(string="Discount Amount", required=False, )
 
     @api.onchange('discount', 'amount')
     def get_discount_amount(self):
+        print('get_discount_amount')
         for line in self:
             line.discount_amount = (line.amount * line.discount) / 100
 
@@ -982,9 +1055,11 @@ class Teeth(models.Model):
                         message_type='comment',
                         subtype_id=self.env.ref('mail.mt_note').id)
 
+    # @api.constrains("state")
     def create_invoice(self):
         """Create invoice for Rent Schedule."""
         for line in self:
+            # if line.state=="completed":
             # if not line.account_id:
             #     raise UserError(_('Please Add the incoming Account !!'))
             self.ensure_one()
@@ -992,9 +1067,9 @@ class Teeth(models.Model):
                 ('type', '=', 'sale')], limit=1)
             inv_line_main = {
                 'name': line.description.name,
-                'price_unit': line.amount or 0.00,
+                'price_unit': line.net_amount or 0.00,
                 'quantity': 1,
-                'discount': line.discount,
+                # 'discount': line.discount,
                 'account_id': line.description.property_account_income_id.id or line.description.categ_id.property_account_income_categ_id.id or False,
             }
             inv_values = {

@@ -1309,6 +1309,7 @@ odoo.define('pragtech_dental_management.chart_action', function (require) {
             var status_to_use = panned_text;
             var completed_text = $('#completed').text().trim()
             var inprogress_text = $('#in_progress').text().trim()
+            var extra_session_text = $('#extra_session').text().trim()
             if (status_defined)
                 if (status_defined == 'completed') {
                     status_to_use = completed_text;
@@ -1316,6 +1317,8 @@ odoo.define('pragtech_dental_management.chart_action', function (require) {
                     status_to_use = inprogress_text;
                 } else if (status_defined == 'planned') {
                     status_to_use = panned_text;
+                }else if (status_defined == 'extra_session') {
+                    status_to_use = extra_session_text;
                 }
             if (status_to_use == 'planned') {
                 status_to_use = panned_text;
@@ -1450,6 +1453,7 @@ odoo.define('pragtech_dental_management.chart_action', function (require) {
                 } else if (type == 'iso') {
                     var numbers = parseInt(selected_tooth_temp);
 
+
                     switch (numbers) {
                         case 1:
                             table_str += '<td class="' + selected_tooth_temp + '" id = "tooth_' + operation_id + '">' + Iso[1] + '</td>';
@@ -1555,10 +1559,12 @@ odoo.define('pragtech_dental_management.chart_action', function (require) {
                 }
                 table_str += '<td id = "status_' + operation_id + '" status_name = "' + status_defined + '">' + status_to_use + '</td>';
                 table_str += '<td style="display: none" id = "surface_' + operation_id + '">';
+
                 _.each(surfaces, function (each_surf) {
                     table_str += each_surf + ' ';
                 });
                 self_var.increment_thread(selected_surface_temp);
+
                 table_str += '</td>';
                 table_str += '<td id = "dentist_' + operation_id + '">' + dentist + '</td>';
                 table_str += '<td style="display: none" id = "amount_' + operation_id + '">' + t_charge + '</td>';

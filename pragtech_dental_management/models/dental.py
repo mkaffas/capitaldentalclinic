@@ -88,6 +88,21 @@ class Partner(models.Model):
     _inherit = "res.partner"
     _description = "Res Partner"
 
+
+    def test_merge(self):
+        partners=self.sudo().search([("name","!=",False),("middle_name","!=",False)])
+        for rec in partners:
+            # name =rec.name+" "+rec.middle_name
+            # if rec.lastname:
+            #     name+= " "+ rec.lastname
+            partner2=self.search([('display_name',"=",rec.display_name),('id',"!=",rec.id)],limit=1)
+            if rec and partner2:
+                # print('ccccccc',rec,partner2)
+                _merge_method=self.sudo(2)._merge_method(rec,partner2)
+                # print('_merge_method',_merge_method)
+                # partner2.name=rec.name
+
+
     date = fields.Date('Partner since',
                        help="Date of activation of the partner or patient")
     alias = fields.Char('alias', size=64)
@@ -459,6 +474,10 @@ class MedicalPhysician(models.Model):
     speciality = fields.Many2one('medical.speciality', 'Specialty',
                                  required=True, help="Specialty Code")
     info = fields.Text('Extra info')
+    is_new_field = fields.Boolean(string="",  )
+    active = fields.Boolean(
+        default=True
+    )
 
 
 class MedicalFamilyCode(models.Model):
@@ -570,8 +589,8 @@ class MedicalPatient(models.Model):
     def name_get(self):
         result = []
         for partner in self:
-            name = partner.partner_id.name
-            if partner.patient_id:
+            name = partner.partner_name
+            if partner.patient_id and name:
                 name = '[' + partner.patient_id + ']' + name
             result.append((partner.id, name))
         return result
@@ -673,7 +692,7 @@ class MedicalPatient(models.Model):
     _name = "medical.patient"
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Patient related information"
-    _rec_name = "partner_name"
+    _rec_name = "patient_name"
 
     stage_id = fields.Many2one(
         'patient.stage',
@@ -687,9 +706,10 @@ class MedicalPatient(models.Model):
                                  domain=[('is_patient', '=', True),
                                          ('is_person', '=', True)],
                                  help="Patient Name")
-    partner_name = fields.Char(string="Patient name", compute="get_patient_name")
+    partner_name = fields.Char(string="Patient name", compute="get_partner_name" )
+    patient_name = fields.Char(string="Patient name", compute="get_patient_name" )
 
-    def get_patient_name(self):
+    def get_partner_name(self):
         for line in self:
             if line.partner_id.name and line.partner_id.middle_name and line.partner_id.lastname:
                 line.partner_name = line.partner_id.name + ' ' + line.partner_id.middle_name + ' '+ line.partner_id.lastname
@@ -699,6 +719,16 @@ class MedicalPatient(models.Model):
                 line.partner_name = line.partner_id.name + ' ' + line.partner_id.middle_name
             else:
                 line.partner_name = line.partner_id.name
+    def get_patient_name(self):
+        for line in self:
+            if line.first_name and line.middle_name and line.lastname:
+                line.patient_name = line.first_name + ' ' + line.middle_name + ' '+ line.lastname
+            elif line.first_name and not line.middle_name and line.lastname:
+                line.patient_name = line.first_name + ' ' + line.lastname
+            elif line.first_name and line.middle_name and not line.lastname:
+                line.patient_name = line.first_name + ' ' + line.middle_name
+            else:
+                line.patient_name = line.first_name
 
     street = fields.Char(related='partner_id.street', store=True,
                          readonly=False)
@@ -854,6 +884,7 @@ class MedicalPatient(models.Model):
     google_review = fields.Boolean()
     video_review = fields.Boolean()
     user_portal = fields.Boolean()
+    photo_session = fields.Boolean()
 
     _sql_constraints = [
         ('name_uniq', 'unique (partner_id)', 'The Patient already exists'),
@@ -1175,7 +1206,8 @@ class MedicalPatient(models.Model):
                     'appt_id': False,
                     'model': 'medical.patient',
                     'type': teeth.type,
-                    'dentist': rec.referring_doctor_id.id
+                    # 'dentist': rec.referring_doctor_id.id
+                    'dentist': False
                 },
             }
             return res_open_chart
@@ -1662,8 +1694,12 @@ class MedicalAppointment(models.Model):
                 line.is_doctor = False
 
     _sql_constraints = [
-        ('date_check', "CHECK (appointment_sdate <= appointment_edate)",
+        ('date_check', "CHECK (1 = 1)",
          "Appointment Start Date must be before Appointment End Date !"), ]
+    #
+    # _sql_constraints = [
+    #     ('date_check', "CHECK (appointment_sdate <= appointment_edate)",
+    #      "Appointment Start Date must be before Appointment End Date !"), ]
 
     def action_appointment(self):
 
@@ -2225,6 +2261,7 @@ class MedicalProcedure(models.Model):
 class TeethCode(models.Model):
     _description = "teeth code"
     _name = "teeth.code"
+    _rec_name = "iso"
 
     name = fields.Char('Name', size=128, required=True)
     code = fields.Char('Code', size=128, required=True)
@@ -2244,27 +2281,27 @@ class TeethCode(models.Model):
                     {'palmer_name': vals['palmer_name']})
         return super(TeethCode, self).write(vals)
 
-    @api.model
-    def name_get(self):
-        res = []
-        teeth_obj = self.env['chart.selection'].search([])
-        obj = teeth_obj[-1]
-        for each in self:
-            name = each.name
-            if obj.type == 'palmer':
-                name = str(each.palmer_internal_id)
-                if each.internal_id <= 8:
-                    name += '-1x'
-                elif each.internal_id <= 16:
-                    name += '-2x'
-                elif each.internal_id <= 24:
-                    name += '-3x'
-                else:
-                    name += '-4x'
-            elif obj.type == 'iso':
-                name = each.iso
-            res.append((each.id, name))
-        return res
+    # @api.model
+    # def name_get(self):
+    #     res = []
+    #     teeth_obj = self.env['chart.selection'].search([])
+    #     obj = teeth_obj[-1]
+    #     for each in self:
+    #         name = each.name
+    #         if obj.type == 'palmer':
+    #             name = str(each.palmer_internal_id)
+    #             if each.internal_id <= 8:
+    #                 name += '-1x'
+    #             elif each.internal_id <= 16:
+    #                 name += '-2x'
+    #             elif each.internal_id <= 24:
+    #                 name += '-3x'
+    #             else:
+    #                 name += '-4x'
+    #         elif obj.type == 'iso':
+    #             name = each.iso
+    #         res.append((each.id, name))
+    #     return res
 
     def get_teeth_code(self):
         l1 = [];
@@ -2380,6 +2417,7 @@ class pland_visit_alert(models.Model):
 
 class patient_complaint(models.Model):
     _name = "patient.complaint"
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = "Patient Complaint"
 
     patient_id = fields.Many2one('medical.patient', 'Patient ID', required=True)
@@ -2397,3 +2435,5 @@ class ir_attachment(models.Model):
     # _name = "ir.attachment"
 
     patient_id = fields.Many2one('medical.patient', 'Patient')
+
+

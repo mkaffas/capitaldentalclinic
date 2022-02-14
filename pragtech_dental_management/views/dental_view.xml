@@ -314,6 +314,7 @@
                             <field name="institution"
                                    context="{'default_is_institution': 1, 'search_default_is_institution': 1}"/>
                             <field name="code"/>
+                            <field name="active"  widget="boolean_toggle"/>
                         </group>
                     </page>
                     <page string="Extra Info">
@@ -849,6 +850,7 @@
                             <field name="partner_id" groups="pragtech_dental_management.group_dental_admin"
                                    context="{'default_is_patient': 1, 'search_default_is_patient': 1,'search_default_is_person': 1,'default_is_person': 1}"/>
                             <field name="partner_name"/>
+                            <field name="patient_name" invisible="1"/>
                             <field name="first_name"/>
                             <field name="middle_name"/>
                             <field name="lastname"/>
@@ -863,6 +865,7 @@
                             <field name="video_review" widget="boolean_toggle"/>
                             <field name="user_portal" widget="boolean_toggle"/>
                             <field name="arebic" string="Arabic" widget="boolean_toggle"/>
+                            <field name="photo_session" widget="boolean_toggle"/>
                         </group>
                     </group>
                     <group>
@@ -1023,7 +1026,7 @@
                                         <field name="state"/>
                                         <field name="dentist"/>
                                         <field name="detail_description" invisible="1"/>
-                                        <field name="completion_date" attrs="{'readonly':[('state','=','completed')]}"/>
+                                        <field name="completion_date" />
                                         <field name="amount"/>
                                     </tree>
                                 </field>
@@ -2127,13 +2130,20 @@
         <field name="model">patient.complaint</field>
         <field name="arch" type="xml">
             <form string="Alert" version="7.0">
-                <group>
-                    <field name="patient_id"/>
-                    <field name="complaint_subject"/>
-                    <field name="complaint_date"/>
-                    <field name="complaint"/>
-                    <field name="action_ta"/>
-                </group>
+                <sheet>
+                    <group>
+                        <field name="patient_id"/>
+                        <field name="complaint_subject"/>
+                        <field name="complaint_date"/>
+                        <field name="complaint"/>
+                        <field name="action_ta"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
             </form>
         </field>
     </record>
@@ -2308,5 +2318,7 @@
 
     <menuitem id="menu_insurance_policy_action" name="Insurance Payment Policy"
               action="medical_action_insurance" parent="medical_conf_insurances"/>
+
+
 
 </odoo>

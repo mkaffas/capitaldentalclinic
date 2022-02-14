@@ -184,6 +184,17 @@
         </field>
     </record>
 
+    <record id="edit_search_patient" model="ir.ui.view">
+        <field name="model">medical.patient</field>
+        <field name="inherit_id" ref="pragtech_dental_management.view_medical_patient_filter"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='patient_id']" position="after">
+                <field name="mobile"/>
+            </xpath>
+
+        </field>
+    </record>
     <record id="edit_search_appointment" model="ir.ui.view">
         <field name="model">medical.appointment</field>
         <field name="inherit_id" ref="pragtech_dental_management.view_medical_appointment_filter"/>
@@ -378,6 +389,10 @@
                     <field name="show_on_app"/>
                     <label for="show_on_app"/>
                 </div>
+                <div>
+                    <label for="dentist"/>
+                    <field name="dentist"/>
+                </div>
             </xpath>
 
         </field>
@@ -453,6 +468,22 @@
 
         </field>
     </record>
+    <!--<record id="complaint_form_view" model="ir.ui.view">-->
+        <!--<field name="model">patient.complaint</field>-->
+        <!--<field name="inherit_id" ref="pragtech_dental_management.patient_complaint_form_view"/>-->
+        <!--<field name="arch" type="xml">-->
+
+            <!--<xpath expr="//sheet" position="after">-->
+                <!--<div class="oe_chatter">-->
+                    <!--<field name="message_follower_ids"/>-->
+                    <!--<field name="activity_ids"/>-->
+                    <!--<field name="message_ids"/>-->
+                <!--</div>-->
+            <!--</xpath>-->
+
+        <!--</field>-->
+    <!--</record>-->
+>>>>>>> 5d48b495cd3156ba1c26c9d4cdc00ffe637b0115
 
     <!-- Inherit Form View to Modify it -->
     <record id="edit_dental_appointment" model="ir.ui.view">
@@ -487,8 +518,7 @@
 
                 <button name="open_survey" string="Open Survey" type="object"
                         attrs="{'invisible': [('state', '!=', 'done')]}"/>
-                <button name="product_multi_choose" string="Add Service" type="object"
-                        attrs="{'invisible': [('state', '!=', 'checkin')]}"/>
+                <button name="product_multi_choose" string="Add Service" type="object"/>
             </xpath>
             <xpath expr="//field[@name='comments']" position="before">
                 <field name="wizard_service_id" colspan="4" readonly="1"/>
@@ -586,6 +616,8 @@
                     </group>
                     <group>
                         <button name="service_confirmation" string="Services Confirmation" type="object"
+                                class="oe_highlight"/>
+                        <button name="service_completion" string="Services complete" type="object"
                                 class="oe_highlight"/>
                     </group>
                 </group>
