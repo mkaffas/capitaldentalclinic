@@ -913,38 +913,6 @@ class complaint(models.Model):
                     subtype_id=self.env.ref('mail.mt_note').id)
         return res
 
-class Dentist(models.Model):
-    _inherit = 'medical.physician'
-
-    assistant_ids = fields.Many2many(comodel_name="res.users", string="Assistants", )
-
-
-class complaint(models.Model):
-    _name = 'patient.complaint'
-    _inherit = ['mail.thread', 'mail.activity.mixin']
-
-    @api.model
-    def create(self, values):
-        res = super(complaint, self).create(values)
-
-        for line in res:
-            partners = self.env.ref(
-                'pragtech_dental_management.group_branch_manager').users.filtered(
-                lambda r: r.partner_id).mapped('partner_id.id')
-            all_partners = partners
-            body = '<a target=_BLANK href="/web?#id=' + str(
-                line.id) + '&view_type=form&model=patient.complaint&action=" style="font-weight: bold">' + '</a>'
-            if all_partners:
-                line.sudo().message_post(
-                    partner_ids=all_partners,
-                    subject="Patient Complaint " + str(
-                        line.complaint_subject) + " is created",
-                    body="New Patient Complaint " + body + "added with Patient " + str(
-                        line.patient_id.partner_id.name),
-                    message_type='comment',
-                    subtype_id=self.env.ref('mail.mt_note').id)
-        return res
-
 class Teeth(models.Model):
     _inherit = 'medical.teeth.treatment'
 

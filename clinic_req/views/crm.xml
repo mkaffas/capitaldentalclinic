@@ -195,6 +195,7 @@
 
         </field>
     </record>
+
     <record id="edit_search_appointment" model="ir.ui.view">
         <field name="model">medical.appointment</field>
         <field name="inherit_id" ref="pragtech_dental_management.view_medical_appointment_filter"/>
@@ -453,21 +454,6 @@
         </field>
     </record>
 
-    <record id="complaint_form_view" model="ir.ui.view">
-        <field name="model">patient.complaint</field>
-        <field name="inherit_id" ref="pragtech_dental_management.patient_complaint_form_view"/>
-        <field name="arch" type="xml">
-
-            <xpath expr="//sheet" position="after">
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="activity_ids"/>
-                    <field name="message_ids"/>
-                </div>
-            </xpath>
-
-        </field>
-    </record>
     <!--<record id="complaint_form_view" model="ir.ui.view">-->
         <!--<field name="model">patient.complaint</field>-->
         <!--<field name="inherit_id" ref="pragtech_dental_management.patient_complaint_form_view"/>-->
@@ -483,7 +469,6 @@
 
         <!--</field>-->
     <!--</record>-->
->>>>>>> 5d48b495cd3156ba1c26c9d4cdc00ffe637b0115
 
     <!-- Inherit Form View to Modify it -->
     <record id="edit_dental_appointment" model="ir.ui.view">
