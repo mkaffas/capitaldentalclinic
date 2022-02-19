@@ -600,8 +600,8 @@
                                 class="oe_highlight"/>
                     </group>
                     <group>
-                        <button name="service_confirmation" string="Services Confirmation" type="object"
-                                class="oe_highlight"/>
+<!--                        <button name="service_confirmation" string="Services Confirmation" type="object"-->
+<!--                                class="oe_highlight"/>-->
                         <button name="service_completion" string="Services complete" type="object"
                                 class="oe_highlight"/>
                     </group>
@@ -643,9 +643,9 @@
                     </button>
                 </div>
             </xpath>
-            <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree/field[@name='dentist']" position="attributes">
-                <attribute name="groups">pragtech_dental_management.group_dental_admin</attribute>
-            </xpath>
+<!--            <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree/field[@name='dentist']" position="attributes">-->
+<!--                <attribute name="groups">pragtech_dental_management.group_dental_admin</attribute>-->
+<!--            </xpath>-->
             <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']"
                    position="after">
                 <group class="oe_subtotal_footer oe_right">

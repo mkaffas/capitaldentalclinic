@@ -10,6 +10,8 @@ from dateutil.relativedelta import relativedelta
 
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
+
 
 
 class ClaimManagement(models.Model):
@@ -2372,6 +2374,7 @@ class MedicalTeethTreatment(models.Model):
     patient_id = fields.Many2one('medical.patient', 'Patient Details',
                                  tracking=True)
     teeth_id = fields.Many2one('teeth.code', 'Tooth', tracking=True)
+    remake = fields.Boolean(string="",  )
     description = fields.Many2one('product.product', 'Description',
                                   domain=[('is_treatment', '=', True)],
                                   tracking=True)
@@ -2393,6 +2396,33 @@ class MedicalTeethTreatment(models.Model):
     teeth_code_rel = fields.Many2many('teeth.code',
                                       'teeth_code_medical_teeth_treatment_rel',
                                       'operation', 'teeth', tracking=True)
+    @api.onchange('state')
+    def service_confirmation(self):
+        for line in self:
+            if line.state == 'completed':
+                journal_id = self.env['account.journal'].search([
+                    ('type', '=', 'sale')], limit=1)
+                inv_line_main = {
+                    'name': line.description.name,
+                    'price_unit': line.amount or 0.00,
+                    'quantity': 1,
+                    'discount': line.discount,
+                    'account_id': line.description.property_account_income_id.id or line.description.categ_id.property_account_income_categ_id.id or False,
+                }
+                inv_values = {
+                    'partner_id': self.patient_id.partner_id.id,
+                    # 'patient_id': self.id,
+                    'dentist': line.dentist.id,
+                    'move_type': 'out_invoice',
+                    'invoice_date': datetime.now().strftime(DF) or False,
+                    'journal_id': journal_id and journal_id.id or False,
+                    'teeth_id': self.patient_id.id or False,
+                }
+                acc_id = self.env['account.move'].sudo().create(inv_values)
+                acc_id.sudo().write({'invoice_line_ids': [(0, 0, inv_line_main)]})
+                acc_id.action_post()
+                line.sudo().write({'invc_id': acc_id.id, 'inv': True})
+
 
 
 class PatientBirthdayAlert(models.Model):
