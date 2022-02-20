@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="id_medical_teeth_treatment_tree" model="ir.ui.view">
+            <field name="name">medical teeth treatment tree</field>
+            <field name="model">medical.teeth.treatment</field>
+            <field name="arch" type="xml">
+                <tree string="Medical Teeth Treatment Tree" create="0">
+                    <field name="teeth_id"/>
+                    <field name="description"/>
+                    <field name="completion_date"/>
+                    <field name="state"/>
+                    <field name="patient_id"/>
+                    <field name="dentist"/>
+                </tree>
+            </field>
+        </record>
+        <record id="id_medical_teeth_treatment_search" model="ir.ui.view">
+            <field name="name">medical teeth treatment search</field>
+            <field name="model">medical.teeth.treatment</field>
+            <field name="arch" type="xml">
+                <search string="Medical Teeth Treatment Search">
+                    <field name="dentist"/>
+                    <field name="patient_id"/>
+                    <filter string="Dentist" name='dentist' context="{'group_by':'dentist'}"/>
+                    <filter string="Patient" name='patient_id' context="{'group_by':'patient_id'}"/>
+                </search>
+            </field>
+        </record>
+        <record id="id_medical_teeth_treatment_action" model="ir.actions.act_window">
+            <field name="name">Medical Teeth Treatment</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">medical.teeth.treatment</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('remake', '=', True)]</field>
+            <field name="view_id" ref="id_medical_teeth_treatment_tree"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p>
+            </field>
+        </record>
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="id_medical_teeth_treatment_menu" name="Remake"
+                  parent="pragtech_dental_management.dental_report_menu" action="id_medical_teeth_treatment_action"
+                  sequence="10"/>
+    </data>
+</odoo>
