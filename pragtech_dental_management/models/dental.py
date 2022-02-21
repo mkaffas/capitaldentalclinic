@@ -2375,6 +2375,7 @@ class MedicalTeethTreatment(models.Model):
                                  tracking=True)
     teeth_id = fields.Many2one('teeth.code', 'Tooth', tracking=True)
     remake = fields.Boolean(string="",  )
+
     description = fields.Many2one('product.product', 'Description',
                                   domain=[('is_treatment', '=', True)],
                                   tracking=True)
