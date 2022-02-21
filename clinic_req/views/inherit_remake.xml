@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="id_medical_teeth_treatment_tree_inherit" model="ir.ui.view">
+            <field name="name">medical teeth treatment tree inherit</field>
+            <field name="model">medical.teeth.treatment</field>
+            <field name="inherit_id" ref="pragtech_dental_management.id_medical_teeth_treatment_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='dentist']" position="after">
+                    <field name="net_amount"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
