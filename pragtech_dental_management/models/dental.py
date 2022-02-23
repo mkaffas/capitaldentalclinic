@@ -1050,7 +1050,8 @@ class MedicalPatient(models.Model):
                                   int(each_teeth_from_full_mouth))])
                             operate_on_tooth.append(
                                 actual_teeth_id.id)
-                        treatment_id.write({'teeth_code_rel': [
+                        if treatment_id:
+                            treatment_id.write({'teeth_code_rel': [
                             (6, 0, operate_on_tooth)]})
 
         #                                         cr.execute('insert into teeth_code_medical_teeth_treatment_rel(operation,teeth) values(%s,%s)' % (treatment_id,each_teeth_from_full_mouth))
