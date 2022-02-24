@@ -644,7 +644,7 @@ class MedicalPatient(models.Model):
             now = datetime.now()
             if (patient_dob):
                 dob = datetime.strptime(str(patient_dob), '%Y-%m-%d')
-                if patient_deceased:
+                if patient_deceased and patient_dod:
                     dod = datetime.strptime(str(patient_dod),
                                             '%Y-%m-%d %H:%M:%S')
                     delta = relativedelta(dod, dob)
@@ -799,7 +799,7 @@ class MedicalPatient(models.Model):
     general_info = fields.Text('General Information',
                                help="General information about the patient")
     deceased = fields.Boolean('Deceased', help="Mark if the patient has died")
-    dod = fields.Datetime('Date of Death')
+    dod = fields.Datetime('Date of Death',)
     apt_id = fields.One2many(comodel_name="medical.appointment", inverse_name="patient", string="Appointments",
                              required=False, )
     # apt_id = fields.Many2many('medical.appointment', 'pat_apt_rel', 'patient',
