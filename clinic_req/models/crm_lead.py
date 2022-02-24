@@ -49,7 +49,7 @@ class CRM(models.Model):
     passcode = fields.Char(string="Passcode", required=False, )
     priority = fields.Selection(
         [('1', 'Low'), ('2', 'Medium'), ('3', 'High'), ('4', 'Normal High'), ('5', 'Very High')],
-        'Priority', index=True,default="1")
+        'Priority', index=True, default="1")
 
     # def mark_as_lost(self):
     #     for line in self:
@@ -369,14 +369,14 @@ class Appointment(models.Model):
 
     crm_id = fields.Many2one(comodel_name="crm.lead", string="",
                              required=False, )
-    assistant_ids = fields.Many2many(comodel_name="res.users", string="Assistants",related='doctor.assistant_ids' )
+    assistant_ids = fields.Many2many(comodel_name="res.users", string="Assistants", related='doctor.assistant_ids')
     wizard_service_id = fields.Many2many(comodel_name="product.product", string="Services", required=True, )
     patient_coordinator = fields.Many2one(comodel_name="res.users",
                                           string="Patient Coordinator",
                                           related='patient.coordinator_id')
     chief = fields.Many2one(comodel_name='chief.complaint',
                             string="Chief Complaint", required=False, )
-    partner_id = fields.Many2one('res.partner', 'Patient',related="patient.partner_id",store=True)
+    partner_id = fields.Many2one('res.partner', 'Patient', related="patient.partner_id", store=True)
 
     @api.onchange('state')
     def onchange_state(self):
@@ -619,7 +619,7 @@ class Patient(models.Model):
             'res_model': 'account.payment',
             'nodestroy': True,
             'target': 'current',
-            'context': {'default_partner_id': self.partner_id.id },
+            'context': {'default_partner_id': self.partner_id.id},
             'type': 'ir.actions.act_window',
         }
 
@@ -633,7 +633,7 @@ class Patient(models.Model):
             'res_model': 'patient.complaint',
             'nodestroy': True,
             'target': 'current',
-            'context': {'default_patient_id': self.id },
+            'context': {'default_patient_id': self.id},
             'type': 'ir.actions.act_window',
         }
 
@@ -711,12 +711,12 @@ class Patient(models.Model):
             record.number_of_records = number_of_records
             record.service_net = service_net
             obj_payment = self.env['account.payment'].search(
-                [('partner_id', '=', record.partner_id.id),('state', '=', "posted"),])
+                [('partner_id', '=', record.partner_id.id), ('state', '=', "posted"), ])
             for payment in obj_payment:
                 if payment.payment_type == 'inbound':
                     total_payment += self.env['res.currency']._compute(payment.currency_id,
-                                                      payment.company_id.currency_id,
-                                                      payment.amount)
+                                                                       payment.company_id.currency_id,
+                                                                       payment.amount)
                     # total_payment += payment.amount
                 elif payment.payment_type == 'outbound':
                     total_payment -= self.env['res.currency']._compute(payment.currency_id,
@@ -791,9 +791,6 @@ class Patient(models.Model):
                 raise UserError(
                     _('Can not delete this operation %s because you have an invoice on it  !!') % (line.description))
 
-
-
-
     def service_confirmation(self):
         for line in self.teeth_treatment_ids:
             if line.is_selected == True and line.inv == False:
@@ -819,8 +816,6 @@ class Patient(models.Model):
                 acc_id.sudo().write({'invoice_line_ids': [(0, 0, inv_line_main)]})
                 acc_id.action_post()
                 line.sudo().write({'invc_id': acc_id.id, 'inv': True})
-
-
 
     def get_all_discount(self):
         if self.env.user.has_group('pragtech_dental_management.group_patient_coordinator'):
@@ -852,9 +847,10 @@ class Patient(models.Model):
 
     def service_completion(self):
         for rec in self:
-            lines=rec.teeth_treatment_ids.filtered(lambda m: m.is_selected == True)
+            lines = rec.teeth_treatment_ids.filtered(lambda m: m.is_selected == True)
             lines.update({
-                "is_selected":False
+                "is_selected": False,
+
             })
             return {
                 'name': _('Update Label'),
@@ -868,6 +864,9 @@ class Patient(models.Model):
 
 
 
+
+
+
 class ServiceCompletionDate(models.Model):
     _name = 'service.completion.date'
 
@@ -877,7 +876,8 @@ class ServiceCompletionDate(models.Model):
     def send_completion_date(self):
         for rec in self:
             rec.lines_ids.update({
-                "completion_date":rec.completion_date
+                "completion_date": rec.completion_date,
+                "state": 'completed'
             })
 
 
@@ -889,6 +889,7 @@ class Dentist(models.Model):
 
 class complaint(models.Model):
     _inherit = 'patient.complaint'
+
     # _inherit = ['mail.thread', 'mail.activity.mixin']
 
     @api.model
@@ -912,6 +913,7 @@ class complaint(models.Model):
                     message_type='comment',
                     subtype_id=self.env.ref('mail.mt_note').id)
         return res
+
 
 class Teeth(models.Model):
     _inherit = 'medical.teeth.treatment'
@@ -960,14 +962,30 @@ class Teeth(models.Model):
                 self.patient_id.sudo().update({'check_state': False})
 
     discount_amount = fields.Float(string="Discount Amount", required=False, )
-    @api.depends('discount', 'amount',"discount_amount")
+
+    @api.onchange('completion_date')
+    def get_all_completed(self):
+        for rec in self:
+            if rec.completion_date and rec.state != "completed":
+                rec.update({
+                    "state": "completed",
+                })
+
+    @api.onchange('state')
+    def get_all_completed_date(self):
+        for rec in self:
+            if rec.state == "completed" and  not rec.completion_date :
+                rec.completion_date = fields.Datetime.now()
+
+
+
+    @api.depends('discount', 'amount', "discount_amount")
     def get_net_amount(self):
         print("get_net_amount")
         self.get_discount()
         for line in self:
             line.net_amount = line.amount - (
                     (line.amount * line.discount) / 100)
-
 
     @api.onchange('discount', 'amount')
     def get_discount_amount(self):
