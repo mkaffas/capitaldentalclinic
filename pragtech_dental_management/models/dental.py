@@ -1115,10 +1115,10 @@ class MedicalPatient(models.Model):
                         invoice_vals['invoice_line_ids'] = invoice_line_vals
 
         # creating account invoice
-        if invoice_vals:
-            self.env['account.move'].create(invoice_vals)
-        else:
-            return False
+        # if invoice_vals:
+        #     self.env['account.move'].create(invoice_vals)
+        # else:
+        return False
 
     def get_back_address(self, active_patient):
         active_patient = str(active_patient)
