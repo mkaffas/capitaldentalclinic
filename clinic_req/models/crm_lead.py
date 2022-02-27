@@ -606,6 +606,35 @@ class Patient(models.Model):
     post_dental_history = fields.Text(string="Post Dental History", required=False, )
     habits = fields.Text(string="Habits & Oral Hygiene Measures", required=False, )
     patient_chief_compliant = fields.Many2one(comodel_name="chief.complaint", string="Patient Chef Compliant", )
+    total_planned = fields.Integer(string="", required=False, compute="git_total_lne_amount")
+    total_condition = fields.Integer(string="", required=False, compute="git_total_lne_amount")
+    total_completed = fields.Integer(string="", required=False, compute="git_total_lne_amount")
+    total_in_progress = fields.Integer(string="", required=False, compute="git_total_lne_amount")
+    total_extra_session = fields.Integer(string="", required=False, compute="git_total_lne_amount")
+    total_invoiced = fields.Integer(string="", required=False, compute="git_total_lne_amount")
+
+    @api.depends('teeth_treatment_ids')
+    def git_total_lne_amount(self):
+        for rec in self:
+            total_planned = 0
+            total_condition = 0
+            total_completed = 0
+            total_in_progress = 0
+            total_extra_session = 0
+            total_invoiced = 0
+
+            rec.total_planned = sum(
+                list(rec.teeth_treatment_ids.filtered(lambda x: x.state == "planned").mapped("net_amount")))
+            rec.total_condition = sum(
+                list(rec.teeth_treatment_ids.filtered(lambda x: x.state == "condition").mapped("net_amount")))
+            rec.total_completed = sum(
+                list(rec.teeth_treatment_ids.filtered(lambda x: x.state == "completed").mapped("net_amount")))
+            rec.total_in_progress = sum(
+                list(rec.teeth_treatment_ids.filtered(lambda x: x.state == "in_progress").mapped("net_amount")))
+            rec.total_extra_session = sum(
+                list(rec.teeth_treatment_ids.filtered(lambda x: x.state == "extra_session").mapped("net_amount")))
+            rec.total_invoiced = sum(
+                list(rec.teeth_treatment_ids.filtered(lambda x: x.state == "invoiced").mapped("net_amount")))
 
     # patient_compliant = fields.Many2one(comodel_name='chief.complaint',string="Patient Chef Compliant", required=False, )
 
@@ -863,10 +892,6 @@ class Patient(models.Model):
             }
 
 
-
-
-
-
 class ServiceCompletionDate(models.Model):
     _name = 'service.completion.date'
 
@@ -974,10 +999,8 @@ class Teeth(models.Model):
     @api.onchange('state')
     def get_all_completed_date(self):
         for rec in self:
-            if rec.state == "completed" and  not rec.completion_date :
+            if rec.state == "completed" and not rec.completion_date:
                 rec.completion_date = fields.Datetime.now()
-
-
 
     @api.depends('discount', 'amount', "discount_amount")
     def get_net_amount(self):
