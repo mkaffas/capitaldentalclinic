@@ -2398,7 +2398,7 @@ class MedicalTeethTreatment(models.Model):
     teeth_code_rel = fields.Many2many('teeth.code',
                                       'teeth_code_medical_teeth_treatment_rel',
                                       'operation', 'teeth', tracking=True)
-    @api.onchange('state')
+    @api.constrains('state')
     def service_confirmation(self):
         for line in self:
             if line.state == 'completed':
@@ -2406,9 +2406,9 @@ class MedicalTeethTreatment(models.Model):
                     ('type', '=', 'sale')], limit=1)
                 inv_line_main = {
                     'name': line.description.name,
-                    'price_unit': line.amount or 0.00,
+                    'price_unit': line.net_amount or 0.00,
                     'quantity': 1,
-                    'discount': line.discount,
+                    'discount': 0,
                     'account_id': line.description.property_account_income_id.id or line.description.categ_id.property_account_income_categ_id.id or False,
                 }
                 inv_values = {
