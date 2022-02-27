@@ -2406,9 +2406,9 @@ class MedicalTeethTreatment(models.Model):
                     ('type', '=', 'sale')], limit=1)
                 inv_line_main = {
                     'name': line.description.name,
-                    'price_unit': line.net_amount or 0.00,
+                    'price_unit': line.amount or 0.00,
                     'quantity': 1,
-                    'discount': 0,
+                    'discount': line.discount,
                     'account_id': line.description.property_account_income_id.id or line.description.categ_id.property_account_income_categ_id.id or False,
                 }
                 inv_values = {
