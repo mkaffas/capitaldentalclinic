@@ -1983,6 +1983,7 @@ class MedicalAppointment(models.Model):
             })
             invoice_vals['invoice_line_ids'].append((0, 0, res))
         inv_id = self.env['account.move'].create(invoice_vals)
+        print(111111111111111111,inv_id)
         if inv_id:
             self.inv_id = inv_id.id
             self.invoice_done = True
@@ -2141,6 +2142,7 @@ class MedicalPrescriptionOrder(models.Model):
         return invoice_vals
 
     def create_invoices(self):
+        print("create_invoices")
         if not self.prescription_line:
             raise UserError(_("Please add medicine line."))
         invoice_vals = self._prepare_invoice()

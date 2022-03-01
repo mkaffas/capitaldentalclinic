@@ -648,14 +648,22 @@
 <!--            </xpath>-->
             <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']"
                    position="after">
-                <group class="oe_subtotal_footer oe_right">
-                    <field name="service_amount"/>
-                    <field name="total_discount"/>
-                    <field name="service_net"/>
-                    <field name="total_payment"/>
-                    <field name="discount_for_total" invisible="1"/>
-                    <field name="total_net" class="oe_subtotal_footer_separator"/>
-                </group>
+                    <group class="oe_subtotal_footer oe_right">
+                        <field name="service_amount"/>
+                        <field name="total_discount"/>
+                        <field name="service_net"/>
+                        <field name="total_payment"/>
+                        <field name="discount_for_total" invisible="1"/>
+                        <field name="total_net" class="oe_subtotal_footer_separator"/>
+                    </group>
+                    <group class=" oe_left">
+                        <field name="total_planned"/>
+                        <field name="total_condition"/>
+                        <field name="total_completed"/>
+                        <field name="total_in_progress"/>
+                        <field name="total_extra_session" />
+                        <field name="total_invoiced"/>
+                    </group>
             </xpath>
             <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree/field[@name='amount']"
                    position="after">
