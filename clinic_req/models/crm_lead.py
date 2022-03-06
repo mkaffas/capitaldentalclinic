@@ -220,6 +220,7 @@ class CRM(models.Model):
             'city': self.city,
             'state_id': self.state_id.id,
             'country_id': self.country_id.id,
+            # 'nationality_id': self.nationality.id,
         })
         patient_obj = self.env['medical.patient'].sudo()
         patient = patient_obj.create({
@@ -241,7 +242,18 @@ class CRM(models.Model):
             'phone': self.phone or "",
             'chief': [(6, 0, [self.chief.id])] if self.chief else False,
             'tag_ids': self.tag_ids.ids or False,
-            'nationality_id': self.nationality.id or False,
+            # 'nationality_id': self.nationality.id or False,
+            'country_id': self.country_id.id,
+            'nationality_id': self.nationality.id,
+            # 'mobile': self.mobile,
+            # 'email': self.email_from,
+            # 'phone': self.phone,
+            'street': self.street or "",
+            'street2': self.street2 or "",
+            'zip': self.zip,
+            'city': self.city,
+            'state_id': self.state_id.id,
+            # 'country_id': self.country_id.id,
             # 'note': self.description or "",
         })
         # self.patient = self.first_name + ' ' + self.middle_name + ' ' + self.last_name
@@ -369,7 +381,17 @@ class Appointment(models.Model):
 
     crm_id = fields.Many2one(comodel_name="crm.lead", string="",
                              required=False, )
-    assistant_ids = fields.Many2many(comodel_name="res.users", string="Assistants", related='doctor.assistant_ids')
+    assistant_ids = fields.Many2many(comodel_name="res.users", string="Assistants", compute="get_assistant_ids",
+                                     store=True, readonly=False)
+
+    @api.depends('doctor')
+    def get_assistant_ids(self):
+        for rec in self:
+            if rec.doctor.assistant_ids:
+                rec.assistant_ids = rec.doctor.assistant_ids.ids
+            else:
+                rec.assistant_ids = False
+
     wizard_service_id = fields.Many2many(comodel_name="product.product", string="Services", required=True, )
     patient_coordinator = fields.Many2one(comodel_name="res.users",
                                           string="Patient Coordinator",

@@ -453,6 +453,19 @@
 
         </field>
     </record>
+    <record id="id_medical_appointment_popup_view" model="ir.ui.view">
+        <field name="name">medical_appointment_popup_view</field>
+        <field name="model">medical.appointment</field>
+        <field name="inherit_id" ref="pragtech_dental_management.medical_appointment_popup_view"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='doctor']" position="after">
+                <field name="assistant_ids" widget="many2many_tags"/>
+
+            </xpath>
+
+        </field>
+    </record>
 
     <!--<record id="complaint_form_view" model="ir.ui.view">-->
         <!--<field name="model">patient.complaint</field>-->
@@ -795,4 +808,6 @@
     <menuitem id="menu_survey" name="Appointment Survey" parent="pragtech_dental_management.medical_patients_menu"
               action="action_appointment_survey" sequence="5"
               groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager"/>
+    <!-- Inherit Form View to Modify it -->
+
 </odoo>
