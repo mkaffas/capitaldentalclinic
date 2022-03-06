@@ -18,6 +18,7 @@
         'security/ir.model.access.csv',
         'views/crm.xml',
         'views/discount.xml',
+        'views/inherit_remake.xml',
         'views/wizzard_label.xml',
     ],
     'images': ['static/description/banner.png'],

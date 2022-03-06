@@ -5,7 +5,7 @@
     'author': 'Pragmatic TechSoft Pvt Ltd.',
     'category': 'Generic Modules/Others',
     'depends': ['base', 'website', 'sale_management', 'purchase', 'account', 'product', 'account',
-                'attachment_indexation', 'google_calendar', 'product_expiry', 'web', 'planning', 'mail', 'sms_eg'],
+                'attachment_indexation', 'google_calendar', 'product_expiry', 'web', 'planning', 'mail', 'sms_eg', 'report_xlsx'],
     'summary': 'This Module Adds a drop-down for service links in systray Bookmarks odoo bookmarks Odoo - Dental Clinic Management app dental management system dental management module dental management odoo dental dental clinic management dental app',
     'description': """
 This modules includes Dental Clinic Management Features
@@ -61,6 +61,8 @@ dental app
         'report/account_invoice_report_view.xml',
         'report/report_income_by_doctor.xml',
         'report/report_patient_by_doctor.xml',
+        'views/report_remake.xml',
+        'views/doctor_report.xml',
     ],
     'qweb': [
         'static/src/xml/*.xml',
