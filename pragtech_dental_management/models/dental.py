@@ -1680,7 +1680,7 @@ class MedicalAppointment(models.Model):
     unit_id = fields.Many2one(comodel_name="medical.hospital.unit", string="",
                               required=False, )
     branch_id = fields.Many2one(
-        'dental.branch', group_expand='_group_expand_branch', related="room_id.branch_id"
+        'dental.branch', group_expand='_group_expand_branch', related="room_id.branch_id",store=True
     )
     is_doctor = fields.Boolean(compute="check_is_doctor")
 
