@@ -41,6 +41,43 @@
         </field>
     </record>
 
+    <record id="id_open_appointment_date" model="ir.ui.view">
+        <field name="name">open_appointment_date</field>
+        <field name="model">open.appointment.date</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <cnter>
+                            <group>
+                                <field name="date"/>
+                            </group>
+                        </cnter>
+                    </group>
+                </sheet>
+                <footer>
+                        <button string="OK" name="open" type="object"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+            </form>
+        </field>
+    </record>
+    <record id="id_open_appointment_date_act" model="ir.actions.act_window">
+        <field name="name">open_appointment_date</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">open.appointment.date</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            <!-- Add Text Here -->
+          </p><p>
+            <!-- More details about what a user can do with this object will be OK -->
+          </p>
+        </field>
+    </record>
 
     <record model="ir.ui.view" id="medical_appointment_view">
         <field name="name">Appointment</field>

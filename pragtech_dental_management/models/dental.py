@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 import datetime
 import hashlib
 import time
@@ -12,6 +13,21 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT as DF
 
+class open_appointment_date(models.Model):
+    _name = 'open.appointment.date'
+    _description = 'New Description'
+
+    date = fields.Date(string="", required=False, )
+
+    def open(self):
+        return {
+            "type": "ir.actions.act_window",
+            "name": _("Select lines to purge"),
+            "views": [(False, "gantt")],
+            "res_model": "medical.appointment",
+            'context': {
+                'initialDate': self.date}
+        }
 
 
 class ClaimManagement(models.Model):
@@ -1683,6 +1699,8 @@ class MedicalAppointment(models.Model):
         'dental.branch', group_expand='_group_expand_branch', related="room_id.branch_id",store=True
     )
     is_doctor = fields.Boolean(compute="check_is_doctor")
+
+
 
     def check_is_doctor(self):
         for line in self:
