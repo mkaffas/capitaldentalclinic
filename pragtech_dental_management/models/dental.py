@@ -726,6 +726,21 @@ class MedicalPatient(models.Model):
                                  help="Patient Name")
     partner_name = fields.Char(string="Patient name", compute="get_partner_name" )
     patient_name = fields.Char(string="Patient name", compute="get_patient_name" )
+    campaign_id = fields.Many2one('utm.campaign', string='UTM Campaign', index=True)
+    first_dignoses_date = fields.Date(string="", required=False, compute="get_first_dignoses_date",store=True)
+    service_net = fields.Float(string="Service net amount",)
+    total_discount = fields.Float(string="Total Discount",)
+    total_payment = fields.Float(string="Total payment", )
+    total_net = fields.Float(string="Total Net" )
+    total_net_not_completed = fields.Float(string="Total Net Not Completed" )
+    @api.depends('teeth_treatment_ids','teeth_treatment_ids.state')
+    def get_first_dignoses_date(self):
+        for rec in self:
+            first_dignoses_date=self.env['medical.teeth.treatment'].search([('state','=','completed'),('patient_id','=',rec.id)],order="completion_date",limit=1).completion_date
+            if first_dignoses_date:
+                rec.first_dignoses_date=first_dignoses_date.date()
+            else:
+                rec.first_dignoses_date=False
 
     def get_partner_name(self):
         for line in self:

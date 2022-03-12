@@ -370,7 +370,12 @@ class Survey_app(models.Model):
         [('0', 'Low'), ('1', 'Medium'), ('2', 'Medium'), ('3', 'High'), ('4', 'Normal High'), ('5', 'Very High')],
         'Sterilization and hygiene', default='0', index=True)
     desc = fields.Text(string="Description", required=False, )
+    ratio = fields.Float(string="ratio",  required=False,readonly=True ,compute="get_ratio")
 
+    @api.depends('priority_reception','priority_medical_procedure',"priority_sterilization_hygiene")
+    def get_ratio(self):
+        for rec in self:
+            rec.ratio=(int(rec.priority_reception)+int(rec.priority_medical_procedure)+int(rec.priority_sterilization_hygiene))/15*100
     def confirm(self):
         self.state = 'confirmed'
 

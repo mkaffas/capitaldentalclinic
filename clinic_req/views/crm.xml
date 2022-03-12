@@ -24,7 +24,8 @@
     </record>
 
 
-    <menuitem name="Patient Payment Report" id="menu_report_patient_payment" parent="pragtech_dental_management.medical_menu"
+    <menuitem name="Patient Payment Report" id="menu_report_patient_payment"
+              parent="pragtech_dental_management.menu_dental_report"
               action="action_view_patient_payment_pivot"
               sequence="5"/>
 
@@ -51,7 +52,7 @@
     </record>
 
 
-    <menuitem name="Appointment Report" id="menu_report_appointment" parent="pragtech_dental_management.medical_menu"
+    <menuitem name="Appointment Report" id="menu_report_appointment" parent="pragtech_dental_management.menu_dental_report"
               action="action_view_appointment_pivot"
               sequence="5"/>
 
@@ -468,19 +469,19 @@
     </record>
 
     <!--<record id="complaint_form_view" model="ir.ui.view">-->
-        <!--<field name="model">patient.complaint</field>-->
-        <!--<field name="inherit_id" ref="pragtech_dental_management.patient_complaint_form_view"/>-->
-        <!--<field name="arch" type="xml">-->
+    <!--<field name="model">patient.complaint</field>-->
+    <!--<field name="inherit_id" ref="pragtech_dental_management.patient_complaint_form_view"/>-->
+    <!--<field name="arch" type="xml">-->
 
-            <!--<xpath expr="//sheet" position="after">-->
-                <!--<div class="oe_chatter">-->
-                    <!--<field name="message_follower_ids"/>-->
-                    <!--<field name="activity_ids"/>-->
-                    <!--<field name="message_ids"/>-->
-                <!--</div>-->
-            <!--</xpath>-->
+    <!--<xpath expr="//sheet" position="after">-->
+    <!--<div class="oe_chatter">-->
+    <!--<field name="message_follower_ids"/>-->
+    <!--<field name="activity_ids"/>-->
+    <!--<field name="message_ids"/>-->
+    <!--</div>-->
+    <!--</xpath>-->
 
-        <!--</field>-->
+    <!--</field>-->
     <!--</record>-->
 
     <!-- Inherit Form View to Modify it -->
@@ -613,8 +614,8 @@
                                 class="oe_highlight"/>
                     </group>
                     <group>
-<!--                        <button name="service_confirmation" string="Services Confirmation" type="object"-->
-<!--                                class="oe_highlight"/>-->
+                        <!--                        <button name="service_confirmation" string="Services Confirmation" type="object"-->
+                        <!--                                class="oe_highlight"/>-->
                         <button name="service_completion" string="Services complete" type="object"
                                 class="oe_highlight"/>
                     </group>
@@ -656,27 +657,27 @@
                     </button>
                 </div>
             </xpath>
-<!--            <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree/field[@name='dentist']" position="attributes">-->
-<!--                <attribute name="groups">pragtech_dental_management.group_dental_admin</attribute>-->
-<!--            </xpath>-->
+            <!--            <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree/field[@name='dentist']" position="attributes">-->
+            <!--                <attribute name="groups">pragtech_dental_management.group_dental_admin</attribute>-->
+            <!--            </xpath>-->
             <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']"
                    position="after">
-                    <group class="oe_subtotal_footer oe_right">
-                        <field name="service_amount"/>
-                        <field name="total_discount"/>
-                        <field name="service_net"/>
-                        <field name="total_payment"/>
-                        <field name="discount_for_total" invisible="1"/>
-                        <field name="total_net" class="oe_subtotal_footer_separator"/>
-                    </group>
-                    <group class=" oe_left">
-                        <field name="total_planned"/>
-                        <field name="total_condition"/>
-                        <field name="total_completed"/>
-                        <field name="total_in_progress"/>
-                        <field name="total_extra_session" />
-                        <field name="total_invoiced"/>
-                    </group>
+                <group class="oe_subtotal_footer oe_right">
+                    <field name="service_amount"/>
+                    <field name="total_discount"/>
+                    <field name="service_net"/>
+                    <field name="total_payment"/>
+                    <field name="discount_for_total" invisible="1"/>
+                    <field name="total_net" class="oe_subtotal_footer_separator"/>
+                </group>
+                <group class=" oe_left">
+                    <field name="total_planned"/>
+                    <field name="total_condition"/>
+                    <field name="total_completed"/>
+                    <field name="total_in_progress"/>
+                    <field name="total_extra_session"/>
+                    <field name="total_invoiced"/>
+                </group>
             </xpath>
             <xpath expr="//notebook/page[8]/group/field[@name='teeth_treatment_ids']/tree/field[@name='amount']"
                    position="after">
@@ -760,19 +761,24 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="appointment_id"/>
-                            <field name="patient_id"/>
-                            <field name="doctor"/>
+                            <field name="appointment_id" attrs="{'readonly': [('state', 'in', ('confirmed'))]}"/>
+                            <field name="patient_id" attrs="{'readonly': [('state', 'in', ('confirmed'))]}"/>
+                            <field name="doctor" attrs="{'readonly': [('state', 'in', ('confirmed'))]}"/>
                         </group>
 
                         <group>
-                            <field name="priority_reception" optional="show" widget="priority"/>
-                            <field name="priority_medical_procedure" optional="show" widget="priority"/>
-                            <field name="priority_sterilization_hygiene" optional="show" widget="priority"/>
+                            <field name="priority_reception" optional="show" widget="priority"
+                                   attrs="{'readonly': [('state', 'in', ('confirmed'))]}"/>
+                            <field name="priority_medical_procedure" optional="show" widget="priority"
+                                   attrs="{'readonly': [('state', 'in', ('confirmed'))]}"/>
+                            <field name="priority_sterilization_hygiene" optional="show" widget="priority"
+                                   attrs="{'readonly': [('state', 'in', ('confirmed'))]}"/>
+                            <field name="ratio" widget="progressbar"
+                                   attrs="{'readonly': [('state', 'in', ('confirmed'))]}"/>
                         </group>
                     </group>
                     <group>
-                        <field name="desc"/>
+                        <field name="desc" attrs="{'readonly': [('state', 'in', ('confirmed'))]}"/>
                     </group>
                 </sheet>
             </form>
@@ -786,6 +792,8 @@
                 <field name="appointment_id"/>
                 <field name="patient_id"/>
                 <field name="doctor"/>
+                <field name="ratio" widget="progressbar"/>
+
             </tree>
         </field>
     </record>

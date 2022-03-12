@@ -154,3 +154,4 @@ access_user_patient_stage,patient.by.doctor.report.wizard,model_patient_stage,ba
 accses_dental_branch_user,accses.dental.branch.user,model_dental_branch,base.group_user,1,1,1,1
 access_doctor_report,access_doctor_report,model_doctor_report,base.group_user,1,1,1,1
 access_open_appointment_date,access_open_appointment_date,model_open_appointment_date,base.group_user,1,1,1,1
+access_pationt_conversion_wizard,access_pationt_conversion_wizard,model_pationt_conversion_wizard,base.group_user,1,1,1,1

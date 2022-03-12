@@ -903,6 +903,7 @@
                             <field name="user_portal" widget="boolean_toggle"/>
                             <field name="arebic" string="Arabic" widget="boolean_toggle"/>
                             <field name="photo_session" widget="boolean_toggle"/>
+                            <field name="first_dignoses_date"/>
                         </group>
                     </group>
                     <group>
@@ -1154,11 +1155,23 @@
             <tree default_order='create_date desc' string='Patient Information'>
                 <field name="partner_id"/>
                 <field name="patient_id"/>
-                <field name="coordinator_id"/>
-                <field name="sex"/>
-                <field name="dob"/>
-                <field name="deceased"/>
-                <field name="stage_id"/>
+                <field name="mobile"/>
+                <field name="other_mobile"/>
+                <field name="email"/>
+                <field name="nationality_id"/>
+                <field name="country_id"/>
+                <field name="medium_id"/>
+                <field name="source_id"/>
+                <field name="campaign_id"/>
+                <field name="service_net" string="Total Plan"/>
+                <field name="total_payment"/>
+                <field name="total_net"/>
+                <field name="first_dignoses_date"/>
+                <field name="coordinator_id" optional="hide"/>
+                <field name="sex" optional="hide"/>
+                <field name="dob" optional="hide"/>
+                <field name="deceased" optional="hide"/>
+                <field name="stage_id" optional="hide"/>
             </tree>
         </field>
     </record>
