@@ -594,15 +594,15 @@ class Patient(models.Model):
     discount = fields.Float(string='Discount', digits=(3, 6),
                             default=0.0)
     service_amount = fields.Float(string="Service amount before tax",
-                                  compute="get_amount_totals", )
+                                  compute="get_amount_totals" )
     service_net = fields.Float(string="Service net amount",
-                               compute="get_amount_totals", )
+                               compute="get_amount_totals")
     total_discount = fields.Float(string="Total Discount",
                                   compute="get_amount_totals")
     total_payment = fields.Float(string="Total payment",
-                                 compute="get_amount_totals", )
-    total_net = fields.Float(string="Total Net", compute="get_amount_totals", )
-    total_net_not_completed = fields.Float(string="Total Net Not Completed", compute="get_amount_totals", )
+                                 compute="get_amount_totals" )
+    total_net = fields.Float(string="Total Net", compute="get_amount_totals" )
+    total_net_not_completed = fields.Float(string="Total Net Not Completed", compute="get_amount_totals" )
     chief = fields.Many2many(comodel_name='chief.complaint',
                              string="Chief Complaint", required=False, )
     tag_ids = fields.Many2many('crm.tag')
@@ -611,7 +611,7 @@ class Patient(models.Model):
                                       default=0.0)
     is_selected = fields.Boolean(string="Select All", )
     is_coordinator = fields.Boolean(string="", compute="check_is_coordinator")
-    number_of_records = fields.Integer(string="", compute="get_amount_totals", )
+    number_of_records = fields.Integer(string="", compute="get_amount_totals" )
     discount_option = fields.Selection(string="Discount type",
                                        selection=[('percentage', 'Percentage'), ('fixed', 'Fixed'), ],
                                        default='percentage', required=False, )
@@ -748,19 +748,16 @@ class Patient(models.Model):
     @api.depends('teeth_treatment_ids', 'teeth_treatment_ids.amount', 'teeth_treatment_ids.discount',
                  'teeth_treatment_ids.net_amount')
     def get_amount_totals(self):
-        service_amount = 0
-        service_net = 0
-        total_net_not_completed = 0
-        total_payment = 0
-        number_of_records = 0
-        total_net = 0
         for record in self:
-            for line in record.teeth_treatment_ids:
-                service_amount += line.amount
-                service_net += line.net_amount
-                number_of_records += 1
-                if line.state not in ['completed', 'invoiced']:
-                    total_net_not_completed += line.net_amount
+            total_payment = 0
+            service_amount=sum(list(record.teeth_treatment_ids.mapped("amount")))
+            service_net=sum(list(record.teeth_treatment_ids.mapped("net_amount")))
+            print("service_net",service_net)
+            total_net_not_completed=sum(list(record.teeth_treatment_ids.filtered(lambda t: t.state not in ['completed', 'invoiced']).mapped("net_amount")))
+            number_of_records=len(record.teeth_treatment_ids.ids)
+            # for line in record.teeth_treatment_ids:
+            #     if line.state not in ['completed', 'invoiced']:
+            #         total_net_not_completed += line.net_amount
             record.total_discount = service_amount - service_net
             record.service_amount = service_amount
             record.total_net_not_completed = total_net_not_completed

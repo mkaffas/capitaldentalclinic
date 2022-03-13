@@ -1171,7 +1171,7 @@
                 <field name="sex" optional="hide"/>
                 <field name="dob" optional="hide"/>
                 <field name="deceased" optional="hide"/>
-                <field name="stage_id" optional="hide"/>
+                <field name="stage_id" />
             </tree>
         </field>
     </record>
