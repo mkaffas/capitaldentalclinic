@@ -14,7 +14,7 @@ class pationt_conversion(models.TransientModel):
             print("patientspatients",patients)
             return {
                 'type': 'ir.actions.act_window',
-                'views': [[False, "tree"]],
+                'views': [[False, "tree"],[False, "form"]],
                 # 'view_type': 'tree',
                 # 'view_mode': 'tree',
                 # 'view_id': False,
