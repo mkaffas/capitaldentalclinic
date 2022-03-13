@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates>
+    <t t-extend="PlanningGanttView.buttons">
+            <t t-jquery="button.o_gantt_button_send_all" t-operation="after">
+                <button type="button" class="btn btn-primary o_list_button_open_date" >
+                    appointment date
+                </button>
+
+            </t>
+    </t>
+</templates>
