@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="id_crm_patient_form" model="ir.ui.view">
+            <field name="name">crm patient form</field>
+            <field name="model">crm.patient</field>
+            <field name="arch" type="xml">
+                <form string="Crm Patient">
+                    <sheet>
+                        <group string="Create">
+                            <group>
+                                <field name="create_date_from"/>
+                            </group>
+                            <group>
+                                <field name="create_date_to"/>
+                                <field name="creation_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                        <group string="Closed">
+                            <group>
+                                <field name="closed_date_from"/>
+                            </group>
+                            <group>
+                                <field name="closed_date_to"/>
+                                <field name="closed_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Export Xlsx" name="creation_patient" type="object"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="id_crm_patient_action" model="ir.actions.act_window">
+            <field name="name">Crm Patient</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">crm.patient</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+            </field>
+        </record>
+
+        <!--        <menuitem id="id_crm_patient_menu" name="Report Crm / Patient" parent="pragtech_dental_management.dental_report_menu-->
+        <!--                  action="id_crm_patient_action" />-->
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="UNIQid_crm_patient_menuUE_ID_categ" name="Report Crm / Patient"
+                  parent="pragtech_dental_management.menu_dental_report" action="id_crm_patient_action" sequence="10"/>
+        <!--        parent="report_general_ledger_customer.report_accounts_view_menu"-->
+        <report id="id_crm_patient_report"
+                model="crm.patient"
+                string="Report Crm / Patient"
+                report_type="xlsx"
+                name="report_crm_pationt.crm_patient_template"
+                file="report_crm_pationt.crm_patient_template"
+                attachment_use="False"/>
+
+        <record id="edit_crm_stage" model="ir.ui.view">
+            <field name="model">crm.stage</field>
+            <field name="inherit_id" ref="crm.crm_stage_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='is_won']" position="after">
+                    <field name="is_closed_stage"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+    </data>
+</odoo>
