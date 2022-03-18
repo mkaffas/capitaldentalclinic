@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="payment_check_line_page_register_payment_branch" model="ir.ui.view">
+            <field name="name">payment.check.line.page.register.payment.popup</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/group[2]" position="inside">
+                    <field name="branch_id" required="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_payment_search_branch" model="ir.ui.view">
+            <field name="name">account.payment.check.search</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_search"/>
+            <field name="arch" type="xml">
+                <filter name="partner" position="after">
+                    <filter string="Branch" name="branch" domain="[]" context="{'group_by': 'branch_id'}"/>
+
+                </filter>
+            </field>
+        </record>
+        <record id="view_allowed_products_users_form_branch" model="ir.ui.view">
+            <field name="name">user_product_restriction.users.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Branch">
+                        <group>
+                            <group>
+                                <field name="default_branch_id"/>
+                                <field name="branchs_ids" widget="many2many_tags"/>
+                            </group>
+                            <group></group>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record id="branchs_ids_rule" model="ir.rule">
+            <field name="name">Branchs rooms</field>
+            <field name="model_id" ref="pragtech_dental_management.model_medical_hospital_oprating_room"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force">['|',('branch_id','in',user.branchs_ids.ids),('branch_id','=',False)]</field>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="branchs_ids_payment_rule" model="ir.rule">
+            <field name="name">Branchs payments</field>
+            <field name="model_id" ref="account.model_account_payment"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force">['|',('branch_id','in',user.branchs_ids.ids),('branch_id','=',False)]</field>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+
+        <record id="not_branchs_ids_rule" model="ir.rule">
+            <field name="name">admin Branchs rooms</field>
+            <field name="model_id" ref="pragtech_dental_management.model_medical_hospital_oprating_room"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('pragtech_dental_management.group_dental_admin')),(4, ref('pragtech_dental_management.group_dental_mng_menu')),(4, ref('pragtech_dental_management.group_patient_coordinator'))]"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="not_branchs_ids_payment_rule" model="ir.rule">
+            <field name="name">admin Branchs payments</field>
+            <field name="model_id" ref="account.model_account_payment"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('pragtech_dental_management.group_dental_admin')),(4, ref('pragtech_dental_management.group_dental_mng_menu')),(4, ref('pragtech_dental_management.group_patient_coordinator'))]"/>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+
+    </data>
+</odoo>

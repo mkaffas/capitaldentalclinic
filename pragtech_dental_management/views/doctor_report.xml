@@ -10,7 +10,7 @@
                         <group>
                             <group>
                                 <field name="start_date"/>
-                                <field name="dentist"/>
+                                <field name="dentist_ids" widget="many2many_tags"/>
                             </group>
                             <group>
                                 <field name="end_date"/>
