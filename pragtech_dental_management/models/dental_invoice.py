@@ -67,11 +67,17 @@ class AccountInvoice(models.Model):
                     'view_type': 'form',
                     'views': [(False, 'form')],
                     }
+class users(models.Model):
+    _inherit = 'res.users'
+
+    default_branch_id = fields.Many2one(comodel_name="dental.branch", string="", required=False,  context={'user_preference': True},index=True)
+    branchs_ids = fields.Many2many(comodel_name="dental.branch", string="", required=False,  context={'user_preference': True},index=True)
 
 class payment(models.Model):
     _inherit = "account.payment"
 
     appointment_id = fields.Many2one(comodel_name="medical.appointment", string="", required=False, )
+    branch_id = fields.Many2one(comodel_name="dental.branch", string="", required=False, )
 
     def post(self):
         res = super(payment, self).post()
