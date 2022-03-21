@@ -1081,7 +1081,7 @@ class MedicalPatient(models.Model):
                                   int(each_teeth_from_full_mouth))])
                             operate_on_tooth.append(
                                 actual_teeth_id.id)
-                        if treatment_id and operate_on_tooth:
+                        if treatment_id and operate_on_tooth and type(treatment_id) != type(True):
                             treatment_id.write({'teeth_code_rel': [
                             (6, 0, operate_on_tooth)]})
 
