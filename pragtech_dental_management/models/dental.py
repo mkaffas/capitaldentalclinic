@@ -1054,7 +1054,9 @@ class MedicalPatient(models.Model):
                         status = 'planned'
                     vals['state'] = status
                     p_brw = product_obj.browse(vals['description'])
-                    vals['amount'] = p_brw.lst_price
+
+                    if each.get('op_line_id') == 'false':
+                        vals['amount'] = p_brw.lst_price
                     completion_date = each.get('completion_date',
                                                False)
                     if completion_date:
@@ -2016,7 +2018,6 @@ class MedicalAppointment(models.Model):
             })
             invoice_vals['invoice_line_ids'].append((0, 0, res))
         inv_id = self.env['account.move'].create(invoice_vals)
-        print(111111111111111111,inv_id)
         if inv_id:
             self.inv_id = inv_id.id
             self.invoice_done = True
