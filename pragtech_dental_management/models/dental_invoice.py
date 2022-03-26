@@ -68,7 +68,7 @@ class AccountInvoice(models.Model):
                     'views': [(False, 'form')],
                     }
 class users(models.Model):
-    _inherit = 'res.users'
+    _inherit = 'res.partner'
 
     default_branch_id = fields.Many2one(comodel_name="dental.branch", string="", required=False,  context={'user_preference': True},index=True)
     branchs_ids = fields.Many2many(comodel_name="dental.branch", string="", required=False,  context={'user_preference': True},index=True)

@@ -25,8 +25,8 @@
         </record>
         <record id="view_allowed_products_users_form_branch" model="ir.ui.view">
             <field name="name">user_product_restriction.users.form</field>
-            <field name="model">res.users</field>
-            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="arch" type="xml">
                 <notebook position="inside">
                     <page string="Branch">
@@ -46,7 +46,18 @@
             <field name="name">Branchs rooms</field>
             <field name="model_id" ref="pragtech_dental_management.model_medical_hospital_oprating_room"/>
             <field eval="True" name="global"/>
-            <field name="domain_force">['|',('branch_id','in',user.branchs_ids.ids),('branch_id','=',False)]</field>
+            <field name="domain_force">['|',('branch_id','in',user.partner_id.branchs_ids.ids),('branch_id','=',False)]</field>
+            <field name="perm_write" eval="0"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_create" eval="0"/>
+            <field name="perm_unlink" eval="0"/>
+        </record>
+
+        <record id="branchs_ids_rule" model="ir.rule">
+            <field name="name">Branchs rooms</field>
+            <field name="model_id" ref="pragtech_dental_management.model_medical_appointment"/>
+            <field eval="True" name="global"/>
+            <field name="domain_force">['|',('branch_id','in',user.partner_id.branchs_ids.ids),('branch_id','=',False)]</field>
             <field name="perm_write" eval="0"/>
             <field name="perm_read" eval="1"/>
             <field name="perm_create" eval="0"/>
@@ -57,37 +68,13 @@
             <field name="name">Branchs payments</field>
             <field name="model_id" ref="account.model_account_payment"/>
             <field eval="True" name="global"/>
-            <field name="domain_force">['|',('branch_id','in',user.branchs_ids.ids),('branch_id','=',False)]</field>
+            <field name="domain_force">['|',('branch_id','in',user.partner_id.branchs_ids.ids),('branch_id','=',False)]</field>
             <field name="perm_write" eval="0"/>
             <field name="perm_read" eval="1"/>
             <field name="perm_create" eval="0"/>
             <field name="perm_unlink" eval="0"/>
         </record>
 
-
-        <record id="not_branchs_ids_rule" model="ir.rule">
-            <field name="name">admin Branchs rooms</field>
-            <field name="model_id" ref="pragtech_dental_management.model_medical_hospital_oprating_room"/>
-            <field eval="True" name="global"/>
-            <field name="domain_force">[(1, '=', 1)]</field>
-            <field name="groups" eval="[(4, ref('pragtech_dental_management.group_dental_admin')),(4, ref('pragtech_dental_management.group_dental_mng_menu')),(4, ref('pragtech_dental_management.group_patient_coordinator'))]"/>
-            <field name="perm_write" eval="0"/>
-            <field name="perm_read" eval="1"/>
-            <field name="perm_create" eval="0"/>
-            <field name="perm_unlink" eval="0"/>
-        </record>
-
-        <record id="not_branchs_ids_payment_rule" model="ir.rule">
-            <field name="name">admin Branchs payments</field>
-            <field name="model_id" ref="account.model_account_payment"/>
-            <field eval="True" name="global"/>
-            <field name="domain_force">[(1, '=', 1)]</field>
-            <field name="groups" eval="[(4, ref('pragtech_dental_management.group_dental_admin')),(4, ref('pragtech_dental_management.group_dental_mng_menu')),(4, ref('pragtech_dental_management.group_patient_coordinator'))]"/>
-            <field name="perm_write" eval="0"/>
-            <field name="perm_read" eval="1"/>
-            <field name="perm_create" eval="0"/>
-            <field name="perm_unlink" eval="0"/>
-        </record>
 
 
 
