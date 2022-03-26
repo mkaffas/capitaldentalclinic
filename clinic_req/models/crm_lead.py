@@ -282,7 +282,7 @@ class CRM(models.Model):
             'branch_id': self.branch_id.id,
         }
 
-        appointment = appointment_obj.sudo().create(vals)
+        # appointment = appointment_obj.sudo().create(vals)
         self.appointment_id = appointment.id
         wiz_form_id = self.env['ir.model.data'].get_object_reference(
             'pragtech_dental_management', 'medical_appointment_gantt')[1]
@@ -291,7 +291,8 @@ class CRM(models.Model):
             'view_id': wiz_form_id,
             'view_mode': 'gantt',
             'res_model': 'medical.appointment',
-            'res_id': appointment.id,
+            # 'res_id': appointment.id,
+            'context': {'default_partner_id': self.patient_id.id},
             'nodestroy': True,
             'target': 'current',
             'type': 'ir.actions.act_window',
