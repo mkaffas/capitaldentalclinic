@@ -274,13 +274,13 @@ class CRM(models.Model):
         appointment_obj = self.env['medical.appointment']
         if not self.patient_id:
             raise UserError(_("Please create Patient."))
-        vals = {
-            'patient': self.patient_id.id,
-            'crm_id': self.id,
-            'chief': self.chief.id,
-            'room_id': self.room_id.id,
-            'branch_id': self.branch_id.id,
-        }
+        # vals = {
+        #     'patient': self.patient_id.id,
+        #     'crm_id': self.id,
+        #     'chief': self.chief.id,
+        #     'room_id': self.room_id.id,
+        #     'branch_id': self.branch_id.id,
+        # }
 
         # appointment = appointment_obj.sudo().create(vals)
         # self.appointment_id = appointment.id
