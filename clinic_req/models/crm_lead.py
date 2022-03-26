@@ -283,7 +283,7 @@ class CRM(models.Model):
         }
 
         # appointment = appointment_obj.sudo().create(vals)
-        self.appointment_id = appointment.id
+        # self.appointment_id = appointment.id
         wiz_form_id = self.env['ir.model.data'].get_object_reference(
             'pragtech_dental_management', 'medical_appointment_gantt')[1]
         return {
