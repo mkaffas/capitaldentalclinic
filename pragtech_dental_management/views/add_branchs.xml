@@ -42,7 +42,7 @@
             </field>
         </record>
 
-        <record id="branchs_ids_rule" model="ir.rule">
+        <record id="branchs_ids_rule_room" model="ir.rule">
             <field name="name">Branchs rooms</field>
             <field name="model_id" ref="pragtech_dental_management.model_medical_hospital_oprating_room"/>
             <field eval="True" name="global"/>
@@ -54,7 +54,7 @@
         </record>
 
         <record id="branchs_ids_rule" model="ir.rule">
-            <field name="name">Branchs rooms</field>
+            <field name="name">Branchs rooms appointment</field>
             <field name="model_id" ref="pragtech_dental_management.model_medical_appointment"/>
             <field eval="True" name="global"/>
             <field name="domain_force">['|',('branch_id','in',user.partner_id.branchs_ids.ids),('branch_id','=',False)]</field>
