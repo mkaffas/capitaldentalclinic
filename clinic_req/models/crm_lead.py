@@ -287,9 +287,9 @@ class CRM(models.Model):
         wiz_form_id = self.env['ir.model.data'].get_object_reference(
             'pragtech_dental_management', 'medical_appointment_gantt')[1]
         return {
-            'view_type': 'gantt',
-            'view_id': wiz_form_id,
-            'view_mode': 'gantt',
+            'view_type': 'form',
+            # 'view_id': wiz_form_id,
+            'view_mode': 'form',
             'res_model': 'medical.appointment',
             # 'res_id': appointment.id,
             'context': {'default_partner_id': self.patient_id.id},
