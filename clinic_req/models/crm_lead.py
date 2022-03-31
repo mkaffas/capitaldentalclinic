@@ -274,16 +274,16 @@ class CRM(models.Model):
         appointment_obj = self.env['medical.appointment']
         if not self.patient_id:
             raise UserError(_("Please create Patient."))
-        vals = {
-            'patient': self.patient_id.id,
-            'crm_id': self.id,
-            'chief': self.chief.id,
-            'room_id': self.room_id.id,
-            'branch_id': self.branch_id.id,
-        }
+        # vals = {
+        #     'patient': self.patient_id.id,
+        #     'crm_id': self.id,
+        #     'chief': self.chief.id,
+        #     'room_id': self.room_id.id,
+        #     'branch_id': self.branch_id.id,
+        # }
 
-        appointment = appointment_obj.sudo().create(vals)
-        self.appointment_id = appointment.id
+        # appointment = appointment_obj.sudo().create(vals)
+        # self.appointment_id = appointment.id
         wiz_form_id = self.env['ir.model.data'].get_object_reference(
             'pragtech_dental_management', 'medical_appointment_gantt')[1]
         return {
@@ -291,7 +291,8 @@ class CRM(models.Model):
             'view_id': wiz_form_id,
             'view_mode': 'gantt',
             'res_model': 'medical.appointment',
-            'res_id': appointment.id,
+            # 'res_id': appointment.id,
+            'context': {'default_patient': self.patient_id.id},
             'nodestroy': True,
             'target': 'current',
             'type': 'ir.actions.act_window',
