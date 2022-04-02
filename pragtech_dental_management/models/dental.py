@@ -1928,14 +1928,15 @@ class MedicalAppointment(models.Model):
                                 list_doctors.append(assistant.partner_id.id)
                 body = '<a target=_BLANK href="/web?#id=' + str(
                     line.id) + '&view_type=form&model=medical.appointment&action=" style="font-weight: bold">' + '</a>'
-                line.sudo().message_notify(
-                    partner_ids=list_doctors,
-                    subject="Patient " + str(
-                        line.patient.partner_name) + " is in Room",
-                    body="Patient " + str(
-                        line.patient.partner_name) + " is in Room" + 'With Appointment' + body,
-                    message_type='comment',
-                    subtype_id=self.env.ref('mail.mt_note').id)
+                if list_doctors:
+                    line.sudo().message_notify(
+                        partner_ids=list_doctors,
+                        subject="Patient " + str(
+                            line.patient.partner_name) + " is in Room",
+                        body="Patient " + str(
+                            line.patient.partner_name) + " is in Room" + 'With Appointment' + body,
+                        message_type='comment',
+                        subtype_id=self.env.ref('mail.mt_note').id)
 
     def ready(self):
         ready_time = time.strftime('%Y-%m-%d %H:%M:%S')
