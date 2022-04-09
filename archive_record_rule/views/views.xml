@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="archive_record_rule.list">
+      <field name="name">archive_record_rule list</field>
+      <field name="model">archive_record_rule.archive_record_rule</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="archive_record_rule.action_window">
+      <field name="name">archive_record_rule window</field>
+      <field name="res_model">archive_record_rule.archive_record_rule</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="archive_record_rule.action_server">
+      <field name="name">archive_record_rule server</field>
+      <field name="model_id" ref="model_archive_record_rule_archive_record_rule"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="archive_record_rule" id="archive_record_rule.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="archive_record_rule.menu_1" parent="archive_record_rule.menu_root"/>
+    <menuitem name="Menu 2" id="archive_record_rule.menu_2" parent="archive_record_rule.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="archive_record_rule.menu_1_list" parent="archive_record_rule.menu_1"
+              action="archive_record_rule.action_window"/>
+    <menuitem name="Server to list" id="archive_record_rule" parent="archive_record_rule.menu_2"
+              action="archive_record_rule.action_server"/>
+-->
+  </data>
+</odoo>
