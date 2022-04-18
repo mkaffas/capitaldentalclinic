@@ -14,6 +14,12 @@ class AccountPayment(models.Model):
                                       default=0.0)
     existing_check_lines = fields.Many2many('payment.check.line')
     exist_check = fields.Boolean(string='From Existing Checks', default=False)
+    amount_egp = fields.Float(string="Amount EGP", compute="get_amount_egp",store=True)
+
+    @api.depends('amount', 'currency_id')
+    def get_amount_egp(self):
+        for rec in self:
+            rec.amount_egp = rec.currency_id._convert(rec.amount, self.env.company.currency_id,self.env.company,fields.Date.today())
 
     @api.depends('payment_check_lines.check_amount', 'payment_check_lines')
     def compute_total_check_amount(self):
@@ -32,10 +38,9 @@ class AccountPayment(models.Model):
             else:
                 rec.write({'total_check_amount': 0.0})
 
-
     # @api.multi
     def action_post(self):
-        res=super(AccountPayment, self).action_post()
+        res = super(AccountPayment, self).action_post()
         for rec in self:
             if rec.is_check_journal:
                 rec.amount = rec.total_check_amount
@@ -91,4 +96,3 @@ class AccountPayment(models.Model):
             self.exist_check = True
         else:
             self.exist_check = False
-

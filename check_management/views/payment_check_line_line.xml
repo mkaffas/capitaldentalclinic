@@ -2,6 +2,21 @@
 <odoo>
     <data>
         <!--        #saber-->
+        <record id="view_account_supplier_payment_tree" model="ir.ui.view">
+            <field name="name">account.supplier.payment.tree</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_tree"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <!--                <xpath expr="//field[@name='state']" position="after">-->
+                <field name="amount" position="after">
+                    <field name="amount_egp" sum="amount_egp"/>
+                </field>
+
+                <!--                </xpath>-->
+            </field>
+        </record>
+
         <record id="payment_check_line_page" model="ir.ui.view">
             <field name="name">payment.check.line.page</field>
             <field name="model">account.payment</field>
@@ -53,6 +68,10 @@
                 <!--                        &lt;!&ndash;                        </page>&ndash;&gt;-->
                 <!--                    </notebook>-->
                 <!--                </xpath>-->
+
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="amount_egp"/>
+                </xpath>
                 <xpath expr="//field[@name='amount']" position="after">
                     <field name="is_check_journal" invisible="1"/>
                     <field name="total_check_amount" attrs="{'invisible': [('is_check_journal','=', False)]}"/>
