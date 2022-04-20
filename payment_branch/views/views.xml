@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="payment_branch_wizard_view" model="ir.ui.view">
+            <field name="name">payment.branch</field>
+            <field name="model">payment.branch</field>
+            <field name="arch" type="xml">
+                <form string="Branch payment">
+                    <group>
+                        <group>
+                            <field name="today"/>
+                        </group>
+                        <group>
+                            <field name="yesterday"/>
+                        </group>
+                    </group>
+
+                    <footer>
+                        <button string="Open" name="open" type="object"
+                                class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="id_payment_branch_act" model="ir.actions.act_window">
+            <field name="name">payment branch</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">payment.branch</field>
+            <field name="target">new</field>
+            <field name="view_mode">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p>
+            </field>
+        </record>
+
+      <!-- This Menu Item must have a parent and an action -->
+      <menuitem id="id_payment_branch_menuitem" name="Branch payment" parent="pragtech_dental_management.medical_patients_menu" action="id_payment_branch_act" sequence="5"/>
+
+
+    </data>
+</odoo>

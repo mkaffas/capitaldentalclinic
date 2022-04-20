@@ -920,8 +920,8 @@ class MedicalPatient(models.Model):
     photo_session = fields.Boolean()
 
     _sql_constraints = [
-        ('name_uniq', 'unique (partner_id)', 'The Patient already exists'),
-        ('patient_id_uniq', 'unique (patient_id)',
+        ('name_uniq', 'unique (partner_id,id)', 'The Patient already exists'),
+        ('patient_id_uniq', 'unique (patient_id,id)',
          'The Patient ID already exists'), ]
 
     def _group_expand_stage(self, stages, domain, order):
@@ -1206,9 +1206,9 @@ class MedicalPatient(models.Model):
                 'middle_name': vals_list['middle_name'] or '',
                 'is_patient': True,
                 'type': 'contact',
-                'mobile': vals_list['mobile'] or '',
-                'email': vals_list['email'] or '',
-                'phone': vals_list['phone'] or '',
+                'mobile': vals_list.get('mobile',False) or '',
+                'email': vals_list.get('email',False) or '',
+                'phone': vals_list.get('phone',False )or '',
                 # 'street': vals_list['street'] or '',
                 # 'street2': vals_list['street2'] or '',
                 # 'zip': vals_list['zip'] or '',
@@ -1220,6 +1220,7 @@ class MedicalPatient(models.Model):
         return super().create(vals_list)
 
     def open_chart(self):
+        print('open_chart')
         for rec in self:
             appt_id = ''
             context = dict(self._context or {})
@@ -1246,7 +1247,13 @@ class MedicalPatient(models.Model):
                     'dentist': False
                 },
             }
+            print("res_open_chart",res_open_chart)
             return res_open_chart
+# res_open_chart={'type': 'ir.actions.client', 'name': 'Dental Chart', 'tag': 'dental_chart',
+#          'params': {'patient_id': 5581, 'appt_id': False, 'model': 'medical.patient', 'type': 'iso', 'dentist': False}}
+#     res_open_chart
+#     {'type': 'ir.actions.client', 'name': 'Dental Chart', 'tag': 'dental_chart',
+#      'params': {'patient_id': 5862, 'appt_id': False, 'model': 'medical.patient', 'type': 'iso', 'dentist': False}}
 
     def close_chart(self):
         res_close_chart = {'type': 'ir.actions.client', 'tag': 'history_back'}
@@ -1596,6 +1603,7 @@ class MedicalAppointment(models.Model):
 
         self.is_payment = True
         self.payment_id = payment.id
+        # self.payment_ids = (4, payment.id, 0)
         wiz_form_id = self.env['ir.model.data'].get_object_reference(
             'account', 'view_account_payment_form')[1]
         return {
@@ -1631,6 +1639,7 @@ class MedicalAppointment(models.Model):
     is_payment = fields.Boolean(string="", )
     payment_id = fields.Many2one(comodel_name="account.payment", string="",
                                  required=False, )
+    payment_ids = fields.One2many(comodel_name="account.payment", inverse_name="appointment_id", string="", required=False, )
     operations = fields.One2many('medical.teeth.treatment', 'appt_id',
                                  'Operations')
     doctor = fields.Many2one('medical.physician', 'Dentist',
