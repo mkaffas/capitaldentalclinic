@@ -52,7 +52,8 @@
     </record>
 
 
-    <menuitem name="Appointment Report" id="menu_report_appointment" parent="pragtech_dental_management.menu_dental_report"
+    <menuitem name="Appointment Report" id="menu_report_appointment"
+              parent="pragtech_dental_management.menu_dental_report"
               action="action_view_appointment_pivot"
               sequence="5"/>
 
@@ -519,8 +520,10 @@
                         attrs="{'invisible': [('state', '!=', 'done')]}"/>
                 <button name="product_multi_choose" string="Add Service" type="object"/>
             </xpath>
-            <xpath expr="//field[@name='comments']" position="before">
-                <field name="wizard_service_id" colspan="4" readonly="1"/>
+            <xpath expr="//notebook/page" position="before">
+                <page string="Services">
+                    <field name="wizard_service_id" colspan="4" readonly="1"/>
+                </page>
             </xpath>
             <xpath expr="//field[@name='service_id']" position="after">
                 <field name="chief"/>
