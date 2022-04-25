@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="id_report_invoice_xlsx" model="ir.actions.report">
+            <field name="name">Invoices Report</field>
+            <field name="model">report.invoice</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">cdc_cash_flow.template_report_invoice_xlsx</field>
+            <field name="report_file">Invoices Report</field>
+            <field name="binding_model_id" ref="model_report_invoice"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+</odoo>
