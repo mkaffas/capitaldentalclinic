@@ -29,8 +29,8 @@ class ReportXlsx(models.AbstractModel):
                 data = [x for x in cr.fetchall()]
                 debit = sum([x[0] for x in data])
                 credit = sum([x[-1] for x in data])
-                sheet.write(row, 3, str(round(credit - debit, 2)), format_white)
-                total_tag += round(debit - credit, 2)
+                sheet.write(row, 3, str(round(debit, 2)), format_white)
+                total_tag += round(debit, 2)
         return row,total_tag,tag
 
     def generate_xlsx_report(self, workbook, data, records):
