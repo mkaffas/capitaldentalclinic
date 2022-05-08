@@ -29,11 +29,11 @@ class ReportXlsx(models.AbstractModel):
                 data = [x for x in cr.fetchall()]
                 debit = sum([x[0] for x in data])
                 credit = sum([x[-1] for x in data])
-                sheet.write(row, 3, str(round(debit, 2)), format_white)
+                sheet.write(row, 3, round(debit, 2), format_white)
                 total_tag += round(debit, 2)
             row+=1
             sheet.write(row, 1, 'Total ' + str(tag.name), format_invoice)
-            sheet.write(row, 3, str(round(total_tag,2)), format_white)
+            sheet.write(row, 3, round(total_tag,2), format_white)
 
             total_tags+=total_tag
         return row, round(total_tags,2), tag
@@ -67,15 +67,22 @@ class ReportXlsx(models.AbstractModel):
             tags = set(self.env['account.tage'].sudo().search([('type', '=', 'in')]))
             row = 3
             sheet.write(row, 1, 'Cash IN', format_customer)
+
             row, total_tags, tag = self.write_tags(tags, row, sheet, format_white, rec,format_invoice,format_tage)
+            net=total_tags
             row += 1
             sheet.write(row, 1, 'Total Cash IN', format_tage)
-            sheet.write(row, 3, str(total_tags), format_tage)
-            row += 1
+            sheet.write(row, 3, total_tags, format_tage)
+            row += 2
 
             tags = set(self.env['account.tage'].sudo().search([('type', '=', 'out')]))
             sheet.write(row, 1, 'Cash OUT', format_customer)
             row, total_tags, tag = self.write_tags(tags, row, sheet, format_white, rec,format_invoice,format_tage)
+            net-=total_tags
+
             row += 1
             sheet.write(row, 1, 'Total Cash OUT' , format_tage)
-            sheet.write(row, 3, str(total_tags), format_tage)
+            sheet.write(row, 3, total_tags, format_tage)
+            row += 3
+            sheet.write(row, 1, 'Net amount' , format_tage)
+            sheet.write(row, 3, net, format_tage)
