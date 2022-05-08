@@ -23,6 +23,7 @@ class ReportXlsx(models.AbstractModel):
                 cr.execute("""  
                                         SELECT debit,credit FROM account_move_line
                                         WHERE account_id = %s
+                                            and  parent_state = 'posted'
                                               and CAST(date AS date) >= %s
                                               and CAST(date AS date) <= %s  """,
                            (account.id, rec.date_from, rec.date_to))
