@@ -989,6 +989,9 @@ class MedicalPatient(models.Model):
                 other_history = 0
                 if history_count > extra_history:
                     other_history = 1
+                print("each_operation",each_operation)
+                print("each_operationeach_operation.description",each_operation.description)
+                print("each_operationeach_operation.description.name",each_operation.description.name)
                 return_list.append({'other_history': other_history,
                                     'created_date': each_operation.create_date,
                                     'status': each_operation.state,
@@ -1002,6 +1005,8 @@ class MedicalPatient(models.Model):
                                         'name': each_operation.description.name,
                                         'id': each_operation.description.id,
                                         'action': each_operation.description.action_perform}})
+
+                print('return_list',return_list)
         return return_list
 
     def create_lines(self, treatment_lines, patient_id, appt_id):
