@@ -20,16 +20,9 @@ class ReportXlsx(models.AbstractModel):
             for account in accounts:
                 row += 1
                 sheet.write(row, 2, account.display_name, format_white)
-                cr.execute("""  
-                                        SELECT debit,credit FROM account_move_line
-                                        WHERE account_id = %s
-                                            and  parent_state = 'posted'
-                                              and CAST(date AS date) >= %s
-                                              and CAST(date AS date) <= %s  """,
-                           (account.id, rec.date_from, rec.date_to))
-                data = [x for x in cr.fetchall()]
-                debit = sum([x[0] for x in data])
-                credit = sum([x[-1] for x in data])
+                lines=self.env['account.move.line'].sudo().search([('parent_state','=','posted'),('account_id','=',account.id),('date','>=',rec.date_from),('date','<=',rec.date_to)])
+                debit = sum(list(lines.mapped('debit')))
+                credit = sum(list(lines.mapped('credit')))
                 sheet.write(row, 3, round(debit, 2), format_white)
                 total_tag += round(debit, 2)
             row+=1

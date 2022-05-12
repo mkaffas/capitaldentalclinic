@@ -631,6 +631,7 @@ odoo.define('pragtech_dental_management.chart_action', function (require) {
                             if (each_one.action == 'missing') {
                                 missing = each_one.treatment_id;
                             }
+
                             total_list_div += '<li id = "treat_' + treatment_list[j].treatment_categ_id + '_' + each_one['treatment_id'] + '">' + each_one['treatment_name'] + '</li>';
                         });
                         total_list_div += '</div></div>';
