@@ -11,13 +11,20 @@ class account_payment(models.Model):
 	to_journal_id = fields.Many2one('account.journal',string="To Journal")
 	from_journal_id = fields.Many2one('account.journal',string="From Journal")
 
+	@api.onchange('journal_id')
+	def get_from_account_id(self):
+		for rec in self:
+			rec.from_account_id=rec.journal_id.default_account_id.id
+
+
 
 	@api.depends('destination_account_id', 'journal_id')
 	def _compute_is_internal_transfer(self):
-		for payment in self:
-			is_partner_ok = payment.partner_id
-			is_account_ok = payment.destination_account_id or payment.journal_id.company_id.transfer_account_id
-			payment.is_internal_transfer = is_partner_ok and is_account_ok
+		pass
+		# for payment in self:
+		# 	is_partner_ok = payment.partner_id
+		# 	is_account_ok = payment.destination_account_id or payment.journal_id.company_id.transfer_account_id
+		# 	payment.is_internal_transfer = is_partner_ok and is_account_ok
 
 	@api.onchange('journal_id', 'internal_transfer_type', 'is_internal_transfer')
 	def _onchange_journal(self):

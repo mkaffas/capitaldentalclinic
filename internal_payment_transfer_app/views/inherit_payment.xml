@@ -9,11 +9,7 @@
 				<field name="internal_transfer_type" attrs="{'invisible':[('is_internal_transfer','=',False)],
 					'required':[('is_internal_transfer','=',True)]}"/>
 				
-				<field name="from_account_id" attrs="{
-					'invisible':
-						['|',('is_internal_transfer','=',False),('internal_transfer_type','not in',['a_to_a','a_to_j'])],
-					'required' :
-					 [('is_internal_transfer','=',True),('internal_transfer_type','in',['a_to_a','a_to_j'])]}"/>
+				<field name="from_account_id" invisible="1"/>
 
 				<field name="from_journal_id" attrs="{
 					'invisible':
@@ -21,15 +17,18 @@
 					'required' :[('is_internal_transfer','=',True),('internal_transfer_type','in',['j_to_j','j_to_a'])] }"/>
 
 
-				<field name="to_account_id" attrs="{
-					'invisible':
-					['|',('is_internal_transfer','=',False),('internal_transfer_type','not in',['a_to_a','j_to_a'])],
-					'required' : [('is_internal_transfer','=',True),('internal_transfer_type','in',['a_to_a','j_to_a'])]
-					}"/>
+
 
 				<field name="to_journal_id" attrs="{'invisible':
 					['|',('is_internal_transfer','=',False),('internal_transfer_type','not in',['j_to_j','a_to_j'])],
 					'required' :[('is_internal_transfer','=',True),('internal_transfer_type','in',['j_to_j','a_to_j'])]
+					}"/>
+			</xpath>
+			<xpath expr="//field[@name='journal_id']" position="after">
+				<field name="to_account_id" attrs="{
+					'invisible':
+					['|',('is_internal_transfer','=',False),('internal_transfer_type','not in',['a_to_a','j_to_a'])],
+					'required' : [('is_internal_transfer','=',True),('internal_transfer_type','in',['a_to_a','j_to_a'])]
 					}"/>
 			</xpath>
 			<xpath expr="//field[@name='partner_id']" position="attributes">
