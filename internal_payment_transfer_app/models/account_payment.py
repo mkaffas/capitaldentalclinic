@@ -7,7 +7,9 @@ class account_payment(models.Model):
 
 	internal_transfer_type = fields.Selection([('a_to_a', 'Account To Account'),('j_to_j', 'Journal To Journal'),('j_to_a','Journal To Account'),('a_to_j','Account To Journal')],string=' Internal Transfer Type',default='a_to_a')
 	from_account_id = fields.Many2one('account.account',string="From Account")
+	from_account_tag_id = fields.Many2one(related="from_account_id.tage_id", store=True, string="From Account Tag")
 	to_account_id = fields.Many2one('account.account',string="To Account")
+	to_account_tag_id = fields.Many2one(related="to_account_id.tage_id", store=True, string="To Account Tag")
 	to_journal_id = fields.Many2one('account.journal',string="To Journal")
 	from_journal_id = fields.Many2one('account.journal',string="From Journal")
 
