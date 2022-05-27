@@ -30,6 +30,16 @@
 					['|',('is_internal_transfer','=',False),('internal_transfer_type','not in',['a_to_a','j_to_a'])],
 					'required' : [('is_internal_transfer','=',True),('internal_transfer_type','in',['a_to_a','j_to_a'])]
 					}"/>
+				<field name="from_account_tag_id" attrs="{
+					'invisible':
+					['|',('is_internal_transfer','=',False),('internal_transfer_type','not in',['a_to_a','j_to_a'])],
+					'required' : [('is_internal_transfer','=',True),('internal_transfer_type','in',['a_to_a','j_to_a'])]
+					}"/>
+				<field name="to_account_tag_id" attrs="{
+					'invisible':
+					['|',('is_internal_transfer','=',False),('internal_transfer_type','not in',['a_to_a','j_to_a'])],
+					'required' : [('is_internal_transfer','=',True),('internal_transfer_type','in',['a_to_a','j_to_a'])]
+					}"/>
 			</xpath>
 			<xpath expr="//field[@name='partner_id']" position="attributes">
 				<attribute name="attrs">{'readonly': [('state', '!=', 'draft')]}</attribute>

@@ -38,7 +38,7 @@ odoo automatic payment transfer option from journal
 
     """,
     "license" : "OPL-1",
-    'depends': ['base','sale_management','account','purchase','stock_account'],
+    'depends': ['base','sale_management','account','purchase','stock_account', 'cdc_cash_flow'],
     'data': [
             'views/inherit_payment.xml',
             ],
