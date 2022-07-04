@@ -1070,7 +1070,7 @@
                         <page string="Chart" groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager,pragtech_dental_management.group_dental_doc_menu">
                             <button name="open_chart" type="object" string="Open Chart"></button>
                         </page>
-                        <page string="Operations"
+                        <page string="Operations" name="operations"
                               groups="pragtech_dental_management.group_dental_admin,pragtech_dental_management.group_branch_manager,pragtech_dental_management.group_patient_coordinator">
                             <group colspan="4" col="8">
                                 <field name="teeth_treatment_ids" string="Operations" readonly="0"
@@ -1139,6 +1139,17 @@
         </field>
     </record>
 
+     <record id="edit_patient" model="ir.ui.view">
+        <field name="model">medical.patient</field>
+        <field name="inherit_id" ref="pragtech_dental_management.medical_patient_view"/>
+         <field name="groups_id" eval="[(4, ref('pragtech_dental_management.group_patient_coordinator')),(4, ref('pragtech_dental_management.group_branch_manager'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='operations']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+        </field>
+     </record>
+
     <record model="ir.ui.view" id="medical_alert_view">
         <field name="name">Patient</field>
         <field name="model">medical.patient</field>
@@ -1164,7 +1175,6 @@
             </form>
         </field>
     </record>
-
     <record model="ir.ui.view" id="medical_patient_tree">
         <field name="name">Patient List</field>
         <field name="model">medical.patient</field>
@@ -1177,6 +1187,7 @@
                 <field name="other_mobile"/>
                 <field name="email"/>
                 <field name="nationality_id"/>
+                <field name="branch_id"/>
                 <field name="country_id"/>
                 <field name="medium_id"/>
                 <field name="source_id"/>
