@@ -716,6 +716,14 @@ class MedicalPatient(models.Model):
         'patient.stage',
         group_expand='_group_expand_stage', track_visibility="onchange",
     )
+    activity_state = fields.Selection([
+        ('overdue', 'Overdue'),
+        ('today', 'Today'),
+        ('planned', 'Planned')], string='Activity State',
+        compute='_compute_activity_state',
+        groups="base.group_user",
+        help='Status based on activities\nOverdue: Due date is already passed\n'
+             'Today: Activity date is today\nPlanned: Future activities.',store=True)
 
     medium_id = fields.Many2one('utm.medium')
     source_id = fields.Many2one('utm.source')
