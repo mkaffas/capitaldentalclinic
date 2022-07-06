@@ -876,6 +876,11 @@
                             context="{'group_by':'sex'}"/>
                     <filter string="Stage" name="group_by_stage_id" context="{'group_by':'stage_id'}"/>
                 </group>
+                <newline/>
+                <filter name="today" string="Today activity" domain="[('activity_state','=','today')]"/>
+                <filter name="overdue" string="Overdue activity" domain="[('activity_state','=','overdue')]"/>
+                <filter name="planned" string="Planned activity" domain="[('activity_state','=','planned')]"/>
+                <filter name="other" string="other activity" domain="[('activity_state','=',False)]"/>
             </search>
         </field>
     </record>
