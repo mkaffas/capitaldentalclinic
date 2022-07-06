@@ -716,6 +716,7 @@ class MedicalPatient(models.Model):
         'patient.stage',
         group_expand='_group_expand_stage', track_visibility="onchange",
     )
+    
     activity_state = fields.Selection([
         ('overdue', 'Overdue'),
         ('today', 'Today'),
