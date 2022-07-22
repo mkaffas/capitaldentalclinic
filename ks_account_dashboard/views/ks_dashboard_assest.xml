@@ -1,0 +1,7 @@
+<odoo>
+    <template id="ks_assets_backend" name="Ks Tv MyDashboard assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/ks_account_dashboard/static/src/js/ks_dashboard_fiscal.js"/>
+        </xpath>
+    </template>
+</odoo>
